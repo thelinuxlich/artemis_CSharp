@@ -1,0 +1,29 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" ctype="Workspace" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="EntityManager.cs" ctype="Workbench">
+    <Files>
+      <File FileName="Component.cs" Line="5" Column="3" />
+      <File FileName="ComponentMapper.cs" Line="7" Column="2" />
+      <File FileName="ComponentType.cs" Line="21" Column="3" />
+      <File FileName="ComponentTypeManager.cs" Line="13" Column="5" />
+      <File FileName="DelayedEntityProcessingSystem.cs" Line="11" Column="49" />
+      <File FileName="DelayedEntitySystem.cs" Line="1" Column="3" />
+      <File FileName="Entity.cs" Line="132" Column="32" />
+      <File FileName="EntityManager.cs" Line="2" Column="5" />
+      <File FileName="EntityProcessingSystem.cs" Line="11" Column="42" />
+      <File FileName="EntitySystem.cs" Line="110" Column="56" />
+      <File FileName="GroupManager.cs" Line="1" Column="1" />
+      <File FileName="IntervalEntityProcessingSystem.cs" Line="4" Column="56" />
+      <File FileName="IntervalEntitySystem.cs" Line="13" Column="3" />
+      <File FileName="SystemBitManager.cs" Line="14" Column="19" />
+      <File FileName="SystemManager.cs" Line="1" Column="1" />
+      <File FileName="TagManager.cs" Line="11" Column="4" />
+      <File FileName="World.cs" Line="114" Column="2" />
+      <File FileName="Bag.cs" Line="4" Column="19" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches ctype="PinnedWatchStore" />
+</Properties>
