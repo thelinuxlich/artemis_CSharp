@@ -10,12 +10,12 @@ namespace Artemis
 			super(types);
 		}
 	
-		protected void processEntities(Bag<Entity> entities) {
+		protected override void processEntities(Bag<Entity> entities) {
 			processEntities(entities, acc);
 			stop();
 		}
 		
-		protected boolean checkProcessing() {
+		protected override boolean checkProcessing() {
 			if(running) {
 				acc += world.getDelta();
 				

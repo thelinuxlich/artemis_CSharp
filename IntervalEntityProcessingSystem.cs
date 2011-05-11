@@ -18,7 +18,7 @@ namespace Artemis
 		 */
 		protected abstract void process(Entity e);
 		
-		protected void processEntities(Bag<Entity> entities) {
+		protected override void processEntities(Bag<Entity> entities) {
 			for (int i = 0, s = entities.size(); s > i; i++) {
 				process(entities.get(i));
 			}

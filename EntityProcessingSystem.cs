@@ -18,13 +18,13 @@ namespace Artemis
 		 */
 		protected abstract void process(Entity e);
 	
-		protected sealed void processEntities(Bag<Entity> entities) {
+		protected override void processEntities(Bag<Entity> entities) {
 			for (int i = 0, s = entities.size(); s > i; i++) {
 				process(entities.get(i));
 			}
 		}
 		
-		protected boolean checkProcessing() {
+		protected override boolean checkProcessing() {
 			return true;
 		}
 		

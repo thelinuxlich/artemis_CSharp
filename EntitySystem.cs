@@ -33,7 +33,7 @@ namespace Artemis
 			
 		}
 	
-		public sealed void process() {
+		public virtual void process() {
 			if(checkProcessing()) {
 				begin();
 				processEntities(actives);
@@ -59,7 +59,7 @@ namespace Artemis
 		 * 
 		 * @return true if the system should be processed, false if not.
 		 */
-		protected abstract boolean checkProcessing();
+		protected virtual boolean checkProcessing();
 	
 		/**
 		 * Override to implement code that gets executed when systems are initialized.
