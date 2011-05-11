@@ -6,7 +6,7 @@ namespace Artemis
 		private boolean running;
 		private int acc;
 	
-		public DelayedEntitySystem(params Component[] types) {
+		public DelayedEntitySystem(params Type[] types) {
 			super(types);
 		}
 	

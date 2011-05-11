@@ -15,18 +15,18 @@ namespace Artemis
 		public EntitySystem setSystem(EntitySystem system) {
 			system.setWorld(world);
 			
-			systems.Add(system.GetType(), system);
+			systems.Add(typeof(system), system);
 			
 			if(!bagged.contains(system))
 				bagged.add(system);
 			
-			system.setSystemBit(SystemBitManager.getBitFor(system.GetType()));
+			system.setSystemBit(SystemBitManager.getBitFor(typeof(system)));
 			
 			return system;
 		}
 		
-		public T getSystem<T>(T type) {
-			return systems.TryGetValue(type);
+		public T getSystem<T>() where T : EntitySystem {
+			return systems[typeof(T)];
 		}
 		
 		public Bag<EntitySystem> getSystems() {

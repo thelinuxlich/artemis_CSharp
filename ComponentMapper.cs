@@ -7,7 +7,7 @@ namespace Artemis
 	
 		public ComponentMapper(T type, EntityManager em) {
 			this.em = em;
-			this.type = ComponentTypeManager.getTypeFor(type);
+			this.type = ComponentTypeManager.getTypeFor<T>();
 		}
 	
 		public T get(Entity e) {

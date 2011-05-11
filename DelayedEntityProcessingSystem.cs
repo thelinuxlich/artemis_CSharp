@@ -8,7 +8,7 @@ namespace Artemis
 		 * @param requiredType the required component type.
 		 * @param otherTypes other component types.
 		 */
-		public DelayedEntityProcessingSystem(Component requiredType, params Component[] otherTypes) {
+		public DelayedEntityProcessingSystem(Type requiredType,params Type[] otherTypes) {
 			super(getMergedTypes(requiredType, otherTypes));
 		}
 		

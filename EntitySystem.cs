@@ -13,11 +13,11 @@ namespace Artemis
 		public EntitySystem() {
 		}
 	
-		public EntitySystem(params Component[] types) {
+		public EntitySystem(params Type[] types) {
 			actives = new Bag<Entity>();
 	
 			foreach (Component type in types) {
-				ComponentType ct = ComponentTypeManager.getTypeFor(type);
+				ComponentType ct = ComponentTypeManager.getTypeFor<type>();
 				typeFlags |= ct.getBit();
 			}
 		}
@@ -107,7 +107,7 @@ namespace Artemis
 		 * @param otherTypes
 		 * @return
 		 */
-		protected static Component[] getMergedTypes(Component requiredType, params Component[] otherTypes) {
+		protected static Component[] getMergedTypes(Type requiredType, params Type[] otherTypes) {
 			Component[] types = new Class[1+otherTypes.length];
 			types[0] = requiredType;
 			for(int i = 0; otherTypes.length > i; i++) {

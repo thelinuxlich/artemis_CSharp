@@ -75,7 +75,7 @@ namespace Artemis
 		}
 		
 		protected void addComponent(Entity e, Component component) {
-			ComponentType type = ComponentTypeManager.getTypeFor(component.getClass());
+			ComponentType type = ComponentTypeManager.getTypeFor<component>();
 			
 			if(type.getId() >= componentsByType.getCapacity()) {
 				componentsByType.set(type.getId(), null);
@@ -101,7 +101,7 @@ namespace Artemis
 		}
 		
 		protected void removeComponent(Entity e, Component component) {
-			ComponentType type = ComponentTypeManager.getTypeFor(component.getClass());
+			ComponentType type = ComponentTypeManager.getTypeFor<component>();
 			removeComponent(e, type);
 		}
 		

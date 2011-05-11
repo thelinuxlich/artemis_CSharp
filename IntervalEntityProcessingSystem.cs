@@ -8,7 +8,7 @@ namespace Artemis
 		 * @param requiredType the required component type.
 		 * @param otherTypes other component types.
 		 */
-		public IntervalEntityProcessingSystem(int interval, Component requiredType, params Component[] otherTypes) {
+		public IntervalEntityProcessingSystem(int interval, Type requiredType, params Type[] otherTypes) {
 			super(interval, getMergedTypes(requiredType, otherTypes));
 		}
 		
