@@ -4,23 +4,23 @@ namespace Artemis
 	public class TrigLUT
 	{
 		public static void Main(String[] args) {
-			Console.WriteLine(cos((float) Math.PI));
-			Console.WriteLine(cosDeg(180f));
+			Console.WriteLine(Cos((float) Math.PI));
+			Console.WriteLine(CosDeg(180f));
 		}
 	
-		public static sealed float sin(float rad) {
+		public static sealed float Sin(float rad) {
 			return sin[(int) (rad * radToIndex) & SIN_MASK];
 		}
 	
-		public static sealed float cos(float rad) {
+		public static sealed float Cos(float rad) {
 			return cos[(int) (rad * radToIndex) & SIN_MASK];
 		}
 	
-		public static sealed float sinDeg(float deg) {
+		public static sealed float SinDeg(float deg) {
 			return sin[(int) (deg * degToIndex) & SIN_MASK];
 		}
 	
-		public static sealed float cosDeg(float deg) {
+		public static sealed float CosDeg(float deg) {
 			return cos[(int) (deg * degToIndex) & SIN_MASK];
 		}
 	
