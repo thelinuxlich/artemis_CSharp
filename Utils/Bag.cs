@@ -31,7 +31,7 @@ namespace Artemis
 		 *            the index of element to be removed
 		 * @return element that was removed from the Bag
 		 */
-		public E remove(int index) {
+		public E Remove(int index) {
 			Object o = data[index]; // make copy of element to remove so it can be
 			// returned
 			data[index] = data[--size]; // overwrite item to remove with last
@@ -46,7 +46,7 @@ namespace Artemis
 		 * 
 		 * @return the last object in the bag, null if empty.
 		 */
-		public E removeLast() {
+		public E RemoveLast() {
 			if(size > 0) {
 				Object o = data[--size];
 				data[size] = null;
@@ -65,7 +65,7 @@ namespace Artemis
 		 *            element to be removed from this list, if present
 		 * @return <tt>true</tt> if this list contained the specified element
 		 */
-		public boolean remove(E o) {
+		public boolean Remove(E o) {
 			for (int i = 0; i < size; i++) {
 				Object o1 = data[i];
 	
@@ -86,7 +86,7 @@ namespace Artemis
 		 * @param o
 		 * @return
 		 */
-		public boolean contains(E o) {
+		public boolean Contains(E o) {
 			for(int i = 0; size > i; i++) {
 				if(o == data[i]) {
 					return true;
@@ -103,17 +103,17 @@ namespace Artemis
 		 *            Bag containing elements to be removed from this Bag
 		 * @return {@code true} if this Bag changed as a result of the call
 		 */
-		public boolean removeAll(Bag<E> bag) {
+		public boolean RemoveAll(Bag<E> bag) {
 			boolean modified = false;
 	
-			for (int i = 0; i < bag.size(); i++) {
-				Object o1 = bag.get(i);
+			for (int i = 0; i < bag.Size(); i++) {
+				Object o1 = bag.Get(i);
 	
 				for (int j = 0; j < size; j++) {
 					Object o2 = data[j];
 	
 					if (o1 == o2) {
-						remove(j);
+						Remove(j);
 						j--;
 						modified = true;
 						break;
@@ -131,7 +131,7 @@ namespace Artemis
 		 *            index of the element to return
 		 * @return the element at the specified position in bag
 		 */
-		public E get(int index) {
+		public E Get(int index) {
 			return (E) data[index];
 		}
 	
@@ -140,7 +140,7 @@ namespace Artemis
 		 * 
 		 * @return the number of elements in this bag
 		 */
-		public int size() {
+		public int Size() {
 			return size;
 		}
 		
@@ -149,7 +149,7 @@ namespace Artemis
 		 * 
 		 * @return the number of elements the bag can hold without growing.
 		 */
-		public int getCapacity() {
+		public int GetCapacity() {
 			return data.length;
 		}
 	
@@ -158,7 +158,7 @@ namespace Artemis
 		 * 
 		 * @return true if this list contains no elements
 		 */
-		public boolean isEmpty() {
+		public boolean IsEmpty() {
 			return size == 0;
 		}
 	
@@ -169,10 +169,10 @@ namespace Artemis
 		 * @param o
 		 *            element to be added to this list
 		 */
-		public void add(E o) {
+		public void Add(E o) {
 			// is size greater than capacity increase capacity
 			if (size == data.length) {
-				grow();
+				Grow();
 			}
 	
 			data[size++] = o;
@@ -184,9 +184,9 @@ namespace Artemis
 		 * @param index position of element
 		 * @param o the element
 		 */
-		public void set(int index, E o) {
+		public void Set(int index, E o) {
 			if(index >= data.length) {
-				grow(index*2);
+				Grow(index*2);
 				size = index+1;
 			} else if(index >= size) {
 				size = index+1;
@@ -194,12 +194,12 @@ namespace Artemis
 			data[index] = o;
 		}
 	
-		private void grow() {
+		private void Grow() {
 			int newCapacity = (data.length * 3) / 2 + 1;
-			grow(newCapacity);
+			Grow(newCapacity);
 		}
 		
-		private void grow(int newCapacity) {
+		private void Grow(int newCapacity) {
 			Object[] oldData = data;
 			data = new Object[newCapacity];
 			Array.Copy(oldData, 0, data, 0, oldData.length);
@@ -209,7 +209,7 @@ namespace Artemis
 		 * Removes all of the elements from this bag. The bag will be empty after
 		 * this call returns.
 		 */
-		public void clear() {
+		public void Clear() {
 			// null all elements so gc can clean up
 			for (int i = 0; i < size; i++) {
 				data[i] = null;
@@ -222,9 +222,9 @@ namespace Artemis
 		 * Add all items into this bag. 
 		 * @param added
 		 */
-		public void addAll(Bag<E> items) {
-			for(int i = 0; items.size() > i; i++) {
-				add(items.get(i));
+		public void AddAll(Bag<E> items) {
+			for(int i = 0; items.Size() > i; i++) {
+				Add(items.Get(i));
 			}
 		}
 		

@@ -21,19 +21,19 @@ namespace Artemis
 			deleted = new Bag<Entity>();
 		}
 		
-		public GroupManager getGroupManager() {
+		public GroupManager GetGroupManager() {
 			return groupManager;
 		}
 		
-		public SystemManager getSystemManager() {
+		public SystemManager GetSystemManager() {
 			return systemManager;
 		}
 		
-		public EntityManager getEntityManager() {
+		public EntityManager GetEntityManager() {
 			return entityManager;
 		}
 		
-		public TagManager getTagManager() {
+		public TagManager GetTagManager() {
 			return tagManager;
 		}
 		
@@ -41,7 +41,7 @@ namespace Artemis
 		 * Time since last game loop.
 		 * @return delta in milliseconds.
 		 */
-		public int getDelta() {
+		public int GetDelta() {
 			return delta;
 		}
 		
@@ -50,7 +50,7 @@ namespace Artemis
 		 * 
 		 * @param delta time since last game loop.
 		 */
-		public void setDelta(int delta) {
+		public void SetDelta(int delta) {
 			this.delta = delta;
 		}
 	
@@ -58,9 +58,9 @@ namespace Artemis
 		 * Delete the provided entity from the world.
 		 * @param e entity
 		 */
-		public void deleteEntity(Entity e) {
-			if(!deleted.contains(e)) {
-				deleted.add(e);
+		public void DeleteEntity(Entity e) {
+			if(!deleted.Contains(e)) {
+				deleted.Add(e);
 			}
 		}
 		
@@ -68,16 +68,16 @@ namespace Artemis
 		 * Ensure all systems are notified of changes to this entity.
 		 * @param e entity
 		 */
-		public void refreshEntity(Entity e) {
-			refreshed.add(e);
+		public void RefreshEntity(Entity e) {
+			refreshed.Add(e);
 		}
 		
 		/**
 		 * Create and return a new or reused entity instance.
 		 * @return entity
 		 */
-		public Entity createEntity() {
-			return entityManager.create();
+		public Entity CreateEntity() {
+			return entityManager.Create();
 		}
 		
 		/**
@@ -85,28 +85,28 @@ namespace Artemis
 		 * @param entityId
 		 * @return entity
 		 */
-		public Entity getEntity(int entityId) {
-			return entityManager.getEntity(entityId);
+		public Entity GetEntity(int entityId) {
+			return entityManager.GetEntity(entityId);
 		}
 		
 		/**
 		 * Let framework take care of internal business.
 		 */
-		public void loopStart() {
-			if(!refreshed.isEmpty()) {
-				for(int i = 0; refreshed.size() > i; i++) {
-					entityManager.refresh(refreshed.get(i));
+		public void LoopStart() {
+			if(!refreshed.IsEmpty()) {
+				for(int i = 0; refreshed.Size() > i; i++) {
+					entityManager.Refresh(refreshed.Get(i));
 				}
-				refreshed.clear();
+				refreshed.Clear();
 			}
 			
-			if(!deleted.isEmpty()) {
-				for(int i = 0; deleted.size() > i; i++) {
-					Entity e = deleted.get(i);
-					groupManager.remove(e);
-					entityManager.remove(e);
+			if(!deleted.IsEmpty()) {
+				for(int i = 0; deleted.Size() > i; i++) {
+					Entity e = deleted.Get(i);
+					groupManager.Remove(e);
+					entityManager.Remove(e);
 				}
-				deleted.clear();
+				deleted.Clear();
 			}
 		}
 	

@@ -26,40 +26,40 @@ namespace Artemis
 			entityComponents = new Bag<Component>();
 		}
 	
-		protected Entity create() {
-			Entity e = removedAndAvailable.removeLast();
+		protected Entity Create() {
+			Entity e = removedAndAvailable.RemoveLast();
 			if (e == null) {
 				e = new Entity(world, nextAvailableId++);
 			} else {
-				e.reset();
+				e.Reset();
 			}
-			e.setUniqueId(uniqueEntityId++);
-			activeEntities.set(e.getId(),e);
+			e.SetUniqueId(uniqueEntityId++);
+			activeEntities.Set(e.GetId(),e);
 			count++;
 			totalCreated++;
 			return e;
 		}
 	
-		protected void remove(Entity e) {
-			activeEntities.set(e.getId(), null);
+		protected void Remove(Entity e) {
+			activeEntities.Set(e.GetId(), null);
 			
-			e.setTypeBits(0);
+			e.SetTypeBits(0);
 			
-			refresh(e);
+			Refresh(e);
 			
-			removeComponentsOfEntity(e);
+			RemoveComponentsOfEntity(e);
 			
 			count--;
 			totalRemoved++;
 	
-			removedAndAvailable.add(e);
+			removedAndAvailable.Add(e);
 		}
 	
-		private void removeComponentsOfEntity(Entity e) {
-			for(int a = 0; componentsByType.size() > a; a++) {
-				Bag<Component> components = componentsByType.get(a);
-				if(components != null && e.getId() < components.size()) {
-					components.set(e.getId(), null);
+		private void RemoveComponentsOfEntity(Entity e) {
+			for(int a = 0; componentsByType.Size() > a; a++) {
+				Bag<Component> components = componentsByType.Get(a);
+				if(components != null && e.GetId() < components.Size()) {
+					components.Set(e.GetId(), null);
 				}
 			}
 		}
@@ -70,63 +70,63 @@ namespace Artemis
 		 * @param entityId
 		 * @return active or not.
 		 */
-		public boolean isActive(int entityId) {
-			return activeEntities.get(entityId) != null;
+		public boolean IsActive(int entityId) {
+			return activeEntities.Get(entityId) != null;
 		}
 		
-		protected void addComponent(Entity e, Component component) {
-			ComponentType type = ComponentTypeManager.getTypeFor<component>();
+		protected void AddComponent(Entity e, Component component) {
+			ComponentType type = ComponentTypeManager.GetTypeFor<component>();
 			
-			if(type.getId() >= componentsByType.getCapacity()) {
-				componentsByType.set(type.getId(), null);
+			if(type.GetId() >= componentsByType.GetCapacity()) {
+				componentsByType.Set(type.GetId(), null);
 			}
 			
-			Bag<Component> components = componentsByType.get(type.getId());
+			Bag<Component> components = componentsByType.Get(type.GetId());
 			if(components == null) {
 				components = new Bag<Component>();
-				componentsByType.set(type.getId(), components);
+				componentsByType.Set(type.GetId(), components);
 			}
 			
-			components.set(e.getId(), component);
+			components.Set(e.GetId(), component);
 	
-			e.addTypeBit(type.getBit());
+			e.AddTypeBit(type.GetBit());
 		}
 		
-		protected void refresh(Entity e) {
-			SystemManager systemManager = world.getSystemManager();
-			Bag<EntitySystem> systems = systemManager.getSystems();
-			for(int i = 0, s=systems.size(); s > i; i++) {
-				systems.get(i).change(e);
+		protected void Refresh(Entity e) {
+			SystemManager systemManager = world.GetSystemManager();
+			Bag<EntitySystem> systems = systemManager.GetSystems();
+			for(int i = 0, s=systems.Size(); s > i; i++) {
+				systems.Get(i).Change(e);
 			}
 		}
 		
-		protected void removeComponent(Entity e, Component component) {
-			ComponentType type = ComponentTypeManager.getTypeFor<component>();
-			removeComponent(e, type);
+		protected void RemoveComponent(Entity e, Component component) {
+			ComponentType type = ComponentTypeManager.GetTypeFor<component>();
+			RemoveComponent(e, type);
 		}
 		
-		protected void removeComponent(Entity e, ComponentType type) {
-			Bag<Component> components = componentsByType.get(type.getId());
-			components.set(e.getId(), null);
-			e.removeTypeBit(type.getBit());
+		protected void RemoveComponent(Entity e, ComponentType type) {
+			Bag<Component> components = componentsByType.Get(type.GetId());
+			components.Set(e.GetId(), null);
+			e.RemoveTypeBit(type.GetBit());
 		}
 		
-		protected Component getComponent(Entity e, ComponentType type) {
-			Bag<Component> bag = componentsByType.get(type.getId());
-			if(bag != null && e.getId() < bag.getCapacity())
-				return bag.get(e.getId());
+		protected Component GetComponent(Entity e, ComponentType type) {
+			Bag<Component> bag = componentsByType.Get(type.GetId());
+			if(bag != null && e.GetId() < bag.GetCapacity())
+				return bag.Get(e.GetId());
 			return null;
 		}
 		
-		protected Entity getEntity(int entityId) {
-			return activeEntities.get(entityId);
+		protected Entity GetEntity(int entityId) {
+			return activeEntities.Get(entityId);
 		}
 		
 		/**
 		 * 
 		 * @return how many entities are currently active.
 		 */
-		public int getEntityCount() {
+		public int GetEntityCount() {
 			return count;
 		}
 		
@@ -134,7 +134,7 @@ namespace Artemis
 		 * 
 		 * @return how many entities have been created since start.
 		 */
-		public long getTotalCreated() {
+		public long GetTotalCreated() {
 			return totalCreated;
 		}
 		
@@ -142,18 +142,18 @@ namespace Artemis
 		 * 
 		 * @return how many entities have been removed since start.
 		 */
-		public long getTotalRemoved() {
+		public long GetTotalRemoved() {
 			return totalRemoved;
 		}
 	
-		protected Bag<Component> getComponents(Entity e) {
-			entityComponents.clear();
-			for(int a = 0; componentsByType.size() > a; a++) {
-				Bag<Component> components = componentsByType.get(a);
-				if(components != null && e.getId() < components.size()) {
-					Component component = components.get(e.getId());
+		protected Bag<Component> GetComponents(Entity e) {
+			entityComponents.Clear();
+			for(int a = 0; componentsByType.Size() > a; a++) {
+				Bag<Component> components = componentsByType.Get(a);
+				if(components != null && e.GetId() < components.Size()) {
+					Component component = components.Get(e.GetId());
 					if(component != null) {
-						entityComponents.add(component);
+						entityComponents.Add(component);
 					}
 				}
 			}

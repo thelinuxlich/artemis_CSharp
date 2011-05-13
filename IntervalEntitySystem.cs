@@ -10,8 +10,8 @@ namespace Artemis
 			this.interval = interval;
 		}
 	
-		protected override boolean checkProcessing() {
-			acc += world.getDelta();
+		protected override boolean CheckProcessing() {
+			acc += world.GetDelta();
 			if(acc >= interval) {
 				acc -= interval;
 				return true;

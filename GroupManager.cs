@@ -20,7 +20,7 @@ namespace Artemis
 		 * @param group group to set the entity into.
 		 * @param e entity to set into the group.
 		 */
-		public void set(String group, Entity e) {
+		public void Set(String group, Entity e) {
 			remove(e); // Entity can only belong to one group.
 			
 			Bag<Entity> entities = entitiesByGroup[group];
@@ -28,9 +28,9 @@ namespace Artemis
 				entities = new Bag<Entity>();
 				entitiesByGroup.Add(group, entities);
 			}
-			entities.add(e);
+			entities.Add(e);
 			
-			groupByEntity.set(e.getId(), group);
+			groupByEntity.Set(e.GetId(), group);
 		}
 		
 		/**
@@ -49,15 +49,15 @@ namespace Artemis
 		 * Removes the provided entity from the group it is assigned to, if any.
 		 * @param e the entity.
 		 */
-		public void remove(Entity e) {
-			if(e.getId() < groupByEntity.getCapacity()) {
-				String group = groupByEntity.get(e.getId());
+		public void Remove(Entity e) {
+			if(e.GetId() < groupByEntity.GetCapacity()) {
+				String group = groupByEntity.Get(e.GetId());
 				if(group != null) {
-					groupByEntity.set(e.getId(), null);
+					groupByEntity.Set(e.GetId(), null);
 					
 					Bag<Entity> entities = entitiesByGroup[group];
 					if(entities != null) {
-						entities.remove(e);
+						entities.Remove(e);
 					}
 				}
 			}
@@ -67,9 +67,9 @@ namespace Artemis
 		 * @param e entity
 		 * @return the name of the group that this entity belongs to, null if none.
 		 */
-		public String getGroupOf(Entity e) {
-			if(e.getId() < groupByEntity.getCapacity()) {
-				return groupByEntity.get(e.getId());
+		public String GetGroupOf(Entity e) {
+			if(e.GetId() < groupByEntity.GetCapacity()) {
+				return groupByEntity.Get(e.GetId());
 			}
 			return null;
 		}
@@ -79,8 +79,8 @@ namespace Artemis
 		 * @param e the entity to check.
 		 * @return true if it is in any group, false if none.
 		 */
-		public boolean isGrouped(Entity e) {
-			return getGroupOf(e) != null;
+		public boolean IsGrouped(Entity e) {
+			return GetGroupOf(e) != null;
 		}
 	
 	}

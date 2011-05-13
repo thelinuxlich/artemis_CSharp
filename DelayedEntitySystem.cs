@@ -10,12 +10,12 @@ namespace Artemis
 			super(types);
 		}
 	
-		protected override void processEntities(Bag<Entity> entities) {
-			processEntities(entities, acc);
-			stop();
+		protected override void ProcessEntities(Bag<Entity> entities) {
+			ProcessEntities(entities, acc);
+			Stop();
 		}
 		
-		protected override boolean checkProcessing() {
+		protected override boolean CheckProcessing() {
 			if(running) {
 				acc += world.getDelta();
 				
@@ -30,7 +30,7 @@ namespace Artemis
 		 * The entities to process with accumulated delta.
 		 * @param entities read-only bag of entities.
 		 */
-		protected abstract void processEntities(Bag<Entity> entities, int accumulatedDelta);
+		protected abstract void ProcessEntities(Bag<Entity> entities, int accumulatedDelta);
 		
 		
 		
@@ -42,7 +42,7 @@ namespace Artemis
 		 * 
 		 * @param delay time delay in milliseconds until processing starts.
 		 */
-		public void startDelayedRun(int delay) {
+		public void StartDelayedRun(int delay) {
 			this.delay = delay;
 			this.acc = 0;
 			running = true;
@@ -53,11 +53,11 @@ namespace Artemis
 		 * 
 		 * @return the originally set delay.
 		 */
-		public int getInitialTimeDelay() {
+		public int GetInitialTimeDelay() {
 			return delay;
 		}
 		
-		public int getRemainingTimeUntilProcessing() {
+		public int GetRemainingTimeUntilProcessing() {
 			if(running) {
 				return delay-acc;
 			}
@@ -69,14 +69,14 @@ namespace Artemis
 		 * 
 		 * @return true if it's counting down, false if it's not running.
 		 */
-		public boolean isRunning() {
+		public boolean IsRunning() {
 			return running;
 		}
 		
 		/**
 		 * Aborts running the system in the future and stops it. Call delayedRun() to start it again.
 		 */
-		public void stop() {
+		public void Stop() {
 			this.running = false;
 			this.acc = 0;
 		}

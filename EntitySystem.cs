@@ -17,34 +17,34 @@ namespace Artemis
 			actives = new Bag<Entity>();
 	
 			foreach (Component type in types) {
-				ComponentType ct = ComponentTypeManager.getTypeFor<type>();
-				typeFlags |= ct.getBit();
+				ComponentType ct = ComponentTypeManager.GetTypeFor<type>();
+				typeFlags |= ct.GetBit();
 			}
 		}
 		
-		protected void setSystemBit(long bit) {
+		protected void SetSystemBit(long bit) {
 			this.systemBit = bit;
 		}
 		
 		/**
 		 * Called before processing of entities begins. 
 		 */
-		protected void begin() {
+		protected void Begin() {
 			
 		}
 	
-		public virtual void process() {
-			if(checkProcessing()) {
-				begin();
-				processEntities(actives);
-				end();
+		public virtual void Process() {
+			if(CheckProcessing()) {
+				Begin();
+				ProcessEntities(actives);
+				End();
 			}
 		}
 		
 		/**
 		 * Called after the processing of entities ends.
 		 */
-		protected void end() {
+		protected void End() {
 		}
 		
 		/**
@@ -53,51 +53,51 @@ namespace Artemis
 		 * 
 		 * @param entities the entities this system contains.
 		 */
-		protected abstract void processEntities(Bag<Entity> entities);
+		protected abstract void ProcessEntities(Bag<Entity> entities);
 		
 		/**
 		 * 
 		 * @return true if the system should be processed, false if not.
 		 */
-		protected virtual boolean checkProcessing();
+		protected virtual boolean CheckProcessing();
 	
 		/**
 		 * Override to implement code that gets executed when systems are initialized.
 		 */
-		protected void initialize() {}
+		protected void Initialize() {}
 	
 		/**
 		 * Called if the system has received a entity it is interested in, e.g. created or a component was added to it.
 		 * @param e the entity that was added to this system.
 		 */
-		protected void added(Entity e) {}
+		protected void Added(Entity e) {}
 	
 		/**
 		 * Called if a entity was removed from this system, e.g. deleted or had one of it's components removed.
 		 * @param e the entity that was removed from this system.
 		 */
-		protected void removed(Entity e) {}
+		protected void Removed(Entity e) {}
 	
-		protected sealed void change(Entity e) {
-			boolean contains = (systemBit & e.getSystemBits()) == systemBit;
-			boolean interest = (typeFlags & e.getTypeBits()) == typeFlags;
+		protected sealed void Change(Entity e) {
+			boolean contains = (systemBit & e.GetSystemBits()) == systemBit;
+			boolean interest = (typeFlags & e.GetTypeBits()) == typeFlags;
 	
 			if (interest && !contains && typeFlags > 0) {
-				actives.add(e);
-				e.addSystemBit(systemBit);
-				added(e);
+				actives.Add(e);
+				e.AddSystemBit(systemBit);
+				Added(e);
 			} else if (!interest && contains && typeFlags > 0) {
-				remove(e);
+				Remove(e);
 			}
 		}
 	
-		private void remove(Entity e) {
-			actives.remove(e);
-			e.removeSystemBit(systemBit);
-			removed(e);
+		private void Remove(Entity e) {
+			actives.Remove(e);
+			e.RemoveSystemBit(systemBit);
+			Removed(e);
 		}
 	
-		protected sealed void setWorld(World world) {
+		protected sealed void SetWorld(World world) {
 			this.world = world;
 		}
 		
@@ -107,7 +107,7 @@ namespace Artemis
 		 * @param otherTypes
 		 * @return
 		 */
-		protected static Component[] getMergedTypes(Type requiredType, params Type[] otherTypes) {
+		protected static Component[] GetMergedTypes(Type requiredType, params Type[] otherTypes) {
 			Component[] types = new Class[1+otherTypes.length];
 			types[0] = requiredType;
 			for(int i = 0; otherTypes.length > i; i++) {

@@ -22,11 +22,11 @@ namespace Artemis
 		 * 
 		 * @return id of the entity.
 		 */
-		public int getId() {
+		public int GetId() {
 			return id;
 		}
 		
-		protected void setUniqueId(long uniqueId) {
+		protected void SetUniqueId(long uniqueId) {
 			this.uniqueId = uniqueId;
 		}
 		
@@ -34,48 +34,48 @@ namespace Artemis
 		 * Get the unique ID of this entity. Because entity instances are reused internally use this to identify between different instances.
 		 * @return the unique id of this entity.
 		 */
-		public long getUniqueId() {
+		public long GetUniqueId() {
 			return uniqueId;
 		}
 		
-		protected long getTypeBits() {
+		protected long GetTypeBits() {
 			return typeBits;
 		}
 		
-		protected void addTypeBit(long bit) {
+		protected void AddTypeBit(long bit) {
 			typeBits |= bit;
 		}
 		
-		protected void removeTypeBit(long bit) {
+		protected void RemoveTypeBit(long bit) {
 			typeBits &= ~bit;
 		}
 		
-		protected long getSystemBits() {
+		protected long GetSystemBits() {
 			return systemBits;
 		}
 		
-		protected void addSystemBit(long bit) {
+		protected void AddSystemBit(long bit) {
 			systemBits |= bit;
 		}
 		
-		protected void removeSystemBit(long bit) {
+		protected void RemoveSystemBit(long bit) {
 			systemBits &= ~bit;
 		}
 		
-		protected void setSystemBits(long systemBits) {
+		protected void SetSystemBits(long systemBits) {
 			this.systemBits = systemBits;
 		}
 		
-		protected void setTypeBits(long typeBits) {
+		protected void SetTypeBits(long typeBits) {
 			this.typeBits = typeBits;
 		}
 		
-		protected void reset() {
+		protected void Reset() {
 			systemBits = 0;
 			typeBits = 0;
 		}
 		
-		public String toString() {
+		public String ToString() {
 			return "Entity["+id+"]";
 		}
 		
@@ -83,32 +83,32 @@ namespace Artemis
 		 * Add a component to this entity.
 		 * @param component to add to this entity
 		 */
-		public void addComponent(Component component){
-			entityManager.addComponent(this, component);
+		public void AddComponent(Component component){
+			entityManager.AddComponent(this, component);
 		}
 		
 		/**
 		 * Removes the component from this entity.
 		 * @param component to remove from this entity.
 		 */
-		public void removeComponent(Component component){
-			entityManager.removeComponent(this, component);
+		public void RemoveComponent(Component component){
+			entityManager.RemoveComponent(this, component);
 		}
 		
 		/**
 		 * Faster removal of components from a entity.
 		 * @param component to remove from this entity.
 		 */
-		public void removeComponent(ComponentType type){
-			entityManager.removeComponent(this, type);
+		public void RemoveComponent(ComponentType type){
+			entityManager.RemoveComponent(this, type);
 		}
 		
 		/**
 		 * Checks if the entity has been deleted from somewhere.
 		 * @return if it's active.
 		 */
-		public boolean isActive(){
-			return entityManager.isActive(id);
+		public boolean IsActive(){
+			return entityManager.IsActive(id);
 		}
 	
 		/**
@@ -117,8 +117,8 @@ namespace Artemis
 		 * @param type in order to retrieve the component fast you must provide a ComponentType instance for the expected component.
 		 * @return
 		 */
-		public Component getComponent(ComponentType type) {
-			return entityManager.getComponent(this, type);
+		public Component GetComponent(ComponentType type) {
+			return entityManager.GetComponent(this, type);
 		}
 		
 		/**
@@ -128,8 +128,8 @@ namespace Artemis
 		 * @param type the expected return component type.
 		 * @return component that matches, or null if none is found.
 		 */
-		public T getComponent<T>() where T : Component {
-			return getComponent(ComponentTypeManager.getTypeFor<T>());
+		public T GetComponent<T>() where T : Component {
+			return GetComponent(ComponentTypeManager.GetTypeFor<T>());
 		}
 		
 		/**
@@ -138,8 +138,8 @@ namespace Artemis
 		 * WARNING. The returned bag is only valid until this method is called again, then it is overwritten.
 		 * @return all components of this entity.
 		 */
-		public Bag<Component> getComponents() {
-			return entityManager.getComponents(this);
+		public Bag<Component> GetComponents() {
+			return entityManager.GetComponents(this);
 		}
 		
 		/**
@@ -147,31 +147,31 @@ namespace Artemis
 		 * this method. It will update all relevant systems.
 		 * It is typical to call this after adding components to a newly created entity.
 		 */
-		public void refresh() {
-			world.refreshEntity(this);
+		public void Refresh() {
+			world.RefreshEntity(this);
 		}
 		
 		/**
 		 * Delete this entity from the world.
 		 */
-		public void delete() {
-			world.deleteEntity(this);
+		public void Delete() {
+			world.DeleteEntity(this);
 		}
 	
 		/**
 		 * Set the group of the entity. Same as World.setGroup().
 		 * @param group of the entity.
 		 */
-		public void setGroup(String group) {
-			world.getGroupManager().set(group, this);
+		public void SetGroup(String group) {
+			world.GetGroupManager().set(group, this);
 		}
 		
 		/**
 		 * Assign a tag to this entity. Same as World.setTag().
 		 * @param tag of the entity.
 		 */
-		public void setTag(String tag) {
-			world.getTagManager().register(tag, this);
+		public void SetTag(String tag) {
+			world.GetTagManager().Register(tag, this);
 		}
 		
 	}

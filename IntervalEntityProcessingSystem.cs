@@ -9,18 +9,18 @@ namespace Artemis
 		 * @param otherTypes other component types.
 		 */
 		public IntervalEntityProcessingSystem(int interval, Type requiredType, params Type[] otherTypes) {
-			super(interval, getMergedTypes(requiredType, otherTypes));
+			super(interval, GetMergedTypes(requiredType, otherTypes));
 		}
 		
 		/**
 		 * Process a entity this system is interested in.
 		 * @param e the entity to process.
 		 */
-		protected abstract void process(Entity e);
+		protected abstract void Process(Entity e);
 		
-		protected override void processEntities(Bag<Entity> entities) {
-			for (int i = 0, s = entities.size(); s > i; i++) {
-				process(entities.get(i));
+		protected override void ProcessEntities(Bag<Entity> entities) {
+			for (int i = 0, s = entities.Size(); s > i; i++) {
+				Process(entities.Get(i));
 			}
 		}
 	

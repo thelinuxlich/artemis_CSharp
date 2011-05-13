@@ -5,7 +5,7 @@ namespace Artemis
 		private static int POS = 0;
 		private static Dictionary<EntitySystem, Long> systemBits = new Dictionary<EntitySystem, Long>();
 		
-		protected static sealed long getBitFor(EntitySystem es){
+		protected static sealed long GetBitFor(EntitySystem es){
 			Long bit = systemBits[es];
 			
 			if(bit == null){

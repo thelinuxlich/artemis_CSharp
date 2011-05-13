@@ -12,17 +12,17 @@ namespace Artemis
 			init();
 		}
 		
-		private void init() {
+		private void Init() {
 			bit = nextBit;
 			nextBit = nextBit << 1;
 			id = nextId++;
 		}
 		
-		public long getBit() {
+		public long GetBit() {
 			return bit;
 		}
 		
-		public int getId() {
+		public int GetId() {
 			return id;
 		}
 	}

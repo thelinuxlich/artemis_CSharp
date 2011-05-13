@@ -12,33 +12,33 @@ namespace Artemis
 			bagged = new Bag<EntitySystem>();
 		}
 		
-		public EntitySystem setSystem(EntitySystem system) {
-			system.setWorld(world);
+		public EntitySystem SetSystem(EntitySystem system) {
+			system.SetWorld(world);
 			
 			systems.Add(typeof(system), system);
 			
-			if(!bagged.contains(system))
-				bagged.add(system);
+			if(!bagged.Contains(system))
+				bagged.Add(system);
 			
-			system.setSystemBit(SystemBitManager.getBitFor(typeof(system)));
+			system.SetSystemBit(SystemBitManager.GetBitFor(typeof(system)));
 			
 			return system;
 		}
 		
-		public T getSystem<T>() where T : EntitySystem {
+		public T GetSystem<T>() where T : EntitySystem {
 			return systems[typeof(T)];
 		}
 		
-		public Bag<EntitySystem> getSystems() {
+		public Bag<EntitySystem> GetSystems() {
 			return bagged;
 		}
 		
 		/**
 		 * After adding all systems to the world, you must initialize them all.
 		 */
-		public void initializeAll() {
-		   for (int i = 0; i < bagged.size(); i++) {
-		      bagged.get(i).initialize();
+		public void InitializeAll() {
+		   for (int i = 0; i < bagged.Size(); i++) {
+		      bagged.Get(i).Initialize();
 		   }
 		} 
 	

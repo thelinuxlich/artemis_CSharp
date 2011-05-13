@@ -10,19 +10,19 @@ namespace Artemis
 			entityByTag = new Dictionary<String, Entity>();
 		}
 	
-		public void register(String tag, Entity e) {
+		public void Register(String tag, Entity e) {
 			entityByTag.Add(tag, e);
 		}
 	
-		public void unregister(String tag) {
+		public void Unregister(String tag) {
 			entityByTag.Remove(tag);
 		}
 	
-		public boolean isRegistered(String tag) {
-			return entityByTag.containsKey(tag);
+		public boolean IsRegistered(String tag) {
+			return entityByTag.ContainsKey(tag);
 		}
 	
-		public Entity getEntity(String tag) {
+		public Entity GetEntity(String tag) {
 			return entityByTag[tag];
 		}
 	
