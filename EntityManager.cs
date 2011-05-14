@@ -75,7 +75,7 @@ namespace Artemis
 		}
 		
 		public void AddComponent(Entity e, Component component) {
-			ComponentType type = ComponentTypeManager.GetTypeFor(component);
+			ComponentType type = ComponentTypeManager.GetTypeFor(component.GetType());
 			
 			if(type.GetId() >= componentsByType.GetCapacity()) {
 				componentsByType.Set(type.GetId(), null);
@@ -101,7 +101,7 @@ namespace Artemis
 		}
 		
 		public void RemoveComponent(Entity e, Component component) {
-			ComponentType type = ComponentTypeManager.GetTypeFor(component);
+			ComponentType type = ComponentTypeManager.GetTypeFor(component.GetType());
 			RemoveComponent(e, type);
 		}
 		

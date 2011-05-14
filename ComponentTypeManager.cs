@@ -5,24 +5,24 @@ namespace Artemis
 	public class ComponentTypeManager {
         private static Dictionary<Type, ComponentType> componentTypes = new Dictionary<Type, ComponentType>();
 		
-		public static ComponentType GetTypeFor<T>(T component) where T : Component
+		public static ComponentType GetTypeFor(Type component)
         { 
-			ComponentType type = componentTypes[component.GetType()];
+			ComponentType type = componentTypes[component];
 			if(type == null){ 
 				type = new ComponentType();
-                componentTypes.Add(component.GetType(), type);
+                componentTypes.Add(component, type);
 			}			
 			return type;
 		}
 
         public static long GetBit<T>(T component) where T : Component
         {
-            return GetTypeFor(component).GetBit();
+            return GetTypeFor(component.GetType()).GetBit();
 		}
 		
 		public static int GetId<T>(T component) where T : Component
         {
-			return GetTypeFor(component).GetId();
+			return GetTypeFor(component.GetType()).GetId();
 		}
 	}
 }

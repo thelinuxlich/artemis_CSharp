@@ -129,7 +129,7 @@ namespace Artemis
 		 * @return component that matches, or null if none is found.
 		 */
 		public T GetComponent<T>(T component) where T : Component {
-			return (T)GetComponent(ComponentTypeManager.GetTypeFor(component));
+			return (T)GetComponent(ComponentTypeManager.GetTypeFor(component.GetType()));
 		}
 		
 		/**

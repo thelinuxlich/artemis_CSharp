@@ -5,7 +5,7 @@ namespace Artemis
 		private int acc;
 		private int interval;
 	
-		public IntervalEntitySystem(int interval, params Component[] types) : base(types) {
+		public IntervalEntitySystem(int interval, params Type[] types) : base(types) {
 			this.interval = interval;
 		}
 	

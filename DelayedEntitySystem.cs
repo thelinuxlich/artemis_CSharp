@@ -6,7 +6,7 @@ namespace Artemis
 		private bool running;
 		private int acc;
 	
-		public DelayedEntitySystem(params Component[] types) : base(types) {
+		public DelayedEntitySystem(params Type[] types) : base(types) {
 		}
 	
 		public override void ProcessEntities(Bag<Entity> entities) {

@@ -13,10 +13,10 @@ namespace Artemis
 		public EntitySystem() {
 		}
 	
-		public EntitySystem(params Component[] types) {
+		public EntitySystem(params Type[] types) {
 			actives = new Bag<Entity>();
 	
-			foreach (Component type in types) {
+			foreach (Type type in types) {
 				ComponentType ct = ComponentTypeManager.GetTypeFor(type);
 				typeFlags |= ct.GetBit();
 			}
@@ -107,8 +107,8 @@ namespace Artemis
 		 * @param otherTypes
 		 * @return
 		 */
-		public static Component[] GetMergedTypes(Component requiredType, params Component[] otherTypes) {
-			Component[] types = new Component[1+otherTypes.Length];
+		public static Type[] GetMergedTypes(Type requiredType, params Type[] otherTypes) {
+			Type[] types = new Type[1+otherTypes.Length];
 			types[0] = requiredType;
 			for(int i = 0; otherTypes.Length > i; i++) {
 				types[i+1] = otherTypes[i];
