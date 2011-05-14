@@ -2,7 +2,7 @@ using System;
 namespace Artemis
 {
 	public abstract class EntitySystem {
-		private long systemBit;
+		private long? systemBit;
 	
 		private long typeFlags;
 	
@@ -22,7 +22,7 @@ namespace Artemis
 			}
 		}
 		
-		public void SetSystemBit(long bit) {
+		public void SetSystemBit(long? bit) {
 			this.systemBit = bit;
 		}
 		
@@ -59,7 +59,7 @@ namespace Artemis
 		 * 
 		 * @return true if the system should be processed, false if not.
 		 */
-		public virtual bool CheckProcessing();
+		public abstract bool CheckProcessing();
 	
 		/**
 		 * Override to implement code that gets executed when systems are initialized.
@@ -78,7 +78,7 @@ namespace Artemis
 		 */
 		public void Removed(Entity e) {}
 	
-		public sealed void Change(Entity e) {
+		public void Change(Entity e) {
 			bool contains = (systemBit & e.GetSystemBits()) == systemBit;
 			bool interest = (typeFlags & e.GetTypeBits()) == typeFlags;
 	
@@ -97,7 +97,7 @@ namespace Artemis
 			Removed(e);
 		}
 	
-		public sealed void SetWorld(World world) {
+		public void SetWorld(World world) {
 			this.world = world;
 		}
 		

@@ -8,27 +8,27 @@ namespace Artemis
 			Console.WriteLine(CosDeg(180f));
 		}
 	
-		public static sealed float Sin(float rad) {
+		public static float Sin(float rad) {
 			return sin[(int) (rad * radToIndex) & SIN_MASK];
 		}
 	
-		public static sealed float Cos(float rad) {
+		public static float Cos(float rad) {
 			return cos[(int) (rad * radToIndex) & SIN_MASK];
 		}
 	
-		public static sealed float SinDeg(float deg) {
+		public static float SinDeg(float deg) {
 			return sin[(int) (deg * degToIndex) & SIN_MASK];
 		}
 	
-		public static sealed float CosDeg(float deg) {
+		public static float CosDeg(float deg) {
 			return cos[(int) (deg * degToIndex) & SIN_MASK];
 		}
 	
-		private static sealed float RAD, DEG;
-		private static sealed int SIN_BITS, SIN_MASK, SIN_COUNT;
-		private static sealed float radFull, radToIndex;
-		private static sealed float degFull, degToIndex;
-		private static sealed float[] sin, cos;
+		private static float RAD, DEG;
+		private static int SIN_BITS, SIN_MASK, SIN_COUNT;
+		private static float radFull, radToIndex;
+		private static float degFull, degToIndex;
+		private static float[] sin, cos;
 	
 		static TrigLUT() {
 			RAD = (float) Math.PI / 180.0f;

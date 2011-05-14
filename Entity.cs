@@ -4,8 +4,8 @@ namespace Artemis
 	public sealed class Entity {
 		private int id;
 		private long uniqueId;
-		private long typeBits;
-		private long systemBits;
+		private long? typeBits;
+		private long? systemBits;
 		
 		private World world;
 		private EntityManager entityManager;
@@ -38,35 +38,35 @@ namespace Artemis
 			return uniqueId;
 		}
 		
-		public long GetTypeBits() {
+		public long? GetTypeBits() {
 			return typeBits;
 		}
 		
-		public void AddTypeBit(long bit) {
+		public void AddTypeBit(long? bit) {
 			typeBits |= bit;
 		}
 		
-		public void RemoveTypeBit(long bit) {
+		public void RemoveTypeBit(long? bit) {
 			typeBits &= ~bit;
 		}
 		
-		public long GetSystemBits() {
+		public long? GetSystemBits() {
 			return systemBits;
 		}
 		
-		public void AddSystemBit(long bit) {
+		public void AddSystemBit(long? bit) {
 			systemBits |= bit;
 		}
 		
-		public void RemoveSystemBit(long bit) {
+		public void RemoveSystemBit(long? bit) {
 			systemBits &= ~bit;
 		}
 		
-		public void SetSystemBits(long systemBits) {
+		public void SetSystemBits(long? systemBits) {
 			this.systemBits = systemBits;
 		}
 		
-		public void SetTypeBits(long typeBits) {
+		public void SetTypeBits(long? typeBits) {
 			this.typeBits = typeBits;
 		}
 		
@@ -75,7 +75,7 @@ namespace Artemis
 			typeBits = 0;
 		}
 		
-		public String ToString() {
+		public override String ToString() {
 			return "Entity["+id+"]";
 		}
 		

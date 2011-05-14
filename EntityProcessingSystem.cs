@@ -15,15 +15,15 @@ namespace Artemis
 		 * Process a entity this system is interested in.
 		 * @param e the entity to process.
 		 */
-		protected abstract void Process(Entity e);
+		public abstract void Process(Entity e);
 	
-		protected override void ProcessEntities(Bag<Entity> entities) {
+		public override void ProcessEntities(Bag<Entity> entities) {
 			for (int i = 0, s = entities.Size(); s > i; i++) {
 				Process(entities.Get(i));
 			}
 		}
 		
-		protected override bool CheckProcessing() {
+		public override bool CheckProcessing() {
 			return true;
 		}
 		
