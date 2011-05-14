@@ -10,7 +10,7 @@ namespace Artemis
 		 * 
 		 */
 		public Bag() {
-			this(16);
+			data = new Object[16];
 		}
 	
 		/**
@@ -53,7 +53,7 @@ namespace Artemis
 				return (E) o;
 			}
 			
-			return null;
+			return default(E);
 		}
 	
 		/**
@@ -65,11 +65,11 @@ namespace Artemis
 		 *            element to be removed from this list, if present
 		 * @return <tt>true</tt> if this list contained the specified element
 		 */
-		public boolean Remove(E o) {
+		public bool Remove(E o) {
 			for (int i = 0; i < size; i++) {
 				Object o1 = data[i];
 	
-				if (o == o1) {
+				if (o.Equals(o1)) {
 					data[i] = data[--size]; // overwrite item to remove with last
 					// element
 					data[size] = null; // null last element, so gc can do its work
@@ -86,9 +86,9 @@ namespace Artemis
 		 * @param o
 		 * @return
 		 */
-		public boolean Contains(E o) {
+		public bool Contains(E o) {
 			for(int i = 0; size > i; i++) {
-				if(o == data[i]) {
+				if(o.Equals(data[i])) {
 					return true;
 				}
 			}
@@ -103,8 +103,8 @@ namespace Artemis
 		 *            Bag containing elements to be removed from this Bag
 		 * @return {@code true} if this Bag changed as a result of the call
 		 */
-		public boolean RemoveAll(Bag<E> bag) {
-			boolean modified = false;
+		public bool RemoveAll(Bag<E> bag) {
+			bool modified = false;
 	
 			for (int i = 0; i < bag.Size(); i++) {
 				Object o1 = bag.Get(i);
@@ -150,7 +150,7 @@ namespace Artemis
 		 * @return the number of elements the bag can hold without growing.
 		 */
 		public int GetCapacity() {
-			return data.length;
+			return data.Length;
 		}
 	
 		/**
@@ -158,7 +158,7 @@ namespace Artemis
 		 * 
 		 * @return true if this list contains no elements
 		 */
-		public boolean IsEmpty() {
+		public bool IsEmpty() {
 			return size == 0;
 		}
 	
@@ -171,7 +171,7 @@ namespace Artemis
 		 */
 		public void Add(E o) {
 			// is size greater than capacity increase capacity
-			if (size == data.length) {
+			if (size == data.Length) {
 				Grow();
 			}
 	
@@ -185,7 +185,7 @@ namespace Artemis
 		 * @param o the element
 		 */
 		public void Set(int index, E o) {
-			if(index >= data.length) {
+			if(index >= data.Length) {
 				Grow(index*2);
 				size = index+1;
 			} else if(index >= size) {
@@ -195,14 +195,14 @@ namespace Artemis
 		}
 	
 		private void Grow() {
-			int newCapacity = (data.length * 3) / 2 + 1;
+			int newCapacity = (data.Length * 3) / 2 + 1;
 			Grow(newCapacity);
 		}
 		
 		private void Grow(int newCapacity) {
 			Object[] oldData = data;
 			data = new Object[newCapacity];
-			Array.Copy(oldData, 0, data, 0, oldData.length);
+			Array.Copy(oldData, 0, data, 0, oldData.Length);
 		}
 	
 		/**

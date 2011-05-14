@@ -9,7 +9,7 @@ namespace Artemis
 		private int id;
 		
 		public ComponentType() {
-			init();
+			Init();
 		}
 		
 		private void Init() {

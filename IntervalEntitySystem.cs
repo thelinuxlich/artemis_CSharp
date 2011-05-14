@@ -5,12 +5,11 @@ namespace Artemis
 		private int acc;
 		private int interval;
 	
-		public IntervalEntitySystem(int interval, params Type[] types) {
-			super(types);
+		public IntervalEntitySystem(int interval, params Component[] types) : base(types) {
 			this.interval = interval;
 		}
 	
-		protected override boolean CheckProcessing() {
+		public override bool CheckProcessing() {
 			acc += world.GetDelta();
 			if(acc >= interval) {
 				acc -= interval;

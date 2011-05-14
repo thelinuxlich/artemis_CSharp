@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 namespace Artemis
 {
 	public class GroupManager {
@@ -21,7 +22,7 @@ namespace Artemis
 		 * @param e entity to set into the group.
 		 */
 		public void Set(String group, Entity e) {
-			remove(e); // Entity can only belong to one group.
+			Remove(e); // Entity can only belong to one group.
 			
 			Bag<Entity> entities = entitiesByGroup[group];
 			if(entities == null) {
@@ -79,7 +80,7 @@ namespace Artemis
 		 * @param e the entity to check.
 		 * @return true if it is in any group, false if none.
 		 */
-		public boolean IsGrouped(Entity e) {
+		public bool IsGrouped(Entity e) {
 			return GetGroupOf(e) != null;
 		}
 	

@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 namespace Artemis
 {
 	public class Utils
@@ -32,7 +33,7 @@ namespace Artemis
 			float C = bx * bx + by * by;
 	
 			float Sabc = 2f * (float) Math.Sqrt(A + B + C);
-			float A_2 = (float) Math.sqrt(A);
+			float A_2 = (float) Math.Sqrt(A);
 			float A_32 = 2f * A * A_2;
 			float C_2 = 2f * (float) Math.Sqrt(C);
 			float BA = B / A_2;
@@ -50,7 +51,7 @@ namespace Artemis
 			return EuclideanDistance(x1, y1, x2, y2);
 		}
 	
-		public static boolean DoCirclesCollide(float x1, float y1, float radius1, float x2, float y2, float radius2) {
+		public static bool DoCirclesCollide(float x1, float y1, float radius1, float x2, float y2, float radius2) {
 			float dx = x2 - x1;
 			float dy = y2 - y1;
 			float d = radius1 + radius2;
@@ -74,19 +75,19 @@ namespace Artemis
 			return (float) FastMath.Sqrt(a * a + b * b);
 		}
 	
-		public static float AngleInDegrees(float ownerRotation, float x1, float y1, float x2, float y2) {
-			return Math.Abs(ownerRotation - angleInDegrees(x1, y1, x2, y2)) % 360;
+		public static double AngleInDegrees(float ownerRotation, float x1, float y1, float x2, float y2) {
+			return Math.Abs(ownerRotation - AngleInDegrees(x1, y1, x2, y2)) % 360;
 		}
 	
-		public static float AngleInDegrees(float originX, float originY, float targetX, float targetY) {
-			return (float) (Math.Atan2(targetY - originY, targetX - originX)) * (180.0 / Math.PI);
+		public static double AngleInDegrees(float originX, float originY, float targetX, float targetY) {
+			return Math.Atan2(targetY - originY, targetX - originX) * (180.0 / Math.PI);
 		}
 	
 		public static float AngleInRadians(float originX, float originY, float targetX, float targetY) {
 			return (float) Math.Atan2(targetY - originY, targetX - originX);
 		}
 	
-		public static boolean ShouldRotateCounterClockwise(float angleFrom, float angleTo) {
+		public static bool ShouldRotateCounterClockwise(float angleFrom, float angleTo) {
 			float diff = (angleFrom - angleTo) % 360;
 			return diff > 0 ? diff < 180 : diff < -180;
 		}
@@ -113,7 +114,7 @@ namespace Artemis
 			return y + TrigLUT.SinDeg(angleDegrees) * lineLength;
 		}
 	
-		public static boolean Collides(float x1, float y1, float radius1, float x2, float y2, float radius2) {
+		public static bool Collides(float x1, float y1, float radius1, float x2, float y2, float radius2) {
 			float d = Utils.Distance(x1, y1, x2, y2);
 	
 			d -= radius1 + radius2;
@@ -122,7 +123,7 @@ namespace Artemis
 		}
 	
 		public static String ReadFileContents(String file) {
-		  	string readText = File.ReadAllText(file,"UTF-8");
+		  	string readText = File.ReadAllText(file,System.Text.Encoding.UTF8);
         	return(readText);	
 		}
 	}

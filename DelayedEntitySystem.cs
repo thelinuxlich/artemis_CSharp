@@ -3,11 +3,10 @@ namespace Artemis
 {
 	public abstract class DelayedEntitySystem : EntitySystem {
 		private int delay;
-		private boolean running;
+		private bool running;
 		private int acc;
 	
-		public DelayedEntitySystem(params Type[] types) {
-			super(types);
+		public DelayedEntitySystem(params Component[] types) : base(types) {
 		}
 	
 		protected override void ProcessEntities(Bag<Entity> entities) {
@@ -15,9 +14,9 @@ namespace Artemis
 			Stop();
 		}
 		
-		protected override boolean CheckProcessing() {
+		protected override bool CheckProcessing() {
 			if(running) {
-				acc += world.getDelta();
+				acc += world.GetDelta();
 				
 				if(acc >= delay) {
 					return true;
@@ -69,7 +68,7 @@ namespace Artemis
 		 * 
 		 * @return true if it's counting down, false if it's not running.
 		 */
-		public boolean IsRunning() {
+		public bool IsRunning() {
 			return running;
 		}
 		

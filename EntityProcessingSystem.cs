@@ -8,8 +8,7 @@ namespace Artemis
 		 * @param requiredType the required component type.
 		 * @param otherTypes other component types.
 		 */
-		public EntityProcessingSystem(Type requiredType,params Type[] otherTypes) {
-			super(GetMergedTypes(requiredType, otherTypes));
+		public EntityProcessingSystem(Component requiredType,params Component[] otherTypes) : base(GetMergedTypes(requiredType, otherTypes)) {
 		}
 		
 		/**
@@ -24,7 +23,7 @@ namespace Artemis
 			}
 		}
 		
-		protected override boolean CheckProcessing() {
+		protected override bool CheckProcessing() {
 			return true;
 		}
 		

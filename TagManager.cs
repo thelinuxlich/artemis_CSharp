@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 namespace Artemis
 {
 	public class TagManager {
@@ -18,7 +19,7 @@ namespace Artemis
 			entityByTag.Remove(tag);
 		}
 	
-		public boolean IsRegistered(String tag) {
+		public bool IsRegistered(String tag) {
 			return entityByTag.ContainsKey(tag);
 		}
 	

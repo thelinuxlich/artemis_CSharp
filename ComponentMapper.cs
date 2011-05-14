@@ -7,11 +7,11 @@ namespace Artemis
 	
 		public ComponentMapper(T type, EntityManager em) {
 			this.em = em;
-			this.type = ComponentTypeManager.GetTypeFor<T>();
+			this.type = ComponentTypeManager.GetTypeFor(type);
 		}
 	
 		public T Get(Entity e) {
-			return em.GetComponent(e, type);
+			return (T)em.GetComponent(e, type);
 		}
 	}
 }

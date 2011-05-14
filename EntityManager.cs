@@ -26,7 +26,7 @@ namespace Artemis
 			entityComponents = new Bag<Component>();
 		}
 	
-		protected Entity Create() {
+		public Entity Create() {
 			Entity e = removedAndAvailable.RemoveLast();
 			if (e == null) {
 				e = new Entity(world, nextAvailableId++);
@@ -40,7 +40,7 @@ namespace Artemis
 			return e;
 		}
 	
-		protected void Remove(Entity e) {
+		public void Remove(Entity e) {
 			activeEntities.Set(e.GetId(), null);
 			
 			e.SetTypeBits(0);
@@ -70,12 +70,12 @@ namespace Artemis
 		 * @param entityId
 		 * @return active or not.
 		 */
-		public boolean IsActive(int entityId) {
+		public bool IsActive(int entityId) {
 			return activeEntities.Get(entityId) != null;
 		}
 		
-		protected void AddComponent(Entity e, Component component) {
-			ComponentType type = ComponentTypeManager.GetTypeFor<component>();
+		public void AddComponent(Entity e, Component component) {
+			ComponentType type = ComponentTypeManager.GetTypeFor(component);
 			
 			if(type.GetId() >= componentsByType.GetCapacity()) {
 				componentsByType.Set(type.GetId(), null);
@@ -92,7 +92,7 @@ namespace Artemis
 			e.AddTypeBit(type.GetBit());
 		}
 		
-		protected void Refresh(Entity e) {
+		public void Refresh(Entity e) {
 			SystemManager systemManager = world.GetSystemManager();
 			Bag<EntitySystem> systems = systemManager.GetSystems();
 			for(int i = 0, s=systems.Size(); s > i; i++) {
@@ -100,25 +100,25 @@ namespace Artemis
 			}
 		}
 		
-		protected void RemoveComponent(Entity e, Component component) {
-			ComponentType type = ComponentTypeManager.GetTypeFor<component>();
+		public void RemoveComponent(Entity e, Component component) {
+			ComponentType type = ComponentTypeManager.GetTypeFor(component);
 			RemoveComponent(e, type);
 		}
 		
-		protected void RemoveComponent(Entity e, ComponentType type) {
+		public void RemoveComponent(Entity e, ComponentType type) {
 			Bag<Component> components = componentsByType.Get(type.GetId());
 			components.Set(e.GetId(), null);
 			e.RemoveTypeBit(type.GetBit());
 		}
 		
-		protected Component GetComponent(Entity e, ComponentType type) {
+		public Component GetComponent(Entity e, ComponentType type) {
 			Bag<Component> bag = componentsByType.Get(type.GetId());
 			if(bag != null && e.GetId() < bag.GetCapacity())
 				return bag.Get(e.GetId());
 			return null;
 		}
 		
-		protected Entity GetEntity(int entityId) {
+		public Entity GetEntity(int entityId) {
 			return activeEntities.Get(entityId);
 		}
 		
@@ -146,7 +146,7 @@ namespace Artemis
 			return totalRemoved;
 		}
 	
-		protected Bag<Component> GetComponents(Entity e) {
+		public Bag<Component> GetComponents(Entity e) {
 			entityComponents.Clear();
 			for(int a = 0; componentsByType.Size() > a; a++) {
 				Bag<Component> components = componentsByType.Get(a);

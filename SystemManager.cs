@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 namespace Artemis
 {
 	public class SystemManager {
@@ -15,18 +16,18 @@ namespace Artemis
 		public EntitySystem SetSystem(EntitySystem system) {
 			system.SetWorld(world);
 			
-			systems.Add(typeof(system), system);
+			systems.Add(system.GetType(), system);
 			
 			if(!bagged.Contains(system))
 				bagged.Add(system);
 			
-			system.SetSystemBit(SystemBitManager.GetBitFor(typeof(system)));
+			system.SetSystemBit(SystemBitManager.GetBitFor(system));
 			
 			return system;
 		}
 		
 		public T GetSystem<T>() where T : EntitySystem {
-			return systems[typeof(T)];
+			return (T)systems[typeof(T)];
 		}
 		
 		public Bag<EntitySystem> GetSystems() {

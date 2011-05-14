@@ -4,12 +4,12 @@ namespace Artemis
 	public abstract class Timer {
 
 		private int delay;
-		private boolean repeat;
+		private bool repeat;
 		private int acc;
-		private boolean done;
-		private boolean stopped;
+		private bool done;
+		private bool stopped;
 	
-		public Timer(int delay, boolean repeat) {
+		public Timer(int delay, bool repeat) {
 			this.delay = delay;
 			this.repeat = repeat;
 			this.acc = 0;
@@ -39,11 +39,11 @@ namespace Artemis
 			acc = 0;
 		}
 	
-		public boolean IsDone() {
+		public bool IsDone() {
 			return done;
 		}
 	
-		public boolean IsRunning() {
+		public bool IsRunning() {
 			return !done && acc < delay && !stopped;
 		}
 	

@@ -10,9 +10,9 @@ namespace Artemis
 		private World world;
 		private EntityManager entityManager;
 		
-		protected Entity(World world, int id) {
+		public Entity(World world, int id) {
 			this.world = world;
-			this.entityManager = world.getEntityManager();
+			this.entityManager = world.GetEntityManager();
 			this.id = id;
 		}
 	
@@ -26,7 +26,7 @@ namespace Artemis
 			return id;
 		}
 		
-		protected void SetUniqueId(long uniqueId) {
+		public void SetUniqueId(long uniqueId) {
 			this.uniqueId = uniqueId;
 		}
 		
@@ -38,39 +38,39 @@ namespace Artemis
 			return uniqueId;
 		}
 		
-		protected long GetTypeBits() {
+		public long GetTypeBits() {
 			return typeBits;
 		}
 		
-		protected void AddTypeBit(long bit) {
+		public void AddTypeBit(long bit) {
 			typeBits |= bit;
 		}
 		
-		protected void RemoveTypeBit(long bit) {
+		public void RemoveTypeBit(long bit) {
 			typeBits &= ~bit;
 		}
 		
-		protected long GetSystemBits() {
+		public long GetSystemBits() {
 			return systemBits;
 		}
 		
-		protected void AddSystemBit(long bit) {
+		public void AddSystemBit(long bit) {
 			systemBits |= bit;
 		}
 		
-		protected void RemoveSystemBit(long bit) {
+		public void RemoveSystemBit(long bit) {
 			systemBits &= ~bit;
 		}
 		
-		protected void SetSystemBits(long systemBits) {
+		public void SetSystemBits(long systemBits) {
 			this.systemBits = systemBits;
 		}
 		
-		protected void SetTypeBits(long typeBits) {
+		public void SetTypeBits(long typeBits) {
 			this.typeBits = typeBits;
 		}
 		
-		protected void Reset() {
+		public void Reset() {
 			systemBits = 0;
 			typeBits = 0;
 		}
@@ -107,7 +107,7 @@ namespace Artemis
 		 * Checks if the entity has been deleted from somewhere.
 		 * @return if it's active.
 		 */
-		public boolean IsActive(){
+		public bool IsActive(){
 			return entityManager.IsActive(id);
 		}
 	
@@ -128,8 +128,8 @@ namespace Artemis
 		 * @param type the expected return component type.
 		 * @return component that matches, or null if none is found.
 		 */
-		public T GetComponent<T>() where T : Component {
-			return GetComponent(ComponentTypeManager.GetTypeFor<T>());
+		public T GetComponent<T>(T component) where T : Component {
+			return (T)GetComponent(ComponentTypeManager.GetTypeFor(component));
 		}
 		
 		/**
@@ -163,7 +163,7 @@ namespace Artemis
 		 * @param group of the entity.
 		 */
 		public void SetGroup(String group) {
-			world.GetGroupManager().set(group, this);
+			world.GetGroupManager().Set(group, this);
 		}
 		
 		/**
