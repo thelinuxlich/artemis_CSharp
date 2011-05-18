@@ -15,9 +15,9 @@ namespace Artemis
 		 * Process a entity this system is interested in.
 		 * @param e the entity to process.
 		 */
-		protected abstract void Process(Entity e, int accumulatedDelta);
+		public abstract void Process(Entity e, int accumulatedDelta);
 	
-		protected override void ProcessEntities(Bag<Entity> entities, int accumulatedDelta) {
+		public override void ProcessEntities(Bag<Entity> entities, int accumulatedDelta) {
 			for (int i = 0, s = entities.Size(); s > i; i++) {
 				Process(entities.Get(i), accumulatedDelta);
 			}

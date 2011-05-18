@@ -29,7 +29,7 @@ namespace Artemis
 		 * The entities to process with accumulated delta.
 		 * @param entities read-only bag of entities.
 		 */
-		protected abstract void ProcessEntities(Bag<Entity> entities, int accumulatedDelta);
+		public abstract void ProcessEntities(Bag<Entity> entities, int accumulatedDelta);
 		
 		
 		

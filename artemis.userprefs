@@ -1,29 +1,29 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" ctype="Workspace" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Utils/Utils.cs" ctype="Workbench">
+  <MonoDevelop.Ide.Workbench ActiveDocument="IntervalEntitySystem.cs" ctype="Workbench">
     <Files>
       <File FileName="Component.cs" Line="5" Column="3" />
       <File FileName="ComponentMapper.cs" Line="14" Column="15" />
       <File FileName="ComponentType.cs" Line="25" Column="15" />
-      <File FileName="ComponentTypeManager.cs" Line="26" Column="12" />
-      <File FileName="DelayedEntityProcessingSystem.cs" Line="23" Column="6" />
-      <File FileName="DelayedEntitySystem.cs" Line="85" Column="2" />
+      <File FileName="ComponentTypeManager.cs" Line="26" Column="4" />
+      <File FileName="DelayedEntityProcessingSystem.cs" Line="18" Column="9" />
+      <File FileName="DelayedEntitySystem.cs" Line="27" Column="2" />
       <File FileName="Entity.cs" Line="180" Column="1" />
       <File FileName="EntityManager.cs" Line="159" Column="5" />
-      <File FileName="EntityProcessingSystem.cs" Line="27" Column="31" />
-      <File FileName="EntitySystem.cs" Line="119" Column="3" />
+      <File FileName="EntityProcessingSystem.cs" Line="27" Column="16" />
+      <File FileName="EntitySystem.cs" Line="32" Column="19" />
       <File FileName="GroupManager.cs" Line="83" Column="12" />
-      <File FileName="IntervalEntityProcessingSystem.cs" Line="23" Column="6" />
-      <File FileName="IntervalEntitySystem.cs" Line="16" Column="11" />
+      <File FileName="IntervalEntityProcessingSystem.cs" Line="23" Column="5" />
+      <File FileName="IntervalEntitySystem.cs" Line="7" Column="2" />
       <File FileName="SystemBitManager.cs" Line="14" Column="10" />
       <File FileName="SystemManager.cs" Line="41" Column="17" />
       <File FileName="TagManager.cs" Line="26" Column="22" />
       <File FileName="World.cs" Line="114" Column="2" />
-      <File FileName="Utils/Utils.cs" Line="127" Column="4" />
+      <File FileName="Utils/Utils.cs" Line="79" Column="16" />
       <File FileName="Utils/Bag.cs" Line="1" Column="1" />
       <File FileName="Utils/Timer.cs" Line="1" Column="2" />
-      <File FileName="Utils/TrigLUT.cs" Line="34" Column="16" />
-      <File FileName="Utils/FastMath.cs" Line="54" Column="32" />
+      <File FileName="Utils/TrigLUT.cs" Line="8" Column="26" />
+      <File FileName="Utils/FastMath.cs" Line="12" Column="49" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
