@@ -4,7 +4,7 @@ namespace Artemis
 	public class TrigLUT
 	{
 		public static void Main(String[] args) {
-			Console.WriteLine(Cos(Math.PI));
+			Console.WriteLine(Cos((float)Math.PI));
 			Console.WriteLine(CosDeg(180f));
 		}
 	

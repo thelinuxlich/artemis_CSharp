@@ -1,0 +1,5 @@
+D:\artemis_CSharp\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\artemis_CSharp\bin\Debug\artemis.exe
+D:\artemis_CSharp\bin\Debug\artemis.pdb
+D:\artemis_CSharp\obj\x86\Debug\artemis.exe
+D:\artemis_CSharp\obj\x86\Debug\artemis.pdb

@@ -1,0 +1,3 @@
+D:\artemis_CSharp\obj\x86\Release\ResolveAssemblyReference.cache
+D:\artemis_CSharp\bin\Release\artemis.dll
+D:\artemis_CSharp\obj\x86\Release\artemis.dll

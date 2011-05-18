@@ -80,7 +80,7 @@ namespace Artemis
 		}
 	
 		public static float AngleInDegrees(float originX, float originY, float targetX, float targetY) {
-			return (float)Math.Atan2(targetY - originY, targetX - originX) * (180.0 / Math.PI);
+			return (float)Math.Atan2(targetY - originY, targetX - originX) * (180.0f / (float)Math.PI);
 		}
 	
 		public static float AngleInRadians(float originX, float originY, float targetX, float targetY) {
