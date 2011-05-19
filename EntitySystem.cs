@@ -2,9 +2,9 @@ using System;
 namespace Artemis
 {
 	public abstract class EntitySystem {
-		private long systemBit;
+		private long systemBit = 0;
 	
-		private long typeFlags;
+		private long typeFlags = 0;
 	
 		protected World world;
 	
