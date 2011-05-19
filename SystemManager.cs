@@ -4,26 +4,26 @@ namespace Artemis
 {
 	public class SystemManager {
 		private World world;
-		private Dictionary<Object, EntitySystem> systems;
+		private Dictionary<Type, EntitySystem> systems;
 		private Bag<EntitySystem> bagged;
 		
 		public SystemManager(World world) {
 			this.world = world;
-			systems = new Dictionary<Object, EntitySystem>();
+			systems = new Dictionary<Type, EntitySystem>();
 			bagged = new Bag<EntitySystem>();
 		}
 		
-		public EntitySystem SetSystem(EntitySystem system) {
+		public T SetSystem<T>(T system) where T : EntitySystem {
 			system.SetWorld(world);
 			
-			systems.Add(system.GetType(), system);
+			systems.Add(typeof(T), (EntitySystem)system);
 			
-			if(!bagged.Contains(system))
-				bagged.Add(system);
+			if(!bagged.Contains((EntitySystem)system))
+				bagged.Add((EntitySystem)system);
 			
 			system.SetSystemBit(SystemBitManager.GetBitFor(system));
 			
-			return system;
+			return (T)system;
 		}
 		
 		public T GetSystem<T>() where T : EntitySystem {

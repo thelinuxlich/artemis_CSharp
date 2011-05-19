@@ -2,7 +2,7 @@ using System;
 namespace Artemis
 {
 	public abstract class EntitySystem {
-		private long? systemBit;
+		private long systemBit;
 	
 		private long typeFlags;
 	
@@ -22,7 +22,7 @@ namespace Artemis
 			}
 		}
 		
-		public void SetSystemBit(long? bit) {
+		public void SetSystemBit(long bit) {
 			this.systemBit = bit;
 		}
 		

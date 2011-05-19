@@ -4,10 +4,10 @@ namespace Artemis
 {
 	public class SystemBitManager {
 		private static int POS = 0;
-		private static Dictionary<EntitySystem, long?> systemBits = new Dictionary<EntitySystem, long?>();
+		private static Dictionary<EntitySystem, long> systemBits = new Dictionary<EntitySystem, long>();
 		
-		public static long? GetBitFor(EntitySystem es){
-            long? bit;
+		public static long GetBitFor(EntitySystem es){
+            long bit;
             bool hasBit = systemBits.TryGetValue(es, out bit);
 			if(!hasBit){
 				bit = 1L << POS;

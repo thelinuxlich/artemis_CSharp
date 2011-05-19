@@ -1,33 +1,39 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" ctype="Workspace" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="IntervalEntitySystem.cs" ctype="Workbench">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="../Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs">
     <Files>
       <File FileName="Component.cs" Line="5" Column="3" />
-      <File FileName="ComponentMapper.cs" Line="14" Column="15" />
-      <File FileName="ComponentType.cs" Line="25" Column="15" />
-      <File FileName="ComponentTypeManager.cs" Line="26" Column="4" />
-      <File FileName="DelayedEntityProcessingSystem.cs" Line="18" Column="9" />
-      <File FileName="DelayedEntitySystem.cs" Line="27" Column="2" />
-      <File FileName="Entity.cs" Line="180" Column="1" />
-      <File FileName="EntityManager.cs" Line="159" Column="5" />
-      <File FileName="EntityProcessingSystem.cs" Line="27" Column="16" />
-      <File FileName="EntitySystem.cs" Line="32" Column="19" />
-      <File FileName="GroupManager.cs" Line="83" Column="12" />
-      <File FileName="IntervalEntityProcessingSystem.cs" Line="23" Column="5" />
-      <File FileName="IntervalEntitySystem.cs" Line="7" Column="2" />
-      <File FileName="SystemBitManager.cs" Line="14" Column="10" />
-      <File FileName="SystemManager.cs" Line="41" Column="17" />
-      <File FileName="TagManager.cs" Line="26" Column="22" />
-      <File FileName="World.cs" Line="114" Column="2" />
-      <File FileName="Utils/Utils.cs" Line="79" Column="16" />
-      <File FileName="Utils/Bag.cs" Line="1" Column="1" />
-      <File FileName="Utils/Timer.cs" Line="1" Column="2" />
-      <File FileName="Utils/TrigLUT.cs" Line="8" Column="26" />
-      <File FileName="Utils/FastMath.cs" Line="12" Column="49" />
+      <File FileName="EntitySystem.cs" Line="88" Column="1" />
+      <File FileName="Entity.cs" Line="16" Column="17" />
+      <File FileName="../Downloads/build/mono-2.10.2/mcs/class/corlib/System/Nullable.cs" Line="98" Column="1" />
+      <File FileName="EntityManager.cs" Line="101" Column="1" />
+      <File FileName="World.cs" Line="111" Column="1" />
+      <File FileName="ArtemisTest/Test.cs" Line="32" Column="1" />
+      <File FileName="../Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs" Line="227" Column="1" />
     </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="Artemis" expanded="True" />
+          <Node name="ArtemisTest" expanded="True">
+            <Node name="References" expanded="True" />
+            <Node name="Test.cs" selected="True" />
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="ClassPad">
+        <State expanded="True" selected="True" />
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+      <Pad Id="MonoDevelop.NUnit.TestPad">
+        <State expanded="True" selected="True" />
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches ctype="PinnedWatchStore" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

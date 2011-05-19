@@ -1,23 +1,32 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual C# Express 2010
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artemis", "Artemis.csproj", "{22C89AF2-E1CF-4976-91B9-7D33773DC6E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtemisTest", "ArtemisTest\ArtemisTest.csproj", "{C745FA99-5B03-4FBD-8BB4-C5F6D03F3AA2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
 		Release|x86 = Release|x86
+		Default|Any CPU = Default|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{22C89AF2-E1CF-4976-91B9-7D33773DC6E7}.Debug|x86.ActiveCfg = Debug|x86
 		{22C89AF2-E1CF-4976-91B9-7D33773DC6E7}.Debug|x86.Build.0 = Debug|x86
 		{22C89AF2-E1CF-4976-91B9-7D33773DC6E7}.Release|x86.ActiveCfg = Release|x86
 		{22C89AF2-E1CF-4976-91B9-7D33773DC6E7}.Release|x86.Build.0 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
+		{C745FA99-5B03-4FBD-8BB4-C5F6D03F3AA2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C745FA99-5B03-4FBD-8BB4-C5F6D03F3AA2}.Debug|x86.Build.0 = Debug|Any CPU
+		{C745FA99-5B03-4FBD-8BB4-C5F6D03F3AA2}.Default|Any CPU.ActiveCfg = Debug|Any CPU
+		{C745FA99-5B03-4FBD-8BB4-C5F6D03F3AA2}.Default|Any CPU.Build.0 = Debug|Any CPU
+		{C745FA99-5B03-4FBD-8BB4-C5F6D03F3AA2}.Release|x86.ActiveCfg = Release|Any CPU
+		{C745FA99-5B03-4FBD-8BB4-C5F6D03F3AA2}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Artemis.csproj
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
