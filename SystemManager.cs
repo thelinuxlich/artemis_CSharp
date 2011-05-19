@@ -27,7 +27,9 @@ namespace Artemis
 		}
 		
 		public T GetSystem<T>() where T : EntitySystem {
-			return (T)systems[typeof(T)];
+            EntitySystem system;
+            bool hasSystem = systems.TryGetValue(typeof(T), out system);
+			return (T)system;
 		}
 		
 		public Bag<EntitySystem> GetSystems() {

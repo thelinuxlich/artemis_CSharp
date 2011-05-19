@@ -24,8 +24,8 @@ namespace Artemis
 		public void Set(String group, Entity e) {
 			Remove(e); // Entity can only belong to one group.
 			
-			Bag<Entity> entities = entitiesByGroup[group];
-			if(entities == null) {
+			Bag<Entity> entities;
+			if(!entitiesByGroup.TryGetValue(group,out entities)) {
 				entities = new Bag<Entity>();
 				entitiesByGroup.Add(group, entities);
 			}
@@ -40,8 +40,8 @@ namespace Artemis
 		 * @return read-only bag of entities belonging to the group.
 		 */
 		public Bag<Entity> getEntities(String group) {
-			Bag<Entity> bag = entitiesByGroup[group];
-			if(bag == null)
+			Bag<Entity> bag;
+			if(!entitiesByGroup.TryGetValue(group,out bag))
 				return EMPTY_BAG;
 			return bag;
 		}
@@ -56,8 +56,8 @@ namespace Artemis
 				if(group != null) {
 					groupByEntity.Set(e.GetId(), null);
 					
-					Bag<Entity> entities = entitiesByGroup[group];
-					if(entities != null) {
+					Bag<Entity> entities;
+					if(!entitiesByGroup.TryGetValue(group,out entities)) {
 						entities.Remove(e);
 					}
 				}

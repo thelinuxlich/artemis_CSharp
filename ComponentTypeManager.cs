@@ -7,8 +7,8 @@ namespace Artemis
 		
 		public static ComponentType GetTypeFor(Type component)
         { 
-			ComponentType type = componentTypes[component];
-			if(type == null){ 
+			ComponentType type;
+			if(!componentTypes.TryGetValue(component,out type)){ 
 				type = new ComponentType();
                 componentTypes.Add(component, type);
 			}			

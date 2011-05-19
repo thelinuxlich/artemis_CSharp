@@ -24,7 +24,9 @@ namespace Artemis
 		}
 	
 		public Entity GetEntity(String tag) {
-			return entityByTag[tag];
+            Entity e;
+            bool hasTag = entityByTag.TryGetValue(tag, out e);
+			return e;
 		}
 	
 	}
