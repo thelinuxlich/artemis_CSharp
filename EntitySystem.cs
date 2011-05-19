@@ -29,7 +29,7 @@ namespace Artemis
 		/**
 		 * Called before processing of entities begins. 
 		 */
-		public abstract void Begin();
+        public virtual void Begin() { }
 	
 		public virtual void Process() {
 			if(CheckProcessing()) {
@@ -42,7 +42,7 @@ namespace Artemis
 		/**
 		 * Called after the processing of entities ends.
 		 */
-		public abstract void End();
+		public virtual void End() {}
 		
 		/**
 		 * Any implementing entity system must implement this method and the logic
@@ -50,29 +50,29 @@ namespace Artemis
 		 * 
 		 * @param entities the entities this system contains.
 		 */
-		public abstract void ProcessEntities(Bag<Entity> entities);
+        public virtual void ProcessEntities(Bag<Entity> entities) { }
 		
 		/**
 		 * 
 		 * @return true if the system should be processed, false if not.
 		 */
-		public abstract bool CheckProcessing();
+        public virtual bool CheckProcessing() { return true; }
 	
 		/**
 		 * Override to implement code that gets executed when systems are initialized.
 		 */
-        public abstract void Initialize();
+        public virtual void Initialize() { }
 	
 		/**
 		 * Called if the system has received a entity it is interested in, e.g. created or a component was added to it.
 		 * @param e the entity that was added to this system.
 		 */
-        public abstract void Added(Entity e);
+        public virtual void Added(Entity e) { }
 		/**
 		 * Called if a entity was removed from this system, e.g. deleted or had one of it's components removed.
 		 * @param e the entity that was removed from this system.
 		 */
-        public abstract void Removed(Entity e);
+        public virtual void Removed(Entity e) { }
 	
 		public void Change(Entity e) {
 			bool contains = (systemBit & e.GetSystemBits()) == systemBit;
