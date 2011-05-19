@@ -128,8 +128,8 @@ namespace Artemis
 		 * @param type the expected return component type.
 		 * @return component that matches, or null if none is found.
 		 */
-		public T GetComponent<T>(Type type) where T : Component {
-			return (T)GetComponent(ComponentTypeManager.GetTypeFor(type));
+		public T GetComponent<T>() where T : Component {
+			return (T)GetComponent(ComponentTypeManager.GetTypeFor(typeof(T)));
 		}
 		
 		/**

@@ -14,20 +14,20 @@ namespace ArtemisTest
 		{
 			World world = new World();
 			SystemManager systemManager = world.GetSystemManager();
-			HealthBarRenderSystem hs = (HealthBarRenderSystem)systemManager.SetSystem(new HealthBarRenderSystem());
+			HealthBarRenderSystem hs = systemManager.SetSystem<HealthBarRenderSystem>(new HealthBarRenderSystem());
 			systemManager.InitializeAll();
 			Entity e = world.CreateEntity();
 		    e.AddComponent(new Health(100));
 		    e.Refresh();
 			for(int i = 0;i < 10;i++) {
-				float oldHealth = e.GetComponent<Health>(typeof(Health)).GetHealth();
+				float oldHealth = e.GetComponent<Health>().GetHealth();
 				world.LoopStart();
     		    world.SetDelta(i);
 	            hs.Process();
-				float newHealth = e.GetComponent<Health>(typeof(Health)).GetHealth();
+				float newHealth = e.GetComponent<Health>().GetHealth();
 				Assert.Greater(oldHealth,newHealth);
 			}
-			float actualHealth = e.GetComponent<Health>(typeof(Health)).GetHealth();
+			float actualHealth = e.GetComponent<Health>().GetHealth();
 			Assert.IsTrue(actualHealth == 0);
 		}
 	}

@@ -148,6 +148,14 @@
       <TotalIgnored>0</TotalIgnored>
       <Time />
     </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-05-19T17:28:54</TestDate>
+      <Status>Success</Status>
+      <TotalFailures>0</TotalFailures>
+      <TotalSuccess>1</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+    </UnitTestResult>
   </Results>
   <Tests>
     <TestRecord Name="ArtemisTest">
@@ -205,6 +213,14 @@
           <TotalIgnored>0</TotalIgnored>
           <Time />
         </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-05-19T17:28:54</TestDate>
+          <Status>Success</Status>
+          <TotalFailures>0</TotalFailures>
+          <TotalSuccess>1</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+        </UnitTestResult>
       </Results>
       <Tests>
         <TestRecord Name="Test">
@@ -256,6 +272,14 @@
             </UnitTestResult>
             <UnitTestResult>
               <TestDate>2011-05-19T16:56:37</TestDate>
+              <Status>Success</Status>
+              <TotalFailures>0</TotalFailures>
+              <TotalSuccess>1</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-05-19T17:28:54</TestDate>
               <Status>Success</Status>
               <TotalFailures>0</TotalFailures>
               <TotalSuccess>1</TotalSuccess>
@@ -363,6 +387,19 @@
                 </UnitTestResult>
                 <UnitTestResult>
                   <TestDate>2011-05-19T16:56:37</TestDate>
+                  <Status>Success</Status>
+                  <TotalFailures>0</TotalFailures>
+                  <TotalSuccess>1</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0,01ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-05-19T17:28:54</TestDate>
                   <Status>Success</Status>
                   <TotalFailures>0</TotalFailures>
                   <TotalSuccess>1</TotalSuccess>
