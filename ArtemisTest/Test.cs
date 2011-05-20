@@ -19,6 +19,7 @@ namespace ArtemisTest
 			Entity e = world.CreateEntity();
 		    e.AddComponent(new Health(100));
 		    e.Refresh();
+			int entityId = e.GetId();
 			for(int i = 0;i < 10;i++) {
 				float oldHealth = e.GetComponent<Health>().GetHealth();
 				world.LoopStart();
@@ -29,6 +30,9 @@ namespace ArtemisTest
 			}
 			float actualHealth = e.GetComponent<Health>().GetHealth();
 			Assert.IsTrue(actualHealth == 0);
+			world.DeleteEntity(e);
+			world.LoopStart();
+			Assert.IsTrue(world.GetEntity(entityId) == null);
 		}
 	}
 }
