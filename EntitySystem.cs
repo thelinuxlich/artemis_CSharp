@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 namespace Artemis
 {
 	public abstract class EntitySystem {
@@ -8,13 +9,13 @@ namespace Artemis
 	
 		protected World world;
 	
-		private Bag<Entity> actives;
+		private Dictionary<int,Entity> actives;
 		
 		public EntitySystem() {
 		}
 	
 		public EntitySystem(params Type[] types) {
-			actives = new Bag<Entity>();
+            actives = new Dictionary<int, Entity>();
 	
 			foreach (Type type in types) {
 				ComponentType ct = ComponentTypeManager.GetTypeFor(type);
@@ -50,7 +51,7 @@ namespace Artemis
 		 * 
 		 * @param entities the entities this system contains.
 		 */
-        public virtual void ProcessEntities(Bag<Entity> entities) { }
+        public virtual void ProcessEntities(Dictionary<int,Entity> entities) { }
 		
 		/**
 		 * 
@@ -79,7 +80,7 @@ namespace Artemis
 			bool interest = (typeFlags & e.GetTypeBits()) == typeFlags;
 	
 			if (interest && !contains && typeFlags > 0) {
-				actives.Add(e);
+				actives.Add(e.GetId(),e);
 				e.AddSystemBit(systemBit);
 				Added(e);
 			} else if (!interest && contains && typeFlags > 0) {
@@ -88,7 +89,7 @@ namespace Artemis
 		}
 	
 		private void Remove(Entity e) {
-			actives.Remove(e);
+			actives.Remove(e.GetId());
 			e.RemoveSystemBit(systemBit);
 			Removed(e);
 		}

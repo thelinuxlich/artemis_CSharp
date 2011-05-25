@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 namespace Artemis
 {
 	public abstract class IntervalEntityProcessingSystem : IntervalEntitySystem {
@@ -16,10 +17,11 @@ namespace Artemis
 		 * @param e the entity to process.
 		 */
 		public abstract void Process(Entity e);
-		
-		public override void ProcessEntities(Bag<Entity> entities) {
-			for (int i = 0, s = entities.Size(); s > i; i++) {
-				Process(entities.Get(i));
+
+        public override void ProcessEntities(Dictionary<int, Entity> entities)
+        {
+			for (int i = 0, s = entities.Count; s > i; i++) {
+				Process(entities[i]);
 			}
 		}
 	

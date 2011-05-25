@@ -20,7 +20,8 @@ namespace Artemis
 		 * @param capacity
 		 *            the initial capacity of Bag
 		 */
-		public Bag(int capacity) {
+        public Bag(int capacity)
+        {
 			data = new E[capacity];
 		}
 	

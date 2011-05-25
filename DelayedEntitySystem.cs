@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 namespace Artemis
 {
 	public abstract class DelayedEntitySystem : EntitySystem {
@@ -8,8 +9,9 @@ namespace Artemis
 	
 		public DelayedEntitySystem(params Type[] types) : base(types) {
 		}
-	
-		public override void ProcessEntities(Bag<Entity> entities) {
+
+        public override void ProcessEntities(Dictionary<int, Entity> entities)
+        {
 			ProcessEntities(entities, acc);
 			Stop();
 		}
@@ -29,7 +31,7 @@ namespace Artemis
 		 * The entities to process with accumulated delta.
 		 * @param entities read-only bag of entities.
 		 */
-		public abstract void ProcessEntities(Bag<Entity> entities, int accumulatedDelta);
+        public abstract void ProcessEntities(Dictionary<int, Entity> entities, int accumulatedDelta);
 		
 		
 		

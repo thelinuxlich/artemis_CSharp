@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 namespace Artemis
 {
 	public abstract class DelayedEntityProcessingSystem : DelayedEntitySystem {
@@ -16,11 +17,14 @@ namespace Artemis
 		 * @param e the entity to process.
 		 */
 		public abstract void Process(Entity e, int accumulatedDelta);
-	
-		public override void ProcessEntities(Bag<Entity> entities, int accumulatedDelta) {
-			for (int i = 0, s = entities.Size(); s > i; i++) {
-				Process(entities.Get(i), accumulatedDelta);
-			}
+
+        public override void ProcessEntities(Dictionary<int, Entity> entities, int accumulatedDelta)
+        {
+			foreach (var item in entities.Values)
+	        {
+		       Process(item, accumulatedDelta);
+	        }            
+			
 		}
 	}	
 }
