@@ -1,0 +1,12 @@
+C:\Users\tpastor\Desktop\art\artemis_CSharp\ArtemisTest\obj\Release\ResolveAssemblyReference.cache
+C:\Users\tpastor\Desktop\art\artemis_CSharp\ArtemisTest\bin\Release\ArtemisTest.dll
+C:\Users\tpastor\Desktop\art\artemis_CSharp\ArtemisTest\bin\Release\artemis.dll
+C:\Users\tpastor\Desktop\art\artemis_CSharp\ArtemisTest\bin\Release\nunit.framework.dll
+C:\Users\tpastor\Desktop\art\artemis_CSharp\ArtemisTest\bin\Release\nunit.framework.xml
+C:\Users\tpastor\Desktop\art\artemis_CSharp\ArtemisTest\obj\Release\ArtemisTest.dll
+C:\Users\tpastor\Desktop\artemis\artemis_CSharp\ArtemisTest\bin\Release\ArtemisTest.dll
+C:\Users\tpastor\Desktop\artemis\artemis_CSharp\ArtemisTest\bin\Release\artemis.dll
+C:\Users\tpastor\Desktop\artemis\artemis_CSharp\ArtemisTest\bin\Release\nunit.framework.dll
+C:\Users\tpastor\Desktop\artemis\artemis_CSharp\ArtemisTest\bin\Release\nunit.framework.xml
+C:\Users\tpastor\Desktop\artemis\artemis_CSharp\ArtemisTest\obj\Release\ResolveAssemblyReference.cache
+C:\Users\tpastor\Desktop\artemis\artemis_CSharp\ArtemisTest\obj\Release\ArtemisTest.dll

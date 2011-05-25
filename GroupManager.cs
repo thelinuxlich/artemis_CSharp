@@ -57,7 +57,7 @@ namespace Artemis
 					groupByEntity.Set(e.GetId(), null);
 					
 					Bag<Entity> entities;
-					if(!entitiesByGroup.TryGetValue(group,out entities)) {
+					if(entitiesByGroup.TryGetValue(group,out entities)) {
 						entities.Remove(e);
 					}
 				}
