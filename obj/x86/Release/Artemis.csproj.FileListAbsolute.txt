@@ -1,3 +1,9 @@
 D:\artemis_CSharp\obj\x86\Release\ResolveAssemblyReference.cache
 D:\artemis_CSharp\bin\Release\artemis.dll
 D:\artemis_CSharp\obj\x86\Release\artemis.dll
+C:\Users\tpastor\Desktop\art\artemis_CSharp\bin\Release\artemis.dll
+C:\Users\tpastor\Desktop\art\artemis_CSharp\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Users\tpastor\Desktop\art\artemis_CSharp\obj\x86\Release\artemis.dll
+C:\Users\tpastor\Desktop\artemis\artemis_CSharp\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Users\tpastor\Desktop\artemis\artemis_CSharp\obj\x86\Release\artemis.dll
+C:\Users\tpastor\Desktop\artemis\artemis_CSharp\bin\Release\artemis.dll

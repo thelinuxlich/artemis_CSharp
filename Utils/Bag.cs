@@ -1,8 +1,9 @@
 using System;
 namespace Artemis
 {
-	public class Bag<E> {
-		private Object[] data;
+	public class Bag<E> where E : class 
+    {
+		private E[] data;
 		private int size = 0;
 	
 		/**
@@ -10,7 +11,7 @@ namespace Artemis
 		 * 
 		 */
 		public Bag() {
-			data = new Object[16];
+			data = new E[16];
 		}
 	
 		/**
@@ -20,7 +21,7 @@ namespace Artemis
 		 *            the initial capacity of Bag
 		 */
 		public Bag(int capacity) {
-			data = new Object[capacity];
+			data = new E[capacity];
 		}
 	
 		/**
@@ -32,12 +33,12 @@ namespace Artemis
 		 * @return element that was removed from the Bag
 		 */
 		public E Remove(int index) {
-			Object o = data[index]; // make copy of element to remove so it can be
+			E o = data[index]; // make copy of element to remove so it can be
 			// returned
 			data[index] = data[--size]; // overwrite item to remove with last
 			// element
 			data[size] = null; // null last element, so gc can do its work
-			return (E) o;
+			return o;
 		}
 		
 		
@@ -48,9 +49,9 @@ namespace Artemis
 		 */
 		public E RemoveLast() {
 			if(size > 0) {
-				Object o = data[--size];
+				E o = data[--size];
 				data[size] = null;
-				return (E) o;
+				return o;
 			}
 			
 			return default(E);
@@ -132,7 +133,7 @@ namespace Artemis
 		 * @return the element at the specified position in bag
 		 */
 		public E Get(int index) {
-			return (E) data[index];
+			return data[index];
 		}
 	
 		/**
@@ -200,8 +201,8 @@ namespace Artemis
 		}
 		
 		private void Grow(int newCapacity) {
-			Object[] oldData = data;
-			data = new Object[newCapacity];
+			E[] oldData = data;
+			data = new E[newCapacity];
 			Array.Copy(oldData, 0, data, 0, oldData.Length);
 		}
 	
