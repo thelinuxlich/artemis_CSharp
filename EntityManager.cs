@@ -56,7 +56,7 @@ namespace Artemis
 		}
 	
 		private void RemoveComponentsOfEntity(Entity e) {
-			for(int a = 0; componentsByType.Size() > a; a++) {
+			for(int a = 0,b = componentsByType.Size(); b > a; a++) {
 				Bag<Component> components = componentsByType.Get(a);
 				if(components != null && e.GetId() < components.Size()) {
 					components.Set(e.GetId(), null);
@@ -148,7 +148,7 @@ namespace Artemis
 	
 		public Bag<Component> GetComponents(Entity e) {
 			entityComponents.Clear();
-			for(int a = 0; componentsByType.Size() > a; a++) {
+			for(int a = 0,b = componentsByType.Size(); b > a; a++) {
 				Bag<Component> components = componentsByType.Get(a);
 				if(components != null && e.GetId() < components.Size()) {
 					Component component = components.Get(e.GetId());

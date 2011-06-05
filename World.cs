@@ -94,14 +94,14 @@ namespace Artemis
 		 */
 		public void LoopStart() {
 			if(!refreshed.IsEmpty()) {
-				for(int i = 0; refreshed.Size() > i; i++) {
+				for(int i = 0, j = refreshed.Size(); j > i; i++) {
 					entityManager.Refresh(refreshed.Get(i));
 				}
 				refreshed.Clear();
 			}
 			
 			if(!deleted.IsEmpty()) {
-				for(int i = 0; deleted.Size() > i; i++) {
+				for(int i = 0,j = deleted.Size(); j > i; i++) {
 					Entity e = deleted.Get(i);
 					groupManager.Remove(e);
 					entityManager.Remove(e);

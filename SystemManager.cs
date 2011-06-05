@@ -40,7 +40,7 @@ namespace Artemis
 		 * After adding all systems to the world, you must initialize them all.
 		 */
 		public void InitializeAll() {
-		   for (int i = 0; i < bagged.Size(); i++) {
+		   for (int i = 0, j = bagged.Size(); i < j; i++) {
 		      bagged.Get(i).Initialize();
 		   }
 		} 

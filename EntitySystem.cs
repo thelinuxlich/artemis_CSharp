@@ -17,7 +17,8 @@ namespace Artemis
 		public EntitySystem(params Type[] types) {
             actives = new Dictionary<int, Entity>();
 	
-			foreach (Type type in types) {
+			for (int i = 0, j = types.Length; i < j; i++) {
+                Type type = types[i];
 				ComponentType ct = ComponentTypeManager.GetTypeFor(type);
 				typeFlags |= ct.GetBit();
 			}
@@ -107,7 +108,7 @@ namespace Artemis
 		public static Type[] GetMergedTypes(Type requiredType, params Type[] otherTypes) {
 			Type[] types = new Type[1+otherTypes.Length];
 			types[0] = requiredType;
-			for(int i = 0; otherTypes.Length > i; i++) {
+			for(int i = 0,j = otherTypes.Length; j > i; i++) {
 				types[i+1] = otherTypes[i];
 			}
 			return types;

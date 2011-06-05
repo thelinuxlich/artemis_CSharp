@@ -108,7 +108,7 @@ namespace Artemis
 		public bool RemoveAll(Bag<E> bag) {
 			bool modified = false;
 	
-			for (int i = 0; i < bag.Size(); i++) {
+			for (int i = 0, bagSize = bag.Size(); i < bagSize; i++) {
 				Object o1 = bag.Get(i);
 	
 				for (int j = 0; j < size; j++) {
@@ -225,7 +225,7 @@ namespace Artemis
 		 * @param added
 		 */
 		public void AddAll(Bag<E> items) {
-			for(int i = 0; items.Size() > i; i++) {
+			for(int i = 0,j = items.Size(); j > i; i++) {
 				Add(items.Get(i));
 			}
 		}

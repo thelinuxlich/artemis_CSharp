@@ -20,7 +20,7 @@ namespace Artemis
 
         public override void ProcessEntities(Dictionary<int, Entity> entities, int accumulatedDelta)
         {
-			foreach (var item in entities.Values)
+			foreach (Entity item in entities.Values)
 	        {
 		       Process(item, accumulatedDelta);
 	        }            
