@@ -64,11 +64,13 @@
     <Compile Include="EntityProcessingSystem.cs" />
     <Compile Include="EntitySystem.cs" />
     <Compile Include="GroupManager.cs" />
+    <Compile Include="GroupSystem.cs" />
     <Compile Include="IntervalEntityProcessingSystem.cs" />
     <Compile Include="IntervalEntitySystem.cs" />
     <Compile Include="SystemBitManager.cs" />
     <Compile Include="SystemManager.cs" />
     <Compile Include="TagManager.cs" />
+    <Compile Include="TagSystem.cs" />
     <Compile Include="World.cs" />
     <Compile Include="Utils\Utils.cs" />
     <Compile Include="Utils\Bag.cs" />
@@ -97,5 +99,8 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
   </ItemGroup>
 </Project>
