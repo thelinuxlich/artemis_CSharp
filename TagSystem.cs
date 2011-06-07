@@ -26,9 +26,5 @@ namespace Artemis
                 Process(e);
             }
 		}
-		
-		public override bool CheckProcessing() {
-			return true;
-		}
     }
 }

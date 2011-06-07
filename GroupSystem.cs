@@ -24,10 +24,6 @@ namespace Artemis
             for (int i = 0, j = groupedEntities.Size(); i < j; i++)            {
                 Process(groupedEntities.Get(i));
             } 
-		}
-		
-		public override bool CheckProcessing() {
-			return true;
-		}
+		}		
     }
 }

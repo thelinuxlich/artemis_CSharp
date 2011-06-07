@@ -6,6 +6,8 @@ namespace Artemis
 		private long systemBit = 0;
 	
 		private long typeFlags = 0;
+		
+		protected bool enabled = true;
 	
 		protected World world;
 	
@@ -56,7 +58,7 @@ namespace Artemis
 		 * 
 		 * @return true if the system should be processed, false if not.
 		 */
-        public virtual bool CheckProcessing() { return true; }
+        public virtual bool CheckProcessing() { return enabled; }
 	
 		/**
 		 * Override to implement code that gets executed when systems are initialized.
@@ -95,6 +97,18 @@ namespace Artemis
 	
 		public void SetWorld(World world) {
 			this.world = world;
+		}
+		
+		public void Toggle() {
+			enabled = !enabled;
+		}
+		
+		public void Enable() {
+			enabled = true;
+		}
+		
+		public void Disable() {
+			enabled = false;
 		}
 		
 		/**

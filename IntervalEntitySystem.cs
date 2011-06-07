@@ -13,7 +13,7 @@ namespace Artemis
 			acc += world.GetDelta();
 			if(acc >= interval) {
 				acc -= interval;
-				return true;
+				return enabled;
 			}
 			return false;
 		}

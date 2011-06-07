@@ -21,7 +21,7 @@ namespace Artemis
 				acc += world.GetDelta();
 				
 				if(acc >= delay) {
-					return true;
+					return enabled;
 				}
 			}
 			return false;

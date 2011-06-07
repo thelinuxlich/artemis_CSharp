@@ -3,27 +3,27 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="EntitySystem.cs">
     <Files>
       <File FileName="Component.cs" Line="5" Column="3" />
-      <File FileName="EntitySystem.cs" Line="21" Column="12" />
+      <File FileName="EntitySystem.cs" Line="19" Column="14" />
       <File FileName="Entity.cs" Line="1" Column="1" />
       <File FileName="../Downloads/build/mono-2.10.2/mcs/class/corlib/System/Nullable.cs" Line="98" Column="1" />
-      <File FileName="EntityManager.cs" Line="4" Column="16" />
-      <File FileName="World.cs" Line="4" Column="16" />
+      <File FileName="EntityManager.cs" Line="1" Column="1" />
+      <File FileName="World.cs" Line="1" Column="1" />
       <File FileName="ArtemisTest/Test.cs" Line="1" Column="1" />
-      <File FileName="SystemManager.cs" Line="5" Column="16" />
+      <File FileName="SystemManager.cs" Line="1" Column="1" />
       <File FileName="Utils/Utils.cs" Line="1" Column="1" />
-      <File FileName="ComponentMapper.cs" Line="4" Column="16" />
-      <File FileName="ComponentTypeManager.cs" Line="5" Column="16" />
+      <File FileName="ComponentMapper.cs" Line="1" Column="1" />
+      <File FileName="ComponentTypeManager.cs" Line="1" Column="1" />
       <File FileName="DelayedEntityProcessingSystem.cs" Line="1" Column="1" />
-      <File FileName="DelayedEntitySystem.cs" Line="1" Column="1" />
+      <File FileName="DelayedEntitySystem.cs" Line="21" Column="12" />
       <File FileName="GroupManager.cs" Line="5" Column="16" />
-      <File FileName="ComponentType.cs" Line="4" Column="16" />
-      <File FileName="EntityProcessingSystem.cs" Line="1" Column="1" />
-      <File FileName="GroupSystem.cs" Line="1" Column="1" />
+      <File FileName="ComponentType.cs" Line="1" Column="1" />
+      <File FileName="EntityProcessingSystem.cs" Line="27" Column="4" />
+      <File FileName="GroupSystem.cs" Line="27" Column="4" />
       <File FileName="IntervalEntityProcessingSystem.cs" Line="1" Column="1" />
-      <File FileName="IntervalEntitySystem.cs" Line="1" Column="1" />
-      <File FileName="SystemBitManager.cs" Line="18" Column="5" />
+      <File FileName="IntervalEntitySystem.cs" Line="16" Column="17" />
+      <File FileName="SystemBitManager.cs" Line="1" Column="1" />
       <File FileName="TagManager.cs" Line="1" Column="1" />
-      <File FileName="TagSystem.cs" Line="1" Column="1" />
+      <File FileName="TagSystem.cs" Line="28" Column="4" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
