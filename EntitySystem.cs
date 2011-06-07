@@ -9,14 +9,12 @@ namespace Artemis
 	
 		protected World world;
 	
-		private Dictionary<int,Entity> actives;
+		private Dictionary<int,Entity> actives = new Dictionary<int, Entity>();
 		
 		public EntitySystem() {
 		}
 	
 		public EntitySystem(params Type[] types) {
-            actives = new Dictionary<int, Entity>();
-	
 			for (int i = 0, j = types.Length; i < j; i++) {
                 Type type = types[i];
 				ComponentType ct = ComponentTypeManager.GetTypeFor(type);

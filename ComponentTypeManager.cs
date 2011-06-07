@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 namespace Artemis
 {
-	public class ComponentTypeManager {
+	public static class ComponentTypeManager {
         private static Dictionary<Type, ComponentType> componentTypes = new Dictionary<Type, ComponentType>();
 		
 		public static ComponentType GetTypeFor(Type component)

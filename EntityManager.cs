@@ -1,29 +1,22 @@
 using System;
 namespace Artemis
 {
-	public class EntityManager {
+	public sealed class EntityManager {
 		private World world;
-		private Bag<Entity> activeEntities;
-		private Bag<Entity> removedAndAvailable;
+		private Bag<Entity> activeEntities = new Bag<Entity>();
+		private Bag<Entity> removedAndAvailable = new Bag<Entity>();
 		private int nextAvailableId;
 		private int count;
 		private long uniqueEntityId;
 		private long totalCreated;
 		private long totalRemoved;
 		
-		private Bag<Bag<Component>> componentsByType;
+		private Bag<Bag<Component>> componentsByType = new Bag<Bag<Component>>();
 		
-		private Bag<Component> entityComponents; // Added for debug support.
+		private Bag<Component> entityComponents = new Bag<Component>(); // Added for debug support.
 	
 		public EntityManager(World world) {
 			this.world = world;
-			
-			activeEntities = new Bag<Entity>();
-			removedAndAvailable = new Bag<Entity>();
-			
-			componentsByType = new Bag<Bag<Component>>();
-			
-			entityComponents = new Bag<Component>();
 		}
 	
 		public Entity Create() {
@@ -56,10 +49,11 @@ namespace Artemis
 		}
 	
 		private void RemoveComponentsOfEntity(Entity e) {
+			int entityId = e.GetId();
 			for(int a = 0,b = componentsByType.Size(); b > a; a++) {
 				Bag<Component> components = componentsByType.Get(a);
-				if(components != null && e.GetId() < components.Size()) {
-					components.Set(e.GetId(), null);
+				if(components != null && entityId < components.Size()) {
+					components.Set(entityId, null);
 				}
 			}
 		}
@@ -112,9 +106,10 @@ namespace Artemis
 		}
 		
 		public Component GetComponent(Entity e, ComponentType type) {
+			int entityId = e.GetId();
 			Bag<Component> bag = componentsByType.Get(type.GetId());
-			if(bag != null && e.GetId() < bag.GetCapacity())
-				return bag.Get(e.GetId());
+			if(bag != null && entityId < bag.GetCapacity())
+				return bag.Get(entityId);
 			return null;
 		}
 		
@@ -148,10 +143,11 @@ namespace Artemis
 	
 		public Bag<Component> GetComponents(Entity e) {
 			entityComponents.Clear();
+			int entityId = e.GetId();
 			for(int a = 0,b = componentsByType.Size(); b > a; a++) {
 				Bag<Component> components = componentsByType.Get(a);
-				if(components != null && e.GetId() < components.Size()) {
-					Component component = components.Get(e.GetId());
+				if(components != null && entityId < components.Size()) {
+					Component component = components.Get(entityId);
 					if(component != null) {
 						entityComponents.Add(component);
 					}

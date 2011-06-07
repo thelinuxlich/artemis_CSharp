@@ -1,7 +1,7 @@
 using System;
 namespace Artemis
 {
-	public class ComponentMapper {
+	public sealed class ComponentMapper {
 		private ComponentType type;
 		private EntityManager em;
 	

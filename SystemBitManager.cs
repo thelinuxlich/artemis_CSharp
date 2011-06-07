@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 namespace Artemis
 {
-	public class SystemBitManager {
+	public static class SystemBitManager {
 		private static int POS = 0;
 		private static Dictionary<EntitySystem, long> systemBits = new Dictionary<EntitySystem, long>();
 		

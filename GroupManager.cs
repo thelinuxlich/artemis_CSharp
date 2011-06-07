@@ -2,17 +2,14 @@ using System;
 using System.Collections.Generic;
 namespace Artemis
 {
-	public class GroupManager {
+	public sealed class GroupManager {
 		private World world;
-		private Bag<Entity> EMPTY_BAG;
-		private Dictionary<String, Bag<Entity>> entitiesByGroup;
-		private Bag<String> groupByEntity;
+		private Bag<Entity> EMPTY_BAG = new Bag<Entity>();
+		private Dictionary<String, Bag<Entity>> entitiesByGroup = new Dictionary<String, Bag<Entity>>();
+		private Bag<String> groupByEntity = new Bag<String>();
 	
 		public GroupManager(World world) {
 			this.world = world;
-			entitiesByGroup = new Dictionary<String, Bag<Entity>>();
-			groupByEntity = new Bag<String>();
-			EMPTY_BAG = new Bag<Entity>();
 		}
 		
 		/**
@@ -51,10 +48,11 @@ namespace Artemis
 		 * @param e the entity.
 		 */
 		public void Remove(Entity e) {
-			if(e.GetId() < groupByEntity.GetCapacity()) {
-				String group = groupByEntity.Get(e.GetId());
+			int entityId = e.GetId();
+			if(entityId < groupByEntity.GetCapacity()) {
+				String group = groupByEntity.Get(entityId);
 				if(group != null) {
-					groupByEntity.Set(e.GetId(), null);
+					groupByEntity.Set(entityId, null);
 					
 					Bag<Entity> entities;
 					if(entitiesByGroup.TryGetValue(group,out entities)) {
@@ -69,8 +67,9 @@ namespace Artemis
 		 * @return the name of the group that this entity belongs to, null if none.
 		 */
 		public String GetGroupOf(Entity e) {
-			if(e.GetId() < groupByEntity.GetCapacity()) {
-				return groupByEntity.Get(e.GetId());
+			int entityId = e.GetId();
+			if(entityId < groupByEntity.GetCapacity()) {
+				return groupByEntity.Get(entityId);
 			}
 			return null;
 		}

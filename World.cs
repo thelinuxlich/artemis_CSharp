@@ -1,7 +1,7 @@
 using System;
 namespace Artemis
 {
-	public class World {
+	public sealed class World {
 		private SystemManager systemManager;
 		private EntityManager entityManager;
 		private TagManager tagManager;

@@ -2,15 +2,13 @@ using System;
 using System.Collections.Generic;
 namespace Artemis
 {
-	public class SystemManager {
+	public sealed class SystemManager {
 		private World world;
-		private Dictionary<Type, EntitySystem> systems;
-		private Bag<EntitySystem> bagged;
+		private Dictionary<Type, EntitySystem> systems = new Dictionary<Type, EntitySystem>();
+		private Bag<EntitySystem> bagged = new Bag<EntitySystem>();
 		
 		public SystemManager(World world) {
 			this.world = world;
-			systems = new Dictionary<Type, EntitySystem>();
-			bagged = new Bag<EntitySystem>();
 		}
 		
 		public T SetSystem<T>(T system) where T : EntitySystem {

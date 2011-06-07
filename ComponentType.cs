@@ -1,7 +1,7 @@
 using System;
 namespace Artemis
 {
-	public class ComponentType {
+	public sealed class ComponentType {
 		private static long nextBit = 1;
 		private static int nextId = 0;
 		

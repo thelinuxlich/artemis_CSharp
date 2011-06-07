@@ -2,13 +2,12 @@ using System;
 using System.Collections.Generic;
 namespace Artemis
 {
-	public class TagManager {
+	public sealed class TagManager {
 		private World world;
-		private Dictionary<String, Entity> entityByTag;
+		private Dictionary<String, Entity> entityByTag = new Dictionary<String, Entity>();
 	
 		public TagManager(World world) {
 			this.world = world;
-			entityByTag = new Dictionary<String, Entity>();
 		}
 	
 		public void Register(String tag, Entity e) {
