@@ -7,8 +7,8 @@ namespace Artemis
 {
     public abstract class TagSystem : EntitySystem
     {
-        private String tag;
-        public TagSystem(String tag) {
+        protected string tag;
+        public TagSystem(string tag) {
             this.tag = tag;
 		}
 		

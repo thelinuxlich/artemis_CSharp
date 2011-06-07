@@ -7,8 +7,8 @@ namespace Artemis
 {
     public abstract class GroupSystem : EntitySystem
     {
-        private String group;
-        public GroupSystem(String group) {
+        protected string group;
+        public GroupSystem(string group) {
             this.group = group;
 		}
 		

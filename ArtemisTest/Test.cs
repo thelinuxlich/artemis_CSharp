@@ -22,8 +22,7 @@ namespace ArtemisTest
 			int entityId = e.GetId();
 			for(int i = 0;i < 10;i++) {
 				float oldHealth = e.GetComponent<Health>().GetHealth();
-				world.LoopStart();
-    		    world.SetDelta(i);
+				world.SetDelta(i);
 	            hs.Process();
 				float newHealth = e.GetComponent<Health>().GetHealth();
 				Assert.Greater(oldHealth,newHealth);

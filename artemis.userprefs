@@ -1,6 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="EntitySystem.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ArtemisTest/Test.cs">
     <Files>
       <File FileName="Component.cs" Line="5" Column="3" />
       <File FileName="EntitySystem.cs" Line="19" Column="14" />
@@ -8,29 +8,30 @@
       <File FileName="../Downloads/build/mono-2.10.2/mcs/class/corlib/System/Nullable.cs" Line="98" Column="1" />
       <File FileName="EntityManager.cs" Line="1" Column="1" />
       <File FileName="World.cs" Line="1" Column="1" />
-      <File FileName="ArtemisTest/Test.cs" Line="1" Column="1" />
+      <File FileName="ArtemisTest/Test.cs" Line="25" Column="5" />
       <File FileName="SystemManager.cs" Line="1" Column="1" />
       <File FileName="Utils/Utils.cs" Line="1" Column="1" />
       <File FileName="ComponentMapper.cs" Line="1" Column="1" />
       <File FileName="ComponentTypeManager.cs" Line="1" Column="1" />
       <File FileName="DelayedEntityProcessingSystem.cs" Line="1" Column="1" />
-      <File FileName="DelayedEntitySystem.cs" Line="21" Column="12" />
-      <File FileName="GroupManager.cs" Line="5" Column="16" />
+      <File FileName="DelayedEntitySystem.cs" Line="1" Column="1" />
+      <File FileName="GroupManager.cs" Line="1" Column="1" />
       <File FileName="ComponentType.cs" Line="1" Column="1" />
-      <File FileName="EntityProcessingSystem.cs" Line="27" Column="4" />
-      <File FileName="GroupSystem.cs" Line="27" Column="4" />
+      <File FileName="EntityProcessingSystem.cs" Line="1" Column="1" />
+      <File FileName="GroupSystem.cs" Line="10" Column="20" />
       <File FileName="IntervalEntityProcessingSystem.cs" Line="1" Column="1" />
-      <File FileName="IntervalEntitySystem.cs" Line="16" Column="17" />
+      <File FileName="IntervalEntitySystem.cs" Line="19" Column="4" />
       <File FileName="SystemBitManager.cs" Line="1" Column="1" />
       <File FileName="TagManager.cs" Line="1" Column="1" />
-      <File FileName="TagSystem.cs" Line="28" Column="4" />
+      <File FileName="TagSystem.cs" Line="10" Column="20" />
+      <File FileName="IntervalTagSystem.cs" Line="5" Column="18" />
+      <File FileName="IntervalGroupSystem.cs" Line="5" Column="18" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="Artemis" expanded="True">
-            <Node name="EntitySystem.cs" selected="True" />
-          </Node>
+          <Node name="Artemis" expanded="True" selected="True" />
+          <Node name="ArtemisTest" expanded="True" />
         </State>
       </Pad>
       <Pad Id="ClassPad">
