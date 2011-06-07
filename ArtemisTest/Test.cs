@@ -14,7 +14,7 @@ namespace ArtemisTest
 		{
 			World world = new World();
 			SystemManager systemManager = world.GetSystemManager();
-			HealthBarRenderSystem hs = systemManager.SetSystem<HealthBarRenderSystem>(new HealthBarRenderSystem());
+			EntitySystem hs = systemManager.SetSystem(new HealthBarRenderSystem());
 			systemManager.InitializeAll();
 			Entity e = world.CreateEntity();
 		    e.AddComponent(new Health(100));
