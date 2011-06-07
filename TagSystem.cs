@@ -21,7 +21,10 @@ namespace Artemis
         public override void ProcessEntities(Dictionary<int, Entity> entities)
         {
             Entity e = this.world.GetTagManager().GetEntity(tag);
-            Process(e);
+            if (e != null)
+            {
+                Process(e);
+            }
 		}
 		
 		public override bool CheckProcessing() {
