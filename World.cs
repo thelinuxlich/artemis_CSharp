@@ -6,7 +6,9 @@ namespace Artemis
 		private EntityManager entityManager;
 		private TagManager tagManager;
 		private GroupManager groupManager;
-		
+        private Bag<Entity> refreshed = new Bag<Entity>();
+        private Bag<Entity> deleted = new Bag<Entity>();
+
 		private int delta;
 		
 		public World() {
@@ -55,7 +57,10 @@ namespace Artemis
 		 */
 		public void DeleteEntity(Entity e) {
 			groupManager.Remove(e);
-			entityManager.Remove(e);
+            if (!deleted.Contains(e))
+            {
+                deleted.Add(e);
+            }
 		}
 		
 		/**
@@ -63,7 +68,7 @@ namespace Artemis
 		 * @param e entity
 		 */
 		public void RefreshEntity(Entity e) {
-			entityManager.Refresh(e);
+			refreshed.Add(e);
 		}
 		
 		/**
@@ -82,5 +87,27 @@ namespace Artemis
 		public Entity GetEntity(int entityId) {
 			return entityManager.GetEntity(entityId);
 		}
+
+        public void LoopStart()
+        {
+            if (!refreshed.IsEmpty())
+            {
+                for (int i = 0, j = refreshed.Size(); j > i; i++)
+                {
+                    entityManager.Refresh(refreshed.Get(i));
+                }
+                refreshed.Clear();
+            }
+
+            if (!deleted.IsEmpty())
+            {
+                for (int i = 0, j = deleted.Size(); j > i; i++)
+                {
+                    Entity e = deleted.Get(i);
+                    entityManager.Remove(e);
+                }
+                deleted.Clear();
+            }
+        }
 	}
 }

@@ -21,16 +21,17 @@ namespace ArtemisTest
 		    e.Refresh();
 			int entityId = e.GetId();
 			for(int i = 0;i < 10;i++) {
+                world.LoopStart();
 				float oldHealth = e.GetComponent<Health>().GetHealth();
 				world.SetDelta(i);
 	            hs.Process();
 				float newHealth = e.GetComponent<Health>().GetHealth();
 				Assert.Greater(oldHealth,newHealth);
 			}
+            world.LoopStart();
 			float actualHealth = e.GetComponent<Health>().GetHealth();
 			Assert.IsTrue(actualHealth == 0);
 			world.DeleteEntity(e);
-			world.LoopStart();
 			Assert.IsTrue(world.GetEntity(entityId) == null);
 		}
 	}

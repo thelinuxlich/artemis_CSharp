@@ -1,10 +1,10 @@
 D:\artemis_CSharp\obj\x86\Debug\ResolveAssemblyReference.cache
-D:\artemis_CSharp\bin\Debug\artemis.exe
 D:\artemis_CSharp\bin\Debug\artemis.pdb
-D:\artemis_CSharp\obj\x86\Debug\artemis.exe
 D:\artemis_CSharp\obj\x86\Debug\artemis.pdb
 C:\Users\tpastor\Desktop\artemis\artemis_CSharp\bin\Debug\artemis.dll
 C:\Users\tpastor\Desktop\artemis\artemis_CSharp\bin\Debug\artemis.pdb
 C:\Users\tpastor\Desktop\artemis\artemis_CSharp\obj\x86\Debug\ResolveAssemblyReference.cache
 C:\Users\tpastor\Desktop\artemis\artemis_CSharp\obj\x86\Debug\artemis.dll
 C:\Users\tpastor\Desktop\artemis\artemis_CSharp\obj\x86\Debug\artemis.pdb
+D:\artemis_CSharp\bin\Debug\artemis.dll
+D:\artemis_CSharp\obj\x86\Debug\artemis.dll
