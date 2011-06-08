@@ -10,6 +10,9 @@ namespace Artemis
 		private World world;
 		private EntityManager entityManager;
 		
+		public Entity() {
+		}
+		
 		public Entity(World world, int id) {
 			this.world = world;
 			this.entityManager = world.GetEntityManager();
@@ -24,6 +27,18 @@ namespace Artemis
 		 */
 		public int GetId() {
 			return id;
+		}
+		
+		public void SetId(int id) {
+			this.id = id;
+		}
+		
+		public void SetWorld(World world) {
+			this.world = world;
+		}
+		
+		public void SetEntityManager(EntityManager entityManager) {
+			this.entityManager = entityManager;
 		}
 		
 		public void SetUniqueId(long uniqueId) {

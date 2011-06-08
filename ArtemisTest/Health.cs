@@ -8,9 +8,13 @@ namespace ArtemisTest.Components
 {
     class Health : Component
     {
-        private float health;
-        private float maximumHealth;
-
+        private float health = 0;
+        private float maximumHealth = 0;
+		
+		public Health()
+        {
+        }
+		
         public Health(float health)
         {
             this.health = this.maximumHealth = health;
@@ -19,6 +23,11 @@ namespace ArtemisTest.Components
         public float GetHealth()
         {
             return health;
+        }
+		
+		public void AddHealth(float health)
+        {
+            this.health += health;
         }
 
         public float GetMaximumHealth()

@@ -1,0 +1,2990 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TestRecord xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Results>
+    <UnitTestResult>
+      <TestDate>2011-06-08T11:20:37</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T11:21:55</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T11:23:04</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T11:23:38</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T11:24:38</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T11:25:32</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T11:26:57</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T11:27:19</TestDate>
+      <Status>Success</Status>
+      <TotalFailures>0</TotalFailures>
+      <TotalSuccess>1</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T11:32:13</TestDate>
+      <Status>Success</Status>
+      <TotalFailures>0</TotalFailures>
+      <TotalSuccess>1</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T11:36:02</TestDate>
+      <Status>Success</Status>
+      <TotalFailures>0</TotalFailures>
+      <TotalSuccess>1</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T11:37:07</TestDate>
+      <Status>Success</Status>
+      <TotalFailures>0</TotalFailures>
+      <TotalSuccess>1</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T12:09:29</TestDate>
+      <Status>Success</Status>
+      <TotalFailures>0</TotalFailures>
+      <TotalSuccess>1</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T12:18:02</TestDate>
+      <Status>Success</Status>
+      <TotalFailures>0</TotalFailures>
+      <TotalSuccess>1</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T12:18:06</TestDate>
+      <Status>Success</Status>
+      <TotalFailures>0</TotalFailures>
+      <TotalSuccess>1</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T12:18:43</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T12:38:50</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T12:39:05</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T12:39:51</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T12:40:38</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T12:52:27</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T12:52:58</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T12:58:42</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T13:25:30</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T13:26:41</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T13:27:34</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T13:27:52</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T14:24:28</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T14:27:42</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T14:27:55</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T14:28:09</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T14:28:19</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T14:29:16</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T14:30:33</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T14:31:03</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T14:31:52</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T14:31:57</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T14:34:31</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T14:34:41</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T14:40:35</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T14:44:26</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T15:02:55</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T15:03:50</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T15:04:07</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T15:04:59</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T15:23:20</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T15:24:20</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T15:39:40</TestDate>
+      <Status>Success</Status>
+      <TotalFailures>0</TotalFailures>
+      <TotalSuccess>1</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T15:41:11</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T15:44:07</TestDate>
+      <Status>Success</Status>
+      <TotalFailures>0</TotalFailures>
+      <TotalSuccess>1</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T15:44:12</TestDate>
+      <Status>Success</Status>
+      <TotalFailures>0</TotalFailures>
+      <TotalSuccess>1</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T15:45:01</TestDate>
+      <Status>Success</Status>
+      <TotalFailures>0</TotalFailures>
+      <TotalSuccess>1</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T15:45:52</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T15:46:23</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T15:56:40</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T15:58:28</TestDate>
+      <Status>Success</Status>
+      <TotalFailures>0</TotalFailures>
+      <TotalSuccess>1</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T15:58:48</TestDate>
+      <Status>Success</Status>
+      <TotalFailures>0</TotalFailures>
+      <TotalSuccess>1</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T16:11:07</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T16:11:18</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T16:11:46</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T16:12:11</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T16:13:44</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>1</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Child test failed</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T16:14:05</TestDate>
+      <Status>Failure</Status>
+      <TotalFailures>0</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Connection refused</Message>
+      <StackTrace>  at Mono.Remoting.Channels.Unix.HostConnectionPool.CreateConnection () [0x0002a] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixConnectionPool.cs:265 
+  at Mono.Remoting.Channels.Unix.HostConnectionPool.GetConnection () [0x000bb] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixConnectionPool.cs:249 
+  at Mono.Remoting.Channels.Unix.UnixConnectionPool.GetConnection (System.String path) [0x00049] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixConnectionPool.cs:104 
+  at Mono.Remoting.Channels.Unix.UnixClientTransportSink.ProcessMessage (IMessage msg, ITransportHeaders requestHeaders, System.IO.Stream requestStream, ITransportHeaders&amp; responseHeaders, System.IO.Stream&amp; responseStream) [0x00025] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixClientTransportSink.cs:171 
+  at System.Runtime.Remoting.Channels.BinaryClientFormatterSink.SyncProcessMessage (IMessage msg) [0x0006c] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/System.Runtime.Remoting/System.Runtime.Remoting.Channels/BinaryClientFormatterSink.cs:157 </StackTrace>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T16:14:55</TestDate>
+      <Status>Success</Status>
+      <TotalFailures>0</TotalFailures>
+      <TotalSuccess>1</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T16:16:43</TestDate>
+      <Status>Success</Status>
+      <TotalFailures>0</TotalFailures>
+      <TotalSuccess>1</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T16:21:08</TestDate>
+      <Status>Success</Status>
+      <TotalFailures>0</TotalFailures>
+      <TotalSuccess>1</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-08T16:31:49</TestDate>
+      <Status>Success</Status>
+      <TotalFailures>0</TotalFailures>
+      <TotalSuccess>1</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+    </UnitTestResult>
+  </Results>
+  <Tests>
+    <TestRecord Name="ArtemisTest">
+      <Results>
+        <UnitTestResult>
+          <TestDate>2011-06-08T11:20:37</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T11:21:55</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T11:23:04</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T11:23:38</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T11:24:38</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T11:25:32</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T11:26:57</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T11:27:19</TestDate>
+          <Status>Success</Status>
+          <TotalFailures>0</TotalFailures>
+          <TotalSuccess>1</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T11:32:13</TestDate>
+          <Status>Success</Status>
+          <TotalFailures>0</TotalFailures>
+          <TotalSuccess>1</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T11:36:02</TestDate>
+          <Status>Success</Status>
+          <TotalFailures>0</TotalFailures>
+          <TotalSuccess>1</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T11:37:07</TestDate>
+          <Status>Success</Status>
+          <TotalFailures>0</TotalFailures>
+          <TotalSuccess>1</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T12:09:29</TestDate>
+          <Status>Success</Status>
+          <TotalFailures>0</TotalFailures>
+          <TotalSuccess>1</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T12:18:02</TestDate>
+          <Status>Success</Status>
+          <TotalFailures>0</TotalFailures>
+          <TotalSuccess>1</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T12:18:06</TestDate>
+          <Status>Success</Status>
+          <TotalFailures>0</TotalFailures>
+          <TotalSuccess>1</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T12:18:43</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T12:38:50</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T12:39:05</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T12:39:51</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T12:40:38</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T12:52:27</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T12:52:58</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T12:58:42</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T13:25:30</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T13:26:41</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T13:27:34</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T13:27:52</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T14:24:28</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T14:27:42</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T14:27:55</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T14:28:09</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T14:28:19</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T14:29:16</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T14:30:33</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T14:31:03</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T14:31:52</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T14:31:57</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T14:34:31</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T14:34:41</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T14:40:35</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T14:44:26</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T15:02:55</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T15:03:50</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T15:04:07</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T15:04:59</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T15:23:20</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T15:24:20</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T15:39:40</TestDate>
+          <Status>Success</Status>
+          <TotalFailures>0</TotalFailures>
+          <TotalSuccess>1</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T15:41:11</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T15:44:07</TestDate>
+          <Status>Success</Status>
+          <TotalFailures>0</TotalFailures>
+          <TotalSuccess>1</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T15:44:12</TestDate>
+          <Status>Success</Status>
+          <TotalFailures>0</TotalFailures>
+          <TotalSuccess>1</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T15:45:01</TestDate>
+          <Status>Success</Status>
+          <TotalFailures>0</TotalFailures>
+          <TotalSuccess>1</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T15:45:52</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T15:46:23</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T15:56:40</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T15:58:28</TestDate>
+          <Status>Success</Status>
+          <TotalFailures>0</TotalFailures>
+          <TotalSuccess>1</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T15:58:48</TestDate>
+          <Status>Success</Status>
+          <TotalFailures>0</TotalFailures>
+          <TotalSuccess>1</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T16:11:07</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T16:11:18</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T16:11:46</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T16:12:11</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T16:13:44</TestDate>
+          <Status>Failure</Status>
+          <TotalFailures>1</TotalFailures>
+          <TotalSuccess>0</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+          <Message>Child test failed</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T16:14:55</TestDate>
+          <Status>Success</Status>
+          <TotalFailures>0</TotalFailures>
+          <TotalSuccess>1</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T16:16:43</TestDate>
+          <Status>Success</Status>
+          <TotalFailures>0</TotalFailures>
+          <TotalSuccess>1</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T16:21:08</TestDate>
+          <Status>Success</Status>
+          <TotalFailures>0</TotalFailures>
+          <TotalSuccess>1</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-08T16:31:49</TestDate>
+          <Status>Success</Status>
+          <TotalFailures>0</TotalFailures>
+          <TotalSuccess>1</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+        </UnitTestResult>
+      </Results>
+      <Tests>
+        <TestRecord Name="Test">
+          <Results>
+            <UnitTestResult>
+              <TestDate>2011-06-08T11:20:37</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T11:21:55</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T11:23:04</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T11:23:38</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T11:24:38</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T11:25:32</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T11:26:57</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T11:27:19</TestDate>
+              <Status>Success</Status>
+              <TotalFailures>0</TotalFailures>
+              <TotalSuccess>1</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T11:32:13</TestDate>
+              <Status>Success</Status>
+              <TotalFailures>0</TotalFailures>
+              <TotalSuccess>1</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T11:36:02</TestDate>
+              <Status>Success</Status>
+              <TotalFailures>0</TotalFailures>
+              <TotalSuccess>1</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T11:37:07</TestDate>
+              <Status>Success</Status>
+              <TotalFailures>0</TotalFailures>
+              <TotalSuccess>1</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T12:09:29</TestDate>
+              <Status>Success</Status>
+              <TotalFailures>0</TotalFailures>
+              <TotalSuccess>1</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T12:18:02</TestDate>
+              <Status>Success</Status>
+              <TotalFailures>0</TotalFailures>
+              <TotalSuccess>1</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T12:18:06</TestDate>
+              <Status>Success</Status>
+              <TotalFailures>0</TotalFailures>
+              <TotalSuccess>1</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T12:18:43</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T12:38:50</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T12:39:05</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T12:39:51</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T12:40:38</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T12:52:27</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T12:52:58</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T12:58:42</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T13:25:30</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T13:26:41</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T13:27:34</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T13:27:52</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T14:24:28</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T14:27:42</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T14:27:55</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T14:28:09</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T14:28:19</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T14:29:16</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T14:30:33</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T14:31:03</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T14:31:52</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T14:31:57</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T14:34:31</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T14:34:41</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T14:40:35</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T14:44:26</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T15:02:55</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T15:03:50</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T15:04:07</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T15:04:59</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T15:23:20</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T15:24:20</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T15:39:40</TestDate>
+              <Status>Success</Status>
+              <TotalFailures>0</TotalFailures>
+              <TotalSuccess>1</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T15:41:11</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T15:44:07</TestDate>
+              <Status>Success</Status>
+              <TotalFailures>0</TotalFailures>
+              <TotalSuccess>1</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T15:44:12</TestDate>
+              <Status>Success</Status>
+              <TotalFailures>0</TotalFailures>
+              <TotalSuccess>1</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T15:45:01</TestDate>
+              <Status>Success</Status>
+              <TotalFailures>0</TotalFailures>
+              <TotalSuccess>1</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T15:45:52</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T15:46:23</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T15:56:40</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T15:58:28</TestDate>
+              <Status>Success</Status>
+              <TotalFailures>0</TotalFailures>
+              <TotalSuccess>1</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T15:58:48</TestDate>
+              <Status>Success</Status>
+              <TotalFailures>0</TotalFailures>
+              <TotalSuccess>1</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T16:11:07</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T16:11:18</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T16:11:46</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T16:12:11</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T16:13:44</TestDate>
+              <Status>Failure</Status>
+              <TotalFailures>1</TotalFailures>
+              <TotalSuccess>0</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+              <Message>Child test failed</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T16:14:55</TestDate>
+              <Status>Success</Status>
+              <TotalFailures>0</TotalFailures>
+              <TotalSuccess>1</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T16:16:43</TestDate>
+              <Status>Success</Status>
+              <TotalFailures>0</TotalFailures>
+              <TotalSuccess>1</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T16:21:08</TestDate>
+              <Status>Success</Status>
+              <TotalFailures>0</TotalFailures>
+              <TotalSuccess>1</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-08T16:31:49</TestDate>
+              <Status>Success</Status>
+              <TotalFailures>0</TotalFailures>
+              <TotalSuccess>1</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+            </UnitTestResult>
+          </Results>
+          <Tests>
+            <TestRecord Name="TestCase">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T11:20:37</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>  Expected: True
+  But was:  False
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition, System.String message, System.Object[] args) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:96 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:117 
+  at ArtemisTest.Test.TestCase () [0x000ba] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:35 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T11:21:55</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>  Expected: True
+  But was:  False
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x00020] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:2205 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition, System.String message, System.Object[] args) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:96 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:117 
+  at ArtemisTest.Test.TestCase () [0x000ba] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:35 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T11:23:04</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>  Expected: True
+  But was:  False
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition, System.String message, System.Object[] args) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:96 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:117 
+  at ArtemisTest.Test.TestCase () [0x000ba] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:35 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T11:23:38</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>  Expected: True
+  But was:  False
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition, System.String message, System.Object[] args) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:96 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:117 
+  at ArtemisTest.Test.TestCase () [0x000ba] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:35 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T11:24:38</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>  Expected: True
+  But was:  False
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition, System.String message, System.Object[] args) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:96 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:117 
+  at ArtemisTest.Test.TestCase () [0x000c1] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:36 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>0</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T11:25:32</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>  Expected: True
+  But was:  False
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition, System.String message, System.Object[] args) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:96 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:117 
+  at ArtemisTest.Test.TestCase () [0x000c1] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:35 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T11:26:57</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>  teste
+  Expected: True
+  But was:  False
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition, System.String message, System.Object[] args) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:96 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition, System.String message) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:107 
+  at ArtemisTest.Test.TestCase () [0x000c1] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:35 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T11:27:19</TestDate>
+                  <Status>Success</Status>
+                  <TotalFailures>0</TotalFailures>
+                  <TotalSuccess>1</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0,02ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T11:32:13</TestDate>
+                  <Status>Success</Status>
+                  <TotalFailures>0</TotalFailures>
+                  <TotalSuccess>1</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0,02ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T11:36:02</TestDate>
+                  <Status>Success</Status>
+                  <TotalFailures>0</TotalFailures>
+                  <TotalSuccess>1</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0,02ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T11:37:07</TestDate>
+                  <Status>Success</Status>
+                  <TotalFailures>0</TotalFailures>
+                  <TotalSuccess>1</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0,02ms</Message>
+                  <ConsoleOutput>0,01569
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T12:09:29</TestDate>
+                  <Status>Success</Status>
+                  <TotalFailures>0</TotalFailures>
+                  <TotalSuccess>1</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0,02ms</Message>
+                  <ConsoleOutput>0,01585
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T12:18:02</TestDate>
+                  <Status>Success</Status>
+                  <TotalFailures>0</TotalFailures>
+                  <TotalSuccess>1</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0,02ms</Message>
+                  <ConsoleOutput>0,01659
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T12:18:06</TestDate>
+                  <Status>Success</Status>
+                  <TotalFailures>0</TotalFailures>
+                  <TotalSuccess>1</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0,02ms</Message>
+                  <ConsoleOutput>0,01589
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T12:18:43</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>  Expected: True
+  But was:  False
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition, System.String message, System.Object[] args) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:96 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:117 
+  at ArtemisTest.Test.TestCase () [0x000e5] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:38 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T12:38:50</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>  Expected: greater than 1090.0f
+  But was:  100.0f
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.Greater (Single arg1, Single arg2, System.String message, System.Object[] args) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:1602 
+  at NUnit.Framework.Assert.Greater (Single arg1, Single arg2) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:1627 
+  at ArtemisTest.Test.TestCase () [0x000c8] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:36 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T12:39:05</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>  Expected: greater than 1090.0f
+  But was:  100.0f
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.Greater (Single arg1, Single arg2, System.String message, System.Object[] args) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:1602 
+  at NUnit.Framework.Assert.Greater (Single arg1, Single arg2) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:1627 
+  at ArtemisTest.Test.TestCase () [0x000c8] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:36 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T12:39:51</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>  teste
+  Expected: greater than 1080.0f
+  But was:  100.0f
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.Greater (Single arg1, Single arg2, System.String message, System.Object[] args) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:1602 
+  at NUnit.Framework.Assert.Greater (Single arg1, Single arg2, System.String message) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:1615 
+  at ArtemisTest.Test.TestCase () [0x000cf] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:37 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T12:40:38</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>  Expected: True
+  But was:  False
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition, System.String message, System.Object[] args) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:96 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:117 
+  at ArtemisTest.Test.TestCase () [0x0016e] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:48 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10000
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T12:52:27</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>  Expected: True
+  But was:  False
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition, System.String message, System.Object[] args) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:96 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:117 
+  at ArtemisTest.Test.TestCase () [0x0016e] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:48 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10000
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T12:52:58</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>  teste
+  Expected: True
+  But was:  False
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition, System.String message, System.Object[] args) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:96 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition, System.String message) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:107 
+  at ArtemisTest.Test.TestCase () [0x0016e] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:48 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10000
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T12:58:42</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>  Expected: True
+  But was:  False
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition, System.String message, System.Object[] args) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:96 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:117 
+  at ArtemisTest.Test.TestCase () [0x0016e] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:48 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10000
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T13:25:30</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object</Message>
+                  <StackTrace>  at Artemis.EntityManager.RemoveComponent (Artemis.Entity e, Artemis.ComponentType type) [0x00019] in /home/alisson/artemis_CSharp/EntityManager.cs:108 
+  at Artemis.Entity.RemoveComponent (Artemis.ComponentType type) [0x00000] in /home/alisson/artemis_CSharp/Entity.cs:103 
+  at ArtemisTest.Test.TestCase () [0x00174] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:53 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10000
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T13:26:41</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object</Message>
+                  <StackTrace>  at Artemis.EntityManager.RemoveComponent (Artemis.Entity e, Artemis.ComponentType type) [0x00019] in /home/alisson/artemis_CSharp/EntityManager.cs:108 
+  at Artemis.Entity.RemoveComponent (Artemis.ComponentType type) [0x00000] in /home/alisson/artemis_CSharp/Entity.cs:103 
+  at ArtemisTest.Test.TestCase () [0x00174] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:53 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10000
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T13:27:34</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object</Message>
+                  <StackTrace>  at Artemis.EntityManager.RemoveComponent (Artemis.Entity e, Artemis.ComponentType type) [0x00019] in /home/alisson/artemis_CSharp/EntityManager.cs:108 
+  at Artemis.Entity.RemoveComponent (Artemis.ComponentType type) [0x00000] in /home/alisson/artemis_CSharp/Entity.cs:103 
+  at ArtemisTest.Test.TestCase () [0x00174] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:53 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10000
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T13:27:52</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object</Message>
+                  <StackTrace>  at Artemis.EntityManager.RemoveComponent (Artemis.Entity e, Artemis.ComponentType type) [0x00019] in /home/alisson/artemis_CSharp/EntityManager.cs:108 
+  at Artemis.Entity.RemoveComponent (Artemis.ComponentType type) [0x00000] in /home/alisson/artemis_CSharp/Entity.cs:103 
+  at ArtemisTest.Test.TestCase () [0x00174] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:53 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10000
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T14:24:28</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object</Message>
+                  <StackTrace>  at Artemis.EntityManager.RemoveComponent (Artemis.Entity e, Artemis.ComponentType type) [0x00019] in /home/alisson/artemis_CSharp/EntityManager.cs:108 
+  at Artemis.Entity.RemoveComponent (Artemis.ComponentType type) [0x00000] in /home/alisson/artemis_CSharp/Entity.cs:103 
+  at ArtemisTest.Test.TestCase () [0x00174] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:53 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10000
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T14:27:42</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object</Message>
+                  <StackTrace>  at Artemis.EntityManager.RemoveComponent (Artemis.Entity e, Artemis.ComponentType type) [0x00021] in /home/alisson/artemis_CSharp/EntityManager.cs:109 
+  at Artemis.Entity.RemoveComponent (Artemis.ComponentType type) [0x00000] in /home/alisson/artemis_CSharp/Entity.cs:103 
+  at ArtemisTest.Test.TestCase () [0x00174] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:53 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10000
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T14:27:55</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object</Message>
+                  <StackTrace>  at Artemis.EntityManager.RemoveComponent (Artemis.Entity e, Artemis.ComponentType type) [0x00021] in /home/alisson/artemis_CSharp/EntityManager.cs:109 
+  at Artemis.Entity.RemoveComponent (Artemis.ComponentType type) [0x00000] in /home/alisson/artemis_CSharp/Entity.cs:103 
+  at ArtemisTest.Test.TestCase () [0x00174] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:53 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10000
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T14:28:09</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object</Message>
+                  <StackTrace>  at Artemis.EntityManager.RemoveComponent (Artemis.Entity e, Artemis.ComponentType type) [0x00021] in /home/alisson/artemis_CSharp/EntityManager.cs:109 
+  at Artemis.Entity.RemoveComponent (Artemis.ComponentType type) [0x00000] in /home/alisson/artemis_CSharp/Entity.cs:103 
+  at ArtemisTest.Test.TestCase () [0x00174] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:53 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10000
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T14:28:19</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object</Message>
+                  <StackTrace>  at Artemis.EntityManager.RemoveComponent (Artemis.Entity e, Artemis.ComponentType type) [0x00021] in /home/alisson/artemis_CSharp/EntityManager.cs:109 
+  at Artemis.Entity.RemoveComponent (Artemis.ComponentType type) [0x00000] in /home/alisson/artemis_CSharp/Entity.cs:103 
+  at ArtemisTest.Test.TestCase () [0x00174] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:53 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10000
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T14:29:16</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object</Message>
+                  <StackTrace>  at Artemis.EntityManager.RemoveComponent (Artemis.Entity e, Artemis.ComponentType type) [0x00021] in /home/alisson/artemis_CSharp/EntityManager.cs:109 
+  at Artemis.Entity.RemoveComponent (Artemis.ComponentType type) [0x00000] in /home/alisson/artemis_CSharp/Entity.cs:103 
+  at ArtemisTest.Test.TestCase () [0x00174] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:53 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10000
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T14:30:33</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object</Message>
+                  <StackTrace>  at Artemis.EntityManager.RemoveComponent (Artemis.Entity e, Artemis.ComponentType type) [0x00019] in /home/alisson/artemis_CSharp/EntityManager.cs:108 
+  at Artemis.Entity.RemoveComponent (Artemis.ComponentType type) [0x00000] in /home/alisson/artemis_CSharp/Entity.cs:103 
+  at ArtemisTest.Test.TestCase () [0x00174] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:53 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10000
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T14:31:03</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object</Message>
+                  <StackTrace>  at Artemis.EntityManager.RemoveComponent (Artemis.Entity e, Artemis.ComponentType type) [0x00019] in /home/alisson/artemis_CSharp/EntityManager.cs:108 
+  at Artemis.Entity.RemoveComponent (Artemis.ComponentType type) [0x00000] in /home/alisson/artemis_CSharp/Entity.cs:103 
+  at ArtemisTest.Test.TestCase () [0x00174] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:53 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10000
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T14:31:52</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object</Message>
+                  <StackTrace>  at Artemis.EntityManager.RemoveComponent (Artemis.Entity e, Artemis.ComponentType type) [0x00019] in /home/alisson/artemis_CSharp/EntityManager.cs:108 
+  at Artemis.Entity.RemoveComponent (Artemis.ComponentType type) [0x00000] in /home/alisson/artemis_CSharp/Entity.cs:103 
+  at ArtemisTest.Test.TestCase () [0x00174] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:53 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10000
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T14:31:57</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object</Message>
+                  <StackTrace>  at Artemis.EntityManager.RemoveComponent (Artemis.Entity e, Artemis.ComponentType type) [0x00019] in /home/alisson/artemis_CSharp/EntityManager.cs:108 
+  at Artemis.Entity.RemoveComponent (Artemis.ComponentType type) [0x00000] in /home/alisson/artemis_CSharp/Entity.cs:103 
+  at ArtemisTest.Test.TestCase () [0x00174] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:53 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10000
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T14:34:31</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object</Message>
+                  <StackTrace>  at Artemis.EntityManager.RemoveComponent (Artemis.Entity e, Artemis.ComponentType type) [0x00019] in /home/alisson/artemis_CSharp/EntityManager.cs:108 
+  at Artemis.Entity.RemoveComponent (Artemis.ComponentType type) [0x00000] in /home/alisson/artemis_CSharp/Entity.cs:103 
+  at ArtemisTest.Test.TestCase () [0x00174] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:53 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10000
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T14:34:41</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object</Message>
+                  <StackTrace>  at Artemis.EntityManager.RemoveComponent (Artemis.Entity e, Artemis.ComponentType type) [0x00019] in /home/alisson/artemis_CSharp/EntityManager.cs:108 
+  at Artemis.Entity.RemoveComponent (Artemis.ComponentType type) [0x00000] in /home/alisson/artemis_CSharp/Entity.cs:103 
+  at ArtemisTest.Test.TestCase () [0x00174] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:53 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10000
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T14:40:35</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>  Expected: True
+  But was:  False
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition, System.String message, System.Object[] args) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:96 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:117 
+  at ArtemisTest.Test.TestCase () [0x00185] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:54 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10000
+This was the component removed: ArtemisTest.Components.Health
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T14:44:26</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>  Expected: True
+  But was:  False
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition, System.String message, System.Object[] args) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:96 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:117 
+  at ArtemisTest.Test.TestCase () [0x00185] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:54 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10000
+This was the component removed: 0
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T15:02:55</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>  Expected: True
+  But was:  False
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition, System.String message, System.Object[] args) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:96 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:117 
+  at ArtemisTest.Test.TestCase () [0x00185] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:54 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10000
+This was the component removed: 0
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T15:03:50</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>  Expected: True
+  But was:  False
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition, System.String message, System.Object[] args) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:96 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:117 
+  at ArtemisTest.Test.TestCase () [0x00185] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:54 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10000
+This was the component removed: 0
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T15:04:07</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>  Expected: True
+  But was:  False
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition, System.String message, System.Object[] args) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:96 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:117 
+  at ArtemisTest.Test.TestCase () [0x00185] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:54 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10000
+This was the component removed: 0
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T15:04:59</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>  Expected: True
+  But was:  False
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition, System.String message, System.Object[] args) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:96 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:117 
+  at ArtemisTest.Test.TestCase () [0x0018e] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:55 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10000
+This was the component removed: 0
+This was the component removed: 10000
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T15:23:20</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>  Expected: True
+  But was:  False
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition, System.String message, System.Object[] args) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:96 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:117 
+  at ArtemisTest.Test.TestCase () [0x0018e] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:55 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10000
+This was the component removed: ArtemisTest.Components.Health
+This was the component removed: ArtemisTest.Components.Health
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T15:24:20</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>  Expected: True
+  But was:  False
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition, System.String message, System.Object[] args) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:96 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition) [0x00000] in /home/alisson/Downloads/build/mono-2.10.2/mcs/nunit24/NUnitFramework/framework/Assert.cs:117 
+  at ArtemisTest.Test.TestCase () [0x0018e] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:55 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10000
+This was the component removed: ArtemisTest.Components.Health
+This was the component removed: ArtemisTest.Components.Health
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T15:39:40</TestDate>
+                  <Status>Success</Status>
+                  <TotalFailures>0</TotalFailures>
+                  <TotalSuccess>1</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0,03ms</Message>
+                  <ConsoleOutput>Health Component Pool now has 0 objects
+VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10900
+This was the component removed: ArtemisTest.Components.Health
+Health Component Pool has 0 objects
+Health Component Pool now has 1 objects
+This was the component removed: ArtemisTest.Components.Health
+Health Component Pool has 1 objects
+Health Component Pool now has 2 objects
+0,021793
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T15:41:11</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object</Message>
+                  <StackTrace>  at ArtemisTest.Test.RemovedComponent (Component c) [0x00000] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:18 
+  at Artemis.EntityManager.RemoveComponentsOfEntity (Artemis.Entity e) [0x00039] in /home/alisson/artemis_CSharp/EntityManager.cs:71 
+  at Artemis.EntityManager.Remove (Artemis.Entity e) [0x00021] in /home/alisson/artemis_CSharp/EntityManager.cs:57 
+  at Artemis.World.LoopStart () [0x00081] in /home/alisson/artemis_CSharp/World.cs:111 
+  at ArtemisTest.Test.TestCase () [0x0024c] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:73 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>Health Component Pool now has 0 objects
+VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10900
+This was the component removed: ArtemisTest.Components.Health
+Health Component Pool has 0 objects
+Health Component Pool now has 1 objects
+This was the component removed: ArtemisTest.Components.Health
+Health Component Pool has 1 objects
+Health Component Pool now has 2 objects
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T15:44:07</TestDate>
+                  <Status>Success</Status>
+                  <TotalFailures>0</TotalFailures>
+                  <TotalSuccess>1</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0,03ms</Message>
+                  <ConsoleOutput>Health Component Pool now has 0 objects
+VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10900
+This was the component removed: ArtemisTest.Components.Health
+Health Component Pool has 0 objects
+Health Component Pool now has 1 objects
+This was the component removed: ArtemisTest.Components.Health
+Health Component Pool has 1 objects
+Health Component Pool now has 2 objects
+0,02148
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T15:44:12</TestDate>
+                  <Status>Success</Status>
+                  <TotalFailures>0</TotalFailures>
+                  <TotalSuccess>1</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0,02ms</Message>
+                  <ConsoleOutput>Health Component Pool now has 0 objects
+VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10900
+This was the component removed: ArtemisTest.Components.Health
+Health Component Pool has 0 objects
+Health Component Pool now has 1 objects
+This was the component removed: ArtemisTest.Components.Health
+Health Component Pool has 1 objects
+Health Component Pool now has 2 objects
+0,018715
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T15:45:01</TestDate>
+                  <Status>Success</Status>
+                  <TotalFailures>0</TotalFailures>
+                  <TotalSuccess>1</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0,03ms</Message>
+                  <ConsoleOutput>Health Component Pool now has 0 objects
+VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10900
+This was the component removed: ArtemisTest.Components.Health
+Health Component Pool has 0 objects
+Health Component Pool now has 1 objects
+This was the component removed: ArtemisTest.Components.Health
+Health Component Pool has 1 objects
+Health Component Pool now has 2 objects
+0,020293
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T15:45:52</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object</Message>
+                  <StackTrace>  at Artemis.EntityManager.Remove (Artemis.Entity e) [0x00051] in /home/alisson/artemis_CSharp/EntityManager.cs:63 
+  at Artemis.World.LoopStart () [0x00081] in /home/alisson/artemis_CSharp/World.cs:111 
+  at ArtemisTest.Test.TestCase () [0x0023a] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:73 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>Health Component Pool now has 0 objects
+VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10900
+This was the component removed: ArtemisTest.Components.Health
+Health Component Pool has 0 objects
+Health Component Pool now has 1 objects
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T15:46:23</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object</Message>
+                  <StackTrace>  at Artemis.EntityManager.Remove (Artemis.Entity e) [0x00051] in /home/alisson/artemis_CSharp/EntityManager.cs:63 
+  at Artemis.World.LoopStart () [0x00081] in /home/alisson/artemis_CSharp/World.cs:111 
+  at ArtemisTest.Test.TestCase () [0x0023a] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:73 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>Health Component Pool now has 0 objects
+VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10900
+This was the component removed: ArtemisTest.Components.Health
+Health Component Pool has 0 objects
+Health Component Pool now has 1 objects
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T15:56:40</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object</Message>
+                  <StackTrace>  at Artemis.EntityManager.Remove (Artemis.Entity e) [0x00051] in /home/alisson/artemis_CSharp/EntityManager.cs:63 
+  at Artemis.World.LoopStart () [0x00081] in /home/alisson/artemis_CSharp/World.cs:111 
+  at ArtemisTest.Test.TestCase () [0x00232] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:73 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>Health Component Pool now has 0 objects
+VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10900
+This was the component removed: ArtemisTest.Components.Health
+Health Component Pool has 0 objects
+Health Component Pool now has 1 objects
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T15:58:28</TestDate>
+                  <Status>Success</Status>
+                  <TotalFailures>0</TotalFailures>
+                  <TotalSuccess>1</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0,02ms</Message>
+                  <ConsoleOutput>Health Component Pool now has 0 objects
+VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10900
+This was the component removed: ArtemisTest.Components.Health
+Health Component Pool has 0 objects
+Health Component Pool now has 1 objects
+This was the entity removed: 0
+0,0201
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T15:58:48</TestDate>
+                  <Status>Success</Status>
+                  <TotalFailures>0</TotalFailures>
+                  <TotalSuccess>1</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0,02ms</Message>
+                  <ConsoleOutput>Health Component Pool now has 0 objects
+VIDA DA ENTIDADE 1: 0
+VIDA DA ENTIDADE 2: 10900
+This was the component removed: ArtemisTest.Components.Health
+Health Component Pool has 0 objects
+Health Component Pool now has 1 objects
+This was the entity removed: 0
+This was the component removed: ArtemisTest.Components.Health
+Health Component Pool has 1 objects
+Health Component Pool now has 2 objects
+This was the entity removed: 1
+0,01927
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T16:11:07</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object</Message>
+                  <StackTrace>  at Artemis.Entity.AddComponent (Component component) [0x00000] in /home/alisson/artemis_CSharp/Entity.cs:98 
+  at ArtemisTest.Test.TestCase () [0x000ce] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:52 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T16:11:18</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object</Message>
+                  <StackTrace>  at Artemis.Entity.AddComponent (Component component) [0x00000] in /home/alisson/artemis_CSharp/Entity.cs:98 
+  at ArtemisTest.Test.TestCase () [0x000ce] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:52 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T16:11:46</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object</Message>
+                  <StackTrace>  at Artemis.Entity.AddComponent (Component component) [0x00000] in /home/alisson/artemis_CSharp/Entity.cs:98 
+  at ArtemisTest.Test.TestCase () [0x000ce] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:52 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T16:12:11</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object</Message>
+                  <StackTrace>  at Artemis.Entity.AddComponent (Component component) [0x00000] in /home/alisson/artemis_CSharp/Entity.cs:98 
+  at ArtemisTest.Test.TestCase () [0x000ce] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:52 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T16:13:44</TestDate>
+                  <Status>Failure</Status>
+                  <TotalFailures>1</TotalFailures>
+                  <TotalSuccess>0</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object</Message>
+                  <StackTrace>  at Artemis.Entity.AddComponent (Component component) [0x00000] in /home/alisson/artemis_CSharp/Entity.cs:98 
+  at ArtemisTest.Test.TestCase () [0x000ce] in /home/alisson/artemis_CSharp/ArtemisTest/Test.cs:52 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /home/alisson/Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T16:14:55</TestDate>
+                  <Status>Success</Status>
+                  <TotalFailures>0</TotalFailures>
+                  <TotalSuccess>1</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0,02ms</Message>
+                  <ConsoleOutput>Health Component Pool now has 0 objects
+This was the component removed: ArtemisTest.Components.Health
+Health Component Pool has 0 objects
+Health Component Pool now has 1 objects
+This was the entity removed: 0
+This was the component removed: ArtemisTest.Components.Health
+Health Component Pool has 1 objects
+Health Component Pool now has 2 objects
+This was the entity removed: 1
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T16:16:43</TestDate>
+                  <Status>Success</Status>
+                  <TotalFailures>0</TotalFailures>
+                  <TotalSuccess>1</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0,02ms</Message>
+                  <ConsoleOutput>Health Component Pool now has 0 objects
+This was the component removed: ArtemisTest.Components.Health
+Health Component Pool has 0 objects
+Health Component Pool now has 1 objects
+This was the entity removed: 0
+Entity pool has 1 entities
+This was the component removed: ArtemisTest.Components.Health
+Health Component Pool has 1 objects
+Health Component Pool now has 2 objects
+This was the entity removed: 1
+Entity pool has 2 entities
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T16:21:08</TestDate>
+                  <Status>Success</Status>
+                  <TotalFailures>0</TotalFailures>
+                  <TotalSuccess>1</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0,03ms</Message>
+                  <ConsoleOutput>Health Component Pool now has 0 objects
+This was the component removed: ArtemisTest.Components.Health
+Health Component Pool has 0 objects
+Health Component Pool now has 1 objects
+This was the entity removed: 0
+Entity pool has 1 entities
+This was the component removed: ArtemisTest.Components.Health
+Health Component Pool has 1 objects
+Health Component Pool now has 2 objects
+This was the entity removed: 1
+Entity pool has 2 entities
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-08T16:31:49</TestDate>
+                  <Status>Success</Status>
+                  <TotalFailures>0</TotalFailures>
+                  <TotalSuccess>1</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0,01ms</Message>
+                  <ConsoleOutput>Health Component Pool now has 0 objects
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+          </Tests>
+        </TestRecord>
+      </Tests>
+    </TestRecord>
+  </Tests>
+</TestRecord>

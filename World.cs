@@ -79,6 +79,10 @@ namespace Artemis
 			return entityManager.Create();
 		}
 		
+		public Entity AddEntity(Entity e) {
+			return entityManager.Add(e);
+		}
+		
 		/**
 		 * Get a entity having the specified id.
 		 * @param entityId

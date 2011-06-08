@@ -1,6 +1,9 @@
 using System;
 namespace Artemis
 {
+	public delegate void RemovedComponentHandler(Component c);
+	public delegate void RemovedEntityHandler(Entity e);
+	
 	public sealed class EntityManager {
 		private World world;
 		private Bag<Entity> activeEntities = new Bag<Entity>();
@@ -10,6 +13,8 @@ namespace Artemis
 		private long uniqueEntityId;
 		private long totalCreated;
 		private long totalRemoved;
+		public event RemovedComponentHandler RemovedComponentEvent;
+		public event RemovedEntityHandler RemovedEntityEvent;
 		
 		private Bag<Bag<Component>> componentsByType = new Bag<Bag<Component>>();
 		
@@ -32,6 +37,18 @@ namespace Artemis
 			totalCreated++;
 			return e;
 		}
+		
+		public Entity Add(Entity e) {
+			e.Reset();
+			e.SetId(nextAvailableId++);
+			e.SetWorld(world);
+			e.SetEntityManager(this);
+			e.SetUniqueId(uniqueEntityId++);
+			activeEntities.Set(e.GetId(),e);
+			count++;
+			totalCreated++;
+			return e;
+		}
 	
 		public void Remove(Entity e) {
 			activeEntities.Set(e.GetId(), null);
@@ -46,6 +63,9 @@ namespace Artemis
 			totalRemoved++;
 	
 			removedAndAvailable.Add(e);
+			if(RemovedEntityEvent != null) {
+				RemovedEntityEvent(e);
+			}	
 		}
 	
 		private void RemoveComponentsOfEntity(Entity e) {
@@ -53,6 +73,9 @@ namespace Artemis
 			for(int a = 0,b = componentsByType.Size(); b > a; a++) {
 				Bag<Component> components = componentsByType.Get(a);
 				if(components != null && entityId < components.Size()) {
+					if(RemovedComponentEvent != null) {
+						RemovedComponentEvent(components.Get(entityId));
+					}	
 					components.Set(entityId, null);
 				}
 			}
@@ -100,8 +123,12 @@ namespace Artemis
 		}
 		
 		public void RemoveComponent(Entity e, ComponentType type) {
+			int entityId = e.GetId();
 			Bag<Component> components = componentsByType.Get(type.GetId());
-			components.Set(e.GetId(), null);
+			if(RemovedComponentEvent != null) {
+				RemovedComponentEvent(components.Get(entityId));
+			}	
+			components.Set(entityId, null);
 			e.RemoveTypeBit(type.GetBit());
 		}
 		
