@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Artemis
 {
-    public interface Pool
+    public interface ArtemisPool
     {
     }
 }

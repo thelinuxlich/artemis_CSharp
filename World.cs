@@ -8,7 +8,7 @@ namespace Artemis
 		private GroupManager groupManager;
         private Bag<Entity> refreshed = new Bag<Entity>();
         private Bag<Entity> deleted = new Bag<Entity>();
-        private Pool pool;
+        private ArtemisPool pool;
 
 		private int delta;
 		
@@ -93,12 +93,12 @@ namespace Artemis
 			return entityManager.GetEntity(entityId);
 		}
 
-        public void SetPool(Pool gamePool)
+        public void SetPool(ArtemisPool gamePool)
         {
             pool = gamePool;
         }
 
-        public Pool GetPool()
+        public ArtemisPool GetPool()
         {
             return pool;
         }

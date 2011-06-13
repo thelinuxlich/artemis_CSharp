@@ -1,8 +1,10 @@
 using System;
 namespace Artemis
 {
-	public delegate void RemovedComponentHandler(Component c);
+	public delegate void RemovedComponentHandler(Entity e,Component c);
 	public delegate void RemovedEntityHandler(Entity e);
+	public delegate void AddedComponentHandler(Entity e,Component c);
+	public delegate void AddedEntityHandler(Entity e);
 	
 	public sealed class EntityManager {
 		private World world;
@@ -15,6 +17,8 @@ namespace Artemis
 		private long totalRemoved;
 		public event RemovedComponentHandler RemovedComponentEvent;
 		public event RemovedEntityHandler RemovedEntityEvent;
+		public event AddedComponentHandler AddedComponentEvent;
+		public event AddedEntityHandler AddedEntityEvent;
 		
 		private Bag<Bag<Component>> componentsByType = new Bag<Bag<Component>>();
 		
@@ -35,6 +39,9 @@ namespace Artemis
 			activeEntities.Set(e.GetId(),e);
 			count++;
 			totalCreated++;
+			if(AddedEntityEvent != null) {
+				AddedEntityEvent(e);
+			}
 			return e;
 		}
 		
@@ -47,6 +54,9 @@ namespace Artemis
 			activeEntities.Set(e.GetId(),e);
 			count++;
 			totalCreated++;
+			if(AddedEntityEvent != null) {
+				AddedEntityEvent(e);
+			}
 			return e;
 		}
 	
@@ -74,7 +84,7 @@ namespace Artemis
 				Bag<Component> components = componentsByType.Get(a);
 				if(components != null && entityId < components.Size()) {
 					if(RemovedComponentEvent != null) {
-						RemovedComponentEvent(components.Get(entityId));
+						RemovedComponentEvent(e,components.Get(entityId));
 					}	
 					components.Set(entityId, null);
 				}
@@ -107,6 +117,9 @@ namespace Artemis
 			components.Set(e.GetId(), component);
 	
 			e.AddTypeBit(type.GetBit());
+			if(AddedComponentEvent != null) {
+				AddedComponentEvent(e,component);
+			}
 		}
 		
 		public void Refresh(Entity e) {
@@ -126,7 +139,7 @@ namespace Artemis
 			int entityId = e.GetId();
 			Bag<Component> components = componentsByType.Get(type.GetId());
 			if(RemovedComponentEvent != null) {
-				RemovedComponentEvent(components.Get(entityId));
+				RemovedComponentEvent(e,components.Get(entityId));
 			}	
 			components.Set(entityId, null);
 			e.RemoveTypeBit(type.GetBit());

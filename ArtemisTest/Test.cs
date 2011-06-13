@@ -14,7 +14,7 @@ namespace ArtemisTest
 		Bag<Entity> entityPool = new Bag<Entity>();
 		Dictionary<Type,Bag<Component>> componentPool = new Dictionary<Type, Bag<Component>>();			
 			
-		private void RemovedComponent(Component c) 
+		private void RemovedComponent(Entity e,Component c) 
       	{
         	 Console.WriteLine("This was the component removed: "+(c.GetType()));
 			 Bag<Component> tempBag;
