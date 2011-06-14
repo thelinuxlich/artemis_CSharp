@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 namespace Artemis
 {
 	public sealed class World {
@@ -80,8 +81,20 @@ namespace Artemis
 			return entityManager.Create();
 		}
 		
+		public Entity CreateEntity(string tag) {
+			Entity e = entityManager.Create();
+			tagManager.Register(tag,e);
+			return e;
+		}
+		
 		public Entity AddEntity(Entity e) {
 			return entityManager.Add(e);
+		}
+		
+		public Entity AddEntity(Entity e,string tag) {
+			Entity entity = entityManager.Add(e);
+			tagManager.Register(tag,entity);
+			return entity;
 		}
 		
 		/**
@@ -124,5 +137,16 @@ namespace Artemis
                 deleted.Clear();
             }
         }
+		
+		public Dictionary<Entity,Bag<Component>> GetCurrentState() {
+			Bag<Entity> entities = entityManager.GetActiveEntities();
+			Dictionary<Entity,Bag<Component>> currentState = new Dictionary<Entity, Bag<Component>>();
+			for(int i = 0,j = entities.Size(); i < j; i++) {
+				Entity e = entities.Get(i);
+				Bag<Component> components = e.GetComponents();
+				currentState.Add(e, components);
+			}
+			return currentState;
+		}
 	}
 }

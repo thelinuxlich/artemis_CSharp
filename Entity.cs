@@ -189,6 +189,9 @@ namespace Artemis
 			world.GetTagManager().Register(tag, this);
 		}
 		
+		public String GetTag() {
+			return world.GetTagManager().GetTagOfEntity(this);
+		}
 	}
 }
 

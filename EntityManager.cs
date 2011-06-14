@@ -47,7 +47,6 @@ namespace Artemis
 		
 		public Entity Add(Entity e) {
 			e.Reset();
-			e.SetId(nextAvailableId++);
 			e.SetWorld(world);
 			e.SetEntityManager(this);
 			e.SetUniqueId(uniqueEntityId++);
@@ -195,7 +194,10 @@ namespace Artemis
 			}
 			return entityComponents;
 		}
-	
+		
+		public Bag<Entity> GetActiveEntities() {
+			return activeEntities;
+		}
 	}
 }
 

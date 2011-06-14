@@ -1,12 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="ArtemisTest/Test.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Entity.cs">
     <Files>
       <File FileName="Component.cs" Line="5" Column="3" />
       <File FileName="EntitySystem.cs" Line="1" Column="1" />
-      <File FileName="Entity.cs" Line="1" Column="1" />
+      <File FileName="Entity.cs" Line="193" Column="32" />
       <File FileName="../Downloads/build/mono-2.10.2/mcs/class/corlib/System/Nullable.cs" Line="98" Column="1" />
-      <File FileName="World.cs" Line="101" Column="23" />
+      <File FileName="World.cs" Line="2" Column="33" />
       <File FileName="ArtemisTest/Test.cs" Line="27" Column="3" />
       <File FileName="SystemManager.cs" Line="1" Column="1" />
       <File FileName="Utils/Utils.cs" Line="1" Column="1" />
@@ -14,14 +14,14 @@
       <File FileName="ComponentTypeManager.cs" Line="1" Column="1" />
       <File FileName="DelayedEntityProcessingSystem.cs" Line="1" Column="1" />
       <File FileName="DelayedEntitySystem.cs" Line="1" Column="1" />
-      <File FileName="GroupManager.cs" Line="1" Column="1" />
+      <File FileName="GroupManager.cs" Line="9" Column="21" />
       <File FileName="ComponentType.cs" Line="1" Column="1" />
       <File FileName="EntityProcessingSystem.cs" Line="1" Column="1" />
       <File FileName="GroupSystem.cs" Line="1" Column="1" />
       <File FileName="IntervalEntityProcessingSystem.cs" Line="1" Column="1" />
       <File FileName="IntervalEntitySystem.cs" Line="1" Column="1" />
       <File FileName="SystemBitManager.cs" Line="1" Column="1" />
-      <File FileName="TagManager.cs" Line="1" Column="1" />
+      <File FileName="TagManager.cs" Line="41" Column="19" />
       <File FileName="TagSystem.cs" Line="1" Column="1" />
       <File FileName="IntervalTagSystem.cs" Line="1" Column="1" />
       <File FileName="IntervalGroupSystem.cs" Line="1" Column="1" />
@@ -37,14 +37,17 @@
       <File FileName="../Downloads/build/mono-2.10.2/mcs/nunit24/NUnitCore/core/SimpleTestRunner.cs" Line="148" Column="1" />
       <File FileName="../Downloads/build/mono-2.10.2/mcs/nunit24/NUnitCore/core/TestRunnerThread.cs" Line="155" Column="1" />
       <File FileName="../Downloads/build/mono-2.10.2/mcs/class/corlib/System.Threading/Thread.cs" Line="680" Column="1" />
-      <File FileName="EntityManager.cs" Line="142" Column="36" />
-      <File FileName="Pool.cs" Line="8" Column="29" />
+      <File FileName="EntityManager.cs" Line="199" Column="26" />
+      <File FileName="Pool.cs" Line="1" Column="1" />
+      <File FileName="Utils/Bag.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="Artemis" expanded="True" />
-          <Node name="ArtemisTest" expanded="True" selected="True">
+          <Node name="Artemis" expanded="True" selected="True">
+            <Node name="Utils" expanded="True" />
+          </Node>
+          <Node name="ArtemisTest" expanded="True">
             <Node name="References" expanded="True" />
           </Node>
         </State>

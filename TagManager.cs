@@ -36,6 +36,17 @@ namespace Artemis
             }
 		}
 	
+		public String GetTagOfEntity(Entity e) {
+			String tag = "";
+			foreach (var pair in entityByTag)
+			{
+				if(pair.Value.Equals(e)) {
+					tag = pair.Key;
+					break;
+				}
+			}
+			return tag;
+		}
 	}
 }
 
