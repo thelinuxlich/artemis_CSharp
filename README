@@ -1,0 +1,5 @@
+This is a port of the awesome Entity-System framework Artemis.
+
+Currently, we lack documentation and the project is beginning to receive new features(and fix some bugs), but we will not change the Artemis way of using Entities/Components/Systems, rest assured :)
+
+Development discussion can be found here: http://www.ploobs.com.br/forum/viewtopic.php?f=33&t=95
