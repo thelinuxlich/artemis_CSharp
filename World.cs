@@ -148,5 +148,20 @@ namespace Artemis
 			}
 			return currentState;
 		}
+		
+		public void LoadEntityState(String tag,String groupName,Bag<Component> components) {
+			Entity e;
+			if(tag != null) {
+				e = this.CreateEntity(tag);
+			} else {
+				e = this.CreateEntity();
+			}
+			if(groupName != null) {
+				this.groupManager.Set(groupName,e);
+			}		
+			for(int i = 0, j = components.Size(); i < j; i++) {
+				e.AddComponent(components.Get(i));
+			}
+		}
 	}
 }
