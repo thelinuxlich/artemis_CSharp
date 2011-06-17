@@ -1,28 +1,23 @@
 using System;
 namespace Artemis
 {
-	public sealed class ComponentMapper {
+	public sealed class ComponentMapper<T> where T : Component {
 		private ComponentType type;
 		private EntityManager em;
 
         public ComponentMapper() { }
 
-		public ComponentMapper(Type type, EntityManager em) {
-			this.em = em;
-			this.type = ComponentTypeManager.GetTypeFor(type);
+		public ComponentMapper(World world) {
+			this.em = world.GetEntityManager();
+			this.type = ComponentTypeManager.GetTypeFor<T>();
 		}
-
-        public void SetType(Type type)
-        {
-            this.type = ComponentTypeManager.GetTypeFor(type);
-        }
 
         public void SetEntityManager(EntityManager em)
         {
             this.em = em;
         }
 	
-		public T Get<T>(Entity e) where T : Component {
+		public T Get(Entity e) {
 			return (T)em.GetComponent(e, type);
 		}
 	}

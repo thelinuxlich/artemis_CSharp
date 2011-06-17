@@ -26,7 +26,7 @@ namespace Artemis
 		
 		public T GetSystem<T>() where T : EntitySystem {
             EntitySystem system;
-            bool hasSystem = systems.TryGetValue(typeof(T), out system);
+            systems.TryGetValue(typeof(T), out system);
 			return (T)system;
 		}
 		

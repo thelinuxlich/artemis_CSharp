@@ -10,6 +10,7 @@ namespace Artemis
         private Bag<Entity> refreshed = new Bag<Entity>();
         private Bag<Entity> deleted = new Bag<Entity>();
         private ArtemisPool pool;
+		private Dictionary<Type,Manager> managers = new Dictionary<Type, Manager>();
 
 		private int delta;
 		
@@ -19,6 +20,15 @@ namespace Artemis
 			tagManager = new TagManager(this);
 			groupManager = new GroupManager(this);		
 		}
+		public void SetManager(Manager manager) {
+    		managers.Add(manager.GetType(), manager);
+  		}
+		
+  		public T GetManager<T>() where T : Component {
+			Manager m; 
+			managers.TryGetValue(typeof(T), out m);
+    		return (T)m;
+  		}
 		
 		public GroupManager GetGroupManager() {
 			return groupManager;

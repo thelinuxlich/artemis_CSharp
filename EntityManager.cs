@@ -102,6 +102,27 @@ namespace Artemis
 		
 		public void AddComponent(Entity e, Component component) {
 			ComponentType type = ComponentTypeManager.GetTypeFor(component.GetType());
+
+			if(type.GetId() >= componentsByType.GetCapacity()) {
+				componentsByType.Set(type.GetId(), null);
+			}
+
+			Bag<Component> components = componentsByType.Get(type.GetId());
+			if(components == null) {
+				components = new Bag<Component>();
+				componentsByType.Set(type.GetId(), components);
+			}
+
+			components.Set(e.GetId(), component);
+
+			e.AddTypeBit(type.GetBit());
+			if(AddedComponentEvent != null) {
+				AddedComponentEvent(e,component);
+			}
+		}
+		
+		public void AddComponent<T>(Entity e, Component component) where T : Component {
+			ComponentType type = ComponentTypeManager.GetTypeFor<T>();
 			
 			if(type.GetId() >= componentsByType.GetCapacity()) {
 				componentsByType.Set(type.GetId(), null);
@@ -129,8 +150,8 @@ namespace Artemis
 			}
 		}
 		
-		public void RemoveComponent(Entity e, Component component) {
-			ComponentType type = ComponentTypeManager.GetTypeFor(component.GetType());
+		public void RemoveComponent<T>(Entity e, Component component) where T : Component {
+			ComponentType type = ComponentTypeManager.GetTypeFor<T>();
 			RemoveComponent(e, type);
 		}
 		

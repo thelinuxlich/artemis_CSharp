@@ -79,6 +79,7 @@
     <Compile Include="Utils\FastMath.cs" />
     <Compile Include="IntervalTagSystem.cs" />
     <Compile Include="IntervalGroupSystem.cs" />
+    <Compile Include="Manager.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

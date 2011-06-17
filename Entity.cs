@@ -102,12 +102,16 @@ namespace Artemis
 			entityManager.AddComponent(this, component);
 		}
 		
+		public void AddComponent<T>(Component component) where T : Component {
+			entityManager.AddComponent<T>(this, component);
+		}
+		
 		/**
 		 * Removes the component from this entity.
 		 * @param component to remove from this entity.
 		 */
-		public void RemoveComponent(Component component){
-			entityManager.RemoveComponent(this, component);
+		public void RemoveComponent<T>(Component component) where T : Component{
+			entityManager.RemoveComponent<T>(this, component);
 		}
 		
 		/**
@@ -144,7 +148,7 @@ namespace Artemis
 		 * @return component that matches, or null if none is found.
 		 */
 		public T GetComponent<T>() where T : Component {
-			return (T)GetComponent(ComponentTypeManager.GetTypeFor(typeof(T)));
+			return (T)GetComponent(ComponentTypeManager.GetTypeFor<T>());
 		}
 		
 		/**

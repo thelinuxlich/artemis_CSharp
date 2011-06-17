@@ -49,8 +49,8 @@ namespace ArtemisTest
 			world.GetEntityManager().RemovedEntityEvent += new RemovedEntityHandler(RemovedEntity);
 			EntitySystem hs = systemManager.SetSystem(new HealthBarRenderSystem());
 			systemManager.InitializeAll();
-			Entity e = world.AddEntity(entityPool.RemoveLast());
-			Entity e2 = world.AddEntity(entityPool.RemoveLast());
+			Entity e = world.CreateEntity();
+			Entity e2 = world.CreateEntity();
 			e.AddComponent(componentPool[typeof(Health)].RemoveLast());
 			e2.AddComponent(componentPool[typeof(Health)].RemoveLast());
 			e.GetComponent<Health>().AddHealth(100);
