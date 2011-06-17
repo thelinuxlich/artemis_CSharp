@@ -29,18 +29,6 @@ namespace Artemis
 			return id;
 		}
 		
-		public void SetId(int id) {
-			this.id = id;
-		}
-		
-		public void SetWorld(World world) {
-			this.world = world;
-		}
-		
-		public void SetEntityManager(EntityManager entityManager) {
-			this.entityManager = entityManager;
-		}
-		
 		public void SetUniqueId(long uniqueId) {
 			this.uniqueId = uniqueId;
 		}

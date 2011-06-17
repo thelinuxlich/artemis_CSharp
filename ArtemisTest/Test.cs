@@ -11,7 +11,6 @@ namespace ArtemisTest
 	public class Test
 	{
 		Bag<Component> healthBag = new Bag<Component>();
-		Bag<Entity> entityPool = new Bag<Entity>();
 		Dictionary<Type,Bag<Component>> componentPool = new Dictionary<Type, Bag<Component>>();			
 			
 		private void RemovedComponent(Entity e,Component c) 
@@ -28,15 +27,11 @@ namespace ArtemisTest
 		private void RemovedEntity(Entity e) 
       	{
         	 Console.WriteLine("This was the entity removed: "+(e.GetUniqueId()));
-			 entityPool.Add(e);
-			 Console.WriteLine("Entity pool has "+entityPool.Size()+" entities");
       	}
 		
 		[Test()]
 		public void TestCase ()
 		{
-			entityPool.Add(new Entity());
-			entityPool.Add(new Entity());
 			healthBag.Add(new Health());
 			healthBag.Add(new Health());
 			componentPool.Add(typeof(Health), healthBag);

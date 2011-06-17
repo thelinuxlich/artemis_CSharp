@@ -45,20 +45,6 @@ namespace Artemis
 			return e;
 		}
 		
-		public Entity Add(Entity e) {
-			e.Reset();
-			e.SetWorld(world);
-			e.SetEntityManager(this);
-			e.SetUniqueId(uniqueEntityId++);
-			activeEntities.Set(e.GetId(),e);
-			count++;
-			totalCreated++;
-			if(AddedEntityEvent != null) {
-				AddedEntityEvent(e);
-			}
-			return e;
-		}
-	
 		public void Remove(Entity e) {
 			activeEntities.Set(e.GetId(), null);
 			

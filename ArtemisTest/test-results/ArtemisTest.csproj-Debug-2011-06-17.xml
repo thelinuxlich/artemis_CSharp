@@ -77,6 +77,22 @@
       <TotalIgnored>0</TotalIgnored>
       <Time />
     </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-17T14:17:14</TestDate>
+      <Status>Success</Status>
+      <TotalFailures>0</TotalFailures>
+      <TotalSuccess>1</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-06-17T14:18:04</TestDate>
+      <Status>Success</Status>
+      <TotalFailures>0</TotalFailures>
+      <TotalSuccess>1</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+    </UnitTestResult>
   </Results>
   <Tests>
     <TestRecord Name="ArtemisTest">
@@ -137,6 +153,22 @@
         </UnitTestResult>
         <UnitTestResult>
           <TestDate>2011-06-17T13:15:13</TestDate>
+          <Status>Success</Status>
+          <TotalFailures>0</TotalFailures>
+          <TotalSuccess>1</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-17T14:17:14</TestDate>
+          <Status>Success</Status>
+          <TotalFailures>0</TotalFailures>
+          <TotalSuccess>1</TotalSuccess>
+          <TotalIgnored>0</TotalIgnored>
+          <Time />
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2011-06-17T14:18:04</TestDate>
           <Status>Success</Status>
           <TotalFailures>0</TotalFailures>
           <TotalSuccess>1</TotalSuccess>
@@ -212,6 +244,22 @@
             </UnitTestResult>
             <UnitTestResult>
               <TestDate>2011-06-17T13:15:13</TestDate>
+              <Status>Success</Status>
+              <TotalFailures>0</TotalFailures>
+              <TotalSuccess>1</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-17T14:17:14</TestDate>
+              <Status>Success</Status>
+              <TotalFailures>0</TotalFailures>
+              <TotalSuccess>1</TotalSuccess>
+              <TotalIgnored>0</TotalIgnored>
+              <Time />
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2011-06-17T14:18:04</TestDate>
               <Status>Success</Status>
               <TotalFailures>0</TotalFailures>
               <TotalSuccess>1</TotalSuccess>
@@ -376,6 +424,52 @@ Health Component Pool has 1 objects
 Health Component Pool now has 2 objects
 This was the entity removed: 1
 Entity pool has 4 entities
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-17T14:17:14</TestDate>
+                  <Status>Success</Status>
+                  <TotalFailures>0</TotalFailures>
+                  <TotalSuccess>1</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0,02ms</Message>
+                  <ConsoleOutput>Health Component Pool now has 0 objects
+This was the component removed: ArtemisTest.Components.Health
+Health Component Pool has 0 objects
+Health Component Pool now has 1 objects
+This was the entity removed: 0
+Entity pool has 3 entities
+This was the component removed: ArtemisTest.Components.Health
+Health Component Pool has 1 objects
+Health Component Pool now has 2 objects
+This was the entity removed: 1
+Entity pool has 4 entities
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2011-06-17T14:18:04</TestDate>
+                  <Status>Success</Status>
+                  <TotalFailures>0</TotalFailures>
+                  <TotalSuccess>1</TotalSuccess>
+                  <TotalIgnored>0</TotalIgnored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0,02ms</Message>
+                  <ConsoleOutput>Health Component Pool now has 0 objects
+This was the component removed: ArtemisTest.Components.Health
+Health Component Pool has 0 objects
+Health Component Pool now has 1 objects
+This was the entity removed: 0
+This was the component removed: ArtemisTest.Components.Health
+Health Component Pool has 1 objects
+Health Component Pool now has 2 objects
+This was the entity removed: 1
 </ConsoleOutput>
                   <ConsoleError />
                 </UnitTestResult>

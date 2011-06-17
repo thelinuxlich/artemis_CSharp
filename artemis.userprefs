@@ -1,17 +1,17 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="World.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ArtemisTest/Test.cs">
     <Files>
       <File FileName="Component.cs" Line="5" Column="3" />
-      <File FileName="EntitySystem.cs" Line="1" Column="1" />
-      <File FileName="Entity.cs" Line="1" Column="1" />
+      <File FileName="EntitySystem.cs" Line="84" Column="18" />
+      <File FileName="Entity.cs" Line="32" Column="3" />
       <File FileName="../Downloads/build/mono-2.10.2/mcs/class/corlib/System/Nullable.cs" Line="98" Column="1" />
-      <File FileName="World.cs" Line="162" Column="25" />
-      <File FileName="ArtemisTest/Test.cs" Line="1" Column="1" />
-      <File FileName="SystemManager.cs" Line="1" Column="1" />
+      <File FileName="World.cs" Line="98" Column="4" />
+      <File FileName="ArtemisTest/Test.cs" Line="29" Column="80" />
+      <File FileName="SystemManager.cs" Line="30" Column="4" />
       <File FileName="Utils/Utils.cs" Line="1" Column="1" />
-      <File FileName="ComponentMapper.cs" Line="1" Column="1" />
-      <File FileName="ComponentTypeManager.cs" Line="1" Column="1" />
+      <File FileName="ComponentMapper.cs" Line="21" Column="14" />
+      <File FileName="ComponentTypeManager.cs" Line="29" Column="10" />
       <File FileName="DelayedEntityProcessingSystem.cs" Line="1" Column="1" />
       <File FileName="DelayedEntitySystem.cs" Line="1" Column="1" />
       <File FileName="GroupManager.cs" Line="1" Column="1" />
@@ -21,32 +21,38 @@
       <File FileName="IntervalEntityProcessingSystem.cs" Line="1" Column="1" />
       <File FileName="IntervalEntitySystem.cs" Line="1" Column="1" />
       <File FileName="SystemBitManager.cs" Line="1" Column="1" />
-      <File FileName="TagManager.cs" Line="1" Column="1" />
+      <File FileName="TagManager.cs" Line="27" Column="13" />
       <File FileName="TagSystem.cs" Line="1" Column="1" />
       <File FileName="IntervalTagSystem.cs" Line="1" Column="1" />
       <File FileName="IntervalGroupSystem.cs" Line="1" Column="1" />
-      <File FileName="ArtemisTest/HealthBarRenderSystem.cs" Line="1" Column="1" />
+      <File FileName="ArtemisTest/HealthBarRenderSystem.cs" Line="18" Column="4" />
       <File FileName="ArtemisTest/Health.cs" Line="1" Column="1" />
       <File FileName="../Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/MonoMethod.cs" Line="234" Column="1" />
-      <File FileName="../Downloads/build/mono-2.10.2/mcs/nunit24/NUnitCore/core/Reflect.cs" Line="416" Column="1" />
+      <File FileName="../Downloads/build/mono-2.10.2/mcs/nunit24/NUnitCore/core/Reflect.cs" Line="417" Column="1" />
       <File FileName="../Downloads/build/mono-2.10.2/mcs/nunit24/NUnitCore/core/TestMethod.cs" Line="167" Column="1" />
       <File FileName="../Downloads/build/mono-2.10.2/mcs/nunit24/NUnitCore/core/NUnitTestMethod.cs" Line="34" Column="1" />
       <File FileName="../Downloads/build/mono-2.10.2/mcs/nunit24/NUnitCore/core/TestCase.cs" Line="42" Column="1" />
-      <File FileName="../Downloads/build/mono-2.10.2/mcs/nunit24/NUnitCore/core/TestSuite.cs" Line="166" Column="1" />
+      <File FileName="../Downloads/build/mono-2.10.2/mcs/nunit24/NUnitCore/core/TestSuite.cs" Line="276" Column="1" />
       <File FileName="../Downloads/build/mono-2.10.2/mcs/nunit24/NUnitCore/core/TestFixture.cs" Line="35" Column="1" />
       <File FileName="../Downloads/build/mono-2.10.2/mcs/nunit24/NUnitCore/core/SimpleTestRunner.cs" Line="148" Column="1" />
       <File FileName="../Downloads/build/mono-2.10.2/mcs/nunit24/NUnitCore/core/TestRunnerThread.cs" Line="155" Column="1" />
       <File FileName="../Downloads/build/mono-2.10.2/mcs/class/corlib/System.Threading/Thread.cs" Line="680" Column="1" />
-      <File FileName="EntityManager.cs" Line="1" Column="1" />
+      <File FileName="EntityManager.cs" Line="47" Column="3" />
       <File FileName="Pool.cs" Line="1" Column="1" />
-      <File FileName="Utils/Bag.cs" Line="1" Column="1" />
-      <File FileName="ImportData.cs" Line="16" Column="4" />
+      <File FileName="Utils/Bag.cs" Line="137" Column="1" />
+      <File FileName="Manager.cs" Line="1" Column="1" />
+      <File FileName="../Downloads/build/mono-2.10.2/mcs/class/corlib/System/Exception.cs" Line="111" Column="1" />
+      <File FileName="../Downloads/build/mono-2.10.2/mcs/class/corlib/System/ApplicationException.cs" Line="63" Column="1" />
+      <File FileName="../Downloads/build/mono-2.10.2/mcs/class/corlib/System.Reflection/TargetInvocationException.cs" Line="47" Column="1" />
+      <File FileName="../Downloads/build/mono-2.10.2/mcs/nunit24/NUnitCore/interfaces/Test.cs" Line="179" Column="1" />
+      <File FileName="../Downloads/build/mono-2.10.2/mcs/class/corlib/System.Collections/ArrayList.cs" Line="146" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="Artemis" expanded="True" selected="True">
+          <Node name="Artemis" expanded="True">
             <Node name="Utils" expanded="True" />
+            <Node name="GroupSystem.cs" selected="True" />
           </Node>
           <Node name="ArtemisTest" expanded="True">
             <Node name="References" expanded="True" />

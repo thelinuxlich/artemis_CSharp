@@ -97,16 +97,6 @@ namespace Artemis
 			return e;
 		}
 		
-		public Entity AddEntity(Entity e) {
-			return entityManager.Add(e);
-		}
-		
-		public Entity AddEntity(Entity e,string tag) {
-			Entity entity = entityManager.Add(e);
-			tagManager.Register(tag,entity);
-			return entity;
-		}
-		
 		/**
 		 * Get a entity having the specified id.
 		 * @param entityId
