@@ -6,6 +6,9 @@ namespace Artemis
 		private long systemBit = 0;
 	
 		private long typeFlags = 0;
+
+        private SystemType systemType = SystemType.Update;
+        private int processOrder;
 		
 		protected bool enabled = true;
 	
@@ -15,6 +18,11 @@ namespace Artemis
 		
 		public EntitySystem() {
 		}
+
+	    public EntitySystem(SystemType systemType)
+	    {
+	        this.systemType = systemType;
+	    }
 	
 		public EntitySystem(params Type[] types) {
 			for (int i = 0, j = types.Length; i < j; i++) {
@@ -27,6 +35,23 @@ namespace Artemis
 		public void SetSystemBit(long bit) {
 			this.systemBit = bit;
 		}
+
+        public SystemType GetSystemType(){
+            return systemType;
+        }
+
+        public void SetSystemType(SystemType systemType){
+            this.systemType = systemType;
+        }
+
+        public int GetProcessOrder(){
+            return processOrder;
+        }
+
+        public void SetProcessOrder(int processOrder){
+            this.processOrder = processOrder;
+        }
+
 		
 		/**
 		 * Called before processing of entities begins. 
