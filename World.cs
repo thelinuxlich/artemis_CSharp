@@ -7,9 +7,9 @@ namespace Artemis
 		private EntityManager entityManager;
 		private TagManager tagManager;
 		private GroupManager groupManager;
-        private Bag<Entity> refreshed = new Bag<Entity>();
-        private Bag<Entity> deleted = new Bag<Entity>();
-        private ArtemisPool pool;
+        	private Bag<Entity> refreshed = new Bag<Entity>();
+        	private Bag<Entity> deleted = new Bag<Entity>();
+        	private ArtemisPool pool;
 		private Dictionary<Type,Manager> managers = new Dictionary<Type, Manager>();
 
 		private int delta;
@@ -21,13 +21,13 @@ namespace Artemis
 			groupManager = new GroupManager(this);		
 		}
 		public void SetManager(Manager manager) {
-    		managers.Add(manager.GetType(), manager);
+    			managers.Add(manager.GetType(), manager);
   		}
 		
-  		public T GetManager<T>() where T : Component {
+  		public T GetManager<T>() where T : Manager {
 			Manager m; 
 			managers.TryGetValue(typeof(T), out m);
-    		return (T)m;
+    			return (T)m;
   		}
 		
 		public GroupManager GetGroupManager() {
