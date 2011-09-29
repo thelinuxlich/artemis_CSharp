@@ -35,16 +35,14 @@ namespace ArtemisTest
             healthBag.Add(new Health());
             componentPool.Add(typeof(Health), healthBag);
 
-            EntitySystemsManager manager = new EntitySystemsManager();
             Bag<Component> tempBag;
             EntityWorld world = new EntityWorld();
             SystemManager systemManager = world.GetSystemManager();
             world.GetEntityManager().RemovedComponentEvent += new RemovedComponentHandler(RemovedComponent);
             world.GetEntityManager().RemovedEntityEvent += new RemovedEntityHandler(RemovedEntity);
 
-            EntitySystem hs = systemManager.SetSystem(new MultHealthBarRenderSystem());
-            //EntitySystem hs = systemManager.SetSystem(new SingleHEAVYHealthBarRenderSystem());
-            manager.AddSystem(hs);
+            EntitySystem hs = systemManager.SetSystem(new MultHealthBarRenderSystem(),ExecutionType.Update);
+            //EntitySystem hs = systemManager.SetSystem(new SingleHEAVYHealthBarRenderSystem(),ExecutionType.Update);
             systemManager.InitializeAll();
 
             List<Entity> l = new List<Entity>();
@@ -61,7 +59,7 @@ namespace ArtemisTest
             {
                 DateTime dt = DateTime.Now;
                 world.LoopStart();                
-                manager.UpdateSyncronous();
+                systemManager.UpdateSynchronous(ExecutionType.Update);
                 Console.WriteLine((DateTime.Now - dt).TotalMilliseconds);
             }            
 
@@ -84,20 +82,15 @@ namespace ArtemisTest
             healthBag.Add(new Health());
             componentPool.Add(typeof(Health), healthBag);
 
-            EntitySystemsManager manager = new EntitySystemsManager();
             Bag<Component> tempBag;
             EntityWorld world = new EntityWorld();
             SystemManager systemManager = world.GetSystemManager();
             world.GetEntityManager().RemovedComponentEvent += new RemovedComponentHandler(RemovedComponent);
             world.GetEntityManager().RemovedEntityEvent += new RemovedEntityHandler(RemovedEntity);            
-            EntitySystem hs = systemManager.SetSystem(new SingleHealthBarRenderSystem());
-            manager.AddSystem(hs);
-            hs = systemManager.SetSystem(new DummySystem());
-            manager.AddSystem(hs);
-            hs = systemManager.SetSystem(new DummySystem2());
-            manager.AddSystem(hs);
-            hs = systemManager.SetSystem(new DummySystem3());
-            manager.AddSystem(hs);
+            EntitySystem hs = systemManager.SetSystem(new SingleHealthBarRenderSystem(),ExecutionType.Update);
+            hs = systemManager.SetSystem(new DummySystem(),ExecutionType.Update);
+            hs = systemManager.SetSystem(new DummySystem2(),ExecutionType.Update);
+            hs = systemManager.SetSystem(new DummySystem3(),ExecutionType.Update);
             systemManager.InitializeAll();           
             
 
@@ -115,8 +108,8 @@ namespace ArtemisTest
             {
                 DateTime dt = DateTime.Now;
                 world.LoopStart();
-                //manager.UpdateAsyncronous();
-                manager.UpdateSyncronous();
+                //manager.UpdateAsynchronous();
+                systemManager.UpdateSynchronous(ExecutionType.Update);
                 Console.WriteLine((DateTime.Now - dt).TotalMilliseconds);
             }
 
