@@ -3,12 +3,12 @@ using System.Collections.Generic;
 namespace Artemis
 {
 	public sealed class GroupManager {
-		private World world;
+		private EntityWorld world;
 		private Bag<Entity> EMPTY_BAG = new Bag<Entity>();
 		private Dictionary<String, Bag<Entity>> entitiesByGroup = new Dictionary<String, Bag<Entity>>();
 		private Bag<String> groupByEntity = new Bag<String>();
 	
-		public GroupManager(World world) {
+		public GroupManager(EntityWorld world) {
 			this.world = world;
 		}
 		

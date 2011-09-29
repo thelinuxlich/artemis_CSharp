@@ -9,7 +9,7 @@ namespace Artemis
 		
 		protected bool enabled = true;
 	
-		protected World world;
+		protected EntityWorld world;
 	
 		private Dictionary<int,Entity> actives = new Dictionary<int, Entity>();
 		
@@ -31,7 +31,7 @@ namespace Artemis
 		/**
 		 * Called before processing of entities begins. 
 		 */
-        public virtual void Begin() { }
+        protected virtual void Begin() { }
 	
 		public virtual void Process() {
 			if(CheckProcessing()) {
@@ -44,7 +44,7 @@ namespace Artemis
 		/**
 		 * Called after the processing of entities ends.
 		 */
-		public virtual void End() {}
+        protected virtual void End() { }
 		
 		/**
 		 * Any implementing entity system must implement this method and the logic
@@ -52,13 +52,13 @@ namespace Artemis
 		 * 
 		 * @param entities the entities this system contains.
 		 */
-        public virtual void ProcessEntities(Dictionary<int,Entity> entities) { }
+        protected virtual void ProcessEntities(Dictionary<int, Entity> entities) { }
 		
 		/**
 		 * 
 		 * @return true if the system should be processed, false if not.
 		 */
-        public virtual bool CheckProcessing() { return enabled; }
+        protected virtual bool CheckProcessing() { return enabled; }
 	
 		/**
 		 * Override to implement code that gets executed when systems are initialized.
@@ -95,7 +95,7 @@ namespace Artemis
 			Removed(e);
 		}
 	
-		public void SetWorld(World world) {
+		public void SetWorld(EntityWorld world) {
 			this.world = world;
 		}
 		

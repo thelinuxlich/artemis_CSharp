@@ -10,13 +10,14 @@ namespace Artemis
 		public DelayedEntitySystem(params Type[] types) : base(types) {
 		}
 
-        public override void ProcessEntities(Dictionary<int, Entity> entities)
+        protected override void ProcessEntities(Dictionary<int, Entity> entities)
         {
 			ProcessEntities(entities, acc);
 			Stop();
 		}
-		
-		public override bool CheckProcessing() {
+
+        protected override bool CheckProcessing()
+        {
 			if(running) {
 				acc += world.GetDelta();
 				

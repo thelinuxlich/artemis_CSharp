@@ -18,7 +18,7 @@ namespace Artemis
 		 */
 		public abstract void Process(Entity e);
 
-        public override void ProcessEntities(Dictionary<int, Entity> entities)
+        protected override void ProcessEntities(Dictionary<int, Entity> entities)
         {
             Bag<Entity> groupedEntities = this.world.GetGroupManager().getEntities(group);
             for (int i = 0, j = groupedEntities.Size(); i < j; i++) {

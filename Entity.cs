@@ -7,13 +7,13 @@ namespace Artemis
 		private long typeBits = 0;
 		private long systemBits = 0;
 		
-		private World world;
+		private EntityWorld world;
 		private EntityManager entityManager;
 		
 		public Entity() {
 		}
 		
-		public Entity(World world, int id) {
+		public Entity(EntityWorld world, int id) {
 			this.world = world;
 			this.entityManager = world.GetEntityManager();
 			this.id = id;

@@ -7,7 +7,7 @@ namespace Artemis
 
         public ComponentMapper() { }
 
-		public ComponentMapper(World world) {
+		public ComponentMapper(EntityWorld world) {
 			this.em = world.GetEntityManager();
 			this.type = ComponentTypeManager.GetTypeFor<T>();
 		}

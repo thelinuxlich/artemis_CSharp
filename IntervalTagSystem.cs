@@ -10,8 +10,9 @@ namespace Artemis
 		public IntervalTagSystem(int interval, string tag) : base(tag) {
 			this.interval = interval;
 		}
-	
-		public override bool CheckProcessing() {
+
+        protected override bool CheckProcessing()
+        {
 			acc += world.GetDelta();
 			if(acc >= interval) {
 				acc -= interval;

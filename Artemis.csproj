@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -62,10 +62,12 @@
     <Compile Include="EntityManager.cs" />
     <Compile Include="EntityProcessingSystem.cs" />
     <Compile Include="EntitySystem.cs" />
+    <Compile Include="EntitySystemsManager.cs" />
     <Compile Include="GroupManager.cs" />
     <Compile Include="GroupSystem.cs" />
     <Compile Include="IntervalEntityProcessingSystem.cs" />
     <Compile Include="IntervalEntitySystem.cs" />
+    <Compile Include="ParallelEntityProcessingSystem.cs" />
     <Compile Include="Pool.cs" />
     <Compile Include="SystemBitManager.cs" />
     <Compile Include="SystemManager.cs" />

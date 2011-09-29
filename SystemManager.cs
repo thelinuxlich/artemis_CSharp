@@ -3,11 +3,11 @@ using System.Collections.Generic;
 namespace Artemis
 {
 	public sealed class SystemManager {
-		private World world;
+		private EntityWorld world;
 		private Dictionary<Type, EntitySystem> systems = new Dictionary<Type, EntitySystem>();
 		private Bag<EntitySystem> bagged = new Bag<EntitySystem>();
 		
-		public SystemManager(World world) {
+		public SystemManager(EntityWorld world) {
 			this.world = world;
 		}
 		

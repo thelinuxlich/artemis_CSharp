@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 namespace Artemis
 {
-	public sealed class World {
+	public sealed class EntityWorld {
 		private SystemManager systemManager;
 		private EntityManager entityManager;
 		private TagManager tagManager;
@@ -14,7 +14,7 @@ namespace Artemis
 
 		private int delta;
 		
-		public World() {
+		public EntityWorld() {
 			entityManager = new EntityManager(this);
 			systemManager = new SystemManager(this);
 			tagManager = new TagManager(this);

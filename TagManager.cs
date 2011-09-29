@@ -3,10 +3,10 @@ using System.Collections.Generic;
 namespace Artemis
 {
 	public sealed class TagManager {
-		private World world;
+		private EntityWorld world;
 		private Dictionary<String, Entity> entityByTag = new Dictionary<String, Entity>();
 	
-		public TagManager(World world) {
+		public TagManager(EntityWorld world) {
 			this.world = world;
 		}
 	

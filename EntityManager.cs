@@ -7,7 +7,7 @@ namespace Artemis
 	public delegate void AddedEntityHandler(Entity e);
 	
 	public sealed class EntityManager {
-		private World world;
+		private EntityWorld world;
 		private Bag<Entity> activeEntities = new Bag<Entity>();
 		private Bag<Entity> removedAndAvailable = new Bag<Entity>();
 		private int nextAvailableId;
@@ -24,7 +24,7 @@ namespace Artemis
 		
 		private Bag<Component> entityComponents = new Bag<Component>(); // Added for debug support.
 	
-		public EntityManager(World world) {
+		public EntityManager(EntityWorld world) {
 			this.world = world;
 		}
 	

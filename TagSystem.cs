@@ -18,7 +18,7 @@ namespace Artemis
 		 */
 		public abstract void Process(Entity e);
 
-        public override void ProcessEntities(Dictionary<int, Entity> entities)
+        protected override void ProcessEntities(Dictionary<int, Entity> entities)
         {
             Entity e = this.world.GetTagManager().GetEntity(tag);
             if (e != null)

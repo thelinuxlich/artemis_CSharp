@@ -18,7 +18,7 @@ namespace Artemis
 		 */
 		public abstract void Process(Entity e);
 
-        public override void ProcessEntities(Dictionary<int, Entity> entities)
+        protected override void ProcessEntities(Dictionary<int, Entity> entities)
         {
 			for (int i = 0, s = entities.Count; s > i; i++) {
 				Process(entities[i]);

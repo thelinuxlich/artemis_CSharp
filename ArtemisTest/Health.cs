@@ -6,7 +6,7 @@ using Artemis;
 
 namespace ArtemisTest.Components
 {
-    class Health : Component
+    public class Health : Component
     {
         private float health = 0;
         private float maximumHealth = 0;
