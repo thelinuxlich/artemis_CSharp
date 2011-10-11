@@ -14,23 +14,43 @@ namespace Artemis
 	public sealed class SystemManager {
 		private EntityWorld world;
 		private Dictionary<Type, EntitySystem> systems = new Dictionary<Type, EntitySystem>();
-		private Bag<EntitySystem> drawBag = new Bag<EntitySystem>();
-		private Bag<EntitySystem> updateBag = new Bag<EntitySystem>();
+
+        private Dictionary<int, Bag<EntitySystem>> Updatelayers = new Dictionary<int, Bag<EntitySystem>>();
+        private Dictionary<int, Bag<EntitySystem>> Drawlayers = new Dictionary<int, Bag<EntitySystem>>();
 		private Bag<EntitySystem> mergedBag = new Bag<EntitySystem>();
 		
 		public SystemManager(EntityWorld world) {
 			this.world = world;
 		}
 		
-		public T SetSystem<T>(T system,ExecutionType execType = ExecutionType.Update) where T : EntitySystem {
+		public T SetSystem<T>(T system,ExecutionType execType , int layer = 0) where T : EntitySystem {
 			system.SetWorld(world);
 			
 			systems.Add(typeof(T), (EntitySystem)system);
 			
 			if(execType == ExecutionType.Draw) {
+
+                if (!Drawlayers.ContainsKey(layer))
+                    Drawlayers[layer] = new Bag<EntitySystem>();
+
+                Bag<EntitySystem> drawBag = Drawlayers[layer];
+                if (drawBag == null)
+                {
+                    drawBag = Drawlayers[layer] = new Bag<EntitySystem>();
+                }
 				if(!drawBag.Contains((EntitySystem)system))
 					drawBag.Add((EntitySystem)system);
-			} else if(execType == ExecutionType.Update) {	
+
+			} else if(execType == ExecutionType.Update) {
+
+                if (!Updatelayers.ContainsKey(layer))
+                    Updatelayers[layer] = new Bag<EntitySystem>();                
+
+                Bag<EntitySystem> updateBag = Updatelayers[layer];
+                if (updateBag == null)
+                {
+                    updateBag = Updatelayers[layer] = new Bag<EntitySystem>();
+                }
 				if(!updateBag.Contains((EntitySystem)system))
 					updateBag.Add((EntitySystem)system);
 			}
@@ -58,43 +78,69 @@ namespace Artemis
 		   for (int i = 0, j = mergedBag.Size(); i < j; i++) {
 		      mergedBag.Get(i).Initialize();
 		   }
-		} 
-		
-		public void UpdateSynchronous(ExecutionType execType = ExecutionType.Update)
+		}
+
+
+        void UpdatebagSync(Bag<EntitySystem> temp) 
         {
-			Bag<EntitySystem> temp = new Bag<EntitySystem>();
-			if(execType == ExecutionType.Draw) {
-				temp = drawBag;
-			} else if(execType == ExecutionType.Update) {
-				temp = updateBag;
-			}	
-            for (int i = 0, j = temp.Size(); i < j; i++) 
-			{
+            for (int i = 0, j = temp.Size(); i < j; i++)
+            {
                 temp.Get(i).Process();
-			}             
+            }             
+        }
+		
+		public void UpdateSynchronous(ExecutionType execType )
+        {            
+			if(execType == ExecutionType.Draw) {
+
+                foreach (int item in Drawlayers.Keys)                
+                {
+                    UpdatebagSync(Drawlayers[item]);
+                } 				
+			} else if(execType == ExecutionType.Update) {
+                foreach (int item in Updatelayers.Keys)
+                {
+                    UpdatebagSync(Updatelayers[item]);
+                } 
+			}	
         }
 
         TaskFactory factory = new TaskFactory(TaskScheduler.Default);
         List<Task> tasks = new List<Task>();
-        public void UpdateAsynchronous(ExecutionType execType = ExecutionType.Update)
+
+        void UpdatebagASSync(Bag<EntitySystem> temp)
         {
-			Bag<EntitySystem> temp = new Bag<EntitySystem>();
-			if(execType == ExecutionType.Draw) {
-				temp = drawBag;
-			} else if(execType == ExecutionType.Update) {
-				temp = updateBag;
-			}	
+            tasks.Clear();
             for (int i = 0, j = temp.Size(); i < j; i++)
             {
+                EntitySystem es = temp.Get(i);
                 tasks.Add(factory.StartNew(
                     () =>
                     {
-                        temp.Get(i).Process();
+                        es.Process();
                     }
                 ));
-                
-            }             
+
+            }
             Task.WaitAll(tasks.ToArray());
+        }
+        public void UpdateAsynchronous(ExecutionType execType )
+        {
+            if (execType == ExecutionType.Draw)
+            {
+                foreach (int item in Drawlayers.Keys)
+                {
+                    UpdatebagSync(Drawlayers[item]);
+                }
+            }
+            else if (execType == ExecutionType.Update)
+            {
+                foreach (int item in Updatelayers.Keys)
+                {
+                    UpdatebagSync(Updatelayers[item]);
+                }
+            }	
+            
         }
 		
 	}
