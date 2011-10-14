@@ -1,0 +1,5 @@
+This is a complete C# port of the awesome Entity System framework Artemis, originally available in Java here: http://gamadu.com/artemis
+
+This version is beginning to diverge of the original API(small changes), at the moment check out unit tests and the StarWarrior example game here to get a grip on the framework: https://github.com/thelinuxlich/starwarrior_CSharp
+
+If you have any suggestions, critics, we'd love to hear! Our forum: http://www.ploobs.com.br/forum/viewforum.php?f=39&sid=ac84dca015138021f78da3b200ef5f96
