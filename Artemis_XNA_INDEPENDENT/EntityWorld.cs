@@ -7,9 +7,9 @@ namespace Artemis
 		private EntityManager entityManager;
 		private TagManager tagManager;
 		private GroupManager groupManager;
-        	private Bag<Entity> refreshed = new Bag<Entity>();
-        	private Bag<Entity> deleted = new Bag<Entity>();
-        	private ArtemisPool pool;
+        private Bag<Entity> refreshed = new Bag<Entity>();
+        private Bag<Entity> deleted = new Bag<Entity>();
+        private ArtemisPool pool;
 		private Dictionary<Type,Manager> managers = new Dictionary<Type, Manager>();
 
 		private int delta;

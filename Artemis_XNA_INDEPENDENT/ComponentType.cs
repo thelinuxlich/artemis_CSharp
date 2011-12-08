@@ -1,11 +1,12 @@
 using System;
+using System.Numerics;
 namespace Artemis
 {
 	public sealed class ComponentType {
-		private static long nextBit = 1;
+		private static BigInteger nextBit = 1;
 		private static int nextId = 0;
 		
-		private long bit;
+		private BigInteger bit;
 		private int id;
 		
 		public ComponentType() {
@@ -18,7 +19,7 @@ namespace Artemis
 			id = nextId++;
 		}
 		
-		public long GetBit() {
+		public BigInteger GetBit() {
 			return bit;
 		}
 		

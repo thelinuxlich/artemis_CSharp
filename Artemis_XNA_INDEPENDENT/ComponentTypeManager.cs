@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 namespace Artemis
 {
 	public static class ComponentTypeManager {
@@ -26,7 +27,7 @@ namespace Artemis
 			return type;
 		}
 		
-        public static long GetBit<T>() where T : Component
+        public static BigInteger GetBit<T>() where T : Component
         {
             return GetTypeFor<T>().GetBit();
 		}

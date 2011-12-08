@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -9,7 +9,6 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>ArtemisTest</RootNamespace>
     <AssemblyName>ArtemisTest</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,11 +29,11 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="artemis">
+      <HintPath>bin\Release\artemis.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SingleHealthBarRenderSystem.cs" />
@@ -45,12 +44,6 @@
     <Compile Include="Test.cs" />
     <Compile Include="Health.cs" />
     <Compile Include="SingleHEAVYHealthBarRenderSystem.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Artemis.csproj">
-      <Project>{22C89AF2-E1CF-4976-91B9-7D33773DC6E7}</Project>
-      <Name>Artemis</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

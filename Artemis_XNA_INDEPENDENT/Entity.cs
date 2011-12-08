@@ -1,11 +1,12 @@
 using System;
+using System.Numerics;
 namespace Artemis
 {
 	public sealed class Entity {
 		private int id;
 		private long uniqueId;
-		private long typeBits = 0;
-		private long systemBits = 0;
+		private BigInteger typeBits = 0;
+		private BigInteger systemBits = 0;
 		
 		private EntityWorld world;
 		private EntityManager entityManager;
@@ -41,35 +42,35 @@ namespace Artemis
 			return uniqueId;
 		}
 		
-		public long GetTypeBits() {
+		public BigInteger GetTypeBits() {
 			return typeBits;
 		}
 		
-		public void AddTypeBit(long bit) {
+		public void AddTypeBit(BigInteger bit) {
 			typeBits |= bit;
 		}
 		
-		public void RemoveTypeBit(long bit) {
+		public void RemoveTypeBit(BigInteger bit) {
 			typeBits &= ~bit;
 		}
 		
-		public long GetSystemBits() {
+		public BigInteger GetSystemBits() {
 			return systemBits;
 		}
 		
-		public void AddSystemBit(long bit) {
+		public void AddSystemBit(BigInteger bit) {
 			systemBits |= bit;
 		}
 		
-		public void RemoveSystemBit(long bit) {
+		public void RemoveSystemBit(BigInteger bit) {
 			systemBits &= ~bit;
 		}
 		
-		public void SetSystemBits(long systemBits) {
+		public void SetSystemBits(BigInteger systemBits) {
 			this.systemBits = systemBits;
 		}
 		
-		public void SetTypeBits(long typeBits) {
+		public void SetTypeBits(BigInteger typeBits) {
 			this.typeBits = typeBits;
 		}
 		
