@@ -131,14 +131,14 @@ namespace Artemis
             {
                 foreach (int item in Drawlayers.Keys)
                 {
-                    UpdatebagSync(Drawlayers[item]);
+                    UpdatebagASSync(Drawlayers[item]);
                 }
             }
             else if (execType == ExecutionType.Update)
             {
                 foreach (int item in Updatelayers.Keys)
                 {
-                    UpdatebagSync(Updatelayers[item]);
+                    UpdatebagASSync(Updatelayers[item]);
                 }
             }	
             

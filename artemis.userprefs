@@ -15,9 +15,9 @@
       <File FileName="Artemis_XNA_INDEPENDENT/GroupSystem.cs" Line="1" Column="1" />
       <File FileName="Artemis_XNA_INDEPENDENT/GroupManager.cs" Line="1" Column="1" />
       <File FileName="Artemis_XNA_INDEPENDENT/SystemBitManager.cs" Line="1" Column="1" />
-      <File FileName="Artemis_XNA_INDEPENDENT/SystemManager.cs" Line="56" Column="5" />
+      <File FileName="Artemis_XNA_INDEPENDENT/SystemManager.cs" Line="141" Column="32" />
       <File FileName="Artemis_XNA_INDEPENDENT/ArtemisTest/SingleHealthBarRenderSystem.cs" Line="1" Column="1" />
-      <File FileName="Artemis_XNA_INDEPENDENT/ArtemisTest/Test.cs" Line="1" Column="1" />
+      <File FileName="Artemis_XNA_INDEPENDENT/ArtemisTest/Test.cs" Line="111" Column="30" />
       <File FileName="Artemis_XNA_INDEPENDENT/ArtemisTest/MultHealthBarRenderSystem.cs" Line="1" Column="1" />
       <File FileName="Artemis_XNA_INDEPENDENT/ArtemisTest/SingleHEAVYHealthBarRenderSystem.cs" Line="1" Column="1" />
       <File FileName="Artemis_XNA_INDEPENDENT/DelayedEntitySystem.cs" Line="1" Column="1" />

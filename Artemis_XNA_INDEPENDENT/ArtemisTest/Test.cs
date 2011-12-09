@@ -108,8 +108,8 @@ namespace ArtemisTest
             {
                 DateTime dt = DateTime.Now;
                 world.LoopStart();
-                //manager.UpdateAsynchronous();
-                systemManager.UpdateSynchronous(ExecutionType.Update);
+                systemManager.UpdateAsynchronous(ExecutionType.Update);
+                //systemManager.UpdateSynchronous(ExecutionType.Update);
                 Console.WriteLine((DateTime.Now - dt).TotalMilliseconds);
             }
 
@@ -132,8 +132,8 @@ namespace ArtemisTest
 
         static void Main(String[] args)
         {
-            multi();
-            //multsystem();
+            //multi();
+            multsystem();
 		}
 	}
 }
