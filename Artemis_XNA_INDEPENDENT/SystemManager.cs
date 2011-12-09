@@ -40,7 +40,7 @@ namespace Artemis
                 }
 				if(!drawBag.Contains((EntitySystem)system))
 					drawBag.Add((EntitySystem)system);
-
+				Drawlayers = (from d in Drawlayers orderby d.Key ascending select d).ToDictionary(pair => pair.Key, pair => pair.Value);
 			} else if(execType == ExecutionType.Update) {
 
                 if (!Updatelayers.ContainsKey(layer))
@@ -53,6 +53,7 @@ namespace Artemis
                 }
 				if(!updateBag.Contains((EntitySystem)system))
 					updateBag.Add((EntitySystem)system);
+				Updatelayers = (from d in Updatelayers orderby d.Key ascending select d).ToDictionary(pair => pair.Key, pair => pair.Value);
 			}
 			if(!mergedBag.Contains((EntitySystem)system))
 					mergedBag.Add((EntitySystem)system);

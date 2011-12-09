@@ -1,22 +1,22 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Artemis_XNA_INDEPENDENT/ArtemisTest/DummySystem3.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Artemis_XNA_INDEPENDENT/SystemManager.cs">
     <Files>
       <File FileName="Artemis_XNA_INDEPENDENT/ComponentMapper.cs" Line="1" Column="1" />
-      <File FileName="Artemis_XNA_INDEPENDENT/ComponentType.cs" Line="19" Column="18" />
+      <File FileName="Artemis_XNA_INDEPENDENT/ComponentType.cs" Line="1" Column="1" />
       <File FileName="Artemis_XNA_INDEPENDENT/Component.cs" Line="1" Column="1" />
-      <File FileName="Artemis_XNA_INDEPENDENT/ComponentTypeManager.cs" Line="32" Column="32" />
+      <File FileName="Artemis_XNA_INDEPENDENT/ComponentTypeManager.cs" Line="1" Column="1" />
       <File FileName="Artemis_XNA_INDEPENDENT/DelayedEntityProcessingSystem.cs" Line="1" Column="1" />
-      <File FileName="Artemis_XNA_INDEPENDENT/Entity.cs" Line="66" Column="23" />
-      <File FileName="Artemis_XNA_INDEPENDENT/EntityManager.cs" Line="104" Column="27" />
+      <File FileName="Artemis_XNA_INDEPENDENT/Entity.cs" Line="1" Column="1" />
+      <File FileName="Artemis_XNA_INDEPENDENT/EntityManager.cs" Line="1" Column="1" />
       <File FileName="Artemis_XNA_INDEPENDENT/EntityProcessingSystem.cs" Line="1" Column="1" />
-      <File FileName="Artemis_XNA_INDEPENDENT/EntitySystem.cs" Line="28" Column="38" />
-      <File FileName="Artemis_XNA_INDEPENDENT/EntityWorld.cs" Line="12" Column="9" />
+      <File FileName="Artemis_XNA_INDEPENDENT/EntitySystem.cs" Line="1" Column="1" />
+      <File FileName="Artemis_XNA_INDEPENDENT/EntityWorld.cs" Line="1" Column="1" />
       <File FileName="Artemis_XNA_INDEPENDENT/GroupSystem.cs" Line="1" Column="1" />
       <File FileName="Artemis_XNA_INDEPENDENT/GroupManager.cs" Line="1" Column="1" />
-      <File FileName="Artemis_XNA_INDEPENDENT/SystemBitManager.cs" Line="10" Column="27" />
-      <File FileName="Artemis_XNA_INDEPENDENT/SystemManager.cs" Line="59" Column="32" />
-      <File FileName="Artemis_XNA_INDEPENDENT/ArtemisTest/SingleHealthBarRenderSystem.cs" Line="2" Column="7" />
+      <File FileName="Artemis_XNA_INDEPENDENT/SystemBitManager.cs" Line="1" Column="1" />
+      <File FileName="Artemis_XNA_INDEPENDENT/SystemManager.cs" Line="56" Column="5" />
+      <File FileName="Artemis_XNA_INDEPENDENT/ArtemisTest/SingleHealthBarRenderSystem.cs" Line="1" Column="1" />
       <File FileName="Artemis_XNA_INDEPENDENT/ArtemisTest/Test.cs" Line="1" Column="1" />
       <File FileName="Artemis_XNA_INDEPENDENT/ArtemisTest/MultHealthBarRenderSystem.cs" Line="1" Column="1" />
       <File FileName="Artemis_XNA_INDEPENDENT/ArtemisTest/SingleHEAVYHealthBarRenderSystem.cs" Line="1" Column="1" />
