@@ -43,10 +43,11 @@ namespace Artemis
 			return bag;
 		}
 		
-		/**
-		 * Removes the provided entity from the group it is assigned to, if any.
-		 * @param e the entity.
-		 */
+        
+        /// <summary>
+        /// Removes an entity from the group it is assigned to, if any.
+        /// </summary>
+        /// <param name="e">The entity to be removed</param>
 		public void Remove(Entity e) {
 			int entityId = e.GetId();
 			if(entityId < groupByEntity.GetCapacity()) {
