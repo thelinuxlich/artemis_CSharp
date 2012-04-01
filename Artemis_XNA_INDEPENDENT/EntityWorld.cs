@@ -9,8 +9,10 @@ namespace Artemis
 		private GroupManager groupManager;
         private Bag<Entity> refreshed = new Bag<Entity>();
         private Bag<Entity> deleted = new Bag<Entity>();
+        private Bag<Entity> suspended = new Bag<Entity>();
         private ArtemisPool pool;
 		private Dictionary<Type,Manager> managers = new Dictionary<Type, Manager>();
+        private Dictionary<String,Stack<int>> cached = new Dictionary<String, Stack<int>>();
 
 		private int delta;
 		
@@ -82,6 +84,12 @@ namespace Artemis
 		public void RefreshEntity(Entity e) {
 			refreshed.Add(e);
 		}
+
+        public void SuspendEntity(Entity e)
+        {
+            groupManager.Remove(e);
+            suspended.Add(e);
+        }
 		
 		/**
 		 * Create and return a new or reused entity instance.
@@ -105,6 +113,41 @@ namespace Artemis
 		public Entity GetEntity(int entityId) {
 			return entityManager.GetEntity(entityId);
 		}
+
+        public void RegisterStaticEntity(String tag,Entity e)
+        {
+            e.Disable();
+            e.SetStaticKey(tag);
+            entityManager.Refresh(e);
+            if (cached.ContainsKey(tag))
+            {
+                Stack<int> entities;
+                cached.TryGetValue(tag,out entities);
+                entities.Push(e.GetId());
+            } else {
+                Stack<int> entities = new Stack<int>();
+                entities.Push(e.GetId());
+                cached.Add(tag, entities);
+            }
+        }
+
+        public Entity LoadStaticEntity(String tag) 
+        {
+            if (cached.ContainsKey(tag))
+            {
+                Stack<int> entities;
+                cached.TryGetValue(tag, out entities);
+                Entity e = entityManager.GetEntity(entities.Pop());
+                e.Enable();
+                return e;
+            }
+            else
+            {
+                throw new Exception("no more static entities in cache!");
+            }
+        }
+
+
 
         public void SetPool(ArtemisPool gamePool)
         {
@@ -135,6 +178,19 @@ namespace Artemis
                     entityManager.Remove(e);
                 }
                 deleted.Clear();
+            }
+
+            if (!suspended.IsEmpty())
+            {
+                for (int i = 0, j = suspended.Size(); j > i; i++)
+                {
+                    Entity e = suspended.Get(i);
+                    e.Disable();
+                    Stack<int> entities;
+                    cached.TryGetValue(e.GetStaticKey(), out entities);
+                    entities.Push(e.GetId());
+                }
+                suspended.Clear();
             }
         }
 		

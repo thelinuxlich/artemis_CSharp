@@ -1,0 +1,6 @@
+D:\opensource\artemis_CSharp\Artemis_XNA_INDEPENDENT\bin\Debug\artemis.dll
+D:\opensource\artemis_CSharp\Artemis_XNA_INDEPENDENT\bin\Debug\artemis.pdb
+D:\opensource\artemis_CSharp\Artemis_XNA_INDEPENDENT\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\opensource\artemis_CSharp\Artemis_XNA_INDEPENDENT\obj\x86\Debug\artemis.dll
+D:\opensource\artemis_CSharp\Artemis_XNA_INDEPENDENT\obj\x86\Debug\artemis.pdb
+D:\opensource\artemis_CSharp\Artemis_XNA_INDEPENDENT\bin\Debug\artemis.XML

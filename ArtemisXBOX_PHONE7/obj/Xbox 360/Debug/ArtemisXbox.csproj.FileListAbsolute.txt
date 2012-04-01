@@ -1,0 +1,7 @@
+D:\opensource\artemis_CSharp\ArtemisXBOX_PHONE7\bin\Xbox 360\Debug\ArtemisXbox.dll
+D:\opensource\artemis_CSharp\ArtemisXBOX_PHONE7\bin\Xbox 360\Debug\ArtemisXbox.pdb
+D:\opensource\artemis_CSharp\ArtemisXBOX_PHONE7\bin\Xbox 360\Debug\ParallelTasks.dll
+D:\opensource\artemis_CSharp\ArtemisXBOX_PHONE7\obj\Xbox 360\Debug\ResolveAssemblyReference.cache
+D:\opensource\artemis_CSharp\ArtemisXBOX_PHONE7\obj\Xbox 360\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+D:\opensource\artemis_CSharp\ArtemisXBOX_PHONE7\obj\Xbox 360\Debug\ArtemisXbox.dll
+D:\opensource\artemis_CSharp\ArtemisXBOX_PHONE7\obj\Xbox 360\Debug\ArtemisXbox.pdb

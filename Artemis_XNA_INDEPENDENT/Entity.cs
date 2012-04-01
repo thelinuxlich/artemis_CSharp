@@ -10,6 +10,8 @@ namespace Artemis
 		
 		private EntityWorld world;
 		private EntityManager entityManager;
+        private string staticKey = "";
+        private bool enabled = true;
 		
 		public Entity() {
 		}
@@ -82,7 +84,27 @@ namespace Artemis
 		public override String ToString() {
 			return "Entity["+id+"]";
 		}
-		
+
+        public void SetStaticKey(string key)
+        {
+            this.staticKey = key;
+        }
+
+        public String GetStaticKey()
+        {
+            return staticKey;
+        }
+
+        public void Enable()
+        {
+            this.enabled = true;
+        }
+
+        public void Disable()
+        {
+            this.enabled = false;
+        }
+
 		/**
 		 * Add a component to this entity.
 		 * @param component to add to this entity
@@ -118,7 +140,12 @@ namespace Artemis
 		public bool IsActive(){
 			return entityManager.IsActive(id);
 		}
-	
+
+        public bool IsEnabled()
+        {
+            return this.enabled;
+        }
+
 		/**
 		 * This is the preferred method to use when retrieving a component from a entity. It will provide good performance.
 		 * 
@@ -165,6 +192,11 @@ namespace Artemis
 		public void Delete() {
 			world.DeleteEntity(this);
 		}
+
+        public void Suspend()
+        {
+            world.SuspendEntity(this);
+        }
 	
 		/**
 		 * Set the group of the entity. Same as World.setGroup().
