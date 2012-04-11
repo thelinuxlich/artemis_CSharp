@@ -7,12 +7,9 @@ using ArtemisTest.Components;
 
 namespace ArtemisTest
 {
-    public class QueueSystemTest : Artemis.QueueSystemProcessingThreadSafe
+    public class QueueSystemTest2 : Artemis.QueueSystemProcessingThreadSafe
     {
-        public QueueSystemTest() : base()
-        {
-        }
-
+        public QueueSystemTest2() : base(){}
         public override void Process(Entity Entity)
         {
             Health Health = Entity.GetComponent<Health>();

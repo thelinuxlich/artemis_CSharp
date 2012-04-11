@@ -13,7 +13,7 @@ namespace Artemis
 	
 	public sealed class SystemManager {
 		private EntityWorld world;
-		private Dictionary<Type, EntitySystem> systems = new Dictionary<Type, EntitySystem>();
+        private Dictionary<Type, List<EntitySystem>> systems = new Dictionary<Type, List<EntitySystem>>();
 
         private Dictionary<int, Bag<EntitySystem>> Updatelayers = new Dictionary<int, Bag<EntitySystem>>();
         private Dictionary<int, Bag<EntitySystem>> Drawlayers = new Dictionary<int, Bag<EntitySystem>>();
@@ -25,8 +25,17 @@ namespace Artemis
 		
 		public T SetSystem<T>(T system,ExecutionType execType , int layer = 0) where T : EntitySystem {
 			system.SetWorld(world);
-			
-			systems.Add(typeof(T), (EntitySystem)system);
+						
+            if(systems.ContainsKey(typeof(T)))
+            {
+                systems[typeof(T)].Add((EntitySystem)system);
+            }
+            else
+            {
+                systems[typeof(T)] = new List<EntitySystem>();
+                systems[typeof(T)].Add((EntitySystem)system);
+            }
+
 			
 			if(execType == ExecutionType.Draw) {
 
@@ -62,10 +71,12 @@ namespace Artemis
 			return (T)system;
 		}
 		
-		public T GetSystem<T>() where T : EntitySystem {
-            EntitySystem system;
+		public List<EntitySystem> GetSystem<T>() where T : EntitySystem {
+            List<EntitySystem> system;
+
             systems.TryGetValue(typeof(T), out system);
-			return (T)system;
+
+            return system;
 		}
 		
 		public Bag<EntitySystem> GetSystems() {

@@ -33,6 +33,9 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="QueueSystemProcessingThreadSafe.cs" />
+    <Compile Include="QueueSystemTest2.cs" />
+    <Compile Include="HybridQueueSystemTest.cs" />
     <Compile Include="QueueSystemTest.cs" />
     <Compile Include="SingleHealthBarRenderSystem.cs" />
     <Compile Include="DummySystem3.cs" />

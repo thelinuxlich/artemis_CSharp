@@ -7,16 +7,17 @@ using ArtemisTest.Components;
 
 namespace ArtemisTest
 {
-    public class QueueSystemTest : Artemis.QueueSystemProcessingThreadSafe
+    public class HybridQueueSystemTest : Artemis.HybridQueueSystemProcessing
     {
-        public QueueSystemTest() : base()
-        {
-        }
+        public HybridQueueSystemTest()
+            : base(typeof(Health))
+        {}
 
         public override void Process(Entity Entity)
         {
             Health Health = Entity.GetComponent<Health>();
             Health.AddDamage(10);
         }
+        
     }
 }

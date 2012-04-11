@@ -44,6 +44,8 @@ namespace Artemis
 
         public override void Process()
         {
+            if (!enabled)
+                return;
             int size = queue.Count > EntitiesToProcessEachFrame ? EntitiesToProcessEachFrame : queue.Count;
             for (int i = 0; i < size; i++)
             {

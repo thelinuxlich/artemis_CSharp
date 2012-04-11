@@ -80,6 +80,7 @@
     <Compile Include="EntityWorld.cs" />
     <Compile Include="GroupManager.cs" />
     <Compile Include="GroupSystem.cs" />
+    <Compile Include="HybridQueueSystemProcessing.cs" />
     <Compile Include="IntervalEntityProcessingSystem.cs" />
     <Compile Include="IntervalEntitySystem.cs" />
     <Compile Include="IntervalGroupSystem.cs" />

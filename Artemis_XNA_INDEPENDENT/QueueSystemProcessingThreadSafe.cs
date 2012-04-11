@@ -2,50 +2,91 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace Artemis
 {
-    public class QueueSystemProcessingThreadSafe : EntitySystem
+
+    class QueueManager
     {
-        public QueueSystemProcessingThreadSafe()
+        public void AquireLock()
+        {
+            Monitor.Enter(lockobj);
+        }
+
+        public void ReleaseLock()
+        {
+            Monitor.Exit(lockobj);
+        }
+
+        public static object lockobj = new object();
+        public static Queue<Entity> queue = new Queue<Entity>();
+        public static int EntitiesToProcessEachFrame = 50;
+    }
+
+    public abstract class QueueSystemProcessingThreadSafe : EntitySystem
+    {
+       public QueueSystemProcessingThreadSafe(String SystemName)
             : base()
         {
+            Id = SystemName;
+            queuesManager[Id] = new QueueManager();
         }
 
-        public static int EntitiesToProcessEachFrame = 50;
-        static object lockobj = new object();
-        static Queue<Entity> queue = new Queue<Entity>();              
-
-        public static void AddToQueue(Entity ent)
+        ~QueueSystemProcessingThreadSafe()
         {
-            lock (lockobj)
-            {
-                queue.Enqueue(ent);
-            }
+            queuesManager.Remove(Id);
         }
 
-        public static int QueueCount
+        public readonly String Id;        
+
+        static Dictionary<String, QueueManager> queuesManager = new Dictionary<String, QueueManager>();
+
+        public static void SetQueueProcessingLimit(int limit, String EntitySystemName)
         {
-            get
-            {
-                lock (lockobj)
-                {
-                    return queue.Count;
-                }
-            }
+            QueueManager QueueManager = queuesManager[EntitySystemName];
+            QueueManager.AquireLock();
+            QueueManager.EntitiesToProcessEachFrame = limit;
+            QueueManager.ReleaseLock();
+            
+        }
+
+        public static int GetQueueProcessingLimit(String EntitySystemName)
+        {
+            QueueManager QueueManager = queuesManager[EntitySystemName];
+            QueueManager.AquireLock();
+            int val = QueueManager.EntitiesToProcessEachFrame;
+            QueueManager.ReleaseLock();
+            return val;
+        }
+           
+
+        public static void AddToQueue(Entity ent, String EntitySystemName)
+        {
+            QueueManager QueueManager = queuesManager[EntitySystemName];
+            QueueManager.AquireLock();
+            QueueManager.queue.Enqueue(ent);
+            QueueManager.ReleaseLock();
+        }
+
+        public static int QueueCount(String EntitySystemName)
+        {            
+                int result;
+                QueueManager QueueManager = queuesManager[EntitySystemName];
+                QueueManager.AquireLock();
+                result = QueueManager.queue.Count;
+                QueueManager.ReleaseLock();
+                return result;         
         }
 
 
-        private static Entity DeQueue()
+        private static Entity DeQueue(String EntitySystemName)
         {
-            lock (lockobj)
-            {
-                if(queue.Count > 0)
-                {
-                    return queue.Dequeue();
-                }
-                return null;
-            }
+            QueueManager QueueManager = queuesManager[EntitySystemName];
+            QueueManager.AquireLock();
+            Entity e = QueueManager.queue.Dequeue();
+            QueueManager.ReleaseLock();
+            return e;
         }
 
         public virtual void Process(Entity Entity)
@@ -54,24 +95,28 @@ namespace Artemis
 
         public override void Process()
         {
-            Entity[] entities; 
-            lock (lockobj)
+            if (!enabled)
+                return;
+            Entity[] entities;
+            QueueManager QueueManager = queuesManager[Id];
+            QueueManager.AquireLock();
             {
-                int count = queue.Count;
-                if (count > QueueSystemProcessingThreadSafe.EntitiesToProcessEachFrame)
+                int count = QueueManager.queue.Count;
+                if (count > QueueManager.EntitiesToProcessEachFrame)
                 {
-                    entities = new Entity[QueueSystemProcessingThreadSafe.EntitiesToProcessEachFrame];
-                    for (int i = 0; i < QueueSystemProcessingThreadSafe.EntitiesToProcessEachFrame; i++)
+                    entities = new Entity[QueueManager.EntitiesToProcessEachFrame];
+                    for (int i = 0; i < QueueManager.EntitiesToProcessEachFrame; i++)
                     {
-                        entities[i] = queue.Dequeue();
+                        entities[i] = QueueManager.queue.Dequeue();
                     }
                 }
                 else
                 {
-                       entities = queue.ToArray();
-                       queue.Clear();
+                    entities = QueueManager.queue.ToArray();
+                    QueueManager.queue.Clear();
                 }
             }
+            QueueManager.ReleaseLock();
 
             foreach (var item in entities)
             {
