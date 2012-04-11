@@ -76,7 +76,7 @@ namespace Artemis
 		 */
         public virtual void Removed(Entity e) { }
 	
-		public void Change(Entity e) {
+		public virtual void Change(Entity e) {
 			bool contains = (systemBit & e.GetSystemBits()) == systemBit;
 			bool interest = (typeFlags & e.GetTypeBits()) == typeFlags;
 	

@@ -133,7 +133,39 @@ namespace ArtemisTest
         static void Main(String[] args)
         {
             //multi();
-            multsystem();
+            //multsystem();
+            QueueSystemTeste();
 		}
+
+
+        public static void QueueSystemTeste()
+        {
+            EntityWorld world = new EntityWorld();
+            SystemManager systemManager = world.GetSystemManager();
+            EntitySystem hs = systemManager.SetSystem(new QueueSystemProcessingThreadSafe(), ExecutionType.Update);
+            systemManager.InitializeAll();
+
+            QueueSystemProcessingThreadSafe.EntitiesToProcessEachFrame = 1000;
+            for (int i = 0; i < 10000000; i++)
+            {
+                Entity et = world.CreateEntity();
+                et.AddComponent(new Health());
+                et.GetComponent<Health>().AddHealth(100);
+                QueueSystemProcessingThreadSafe.AddToQueue(et);
+            }
+
+            Console.WriteLine("Start");
+            while (QueueSystemProcessingThreadSafe.QueueCount > 0)
+            {
+                DateTime dt = DateTime.Now;
+                world.LoopStart();                
+                systemManager.UpdateSynchronous(ExecutionType.Update);
+                Console.WriteLine("Count: " + QueueSystemProcessingThreadSafe.QueueCount);
+                Console.WriteLine("Time: " + (DateTime.Now - dt).TotalMilliseconds);
+
+            }
+            Console.WriteLine("End");
+
+        }
 	}
 }
