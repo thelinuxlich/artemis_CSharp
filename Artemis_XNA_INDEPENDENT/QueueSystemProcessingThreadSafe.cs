@@ -9,7 +9,7 @@ namespace Artemis
 
     class QueueManager
     {
-        public void AquireLock()
+        public void AcquireLock()
         {
             Monitor.Enter(lockobj);
         }
@@ -45,7 +45,7 @@ namespace Artemis
         public static void SetQueueProcessingLimit(int limit, String EntitySystemName)
         {
             QueueManager QueueManager = queuesManager[EntitySystemName];
-            QueueManager.AquireLock();
+            QueueManager.AcquireLock();
             QueueManager.EntitiesToProcessEachFrame = limit;
             QueueManager.ReleaseLock();
             
@@ -54,7 +54,7 @@ namespace Artemis
         public static int GetQueueProcessingLimit(String EntitySystemName)
         {
             QueueManager QueueManager = queuesManager[EntitySystemName];
-            QueueManager.AquireLock();
+            QueueManager.AcquireLock();
             int val = QueueManager.EntitiesToProcessEachFrame;
             QueueManager.ReleaseLock();
             return val;
@@ -64,7 +64,7 @@ namespace Artemis
         public static void AddToQueue(Entity ent, String EntitySystemName)
         {
             QueueManager QueueManager = queuesManager[EntitySystemName];
-            QueueManager.AquireLock();
+            QueueManager.AcquireLock();
             QueueManager.queue.Enqueue(ent);
             QueueManager.ReleaseLock();
         }
@@ -73,7 +73,7 @@ namespace Artemis
         {            
                 int result;
                 QueueManager QueueManager = queuesManager[EntitySystemName];
-                QueueManager.AquireLock();
+                QueueManager.AcquireLock();
                 result = QueueManager.queue.Count;
                 QueueManager.ReleaseLock();
                 return result;         
@@ -83,7 +83,7 @@ namespace Artemis
         private static Entity DeQueue(String EntitySystemName)
         {
             QueueManager QueueManager = queuesManager[EntitySystemName];
-            QueueManager.AquireLock();
+            QueueManager.AcquireLock();
             Entity e = QueueManager.queue.Dequeue();
             QueueManager.ReleaseLock();
             return e;
@@ -99,7 +99,7 @@ namespace Artemis
                 return;
             Entity[] entities;
             QueueManager QueueManager = queuesManager[Id];
-            QueueManager.AquireLock();
+            QueueManager.AcquireLock();
             {
                 int count = QueueManager.queue.Count;
                 if (count > QueueManager.EntitiesToProcessEachFrame)
