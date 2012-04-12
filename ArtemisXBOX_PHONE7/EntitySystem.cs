@@ -1,11 +1,23 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 namespace Artemis
 {
 	public abstract class EntitySystem {
-		private long systemBit = 0;
+
+        protected static BlackBoard blackBoard = new BlackBoard();
+
+        public static BlackBoard BlackBoard
+        {
+            get
+            {
+                return blackBoard;
+            }
+        }
+
+		private BigInteger systemBit = 0;
 	
-		private long typeFlags = 0;
+		private BigInteger typeFlags = 0;
 		
 		protected bool enabled = true;
 	
@@ -24,7 +36,7 @@ namespace Artemis
 			}
 		}
 		
-		public void SetSystemBit(long bit) {
+		public void SetSystemBit(BigInteger bit) {
 			this.systemBit = bit;
 		}
 		

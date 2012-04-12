@@ -9,6 +9,13 @@ namespace Artemis
 
     class QueueManager
     {
+        public QueueManager()
+        {
+            this.AquireLock();
+            refCount++;
+            this.ReleaseLock();
+        }
+
         public void AquireLock()
         {
             Monitor.Enter(lockobj);
@@ -19,70 +26,85 @@ namespace Artemis
             Monitor.Exit(lockobj);
         }
 
-        public static object lockobj = new object();
+        public int refCount = 0;
+        static object lockobj = new object();
         public static Queue<Entity> queue = new Queue<Entity>();
         public static int EntitiesToProcessEachFrame = 50;
     }
 
     public abstract class QueueSystemProcessingThreadSafe : EntitySystem
     {
-       public QueueSystemProcessingThreadSafe(String SystemName)
+        public QueueSystemProcessingThreadSafe()
             : base()
         {
-            Id = SystemName;
-            queuesManager[Id] = new QueueManager();
+            Id = this.GetType();
+            if (!queuesManager.ContainsKey(Id))
+            {
+                queuesManager[Id] = new QueueManager();
+            }
+            else
+            {
+                queuesManager[Id].AquireLock();
+                queuesManager[Id].refCount++;
+                queuesManager[Id].ReleaseLock();
+            }
         }
 
         ~QueueSystemProcessingThreadSafe()
         {
-            queuesManager.Remove(Id);
+            QueueManager QueueManager = queuesManager[Id];
+            QueueManager.AquireLock();
+            QueueManager.refCount--;
+            if (QueueManager.refCount == 0)
+                queuesManager.Remove(Id);
+            QueueManager.ReleaseLock();
         }
 
-        public readonly String Id;        
+        public readonly Type Id;
 
-        static Dictionary<String, QueueManager> queuesManager = new Dictionary<String, QueueManager>();
+        static Dictionary<Type, QueueManager> queuesManager = new Dictionary<Type, QueueManager>();
 
-        public static void SetQueueProcessingLimit(int limit, String EntitySystemName)
+        public static void SetQueueProcessingLimit(int limit, Type EntitySystemType)
         {
-            QueueManager QueueManager = queuesManager[EntitySystemName];
+            QueueManager QueueManager = queuesManager[EntitySystemType];
             QueueManager.AquireLock();
             QueueManager.EntitiesToProcessEachFrame = limit;
             QueueManager.ReleaseLock();
-            
+
         }
 
-        public static int GetQueueProcessingLimit(String EntitySystemName)
+        public static int GetQueueProcessingLimit(Type EntitySystemType)
         {
-            QueueManager QueueManager = queuesManager[EntitySystemName];
+            QueueManager QueueManager = queuesManager[EntitySystemType];
             QueueManager.AquireLock();
             int val = QueueManager.EntitiesToProcessEachFrame;
             QueueManager.ReleaseLock();
             return val;
         }
-           
 
-        public static void AddToQueue(Entity ent, String EntitySystemName)
+
+        public static void AddToQueue(Entity ent, Type EntitySystemType)
         {
-            QueueManager QueueManager = queuesManager[EntitySystemName];
+            QueueManager QueueManager = queuesManager[EntitySystemType];
             QueueManager.AquireLock();
             QueueManager.queue.Enqueue(ent);
             QueueManager.ReleaseLock();
         }
 
-        public static int QueueCount(String EntitySystemName)
-        {            
-                int result;
-                QueueManager QueueManager = queuesManager[EntitySystemName];
-                QueueManager.AquireLock();
-                result = QueueManager.queue.Count;
-                QueueManager.ReleaseLock();
-                return result;         
+        public static int QueueCount(Type EntitySystemType)
+        {
+            int result;
+            QueueManager QueueManager = queuesManager[EntitySystemType];
+            QueueManager.AquireLock();
+            result = QueueManager.queue.Count;
+            QueueManager.ReleaseLock();
+            return result;
         }
 
 
-        private static Entity DeQueue(String EntitySystemName)
+        private static Entity DeQueue(Type EntitySystemType)
         {
-            QueueManager QueueManager = queuesManager[EntitySystemName];
+            QueueManager QueueManager = queuesManager[EntitySystemType];
             QueueManager.AquireLock();
             Entity e = QueueManager.queue.Dequeue();
             QueueManager.ReleaseLock();
@@ -95,8 +117,6 @@ namespace Artemis
 
         public override void Process()
         {
-            if (!enabled)
-                return;
             Entity[] entities;
             QueueManager QueueManager = queuesManager[Id];
             QueueManager.AquireLock();
@@ -121,7 +141,7 @@ namespace Artemis
             foreach (var item in entities)
             {
                 Process(item);
-            }           
+            }
         }
 
         public override void Initialize()

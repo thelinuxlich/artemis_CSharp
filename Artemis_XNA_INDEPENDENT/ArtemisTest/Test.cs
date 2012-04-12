@@ -136,7 +136,51 @@ namespace ArtemisTest
             multsystem();
             QueueSystemTeste();
             HybridQueueSystemTeste();
+            SystemComunicationTeste();
 		}
+
+        public static void SystemComunicationTeste()
+        {
+            EntitySystem.BlackBoard.SetEntry<int>("Damage", 5);
+
+            EntityWorld world = new EntityWorld();
+            SystemManager systemManager = world.GetSystemManager();
+            DummyCommunicationSystem DummyCommunicationSystem = new DummyCommunicationSystem();
+            systemManager.SetSystem(DummyCommunicationSystem, ExecutionType.Update);
+            systemManager.InitializeAll();            
+
+            List<Entity> l = new List<Entity>();
+            for (int i = 0; i < 100; i++)
+            {
+                Entity et = world.CreateEntity();
+                et.AddComponent(new Health());
+                et.GetComponent<Health>().AddHealth(100);
+                et.Refresh();
+                l.Add(et);
+            }
+            
+            {
+                DateTime dt = DateTime.Now;
+                world.LoopStart();
+                systemManager.UpdateSynchronous(ExecutionType.Update);
+                Console.WriteLine((DateTime.Now - dt).TotalMilliseconds);
+            }
+
+            EntitySystem.BlackBoard.SetEntry<int>("Damage", 10);
+
+            {
+                DateTime dt = DateTime.Now;
+                world.LoopStart();
+                systemManager.UpdateSynchronous(ExecutionType.Update);
+                Console.WriteLine((DateTime.Now - dt).TotalMilliseconds);
+            }
+
+            foreach (var item in l)
+            {
+                Debug.Assert(item.GetComponent<Health>().GetHealth() == 85);
+            }
+            
+        }
 
         public static void QueueSystemTeste()
         {
@@ -203,7 +247,7 @@ namespace ArtemisTest
                 et.AddComponent(new Health());
                 et.GetComponent<Health>().AddHealth(100);
                 et.Refresh();
-                //l.Add(et);
+                l.Add(et);
             }
 
             for (int i = 0; i < 100; i++)
@@ -215,17 +259,24 @@ namespace ArtemisTest
                 l.Add(et);
             }
 
+            int j = 0;
             while (HybridQueueSystemTest.QueueCount > 0) 
             {
+                j++;
                 DateTime dt = DateTime.Now;
                 world.LoopStart();                
                 systemManager.UpdateSynchronous(ExecutionType.Update);
                 Console.WriteLine((DateTime.Now - dt).TotalMilliseconds);
             }
 
-            foreach (var item in l)
+            for (int i = 0; i < 100; i++)
             {
-                Debug.Assert(item.GetComponent<Health>().GetHealth() == 90);
+                Debug.Assert(l[i].GetComponent<Health>().GetHealth() == 100 - (10 * j));
+            }
+
+            for (int i = 100; i < 200; i++)
+            {
+                Debug.Assert(l[i].GetComponent<Health>().GetHealth() == 90);
             }
             
         }

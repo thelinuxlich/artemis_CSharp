@@ -9,6 +9,13 @@ namespace Artemis
 
     class QueueManager
     {
+        public QueueManager()
+        {
+            this.AquireLock();
+            refCount++;
+            this.ReleaseLock();
+        }
+
         public void AquireLock()
         {
             Monitor.Enter(lockobj);
@@ -19,7 +26,8 @@ namespace Artemis
             Monitor.Exit(lockobj);
         }
 
-        public object lockobj = new object();
+        public int refCount = 0;
+        object lockobj = new object();
         public Queue<Entity> queue = new Queue<Entity>();
         public int EntitiesToProcessEachFrame = 50;
     }
@@ -30,12 +38,26 @@ namespace Artemis
             : base()
         {
             Id = this.GetType();
-            queuesManager[Id] = new QueueManager();
+            if (!queuesManager.ContainsKey(Id))
+            {
+                queuesManager[Id] = new QueueManager();
+            }
+            else
+            {
+                queuesManager[Id].AquireLock();
+                queuesManager[Id].refCount++;
+                queuesManager[Id].ReleaseLock();
+            }
         }
 
         ~QueueSystemProcessingThreadSafe()
         {
-            queuesManager.Remove(Id);
+            QueueManager QueueManager = queuesManager[Id];
+            QueueManager.AquireLock();
+            QueueManager.refCount--;
+            if (QueueManager.refCount == 0)
+                queuesManager.Remove(Id);
+            QueueManager.ReleaseLock();            
         }
 
         public readonly Type Id;

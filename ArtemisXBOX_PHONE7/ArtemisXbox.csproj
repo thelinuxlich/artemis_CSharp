@@ -67,6 +67,10 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BlackBoard\BlackBoard.cs" />
+    <Compile Include="BlackBoard\SimpleTrigger.cs" />
+    <Compile Include="BlackBoard\Trigger.cs" />
+    <Compile Include="BlackBoard\TriggerMultiCondition.cs" />
     <Compile Include="Component.cs" />
     <Compile Include="ComponentMapper.cs" />
     <Compile Include="ComponentType.cs" />

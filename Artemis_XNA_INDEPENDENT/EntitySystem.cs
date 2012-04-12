@@ -4,6 +4,17 @@ using System.Numerics;
 namespace Artemis
 {
 	public abstract class EntitySystem {
+
+        protected static BlackBoard blackBoard = new BlackBoard();
+
+        public static BlackBoard BlackBoard
+        {
+            get
+            {
+                return blackBoard;
+            }
+        }
+
 		private BigInteger systemBit = 0;
 	
 		private BigInteger typeFlags = 0;

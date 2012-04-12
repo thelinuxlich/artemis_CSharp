@@ -33,6 +33,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DummyCommunicationSystem.cs" />
     <Compile Include="QueueSystemProcessingThreadSafe.cs" />
     <Compile Include="QueueSystemTest2.cs" />
     <Compile Include="HybridQueueSystemTest.cs" />
