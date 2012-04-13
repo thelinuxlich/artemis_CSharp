@@ -66,6 +66,7 @@ namespace Artemis
 
         public static void SetQueueProcessingLimit(int limit, Type EntitySystemType)
         {
+
             QueueManager QueueManager = queuesManager[EntitySystemType];
             QueueManager.AquireLock();
             QueueManager.EntitiesToProcessEachFrame = limit;
@@ -100,7 +101,6 @@ namespace Artemis
             QueueManager.ReleaseLock();
             return result;
         }
-
 
         private static Entity DeQueue(Type EntitySystemType)
         {
