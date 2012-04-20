@@ -19,7 +19,7 @@ namespace Artemis
         protected override bool CheckProcessing()
         {
 			if(running) {
-				acc += world.GetDelta();
+				acc += world.Delta;
 				
 				if(acc >= delay) {
 					return enabled;
@@ -46,7 +46,7 @@ namespace Artemis
 		 */
 		public void StartDelayedRun(int delay) {
 			this.delay = delay;
-			this.acc = 0;
+			acc = 0;
 			running = true;
 		}
 	
@@ -55,8 +55,8 @@ namespace Artemis
 		 * 
 		 * @return the originally set delay.
 		 */
-		public int GetInitialTimeDelay() {
-			return delay;
+		public int InitialTimeDelay {
+			get { return delay;}
 		}
 		
 		public int GetRemainingTimeUntilProcessing() {
@@ -79,8 +79,8 @@ namespace Artemis
 		 * Aborts running the system in the future and stops it. Call delayedRun() to start it again.
 		 */
 		public void Stop() {
-			this.running = false;
-			this.acc = 0;
+			running = false;
+			acc = 0;
 		}
 	
 	}

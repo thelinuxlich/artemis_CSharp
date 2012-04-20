@@ -28,7 +28,7 @@ namespace Artemis
 			}
 			entities.Add(e);
 			
-			groupByEntity.Set(e.GetId(), group);
+			groupByEntity.Set(e.Id, group);
 		}
 		
 		/**
@@ -48,7 +48,7 @@ namespace Artemis
         /// </summary>
         /// <param name="e">The entity to be removed</param>
 		public void Remove(Entity e) {
-			int entityId = e.GetId();
+			int entityId = e.Id;
 			if(entityId < groupByEntity.GetCapacity()) {
 				String group = groupByEntity.Get(entityId);
 				if(group != null) {
@@ -67,7 +67,7 @@ namespace Artemis
 		 * @return the name of the group that this entity belongs to, null if none.
 		 */
 		public String GetGroupOf(Entity e) {
-			int entityId = e.GetId();
+			int entityId = e.Id;
 			if(entityId < groupByEntity.GetCapacity()) {
 				return groupByEntity.Get(entityId);
 			}

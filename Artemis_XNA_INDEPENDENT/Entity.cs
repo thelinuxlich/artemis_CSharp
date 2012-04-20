@@ -18,7 +18,7 @@ namespace Artemis
 		
 		public Entity(EntityWorld world, int id) {
 			this.world = world;
-			this.entityManager = world.GetEntityManager();
+			this.entityManager = world.EntityManager;
 			this.id = id;
 		}
 	
@@ -28,24 +28,18 @@ namespace Artemis
 		 * 
 		 * @return id of the entity.
 		 */
-		public int GetId() {
-			return id;
+		public int Id {
+			get { return id;}
 		}
 		
-		public void SetUniqueId(long uniqueId) {
-			this.uniqueId = uniqueId;
+		public long UniqueId {
+			get { return uniqueId; }
+			set { uniqueId = value;}
 		}
 		
-		/**
-		 * Get the unique ID of this entity. Because entity instances are reused internally use this to identify between different instances.
-		 * @return the unique id of this entity.
-		 */
-		public long GetUniqueId() {
-			return uniqueId;
-		}
-		
-		public BigInteger GetTypeBits() {
-			return typeBits;
+		public BigInteger TypeBits {
+			get { return typeBits; }
+			set { typeBits = value; }
 		}
 		
 		public void AddTypeBit(BigInteger bit) {
@@ -56,8 +50,9 @@ namespace Artemis
 			typeBits &= ~bit;
 		}
 		
-		public BigInteger GetSystemBits() {
-			return systemBits;
+		public BigInteger SystemBits {
+			get { return systemBits;}
+			set { systemBits = value; }
 		}
 		
 		public void AddSystemBit(BigInteger bit) {
@@ -66,14 +61,6 @@ namespace Artemis
 		
 		public void RemoveSystemBit(BigInteger bit) {
 			systemBits &= ~bit;
-		}
-		
-		public void SetSystemBits(BigInteger systemBits) {
-			this.systemBits = systemBits;
-		}
-		
-		public void SetTypeBits(BigInteger typeBits) {
-			this.typeBits = typeBits;
 		}
 		
 		public void Reset() {
@@ -85,14 +72,10 @@ namespace Artemis
 			return "Entity["+id+"]";
 		}
 
-        public void SetStaticKey(string key)
+        public string StaticKey
         {
-            this.staticKey = key;
-        }
-
-        public String GetStaticKey()
-        {
-            return staticKey;
+			get { return staticKey; }
+            set { staticKey = value;}
         }
 
         public void Enable()
@@ -143,7 +126,7 @@ namespace Artemis
 
         public bool IsEnabled()
         {
-            return this.enabled;
+            return enabled;
         }
 
 		/**
@@ -203,7 +186,7 @@ namespace Artemis
 		 * @param group of the entity.
 		 */
 		public void SetGroup(String group) {
-			world.GetGroupManager().Set(group, this);
+			world.GroupManager.Set(group, this);
 		}
 		
 		/**
@@ -211,11 +194,11 @@ namespace Artemis
 		 * @param tag of the entity.
 		 */
 		public void SetTag(String tag) {
-			world.GetTagManager().Register(tag, this);
+			world.TagManager.Register(tag, this);
 		}
 		
 		public String GetTag() {
-			return world.GetTagManager().GetTagOfEntity(this);
+			return world.TagManager.GetTagOfEntity(this);
 		}
 	}
 }

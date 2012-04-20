@@ -24,7 +24,7 @@ namespace Artemis
 		}
 		
 		public T SetSystem<T>(T system,ExecutionType execType , int layer = 0) where T : EntitySystem {
-			system.SetWorld(world);
+			system.World = world;
 						
             if(systems.ContainsKey(typeof(T)))
             {
@@ -66,7 +66,7 @@ namespace Artemis
 			}
 			if(!mergedBag.Contains((EntitySystem)system))
 					mergedBag.Add((EntitySystem)system);
-			system.SetSystemBit(SystemBitManager.GetBitFor(system));
+			system.SystemBit = SystemBitManager.GetBitFor(system);
 			
 			return (T)system;
 		}
@@ -79,8 +79,8 @@ namespace Artemis
             return system;
 		}
 		
-		public Bag<EntitySystem> GetSystems() {
-			return mergedBag;
+		public Bag<EntitySystem> Systems {
+			get { return mergedBag;}
 		}
 		
 		/**

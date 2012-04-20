@@ -11,8 +11,7 @@ namespace Artemis
         private Bag<Entity> deleted = new Bag<Entity>();
         private Bag<Entity> suspended = new Bag<Entity>();
         private ArtemisPool pool;
-		private Dictionary<Type,Manager> managers = new Dictionary<Type, Manager>();
-        private Dictionary<String,Stack<int>> cached = new Dictionary<String, Stack<int>>();
+		private Dictionary<String,Stack<int>> cached = new Dictionary<String, Stack<int>>();
 
 		private int delta;
 		
@@ -22,49 +21,32 @@ namespace Artemis
 			tagManager = new TagManager(this);
 			groupManager = new GroupManager(this);		
 		}
-		public void SetManager(Manager manager) {
-    			managers.Add(manager.GetType(), manager);
-  		}
 		
-  		public T GetManager<T>() where T : Manager {
-			Manager m; 
-			managers.TryGetValue(typeof(T), out m);
-    			return (T)m;
-  		}
-		
-		public GroupManager GetGroupManager() {
-			return groupManager;
+		public GroupManager GroupManager {
+			get { return groupManager; }
 		}
 		
-		public SystemManager GetSystemManager() {
-			return systemManager;
+		public SystemManager SystemManager {
+			get { return systemManager; }
 		}
 		
-		public EntityManager GetEntityManager() {
-			return entityManager;
+		public EntityManager EntityManager {
+			get { return entityManager; }
 		}
 		
-		public TagManager GetTagManager() {
-			return tagManager;
+		public TagManager TagManager {
+			get { return tagManager; }
 		}
 		
 		/**
 		 * Time since last game loop.
 		 * @return delta in milliseconds.
 		 */
-		public int GetDelta() {
-			return delta;
+		public int Delta {
+			get { return delta; }
+			set { delta = value; }
 		}
 		
-		/**
-		 * You must specify the delta for the game here.
-		 * 
-		 * @param delta time since last game loop.
-		 */
-		public void SetDelta(int delta) {
-			this.delta = delta;
-		}
-	
 		/**
 		 * Delete the provided entity from the world.
 		 * @param e entity
@@ -117,16 +99,16 @@ namespace Artemis
         public void RegisterStaticEntity(String tag,Entity e)
         {
             e.Disable();
-            e.SetStaticKey(tag);
+            e.StaticKey = tag;
             entityManager.Refresh(e);
             if (cached.ContainsKey(tag))
             {
                 Stack<int> entities;
                 cached.TryGetValue(tag,out entities);
-                entities.Push(e.GetId());
+                entities.Push(e.Id);
             } else {
                 Stack<int> entities = new Stack<int>();
-                entities.Push(e.GetId());
+                entities.Push(e.Id);
                 cached.Add(tag, entities);
             }
         }
@@ -147,16 +129,10 @@ namespace Artemis
             }
         }
 
-
-
-        public void SetPool(ArtemisPool gamePool)
+        public ArtemisPool Pool
         {
-            pool = gamePool;
-        }
-
-        public ArtemisPool GetPool()
-        {
-            return pool;
+			get { return pool; }
+            set { pool = value; }
         }
 
         public void LoopStart()
@@ -187,15 +163,15 @@ namespace Artemis
                     Entity e = suspended.Get(i);
                     e.Disable();
                     Stack<int> entities;
-                    cached.TryGetValue(e.GetStaticKey(), out entities);
-                    entities.Push(e.GetId());
+                    cached.TryGetValue(e.StaticKey, out entities);
+                    entities.Push(e.Id);
                 }
                 suspended.Clear();
             }
         }
 		
 		public Dictionary<Entity,Bag<Component>> GetCurrentState() {
-			Bag<Entity> entities = entityManager.GetActiveEntities();
+			Bag<Entity> entities = entityManager.ActiveEntities;
 			Dictionary<Entity,Bag<Component>> currentState = new Dictionary<Entity, Bag<Component>>();
 			for(int i = 0,j = entities.Size(); i < j; i++) {
 				Entity e = entities.Get(i);
@@ -208,12 +184,12 @@ namespace Artemis
 		public void LoadEntityState(String tag,String groupName,Bag<Component> components) {
 			Entity e;
 			if(tag != null) {
-				e = this.CreateEntity(tag);
+				e = CreateEntity(tag);
 			} else {
-				e = this.CreateEntity();
+				e = CreateEntity();
 			}
 			if(groupName != null) {
-				this.groupManager.Set(groupName,e);
+				groupManager.Set(groupName,e);
 			}		
 			for(int i = 0, j = components.Size(); i < j; i++) {
 				e.AddComponent(components.Get(i));

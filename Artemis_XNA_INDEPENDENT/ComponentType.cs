@@ -19,12 +19,12 @@ namespace Artemis
 			id = nextId++;
 		}
 		
-		public BigInteger GetBit() {
-			return bit;
+		public BigInteger Bit {
+			get { return bit;}
 		}
 		
-		public int GetId() {
-			return id;
+		public int Id {
+			get { return id; }
 		}
 	}
 }

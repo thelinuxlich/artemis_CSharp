@@ -70,7 +70,6 @@
     <Compile Include="EntityProcessingSystem.cs" />
     <Compile Include="EntitySystem.cs" />
     <Compile Include="GroupManager.cs" />
-    <Compile Include="GroupSystem.cs" />
     <Compile Include="IntervalEntityProcessingSystem.cs" />
     <Compile Include="IntervalEntitySystem.cs" />
     <Compile Include="ParallelEntityProcessingSystem.cs" />
@@ -87,8 +86,7 @@
     <Compile Include="Utils\TrigLUT.cs" />
     <Compile Include="Utils\FastMath.cs" />
     <Compile Include="IntervalTagSystem.cs" />
-    <Compile Include="IntervalGroupSystem.cs" />
-    <Compile Include="Manager.cs" />
+    <Compile Include="OneShotSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

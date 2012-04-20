@@ -25,7 +25,7 @@ namespace ArtemisTest
 		
 		private static void RemovedEntity(Entity e) 
       	{
-        	 Console.WriteLine("This was the entity removed: "+(e.GetUniqueId()));
+        	 Console.WriteLine("This was the entity removed: "+(e.UniqueId));
       	}
 
 
@@ -38,8 +38,8 @@ namespace ArtemisTest
             Bag<Component> tempBag;
             EntityWorld world = new EntityWorld();
             SystemManager systemManager = world.GetSystemManager();
-            world.GetEntityManager().RemovedComponentEvent += new RemovedComponentHandler(RemovedComponent);
-            world.GetEntityManager().RemovedEntityEvent += new RemovedEntityHandler(RemovedEntity);
+            world.EntityManager.RemovedComponentEvent += new RemovedComponentHandler(RemovedComponent);
+            world.EntityManager.RemovedEntityEvent += new RemovedEntityHandler(RemovedEntity);
 
             EntitySystem hs = systemManager.SetSystem(new MultHealthBarRenderSystem(),ExecutionType.Update);
             //EntitySystem hs = systemManager.SetSystem(new SingleHEAVYHealthBarRenderSystem(),ExecutionType.Update);
@@ -86,9 +86,9 @@ namespace ArtemisTest
 
             Bag<Component> tempBag;
             EntityWorld world = new EntityWorld();
-            SystemManager systemManager = world.GetSystemManager();
-            world.GetEntityManager().RemovedComponentEvent += new RemovedComponentHandler(RemovedComponent);
-            world.GetEntityManager().RemovedEntityEvent += new RemovedEntityHandler(RemovedEntity);            
+            SystemManager systemManager = world.SystemManager;
+            world.EntityManager.RemovedComponentEvent += new RemovedComponentHandler(RemovedComponent);
+            world.EntityManager.RemovedEntityEvent += new RemovedEntityHandler(RemovedEntity);            
             EntitySystem hs = systemManager.SetSystem(new SingleHealthBarRenderSystem(),ExecutionType.Update);
             hs = systemManager.SetSystem(new DummySystem(),ExecutionType.Update);
             hs = systemManager.SetSystem(new DummySystem2(),ExecutionType.Update);
@@ -144,7 +144,7 @@ namespace ArtemisTest
             EntitySystem.BlackBoard.SetEntry<int>("Damage", 5);
 
             EntityWorld world = new EntityWorld();
-            SystemManager systemManager = world.GetSystemManager();
+            SystemManager systemManager = world.SystemManager;
             DummyCommunicationSystem DummyCommunicationSystem = new DummyCommunicationSystem();
             systemManager.SetSystem(DummyCommunicationSystem, ExecutionType.Update);
             systemManager.InitializeAll();            
@@ -185,7 +185,7 @@ namespace ArtemisTest
         public static void QueueSystemTeste()
         {
             EntityWorld world = new EntityWorld();
-            SystemManager systemManager = world.GetSystemManager();
+            SystemManager systemManager = world.SystemManager;
             QueueSystemTest QueueSystemTest = new ArtemisTest.QueueSystemTest();
             QueueSystemTest QueueSystemTest2 = new ArtemisTest.QueueSystemTest();
             systemManager.SetSystem(QueueSystemTest, ExecutionType.Update);
@@ -235,7 +235,7 @@ namespace ArtemisTest
         {
 
             EntityWorld world = new EntityWorld();
-            SystemManager systemManager = world.GetSystemManager();
+            SystemManager systemManager = world.SystemManager;
             HybridQueueSystemTest HybridQueueSystemTest = new ArtemisTest.HybridQueueSystemTest();
             EntitySystem hs = systemManager.SetSystem(HybridQueueSystemTest, ExecutionType.Update);
             systemManager.InitializeAll();

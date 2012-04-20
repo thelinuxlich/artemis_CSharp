@@ -11,7 +11,7 @@ namespace Artemis
 
         protected override bool CheckProcessing()
         {
-			acc += world.GetDelta();
+			acc += world.Delta;
 			if(acc >= interval) {
 				acc -= interval;
 				return enabled;
