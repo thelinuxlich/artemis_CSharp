@@ -47,7 +47,7 @@ namespace Artemis
 	
 		public static float InverseSqrt(float x) {
 			float xhalves = 0.5f * x;
-			x = (float)BitConverter.Int64BitsToDouble(0x5FE6EB50C7B537AAl - (BitConverter.DoubleToInt64Bits((double)x) >> 1));
+			x = (float)BitConverter.Int64BitsToDouble(0x5FE6EB50C7B537AAL - (BitConverter.DoubleToInt64Bits((double)x) >> 1));
 			return x * (1.5f - xhalves * x * x); // more iterations possible
 		}
 	

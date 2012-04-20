@@ -13,9 +13,6 @@ namespace Artemis
         private string staticKey = "";
         private bool enabled = true;
 		
-		public Entity() {
-		}
-		
 		public Entity(EntityWorld world, int id) {
 			this.world = world;
 			this.entityManager = world.EntityManager;
