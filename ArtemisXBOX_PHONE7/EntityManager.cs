@@ -27,7 +27,7 @@ namespace Artemis
 		public EntityManager(EntityWorld world) {
 			this.world = world;
 		}
-
+	
 
         /// <summary>
         /// Create a new, "blank" entity
@@ -40,8 +40,8 @@ namespace Artemis
 			} else {
 				e.Reset();
 			}
-			e.SetUniqueId(uniqueEntityId++);
-			activeEntities.Set(e.GetId(),e);
+			e.UniqueId = uniqueEntityId++;
+			activeEntities.Set(e.Id,e);
 			count++;
 			totalCreated++;
 			if(AddedEntityEvent != null) {
@@ -49,15 +49,16 @@ namespace Artemis
 			}
 			return e;
 		}
-		
+
+
         /// <summary>
         /// Remove an entity from the world
         /// </summary>
         /// <param name="e">Entity you want to remove</param>
 		public void Remove(Entity e) {
-			activeEntities.Set(e.GetId(), null);
+			activeEntities.Set(e.Id, null);
 			
-			e.SetTypeBits(0);
+			e.TypeBits = 0;
 			
 			Refresh(e);
 			
@@ -71,14 +72,14 @@ namespace Artemis
 				RemovedEntityEvent(e);
 			}	
 		}
-
+	
 
         /// <summary>
         /// Strips all components from the given entity
         /// </summary>
         /// <param name="e">Entity for which you want to remove all components</param>
 		private void RemoveComponentsOfEntity(Entity e) {
-			int entityId = e.GetId();
+			int entityId = e.Id;
 			for(int a = 0,b = componentsByType.Size(); b > a; a++) {
 				Bag<Component> components = componentsByType.Get(a);
 				if(components != null && entityId < components.Size()) {
@@ -89,7 +90,7 @@ namespace Artemis
 				}
 			}
 		}
-
+		
         /// <summary>
         /// Check if this entity is active, or has been deleted, within the framework.
         /// </summary>
@@ -98,8 +99,7 @@ namespace Artemis
 		public bool IsActive(int entityId) {
 			return activeEntities.Get(entityId) != null;
 		}
-
-
+		
 
         /// <summary>
         /// Add the given component to the given entity
@@ -109,23 +109,24 @@ namespace Artemis
 		public void AddComponent(Entity e, Component component) {
 			ComponentType type = ComponentTypeManager.GetTypeFor(component.GetType());
 
-			if(type.GetId() >= componentsByType.GetCapacity()) {
-				componentsByType.Set(type.GetId(), null);
+			if(type.Id >= componentsByType.GetCapacity()) {
+				componentsByType.Set(type.Id, null);
 			}
 
-			Bag<Component> components = componentsByType.Get(type.GetId());
+			Bag<Component> components = componentsByType.Get(type.Id);
 			if(components == null) {
 				components = new Bag<Component>();
-				componentsByType.Set(type.GetId(), components);
+				componentsByType.Set(type.Id, components);
 			}
 
-			components.Set(e.GetId(), component);
+			components.Set(e.Id, component);
 
-			e.AddTypeBit(type.GetBit());
+			e.AddTypeBit(type.Bit);
 			if(AddedComponentEvent != null) {
 				AddedComponentEvent(e,component);
 			}
 		}
+		
 
 
         /// <summary>
@@ -138,37 +139,38 @@ namespace Artemis
 		public void AddComponent<T>(Entity e, Component component) where T : Component {
 			ComponentType type = ComponentTypeManager.GetTypeFor<T>();
 			
-			if(type.GetId() >= componentsByType.GetCapacity()) {
-				componentsByType.Set(type.GetId(), null);
+			if(type.Id >= componentsByType.GetCapacity()) {
+				componentsByType.Set(type.Id, null);
 			}
 			
-			Bag<Component> components = componentsByType.Get(type.GetId());
+			Bag<Component> components = componentsByType.Get(type.Id);
 			if(components == null) {
 				components = new Bag<Component>();
-				componentsByType.Set(type.GetId(), components);
+				componentsByType.Set(type.Id, components);
 			}
 			
-			components.Set(e.GetId(), component);
+			components.Set(e.Id, component);
 	
-			e.AddTypeBit(type.GetBit());
+			e.AddTypeBit(type.Bit);
 			if(AddedComponentEvent != null) {
 				AddedComponentEvent(e,component);
 			}
 		}
-		
+
 
         /// <summary>
         /// Ensure the any changes to components are synced up with the entity - ensure systems "see" all components
         /// </summary>
         /// <param name="e">The entity whose components you want to refresh</param>
 		public void Refresh(Entity e) {
-			SystemManager systemManager = world.GetSystemManager();
-			Bag<EntitySystem> systems = systemManager.GetSystems();
+			SystemManager systemManager = world.SystemManager;
+			Bag<EntitySystem> systems = systemManager.Systems;
 			for(int i = 0, s=systems.Size(); s > i; i++) {
 				systems.Get(i).Change(e);
 			}
 		}
-		
+
+
 
         /// <summary>
         /// Removes the given component from the given entity
@@ -180,7 +182,7 @@ namespace Artemis
 			ComponentType type = ComponentTypeManager.GetTypeFor<T>();
 			RemoveComponent(e, type);
 		}
-
+		
 
 
         /// <summary>
@@ -189,15 +191,15 @@ namespace Artemis
         /// <param name="e">The entity for which you want to remove the component</param>
         /// <param name="type">The component type you want to remove</param>
 		public void RemoveComponent(Entity e, ComponentType type) {
-			int entityId = e.GetId();
-			Bag<Component> components = componentsByType.Get(type.GetId());
+			int entityId = e.Id;
+			Bag<Component> components = componentsByType.Get(type.Id);
 			if(RemovedComponentEvent != null) {
 				RemovedComponentEvent(e,components.Get(entityId));
 			}	
 			components.Set(entityId, null);
-			e.RemoveTypeBit(type.GetBit());
+			e.RemoveTypeBit(type.Bit);
 		}
-
+		
 
         /// <summary>
         /// Get the component instance of the given component type for the given entity
@@ -206,14 +208,13 @@ namespace Artemis
         /// <param name="type">The desired component type</param>
         /// <returns>Component instance</returns>
 		public Component GetComponent(Entity e, ComponentType type) {
-			int entityId = e.GetId();
-			Bag<Component> bag = componentsByType.Get(type.GetId());
+			int entityId = e.Id;
+			Bag<Component> bag = componentsByType.Get(type.Id);
 			if(bag != null && entityId < bag.GetCapacity())
 				return bag.Get(entityId);
 			return null;
 		}
-
-
+		
 
         /// <summary>
         /// Get the entity for the given entityId
@@ -223,33 +224,31 @@ namespace Artemis
 		public Entity GetEntity(int entityId) {
 			return activeEntities.Get(entityId);
 		}
-		
+
         /// <summary>
         /// Get how many entities are currently active
         /// </summary>
         /// <returns>How many entities are currently active</returns>
-		public int GetEntityCount() {
-			return count;
+		public int EntityCount {
+			get { return count;}
 		}
-
+		
         /// <summary>
         /// Get how many entities have been created since start.
         /// </summary>
         /// <returns>The total number of entities created</returns>
-		public long GetTotalCreated() {
-			return totalCreated;
+		public long TotalCreated {
+			get { return totalCreated;}
 		}
-
+		
         /// <summary>
         /// Gets how many entities have been removed since start.
         /// </summary>
         /// <returns>The total number of removed entities</returns>
-		public long GetTotalRemoved() {
-			return totalRemoved;
+		public long TotalRemoved {
+			get { return totalRemoved;}
 		}
-
-
-
+	
         /// <summary>
         /// Get all components assigned to an entity
         /// </summary>
@@ -257,7 +256,7 @@ namespace Artemis
         /// <returns>Bag of components</returns>
 		public Bag<Component> GetComponents(Entity e) {
 			entityComponents.Clear();
-			int entityId = e.GetId();
+			int entityId = e.Id;
 			for(int a = 0,b = componentsByType.Size(); b > a; a++) {
 				Bag<Component> components = componentsByType.Get(a);
 				if(components != null && entityId < components.Size()) {
@@ -269,14 +268,13 @@ namespace Artemis
 			}
 			return entityComponents;
 		}
-
-
+		
         /// <summary>
         /// Get all active Entities
         /// </summary>
         /// <returns>Bag of active entities</returns>
-		public Bag<Entity> GetActiveEntities() {
-			return activeEntities;
+		public Bag<Entity> ActiveEntities {
+			get { return activeEntities;}
 		}
 	}
 }

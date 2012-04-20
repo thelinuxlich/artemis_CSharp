@@ -16,7 +16,7 @@ namespace Artemis
             this.ReleaseLock();
         }
 
-        public void AquireLock()
+        public void AquireLock()       
         {
             Monitor.Enter(lockobj);
         }

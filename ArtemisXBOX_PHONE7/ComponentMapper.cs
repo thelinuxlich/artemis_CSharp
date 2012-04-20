@@ -5,34 +5,29 @@ namespace Artemis
 		private ComponentType type;
 		private EntityManager em;
 
-
         /// <summary>
         /// Allows you to interact with components that are mapped to entities
         /// </summary>
         public ComponentMapper() { }
-
 
         /// <summary>
         /// Creates a component mapper within the given Entity World
         /// </summary>
         /// <param name="world">EntityWorld</param>
 		public ComponentMapper(EntityWorld world) {
-			this.em = world.GetEntityManager();
-			this.type = ComponentTypeManager.GetTypeFor<T>();
+			em = world.EntityManager;
+			type = ComponentTypeManager.GetTypeFor<T>();
 		}
-
-
 
         /// <summary>
         /// Sets the entity manager for this component mapper
         /// </summary>
         /// <param name="em">Entity Manager that manages the component</param>
-        public void SetEntityManager(EntityManager em)
+        public EntityManager EntityManager 
         {
-            this.em = em;
+            set { em = value; }
         }
-
-
+	
         /// <summary>
         /// Gets the component for the given entity/component type combo
         /// </summary>

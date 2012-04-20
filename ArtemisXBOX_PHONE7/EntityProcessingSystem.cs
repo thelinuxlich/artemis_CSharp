@@ -22,7 +22,10 @@ namespace Artemis
         {
             foreach (Entity item in entities.Values)
             {
-                Process(item);
+                if (item.IsEnabled())
+                {
+                    Process(item);
+                }
             }            
 		}
 	}

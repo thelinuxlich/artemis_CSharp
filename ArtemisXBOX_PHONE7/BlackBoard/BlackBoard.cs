@@ -24,7 +24,8 @@ namespace Artemis
                 {
                     foreach (var item in triggers[name])
                     {
-                        item.Fire(TriggerState);
+                        if(item.fired ==false)
+                            item.Fire(TriggerState);
                     }
                 }
             }
@@ -50,7 +51,8 @@ namespace Artemis
                 {
                     foreach (var item in triggers[name])
                     {
-                        item.Fire(TriggerState.VALUE_REMOVED);
+                        if (item.fired == false)
+                            item.Fire(TriggerState.VALUE_REMOVED);
                     }
                 }
             }
@@ -90,7 +92,8 @@ namespace Artemis
                 }
                 if (evaluateNow)
                 {
-                    Trigger.Fire(TriggerState.TRIGGER_ADDED);
+                    if (Trigger.fired == false)
+                        Trigger.Fire(TriggerState.TRIGGER_ADDED);
                 }
             }
         }

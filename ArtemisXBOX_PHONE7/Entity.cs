@@ -1,21 +1,24 @@
 using System;
+using System.Numerics;
 namespace Artemis
 {
 	public sealed class Entity {
 		private int id;
 		private long uniqueId;
-		private long typeBits = 0;
-		private long systemBits = 0;
+		private BigInteger typeBits = 0;
+		private BigInteger systemBits = 0;
 		
 		private EntityWorld world;
 		private EntityManager entityManager;
+        private string staticKey = "";
+        private bool enabled = true;
 		
 		public Entity() {
 		}
 		
 		public Entity(EntityWorld world, int id) {
 			this.world = world;
-			this.entityManager = world.GetEntityManager();
+			this.entityManager = world.EntityManager;
 			this.id = id;
 		}
 	
@@ -25,52 +28,39 @@ namespace Artemis
 		 * 
 		 * @return id of the entity.
 		 */
-		public int GetId() {
-			return id;
+		public int Id {
+			get { return id;}
 		}
 		
-		public void SetUniqueId(long uniqueId) {
-			this.uniqueId = uniqueId;
+		public long UniqueId {
+			get { return uniqueId; }
+			set { uniqueId = value;}
 		}
 		
-		/**
-		 * Get the unique ID of this entity. Because entity instances are reused internally use this to identify between different instances.
-		 * @return the unique id of this entity.
-		 */
-		public long GetUniqueId() {
-			return uniqueId;
+		public BigInteger TypeBits {
+			get { return typeBits; }
+			set { typeBits = value; }
 		}
 		
-		public long GetTypeBits() {
-			return typeBits;
-		}
-		
-		public void AddTypeBit(long bit) {
+		public void AddTypeBit(BigInteger bit) {
 			typeBits |= bit;
 		}
 		
-		public void RemoveTypeBit(long bit) {
+		public void RemoveTypeBit(BigInteger bit) {
 			typeBits &= ~bit;
 		}
 		
-		public long GetSystemBits() {
-			return systemBits;
+		public BigInteger SystemBits {
+			get { return systemBits;}
+			set { systemBits = value; }
 		}
 		
-		public void AddSystemBit(long bit) {
+		public void AddSystemBit(BigInteger bit) {
 			systemBits |= bit;
 		}
 		
-		public void RemoveSystemBit(long bit) {
+		public void RemoveSystemBit(BigInteger bit) {
 			systemBits &= ~bit;
-		}
-		
-		public void SetSystemBits(long systemBits) {
-			this.systemBits = systemBits;
-		}
-		
-		public void SetTypeBits(long typeBits) {
-			this.typeBits = typeBits;
 		}
 		
 		public void Reset() {
@@ -81,7 +71,23 @@ namespace Artemis
 		public override String ToString() {
 			return "Entity["+id+"]";
 		}
-		
+
+        public string StaticKey
+        {
+			get { return staticKey; }
+            set { staticKey = value;}
+        }
+
+        public void Enable()
+        {
+            this.enabled = true;
+        }
+
+        public void Disable()
+        {
+            this.enabled = false;
+        }
+
 		/**
 		 * Add a component to this entity.
 		 * @param component to add to this entity
@@ -117,7 +123,12 @@ namespace Artemis
 		public bool IsActive(){
 			return entityManager.IsActive(id);
 		}
-	
+
+        public bool IsEnabled()
+        {
+            return enabled;
+        }
+
 		/**
 		 * This is the preferred method to use when retrieving a component from a entity. It will provide good performance.
 		 * 
@@ -164,13 +175,18 @@ namespace Artemis
 		public void Delete() {
 			world.DeleteEntity(this);
 		}
+
+        public void Suspend()
+        {
+            world.SuspendEntity(this);
+        }
 	
 		/**
 		 * Set the group of the entity. Same as World.setGroup().
 		 * @param group of the entity.
 		 */
 		public void SetGroup(String group) {
-			world.GetGroupManager().Set(group, this);
+			world.GroupManager.Set(group, this);
 		}
 		
 		/**
@@ -178,11 +194,11 @@ namespace Artemis
 		 * @param tag of the entity.
 		 */
 		public void SetTag(String tag) {
-			world.GetTagManager().Register(tag, this);
+			world.TagManager.Register(tag, this);
 		}
 		
 		public String GetTag() {
-			return world.GetTagManager().GetTagOfEntity(this);
+			return world.TagManager.GetTagOfEntity(this);
 		}
 	}
 }

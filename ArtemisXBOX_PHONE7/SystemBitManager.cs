@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 namespace Artemis
 {
 	public static class SystemBitManager {
 		private static int POS = 0;
-		private static Dictionary<EntitySystem, long> systemBits = new Dictionary<EntitySystem, long>();
+		private static Dictionary<EntitySystem, BigInteger> systemBits = new Dictionary<EntitySystem, BigInteger>();
 		
-		public static long GetBitFor(EntitySystem es){
-            long bit;
+		public static BigInteger GetBitFor(EntitySystem es){
+            BigInteger bit;
             bool hasBit = systemBits.TryGetValue(es, out bit);
 			if(!hasBit){
 				bit = 1L << POS;

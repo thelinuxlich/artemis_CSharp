@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 namespace Artemis
 {
 	public static class ComponentTypeManager {
         private static Dictionary<Type, ComponentType> componentTypes = new Dictionary<Type, ComponentType>();
-		
+
         /// <summary>
         /// Get the component type for the given component instance
         /// </summary>
@@ -20,7 +21,6 @@ namespace Artemis
 			}			
 			return type;
 		}
-		
 
         /// <summary>
         /// Ensure the given component type [tag] is an "official" component type for your solution
@@ -39,16 +39,14 @@ namespace Artemis
 			return type;
 		}
 		
-
-
-        public static long GetBit<T>() where T : Component
+        public static BigInteger GetBit<T>() where T : Component
         {
-            return GetTypeFor<T>().GetBit();
+            return GetTypeFor<T>().Bit;
 		}
 		
 		public static int GetId<T>() where T : Component
         {
-			return GetTypeFor<T>().GetId();
+			return GetTypeFor<T>().Id;
 		}
 	}
 }

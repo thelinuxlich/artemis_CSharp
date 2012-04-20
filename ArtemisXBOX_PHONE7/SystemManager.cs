@@ -60,7 +60,7 @@ namespace Artemis
 			}
 			if(!mergedBag.Contains((EntitySystem)system))
 					mergedBag.Add((EntitySystem)system);
-			system.SetSystemBit(SystemBitManager.GetBitFor(system));
+			system.SystemBit = SystemBitManager.GetBitFor(system);
 			
 			return (T)system;
 		}

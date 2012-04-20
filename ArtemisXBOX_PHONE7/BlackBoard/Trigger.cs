@@ -39,8 +39,10 @@ namespace Artemis
             BlackBoard.RemoveTrigger(this);
         }
 
+        internal bool fired = false;
         internal void Fire(TriggerState TriggerState)
         {
+            fired = true;
             this.TriggerState = TriggerState;
             if (CheckConditionToFire())
             {
@@ -48,6 +50,7 @@ namespace Artemis
                 if (OnFire != null)
                     OnFire(this);
             }
+            fired = false;
         }
 
         public event Action<Trigger> OnFire;

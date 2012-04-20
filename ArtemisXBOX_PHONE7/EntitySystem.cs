@@ -32,12 +32,12 @@ namespace Artemis
 			for (int i = 0, j = types.Length; i < j; i++) {
                 Type type = types[i];
 				ComponentType ct = ComponentTypeManager.GetTypeFor(type);
-				typeFlags |= ct.GetBit();
+				typeFlags |= ct.Bit;
 			}
 		}
 		
-		public void SetSystemBit(BigInteger bit) {
-			this.systemBit = bit;
+		public BigInteger SystemBit {
+			set { systemBit = value; }
 		}
 		
 		/**
@@ -89,26 +89,32 @@ namespace Artemis
         public virtual void Removed(Entity e) { }
 	
 		public virtual void Change(Entity e) {
-			bool contains = (systemBit & e.GetSystemBits()) == systemBit;
-			bool interest = (typeFlags & e.GetTypeBits()) == typeFlags;
+			bool contains = (systemBit & e.SystemBits) == systemBit;
+			bool interest = (typeFlags & e.TypeBits) == typeFlags;
 	
 			if (interest && !contains && typeFlags > 0) {
-				actives.Add(e.GetId(),e);
+				actives.Add(e.Id,e);
 				e.AddSystemBit(systemBit);
 				Added(e);
 			} else if (!interest && contains && typeFlags > 0) {
 				Remove(e);
 			}
 		}
+		
+		protected void Add(Entity e) {
+			actives.Add(e.Id,e);
+			e.AddSystemBit(systemBit);
+			Added(e);
+		}
 	
-		private void Remove(Entity e) {
-			actives.Remove(e.GetId());
+		protected void Remove(Entity e) {
+			actives.Remove(e.Id);
 			e.RemoveSystemBit(systemBit);
 			Removed(e);
 		}
 	
-		public void SetWorld(EntityWorld world) {
-			this.world = world;
+		public EntityWorld World {
+			set { world = value; }
 		}
 		
 		public void Toggle() {
