@@ -10,15 +10,16 @@ namespace Artemis
 		
 		private EntityWorld world;
 		private EntityManager entityManager;
-        private string staticKey = "";
         private bool enabled = true;
+		private bool refreshingState = false;
+		private bool deletingState = false;
 		
 		public Entity(EntityWorld world, int id) {
 			this.world = world;
 			this.entityManager = world.EntityManager;
 			this.id = id;
 		}
-	
+		
 		/**
 		 * The internal id for this entity within the framework. No other entity will have the same ID, but
 		 * ID's are however reused so another entity may acquire this ID if the previous entity was deleted.
@@ -47,6 +48,16 @@ namespace Artemis
 			typeBits &= ~bit;
 		}
 		
+		public bool RefreshingState {
+			get { return refreshingState; }
+			set { refreshingState = value; }
+		}
+		
+		public bool DeletingState {
+			get { return deletingState; }
+			set { deletingState = value; }
+		}
+		
 		public BigInteger SystemBits {
 			get { return systemBits;}
 			set { systemBits = value; }
@@ -63,26 +74,21 @@ namespace Artemis
 		public void Reset() {
 			systemBits = 0;
 			typeBits = 0;
+			Enable();
 		}
 		
 		public override String ToString() {
 			return "Entity["+id+"]";
 		}
 
-        public string StaticKey
-        {
-			get { return staticKey; }
-            set { staticKey = value;}
-        }
-
         public void Enable()
         {
-            this.enabled = true;
+            enabled = true;
         }
 
         public void Disable()
         {
-            this.enabled = false;
+            enabled = false;
         }
 
 		/**
@@ -121,9 +127,9 @@ namespace Artemis
 			return entityManager.IsActive(id);
 		}
 
-        public bool IsEnabled()
+        public bool Enabled
         {
-            return enabled;
+            get {return enabled;}
         }
 
 		/**
@@ -163,20 +169,23 @@ namespace Artemis
 		 * It is typical to call this after adding components to a newly created entity.
 		 */
 		public void Refresh() {
+			if(refreshingState == true) {
+				return;
+			}
 			world.RefreshEntity(this);
+			refreshingState = true;
 		}
 		
 		/**
 		 * Delete this entity from the world.
 		 */
 		public void Delete() {
+			if(deletingState == true) {
+				return;
+			}
 			world.DeleteEntity(this);
+			deletingState = true;
 		}
-
-        public void Suspend()
-        {
-            world.SuspendEntity(this);
-        }
 	
 		/**
 		 * Set the group of the entity. Same as World.setGroup().

@@ -210,6 +210,9 @@ namespace Artemis
 		public Component GetComponent(Entity e, ComponentType type) {
 			int entityId = e.Id;
 			Bag<Component> bag = componentsByType.Get(type.Id);
+			if (type.Id >= componentsByType.GetCapacity()) {
+ 	 		  	return null;
+			}
 			if(bag != null && entityId < bag.GetCapacity())
 				return bag.Get(entityId);
 			return null;

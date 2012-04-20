@@ -88,29 +88,55 @@ namespace Artemis
 		 */
         public virtual void Removed(Entity e) { }
 	
+		public virtual void Enabled(Entity e) { }
+		
+		public virtual void Disabled(Entity e) { }
+		
 		public virtual void Change(Entity e) {
 			bool contains = (systemBit & e.SystemBits) == systemBit;
 			bool interest = (typeFlags & e.TypeBits) == typeFlags;
 	
 			if (interest && !contains && typeFlags > 0) {
-				actives.Add(e.Id,e);
-				e.AddSystemBit(systemBit);
-				Added(e);
+				Add(e);
 			} else if (!interest && contains && typeFlags > 0) {
 				Remove(e);
+			} else if (interest && contains && e.Enabled == true && typeFlags > 0) {
+				Enable(e);
+			} else if (interest && contains && e.Enabled == false && typeFlags > 0) {
+				Disable(e);
 			}
 		}
 		
 		protected void Add(Entity e) {
-			actives.Add(e.Id,e);
 			e.AddSystemBit(systemBit);
+			if (e.Enabled == true) {
+				Enable(e);
+			}
 			Added(e);
 		}
 	
 		protected void Remove(Entity e) {
-			actives.Remove(e.Id);
 			e.RemoveSystemBit(systemBit);
+			if (e.Enabled == true) {
+				Disable(e);
+			}
 			Removed(e);
+		}
+		
+		private void Enable(Entity e) {
+			if (actives.ContainsKey(e.Id)) {
+				return;
+			}
+			actives.Add(e.Id,e);
+			Enabled(e);
+		}
+		
+		private void Disable(Entity e) {
+			if (!actives.ContainsKey(e.Id)) {
+				return;
+			}
+			actives.Remove(e.Id);
+			Disabled(e);
 		}
 	
 		public EntityWorld World {

@@ -86,7 +86,6 @@
     <Compile Include="Utils\TrigLUT.cs" />
     <Compile Include="Utils\FastMath.cs" />
     <Compile Include="IntervalTagSystem.cs" />
-    <Compile Include="OneShotSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
