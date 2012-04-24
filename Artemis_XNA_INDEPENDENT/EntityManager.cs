@@ -109,7 +109,7 @@ namespace Artemis
 		public void AddComponent(Entity e, Component component) {
 			ComponentType type = ComponentTypeManager.GetTypeFor(component.GetType());
 
-			if(type.Id >= componentsByType.GetCapacity()) {
+			if(type.Id >= componentsByType.Capacity) {
 				componentsByType.Set(type.Id, null);
 			}
 
@@ -139,7 +139,7 @@ namespace Artemis
 		public void AddComponent<T>(Entity e, Component component) where T : Component {
 			ComponentType type = ComponentTypeManager.GetTypeFor<T>();
 			
-			if(type.Id >= componentsByType.GetCapacity()) {
+			if(type.Id >= componentsByType.Capacity) {
 				componentsByType.Set(type.Id, null);
 			}
 			
@@ -210,10 +210,10 @@ namespace Artemis
 		public Component GetComponent(Entity e, ComponentType type) {
 			int entityId = e.Id;
 			Bag<Component> bag = componentsByType.Get(type.Id);
-			if (type.Id >= componentsByType.GetCapacity()) {
+			if (type.Id >= componentsByType.Capacity) {
  	 		  	return null;
 			}
-			if(bag != null && entityId < bag.GetCapacity())
+			if(bag != null && entityId < bag.Capacity)
 				return bag.Get(entityId);
 			return null;
 		}

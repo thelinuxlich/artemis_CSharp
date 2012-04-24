@@ -94,7 +94,7 @@ namespace Artemis
 
         public void LoopStart()
         {
-            if (!refreshed.IsEmpty())
+            if (!refreshed.IsEmpty)
             {
                 for (int i = 0, j = refreshed.Size(); j > i; i++)
                 {
@@ -105,7 +105,7 @@ namespace Artemis
                 refreshed.Clear();
             }
 
-            if (!deleted.IsEmpty())
+            if (!deleted.IsEmpty)
             {
                 for (int i = 0, j = deleted.Size(); j > i; i++)
                 {

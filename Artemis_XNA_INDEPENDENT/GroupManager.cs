@@ -36,7 +36,7 @@ namespace Artemis
 		 * @param group name of the group.
 		 * @return read-only bag of entities belonging to the group.
 		 */
-		public Bag<Entity> getEntities(String group) {
+		public Bag<Entity> GetEntities(String group) {
 			Bag<Entity> bag;
 			if(!entitiesByGroup.TryGetValue(group,out bag))
 				return EMPTY_BAG;
@@ -49,7 +49,7 @@ namespace Artemis
         /// <param name="e">The entity to be removed</param>
 		public void Remove(Entity e) {
 			int entityId = e.Id;
-			if(entityId < groupByEntity.GetCapacity()) {
+			if(entityId < groupByEntity.Capacity) {
 				String group = groupByEntity.Get(entityId);
 				if(group != null) {
 					groupByEntity.Set(entityId, null);
@@ -68,7 +68,7 @@ namespace Artemis
 		 */
 		public String GetGroupOf(Entity e) {
 			int entityId = e.Id;
-			if(entityId < groupByEntity.GetCapacity()) {
+			if(entityId < groupByEntity.Capacity) {
 				return groupByEntity.Get(entityId);
 			}
 			return null;

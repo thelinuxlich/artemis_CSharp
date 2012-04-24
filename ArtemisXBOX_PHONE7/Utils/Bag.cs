@@ -151,8 +151,8 @@ namespace Artemis
 		 * 
 		 * @return the number of elements the bag can hold without growing.
 		 */
-		public int GetCapacity() {
-			return data.Length;
+		public int Capacity {
+			get { return data.Length;}
 		}
 	
 		/**
@@ -160,8 +160,8 @@ namespace Artemis
 		 * 
 		 * @return true if this list contains no elements
 		 */
-		public bool IsEmpty() {
-			return size == 0;
+		public bool IsEmpty {
+			get { return size == 0;}
 		}
 	
 		/**
