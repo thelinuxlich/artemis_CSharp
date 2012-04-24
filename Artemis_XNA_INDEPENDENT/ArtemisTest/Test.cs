@@ -37,7 +37,7 @@ namespace ArtemisTest
 
             Bag<Component> tempBag;
             EntityWorld world = new EntityWorld();
-            SystemManager systemManager = world.GetSystemManager();
+            SystemManager systemManager = world.SystemManager;
             world.EntityManager.RemovedComponentEvent += new RemovedComponentHandler(RemovedComponent);
             world.EntityManager.RemovedEntityEvent += new RemovedEntityHandler(RemovedEntity);
 
@@ -50,7 +50,7 @@ namespace ArtemisTest
             {
                 Entity et = world.CreateEntity();
                 et.AddComponent(new Health());
-                et.GetComponent<Health>().AddHealth(100);
+                et.GetComponent<Health>().HP += 100;
                 et.Refresh();
                 l.Add(et);
             }
@@ -66,7 +66,7 @@ namespace ArtemisTest
             int df = 0;
             foreach (var item in l)
             {
-                if (item.GetComponent<Health>().GetHealth() == 90)
+                if (item.GetComponent<Health>().HP == 90)
                 {
                     df++;
                 }
@@ -101,7 +101,7 @@ namespace ArtemisTest
             {
                 Entity et = world.CreateEntity();
                 et.AddComponent(new Health());
-                et.GetComponent<Health>().AddHealth(100);
+                et.GetComponent<Health>().HP += 100;
                 et.Refresh();
                 l.Add(et);
             }
@@ -154,7 +154,7 @@ namespace ArtemisTest
             {
                 Entity et = world.CreateEntity();
                 et.AddComponent(new Health());
-                et.GetComponent<Health>().AddHealth(100);
+                et.GetComponent<Health>().HP += 100;
                 et.Refresh();
                 l.Add(et);
             }
@@ -177,7 +177,7 @@ namespace ArtemisTest
 
             foreach (var item in l)
             {
-                Debug.Assert(item.GetComponent<Health>().GetHealth() == 85);
+                Debug.Assert(item.GetComponent<Health>().HP == 85);
             }
             
         }
@@ -207,7 +207,7 @@ namespace ArtemisTest
             {
                 Entity et = world.CreateEntity();
                 et.AddComponent(new Health());
-                et.GetComponent<Health>().AddHealth(100);
+                et.GetComponent<Health>().HP = 100;
                 QueueSystemTest.AddToQueue(et, QueueSystemTest.Id);
                 l.Add(et);
             }
@@ -226,7 +226,7 @@ namespace ArtemisTest
 
             foreach (var item in l)
             {
-                Debug.Assert(item.GetComponent<Health>().GetHealth() == 90);
+                Debug.Assert(item.GetComponent<Health>().HP == 90);
             }
         }
 
@@ -245,7 +245,7 @@ namespace ArtemisTest
             {
                 Entity et = world.CreateEntity();
                 et.AddComponent(new Health());
-                et.GetComponent<Health>().AddHealth(100);
+                et.GetComponent<Health>().HP += 100;
                 et.Refresh();
                 l.Add(et);
             }
@@ -254,7 +254,7 @@ namespace ArtemisTest
             {
                 Entity et = world.CreateEntity();
                 et.AddComponent(new Health());
-                et.GetComponent<Health>().AddHealth(100);
+                et.GetComponent<Health>().HP += 100;
                 HybridQueueSystemTest.AddToQueue(et);
                 l.Add(et);
             }
@@ -271,12 +271,12 @@ namespace ArtemisTest
 
             for (int i = 0; i < 100; i++)
             {
-                Debug.Assert(l[i].GetComponent<Health>().GetHealth() == 100 - (10 * j));
+                Debug.Assert(l[i].GetComponent<Health>().HP == 100 - (10 * j));
             }
 
             for (int i = 100; i < 200; i++)
             {
-                Debug.Assert(l[i].GetComponent<Health>().GetHealth() == 90);
+                Debug.Assert(l[i].GetComponent<Health>().HP == 90);
             }
             
         }
