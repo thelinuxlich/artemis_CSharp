@@ -29,7 +29,7 @@ namespace ArtemisTest
       	}
 
 
-        static void multi()
+        public static void multi()
         {
             healthBag.Add(new Health());
             healthBag.Add(new Health());
@@ -75,7 +75,7 @@ namespace ArtemisTest
              
         }
 
-        static void multsystem()
+        public static void multsystem()
         {
             healthBag.Clear();
             componentPool.Clear();
@@ -129,15 +129,16 @@ namespace ArtemisTest
             //}            
         }
 
-
+#if !MONOTOUCH
         static void Main(String[] args)
         {
-            multi();
-            multsystem();
-            QueueSystemTeste();
-            HybridQueueSystemTeste();
-            SystemComunicationTeste();
+	            multi();
+	            multsystem();
+	            QueueSystemTeste();
+	            HybridQueueSystemTeste();
+	            SystemComunicationTeste();
 		}
+#endif		
 
         public static void SystemComunicationTeste()
         {
