@@ -62,6 +62,7 @@
         </ul>
         And many more can be found <a href="http://www.ploobs.com.br/forum/viewtopic.php?f=39&t=136">here.</a><br/><br/>
         Your components must inherit from the class Component. Example:
+        <div class="highlight">
         <pre><code>class Velocity : Component
 {
         private float velocity;
@@ -101,6 +102,7 @@
             get { return (float)Math.PI * angle / 180.0f; }
         }
 }</code></pre>
+        </div>
         A sample for entity assembling:
         <pre>Entity e = world.CreateEntity();
 e.AddComponent(new Transform(200,400));
