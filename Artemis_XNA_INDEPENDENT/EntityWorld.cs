@@ -94,6 +94,18 @@ namespace Artemis
 
         public void LoopStart()
         {
+            if (!deleted.IsEmpty)
+            {
+                for (int i = 0, j = deleted.Size(); j > i; i++)
+                {
+                    Entity e = deleted.Get(i);
+                    entityManager.Remove(e);
+                    groupManager.Remove(e);
+                    e.DeletingState = false;
+                }
+                deleted.Clear();
+            }
+
             if (!refreshed.IsEmpty)
             {
                 for (int i = 0, j = refreshed.Size(); j > i; i++)
@@ -103,18 +115,6 @@ namespace Artemis
 					e.RefreshingState = false;
                 }
                 refreshed.Clear();
-            }
-
-            if (!deleted.IsEmpty)
-            {
-                for (int i = 0, j = deleted.Size(); j > i; i++)
-                {
-                    Entity e = deleted.Get(i);
-                    entityManager.Remove(e);
-					groupManager.Remove(e);  
-					e.DeletingState = false;
-                }
-                deleted.Clear();
             }
         }
 		

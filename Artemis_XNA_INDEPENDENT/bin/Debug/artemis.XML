@@ -48,11 +48,6 @@
             
             @param delay time delay in milliseconds until processing starts.
         </member>
-        <member name="M:Artemis.DelayedEntitySystem.GetInitialTimeDelay">
-            Get the initial delay that the system was ordered to process entities after.
-            
-            @return the originally set delay.
-        </member>
         <member name="M:Artemis.DelayedEntitySystem.IsRunning">
             Check if the system is counting down towards processing.
             
@@ -60,6 +55,11 @@
         </member>
         <member name="M:Artemis.DelayedEntitySystem.Stop">
             Aborts running the system in the future and stops it. Call delayedRun() to start it again.
+        </member>
+        <member name="P:Artemis.DelayedEntitySystem.InitialTimeDelay">
+            Get the initial delay that the system was ordered to process entities after.
+            
+            @return the originally set delay.
         </member>
         <member name="M:Artemis.TagSystem.Process(Artemis.Entity)">
             Process a entity this system is interested in.
@@ -132,16 +132,6 @@
             
             @return the number of elements in this bag
         </member>
-        <member name="M:Artemis.Bag`1.GetCapacity">
-            Returns the number of elements the bag can hold without growing.
-            
-            @return the number of elements the bag can hold without growing.
-        </member>
-        <member name="M:Artemis.Bag`1.IsEmpty">
-            Returns true if this list contains no elements.
-            
-            @return true if this list contains no elements
-        </member>
         <member name="M:Artemis.Bag`1.Add(`0)">
             Adds the specified element to the end of this bag. if needed also
             increases the capacity of the bag.
@@ -162,6 +152,16 @@
         <member name="M:Artemis.Bag`1.AddAll(Artemis.Bag{`0})">
             Add all items into this bag. 
             @param added
+        </member>
+        <member name="P:Artemis.Bag`1.Capacity">
+            Returns the number of elements the bag can hold without growing.
+            
+            @return the number of elements the bag can hold without growing.
+        </member>
+        <member name="P:Artemis.Bag`1.IsEmpty">
+            Returns true if this list contains no elements.
+            
+            @return true if this list contains no elements
         </member>
         <member name="M:Artemis.DelayedEntityProcessingSystem.#ctor(System.Type,System.Type[])">
             <summary>
@@ -209,17 +209,13 @@
             Process a entity this system is interested in.
             @param e the entity to process.
         </member>
-        <member name="M:Artemis.GroupSystem.Process(Artemis.Entity)">
-            Process a entity this system is interested in.
-            @param e the entity to process.
-        </member>
         <member name="M:Artemis.GroupManager.Set(System.String,Artemis.Entity)">
             Set the group of the entity.
             
             @param group group to set the entity into.
             @param e entity to set into the group.
         </member>
-        <member name="M:Artemis.GroupManager.getEntities(System.String)">
+        <member name="M:Artemis.GroupManager.GetEntities(System.String)">
             Get all entities that belong to the provided group.
             @param group name of the group.
             @return read-only bag of entities belonging to the group.
@@ -250,18 +246,18 @@
             </summary>
             <param name="world">EntityWorld</param>
         </member>
-        <member name="M:Artemis.ComponentMapper`1.SetEntityManager(Artemis.EntityManager)">
-            <summary>
-            Sets the entity manager for this component mapper
-            </summary>
-            <param name="em">Entity Manager that manages the component</param>
-        </member>
         <member name="M:Artemis.ComponentMapper`1.Get(Artemis.Entity)">
             <summary>
             Gets the component for the given entity/component type combo
             </summary>
             <param name="e">Entity in which you are interested</param>
             <returns>Component</returns>
+        </member>
+        <member name="P:Artemis.ComponentMapper`1.EntityManager">
+            <summary>
+            Sets the entity manager for this component mapper
+            </summary>
+            <param name="em">Entity Manager that manages the component</param>
         </member>
         <member name="M:Artemis.SystemManager.InitializeAll">
             After adding all systems to the world, you must initialize them all.
@@ -352,24 +348,6 @@
             <param name="entityId">Desired EntityId</param>
             <returns>Entity</returns>
         </member>
-        <member name="M:Artemis.EntityManager.GetEntityCount">
-            <summary>
-            Get how many entities are currently active
-            </summary>
-            <returns>How many entities are currently active</returns>
-        </member>
-        <member name="M:Artemis.EntityManager.GetTotalCreated">
-            <summary>
-            Get how many entities have been created since start.
-            </summary>
-            <returns>The total number of entities created</returns>
-        </member>
-        <member name="M:Artemis.EntityManager.GetTotalRemoved">
-            <summary>
-            Gets how many entities have been removed since start.
-            </summary>
-            <returns>The total number of removed entities</returns>
-        </member>
         <member name="M:Artemis.EntityManager.GetComponents(Artemis.Entity)">
             <summary>
             Get all components assigned to an entity
@@ -377,21 +355,29 @@
             <param name="e">Entity for which you want the components</param>
             <returns>Bag of components</returns>
         </member>
-        <member name="M:Artemis.EntityManager.GetActiveEntities">
+        <member name="P:Artemis.EntityManager.EntityCount">
+            <summary>
+            Get how many entities are currently active
+            </summary>
+            <returns>How many entities are currently active</returns>
+        </member>
+        <member name="P:Artemis.EntityManager.TotalCreated">
+            <summary>
+            Get how many entities have been created since start.
+            </summary>
+            <returns>The total number of entities created</returns>
+        </member>
+        <member name="P:Artemis.EntityManager.TotalRemoved">
+            <summary>
+            Gets how many entities have been removed since start.
+            </summary>
+            <returns>The total number of removed entities</returns>
+        </member>
+        <member name="P:Artemis.EntityManager.ActiveEntities">
             <summary>
             Get all active Entities
             </summary>
             <returns>Bag of active entities</returns>
-        </member>
-        <member name="M:Artemis.Entity.GetId">
-            The internal id for this entity within the framework. No other entity will have the same ID, but
-            ID's are however reused so another entity may acquire this ID if the previous entity was deleted.
-            
-            @return id of the entity.
-        </member>
-        <member name="M:Artemis.Entity.GetUniqueId">
-            Get the unique ID of this entity. Because entity instances are reused internally use this to identify between different instances.
-            @return the unique id of this entity.
         </member>
         <member name="M:Artemis.Entity.AddComponent(Artemis.Component)">
             Add a component to this entity.
@@ -438,14 +424,11 @@
             Assign a tag to this entity. Same as World.setTag().
             @param tag of the entity.
         </member>
-        <member name="M:Artemis.EntityWorld.GetDelta">
-            Time since last game loop.
-            @return delta in milliseconds.
-        </member>
-        <member name="M:Artemis.EntityWorld.SetDelta(System.Int32)">
-            You must specify the delta for the game here.
+        <member name="P:Artemis.Entity.Id">
+            The internal id for this entity within the framework. No other entity will have the same ID, but
+            ID's are however reused so another entity may acquire this ID if the previous entity was deleted.
             
-            @param delta time since last game loop.
+            @return id of the entity.
         </member>
         <member name="M:Artemis.EntityWorld.DeleteEntity(Artemis.Entity)">
             Delete the provided entity from the world.
@@ -463,6 +446,10 @@
             Get a entity having the specified id.
             @param entityId
             @return entity
+        </member>
+        <member name="P:Artemis.EntityWorld.Delta">
+            Time since last game loop.
+            @return delta in milliseconds.
         </member>
     </members>
 </doc>
