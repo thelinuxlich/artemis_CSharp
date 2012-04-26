@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{36AFD51D-F977-4A9F-BF80-24152AC7BCC2}</ProjectGuid>
+    <ProjectTypeGuids>{6BC8ED88-2882-458C-8E55-DFD12B67127B};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>ArtemisTests</RootNamespace>
+    <AssemblyName>ArtemisTests</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
+    <DefineConstants>DEBUG;MONOTOUCH</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <MtouchDebug>true</MtouchDebug>
+    <MtouchProfiling>true</MtouchProfiling>
+    <MtouchLink>None</MtouchLink>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <MtouchLink>None</MtouchLink>
+    <DefineConstants>MONOTOUCH</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhone\Debug</OutputPath>
+    <DefineConstants>DEBUG;MONOTOUCH</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <MtouchDebug>true</MtouchDebug>
+    <MtouchProfiling>true</MtouchProfiling>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhone\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <DefineConstants>MONOTOUCH</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="monotouch" />
+    <Reference Include="MonoTouch.NUnitLite" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Info.plist" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Main.cs" />
+    <Compile Include="AppDelegate.cs" />
+    <Compile Include="..\..\Artemis_XNA_INDEPENDENT\ArtemisTest\DummyCommunicationSystem.cs">
+      <Link>DummyCommunicationSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Artemis_XNA_INDEPENDENT\ArtemisTest\DummySystem.cs">
+      <Link>DummySystem.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Artemis_XNA_INDEPENDENT\ArtemisTest\DummySystem2.cs">
+      <Link>DummySystem2.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Artemis_XNA_INDEPENDENT\ArtemisTest\DummySystem3.cs">
+      <Link>DummySystem3.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Artemis_XNA_INDEPENDENT\ArtemisTest\Health.cs">
+      <Link>Health.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Artemis_XNA_INDEPENDENT\ArtemisTest\HybridQueueSystemTest.cs">
+      <Link>HybridQueueSystemTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Artemis_XNA_INDEPENDENT\ArtemisTest\MultHealthBarRenderSystem.cs">
+      <Link>MultHealthBarRenderSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Artemis_XNA_INDEPENDENT\ArtemisTest\QueueSystemProcessingThreadSafe.cs">
+      <Link>QueueSystemProcessingThreadSafe.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Artemis_XNA_INDEPENDENT\ArtemisTest\QueueSystemTest.cs">
+      <Link>QueueSystemTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Artemis_XNA_INDEPENDENT\ArtemisTest\QueueSystemTest2.cs">
+      <Link>QueueSystemTest2.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Artemis_XNA_INDEPENDENT\ArtemisTest\SingleHealthBarRenderSystem.cs">
+      <Link>SingleHealthBarRenderSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Artemis_XNA_INDEPENDENT\ArtemisTest\SingleHEAVYHealthBarRenderSystem.cs">
+      <Link>SingleHEAVYHealthBarRenderSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Artemis_XNA_INDEPENDENT\ArtemisTest\Test.cs">
+      <Link>Test.cs</Link>
+    </Compile>
+    <Compile Include="ArtemisTests.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\Artemis_MonoTouch.csproj">
+      <Project>{9F973E74-5CD0-4359-9FA1-FFF1D68F9930}</Project>
+      <Name>Artemis_MonoTouch</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>
