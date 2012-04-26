@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{753637FE-545E-4A9D-8344-CE0BD239EF8D}</ProjectGuid>
+    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Artemis_MonoDroid</RootNamespace>
+    <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
+    <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
+    <AssemblyName>Artemis_MonoDroid</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <AndroidLinkMode>None</AndroidLinkMode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="Mono.Android" />
+    <Reference Include="System.Numerics" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
+  <ItemGroup>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\BlackBoard\BlackBoard.cs">
+      <Link>BlackBoard.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\BlackBoard\SimpleTrigger.cs">
+      <Link>SimpleTrigger.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\BlackBoard\Trigger.cs">
+      <Link>Trigger.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\BlackBoard\TriggerMultiCondition.cs">
+      <Link>TriggerMultiCondition.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Component.cs">
+      <Link>Component.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\ComponentMapper.cs">
+      <Link>ComponentMapper.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\ComponentType.cs">
+      <Link>ComponentType.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\ComponentTypeManager.cs">
+      <Link>ComponentTypeManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\DelayedEntityProcessingSystem.cs">
+      <Link>DelayedEntityProcessingSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\DelayedEntitySystem.cs">
+      <Link>DelayedEntitySystem.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Entity.cs">
+      <Link>Entity.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\EntityManager.cs">
+      <Link>EntityManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\EntityProcessingSystem.cs">
+      <Link>EntityProcessingSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\EntitySystem.cs">
+      <Link>EntitySystem.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\EntityWorld.cs">
+      <Link>EntityWorld.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\GroupManager.cs">
+      <Link>GroupManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\HybridQueueSystemProcessing.cs">
+      <Link>HybridQueueSystemProcessing.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\IntervalEntityProcessingSystem.cs">
+      <Link>IntervalEntityProcessingSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\IntervalEntitySystem.cs">
+      <Link>IntervalEntitySystem.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\IntervalTagSystem.cs">
+      <Link>IntervalTagSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\ParallelEntityProcessingSystem.cs">
+      <Link>ParallelEntityProcessingSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Pool.cs">
+      <Link>Pool.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\QueueSystemProcessing.cs">
+      <Link>QueueSystemProcessing.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\QueueSystemProcessingThreadSafe.cs">
+      <Link>QueueSystemProcessingThreadSafe.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\SystemBitManager.cs">
+      <Link>SystemBitManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\SystemManager.cs">
+      <Link>SystemManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\TagManager.cs">
+      <Link>TagManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\TagSystem.cs">
+      <Link>TagSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\Bag.cs">
+      <Link>Bag.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\FastMath.cs">
+      <Link>FastMath.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\Timer.cs">
+      <Link>Timer.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\TrigLUT.cs">
+      <Link>TrigLUT.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\Utils.cs">
+      <Link>Utils.cs</Link>
+    </Compile>
+  </ItemGroup>
+</Project>
