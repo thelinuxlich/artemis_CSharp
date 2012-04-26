@@ -28,7 +28,7 @@
       </header>
       <section>
           <h3>Description</h3>
-          Artemis is a high performance Entity System framework for games, originally written in Java by Arni Arent and Tiago Costa, now ported to C#. <br/>
+          Artemis is a high performance Entity System framework for games, <a href="http://gamadu.com/artemis">originally written in Java</a> by Arni Arent and Tiago Costa, now ported to C#. <br/>
           Its goal is to provide a clean API to abstract your game world organization into entities, components and systems.<br/>
           Artemis has no dependencies (for PC, in Xbox and Windows Phone 7 we have one) and can be used with any game framework or library, 2D or 3D, and even multiplatform, if you use it with Monogame.
      </section>
@@ -61,7 +61,7 @@
             <li><a href="http://gamesfromwithin.com/data-oriented-design">Data-Oriented Design</a></li>
         </ul>
         And many more can be found <a href="http://www.ploobs.com.br/forum/viewtopic.php?f=39&t=136">here.</a><br/><br/>
-        Your components should inherit from the class Component, which is just a placeholder for internal reflection. Example:
+        Your components must inherit from the class Component. Example:
         <pre><code>class Velocity : Component
 {
         private float velocity;
