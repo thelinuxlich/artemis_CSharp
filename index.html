@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Artemis C# by thelinuxlich</title>
+    <title>Artemis Entity System Framework</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
@@ -17,48 +17,169 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1>Artemis C#</h1>
-<p>Artemis Entity System Framework ported to C#</p>
-        <p class="view"><a href="https://github.com/thelinuxlich/artemis_CSharp">View the Project on GitHub <small>thelinuxlich/artemis_CSharp</small></a></p>
-        <ul>
-          <li><a href="https://github.com/thelinuxlich/artemis_CSharp/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/thelinuxlich/artemis_CSharp/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/thelinuxlich/artemis_CSharp">View On <strong>GitHub</strong></a></li>
-        </ul>
+          <h1>Artemis</h1>
+          <p>An Entity System Framework</p>
+          <p class="view"><a href="https://github.com/thelinuxlich/artemis_CSharp">View the Project on GitHub <small>thelinuxlich/artemis_CSharp</small></a></p>
+          <ul>
+              <li><a href="https://github.com/thelinuxlich/artemis_CSharp/zipball/master">Download <strong>ZIP File</strong></a></li>
+              <li><a href="https://github.com/thelinuxlich/artemis_CSharp/tarball/master">Download <strong>TAR Ball</strong></a></li>
+              <li><a href="https://github.com/thelinuxlich/artemis_CSharp">View On <strong>GitHub</strong></a></li>
+          </ul>
       </header>
       <section>
-        <h3>Welcome to GitHub Pages.</h3>
+          <h3>Description</h3>
+          Artemis is a high performance Entity System framework for games, originally written in Java by Arni Arent and Tiago Costa, now ported to C#. <br/>
+          Its goal is to provide a clean API to abstract your game world organization into entities, components and systems.<br/>
+          Artemis has no dependencies (for PC, in Xbox and Windows Phone 7 we have one) and can be used with any game framework or library, 2D or 3D, and even multiplatform, if you use it with Monogame.
+     </section>
+     <section>
+          <h3>Differences from the original version</h3>
+          We support all the features included in the original Java version, but we've also added the following features:
+          <ul>  
+              <li>Multithreading Support (two ways of doing this)</li>
+              <li>Specialized System templates for your multithreading needs</li>
+              <li>Communication between Systems using a Blackboard approach</li>
+              <li>Bugs fixed, performance improvements</li>
+              <li>Xbox/WP7 full support</li>
+              <li>Events for intercepting adding/removal of entities/components</li>
+              <li>Entity Pool (to make objects reusable, minimize garbage collection activity, improve performance)</li>
+              <li>Small goodies, like feeding the EntityWorld with whole Entities(maybe loading from external resources), enabling/disabling systems and entities, getting Entity tag, API shortcuts(see unit tests for more on this), etc.</li>
+         </ul>
+    </section>
+    <section>
+        <h3>Getting Started</h3>
+        <ul>
+            <li>Entities are only an aggregation of Components, identified by a unique id</li> 
+            <li>Components are only data</li>
+            <li>Systems publish/subscribe to Components, creating behavior</li>
+        </ul>
+        There is much more to tell about this paradigm and we already have rich articles which inspired this framework. Some of them:
+        <ul>
+            <li><a href="http://t-machine.org/index.php/2007/09/03/entity-systems-are-the-future-of-mmog-development-part-1/">Entity Systems are the future of MMOG development</a></li>
+            <li><a href="http://cowboyprogramming.com/2007/01/05/evolve-your-heirachy/">Evolve your Hierarchy</a></li>
+            <li><a href="http://scottbilas.com/games/dungeon-siege">Scott Bilas post-mortem on Dungeon Siege development</a></li>
+            <li><a href="http://gamesfromwithin.com/data-oriented-design">Data-Oriented Design</a></li>
+        </ul>
+        And many more can be found <a href="http://www.ploobs.com.br/forum/viewtopic.php?f=39&t=136">here.</a><br/><br/>
+        Your components should inherit from the class Component, which is just a placeholder for internal reflection. Example:
+        <pre><code>class Velocity : Component
+{
+        private float velocity;
+        private float angle;
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+        public Velocity() { }
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+        public Velocity(float vector)
+        {
+            velocity = vector;
+        }
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+        public Velocity(float velocity, float angle)
+        {
+            this.velocity = velocity;
+            this.angle = angle;
+        }
 
-<h3>Designer Templates</h3>
+        public float Speed {
+            get { return velocity;}
+            set { velocity = value; }
+        }
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+        public float Angle
+        {
+            get { return angle; }   
+            set { angle = value;}
+        }
 
-<h3>Rather Drive Stick?</h3>
+        public void AddAngle(float a)
+        {
+            angle = (angle + a) % 360;
+        }
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+        public float AngleAsRadians
+        {
+            get { return (float)Math.PI * angle / 180.0f; }
+        }
+}</code></pre>
+        A sample for entity assembling:
+        <pre>Entity e = world.CreateEntity();
+e.AddComponent(new Transform(200,400));
+e.AddComponent(new Velocity(2.4f,0.9f));
+e.Refresh();// always call Refresh() when adding/removing components!<code>
+        </code></pre>
+        Your systems should inherit from one of the following templates:
+        <ul>
+            <li>EntitySystem - the simplest system template, not tied to components, good for stuff like collision</li>
+            <li>EntityProcessingSystem - a template for processing many entities, tied to components</li>
+            <li>IntervalEntitySystem - a simple system template, not tied to components, process periodically, based on world delta.</li>
+            <li>IntervalEntityProcessingSystem - a template that process entities periodically, based on world delta, tied to components.</li>
+            <li>ParallelEntityProcessingSystem - a template to leverage your multicore CPU for processing many entities, tied to components</li>
+            <li>QueueProcessingSystem</li>
+            <li>HybridQueueProcessingSystem</li>
+            <li>QueueProcessingSystemThreadSafe</li>
+            <li>TagSystem - a simple system template, not tied to components, process a tagged entity</li>
+            <li>IntervalTagSystem - a simple system template, not tied to components, process a tagged entity periodically, based on world delta.</li>
+            <li>DelayedEntitySystem - a simple system template that starts process after a given time, based on world delta.</li>
+            <li>DelayedEntityProcessingSystem - a template that starts processing entities after a given time, based on world delta. Tied to components</li>
+        </ul>
+        And here is a system example, using Velocity and Transform components to create the Movement behavior:
+        <pre><code>public class MovementSystem : EntityProcessingSystem {
+    ComponentMapper<Velocity> velocityMapper;
+    ComponentMapper<Transform> transformMapper;
 
-<h3>Authors and Contributors</h3>
+    public MovementSystem() : base(typeof(Transform), typeof(Velocity)) { }
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+    public override void Initialize() {
+        velocityMapper = new ComponentMapper<Velocity>(world);
+        transformMapper = new ComponentMapper<Transform>(world);
+    }
 
-<h3>Support or Contact</h3>
+    public override void Process(Entity e) {
+        Velocity velocity = velocityMapper.Get(e);
+        float v = velocity.Speed;
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact support@github.com and we’ll help you sort it out.</p>
-      </section>
-    </div>
-    <footer>
-      <p>Project maintained by <a href="https://github.com/thelinuxlich">thelinuxlich</a></p>
-      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
-    </footer>
-    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+        Transform transform = transformMapper.Get(e);
+
+        float r = velocity.AngleAsRadians;
+
+        float xn = transform.X + (TrigLUT.Cos(r) * v * world.Delta);
+        float yn = transform.Y + (TrigLUT.Sin(r) * v * world.Delta);
+
+        transform.SetLocation(xn, yn);
+    }
+}</code></pre>
+        On your game initialization, create a new EntityWorld:
+        <pre><code>var world = new EntityWorld();</code></pre>
+        Add your systems to SystemManager:
+        <pre><code>var systemManager = world.SystemManager;
+systemManager.SetSystem(new MovementSystem(),ExecutionType.Update);
+systemManager.SetSystem(new CollisionSystem(),ExecutionType.Update);
+systemManager.SetSystem(new EnemySpawnSystem(),ExecutionType.Update);
+systemManager.SetSystem(new RenderSystem(),ExecutionType.Draw);
+systemManager.InitializeAll();
+        </code></pre>
+        On your game update loop, set the world delta and execute the systems:
+        <pre><code>world.LoopStart();                
+world.Delta = gameDelta;
+systemManager.UpdateSynchronous(ExecutionType.Update);
+        </code></pre>
+        Execute your rendering systems on the draw loop:
+        <pre><code>world.SystemManager.UpdateSynchronous(ExecutionType.Draw);</code></pre>
+        And you are good to go. The Entity object has some intuitive methods like Delete(), GetComponent(), RemoveComponent(), which
+        you can see in action on the <a href="https://github.com/thelinuxlich/starwarrior_CSharp">example game.</a>
+    </section>
+    <section>
+        <h3>Documentation</h3>
+        Coming soon.
+    </section>
+    <section>
+        <h3>Discussion, issues, suggestions</h3>
+        We have a forum section <a href="http://www.ploobs.com.br/forum/viewforum.php?f=39">here.</a>
+    </section>
+  </div>
+  <footer>
+      <p>Project maintained by <a href="https://github.com/thelinuxlich">thelinuxlich</a> and <a href="https://github.com/tpastor">tpastor</a></p>
+  </footer>
+  <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
   </body>
 </html>
