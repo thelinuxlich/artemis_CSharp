@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Artemis
 {
-    public abstract class HybridQueueSystemProcessing : EntityProcessingSystem
+    public abstract class HybridQueueProcessingSystem : EntityProcessingSystem
     {
-        public HybridQueueSystemProcessing(Type requiredType, params Type[] otherTypes)
+        public HybridQueueProcessingSystem(Type requiredType, params Type[] otherTypes)
             : base(requiredType, otherTypes)
         {
             foreach (var item in GetMergedTypes(requiredType, otherTypes))

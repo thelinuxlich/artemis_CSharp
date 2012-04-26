@@ -11,12 +11,12 @@ namespace Artemis
     {
         public QueueManager()
         {
-            AcquireLock();
+            this.AcquireLock();
             refCount++;
-            ReleaseLock();
+            this.ReleaseLock();
         }
 
-        public void AcquireLock()
+        public void AcquireLock()       
         {
             Monitor.Enter(lockobj);
         }
@@ -27,14 +27,14 @@ namespace Artemis
         }
 
         public int refCount = 0;
-        object lockobj = new object();
-        public Queue<Entity> queue = new Queue<Entity>();
-        public int EntitiesToProcessEachFrame = 50;
+        static object lockobj = new object();
+        public static Queue<Entity> queue = new Queue<Entity>();
+        public static int EntitiesToProcessEachFrame = 50;
     }
 
     public abstract class QueueProcessingSystemThreadSafe : EntitySystem
     {
-       public QueueProcessingSystemThreadSafe()
+        public QueueProcessingSystemThreadSafe()
             : base()
         {
             Id = this.GetType();
@@ -44,7 +44,7 @@ namespace Artemis
             }
             else
             {
-                queuesManager[Id].AcquireLock();
+                queuesManager[Id].AquireLock();
                 queuesManager[Id].refCount++;
                 queuesManager[Id].ReleaseLock();
             }
@@ -57,7 +57,7 @@ namespace Artemis
             QueueManager.refCount--;
             if (QueueManager.refCount == 0)
                 queuesManager.Remove(Id);
-            QueueManager.ReleaseLock();            
+            QueueManager.ReleaseLock();
         }
 
         public readonly Type Id;
@@ -66,11 +66,12 @@ namespace Artemis
 
         public static void SetQueueProcessingLimit(int limit, Type EntitySystemType)
         {
+
             QueueManager QueueManager = queuesManager[EntitySystemType];
             QueueManager.AcquireLock();
             QueueManager.EntitiesToProcessEachFrame = limit;
             QueueManager.ReleaseLock();
-            
+
         }
 
         public static int GetQueueProcessingLimit(Type EntitySystemType)
@@ -92,15 +93,14 @@ namespace Artemis
         }
 
         public static int QueueCount(Type EntitySystemType)
-        {            
-                int result;
-                QueueManager QueueManager = queuesManager[EntitySystemType];
-                QueueManager.AcquireLock();
-                result = QueueManager.queue.Count;
-                QueueManager.ReleaseLock();
-                return result;         
+        {
+            int result;
+            QueueManager QueueManager = queuesManager[EntitySystemType];
+            QueueManager.AquireLock();
+            result = QueueManager.queue.Count;
+            QueueManager.ReleaseLock();
+            return result;
         }
-
 
         private static Entity DeQueue(Type EntitySystemType)
         {
@@ -141,7 +141,7 @@ namespace Artemis
             foreach (var item in entities)
             {
                 Process(item);
-            }           
+            }
         }
 
         public override void Initialize()

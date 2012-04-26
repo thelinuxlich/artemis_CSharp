@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Artemis
 {
-    public class QueueSystemProcessing : EntitySystem
+    public class QueueProcessingSystem : EntitySystem
     {
-        public QueueSystemProcessing()
+        public QueueProcessingSystem()
             : base()
         {
         }

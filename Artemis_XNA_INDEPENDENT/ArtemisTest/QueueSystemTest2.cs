@@ -7,7 +7,7 @@ using ArtemisTest.Components;
 
 namespace ArtemisTest
 {
-    public class QueueSystemTest2 : Artemis.QueueSystemProcessingThreadSafe
+    public class QueueSystemTest2 : Artemis.QueueProcessingSystemThreadSafe
     {
         public QueueSystemTest2() : base(){}
         public override void Process(Entity Entity)
