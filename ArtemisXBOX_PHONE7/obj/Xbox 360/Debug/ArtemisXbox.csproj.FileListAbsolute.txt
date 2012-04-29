@@ -5,3 +5,10 @@ D:\opensource\artemis_CSharp\ArtemisXBOX_PHONE7\obj\Xbox 360\Debug\ResolveAssemb
 D:\opensource\artemis_CSharp\ArtemisXBOX_PHONE7\obj\Xbox 360\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 D:\opensource\artemis_CSharp\ArtemisXBOX_PHONE7\obj\Xbox 360\Debug\ArtemisXbox.dll
 D:\opensource\artemis_CSharp\ArtemisXBOX_PHONE7\obj\Xbox 360\Debug\ArtemisXbox.pdb
+C:\Users\tpastor\Desktop\artemis\artemis_CSharp\ArtemisXBOX_PHONE7\obj\Xbox 360\Debug\ResolveAssemblyReference.cache
+C:\Users\tpastor\Desktop\artemis\artemis_CSharp\ArtemisXBOX_PHONE7\obj\Xbox 360\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\tpastor\Desktop\artemis\artemis_CSharp\ArtemisXBOX_PHONE7\obj\Xbox 360\Debug\ArtemisXbox.dll
+C:\Users\tpastor\Desktop\artemis\artemis_CSharp\ArtemisXBOX_PHONE7\obj\Xbox 360\Debug\ArtemisXbox.pdb
+C:\Users\tpastor\Desktop\artemis\artemis_CSharp\ArtemisXBOX_PHONE7\bin\Xbox 360\Debug\ArtemisXbox.dll
+C:\Users\tpastor\Desktop\artemis\artemis_CSharp\ArtemisXBOX_PHONE7\bin\Xbox 360\Debug\ArtemisXbox.pdb
+C:\Users\tpastor\Desktop\artemis\artemis_CSharp\ArtemisXBOX_PHONE7\bin\Xbox 360\Debug\ParallelTasks.dll

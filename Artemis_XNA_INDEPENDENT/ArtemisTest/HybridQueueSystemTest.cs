@@ -7,7 +7,7 @@ using ArtemisTest.Components;
 
 namespace ArtemisTest
 {
-    public class HybridQueueSystemTest : Artemis.HybridQueueProcessingSystem
+    public class HybridQueueSystemTest : HybridQueueSystemProcessing
     {
         public HybridQueueSystemTest()
             : base(typeof(Health))

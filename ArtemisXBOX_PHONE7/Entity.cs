@@ -1,10 +1,21 @@
 using System;
+#if !XBOX && !WINDOWS_PHONE
 using System.Numerics;
+#endif
+
+#if XBOX || WINDOWS_PHONE
+using BigInteger = System.Int32;
+#endif
+
 namespace Artemis
 {
+
+    
 	public sealed class Entity {
 		private int id;
 		private long uniqueId;
+
+
 		private BigInteger typeBits = 0;
 		private BigInteger systemBits = 0;
 		

@@ -20,7 +20,7 @@ namespace Artemis
 
         protected override void ProcessEntities(Dictionary<int, Entity> entities)
         {
-            Bag<Entity> groupedEntities = this.world.GetGroupManager().getEntities(group);
+            Bag<Entity> groupedEntities = this.world.GroupManager.GetEntities(group);
             for (int i = 0, j = groupedEntities.Size(); i < j; i++) {
                 Process(groupedEntities.Get(i));
             } 

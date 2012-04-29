@@ -1,6 +1,12 @@
 using System;
 using System.Collections.Generic;
+#if !XBOX && !WINDOWS_PHONE
 using System.Numerics;
+#endif
+
+#if XBOX || WINDOWS_PHONE
+using BigInteger = System.Int32;
+#endif
 namespace Artemis
 {
 	public static class SystemBitManager {
@@ -11,8 +17,12 @@ namespace Artemis
             BigInteger bit;
             bool hasBit = systemBits.TryGetValue(es, out bit);
 			if(!hasBit){
-				bit = 1L << POS;
-				POS++;
+#if XBOX || WINDOWS_PHONE
+				bit = 1 << POS;
+#else
+                bit = 1L << POS;
+#endif
+                POS++;
 				systemBits.Add(es, bit);
 			}
 			

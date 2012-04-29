@@ -1,6 +1,12 @@
 using System;
 using System.Collections.Generic;
+#if !XBOX && !WINDOWS_PHONE
 using System.Numerics;
+#endif
+
+#if XBOX || WINDOWS_PHONE
+using BigInteger = System.Int32;
+#endif
 namespace Artemis
 {
 	public abstract class EntitySystem {

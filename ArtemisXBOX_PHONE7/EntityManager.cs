@@ -164,7 +164,7 @@ namespace Artemis
         /// <param name="e">The entity whose components you want to refresh</param>
 		public void Refresh(Entity e) {
 			SystemManager systemManager = world.SystemManager;
-			Bag<EntitySystem> systems = systemManager.Systems;
+			Bag<EntitySystem> systems = systemManager.GetSystems();
 			for(int i = 0, s=systems.Size(); s > i; i++) {
 				systems.Get(i).Change(e);
 			}

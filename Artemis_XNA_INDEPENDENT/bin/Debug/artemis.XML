@@ -61,107 +61,26 @@
             
             @return the originally set delay.
         </member>
-        <member name="M:Artemis.TagSystem.Process(Artemis.Entity)">
-            Process a entity this system is interested in.
-            @param e the entity to process.
+        <member name="M:Artemis.EntityWorld.DeleteEntity(Artemis.Entity)">
+            Delete the provided entity from the world.
+            @param e entity
         </member>
-        <member name="M:Artemis.IntervalEntityProcessingSystem.#ctor(System.Int32,System.Type,System.Type[])">
-            Create a new IntervalEntityProcessingSystem. It requires at least one component.
-            @param requiredType the required component type.
-            @param otherTypes other component types.
+        <member name="M:Artemis.EntityWorld.RefreshEntity(Artemis.Entity)">
+            Ensure all systems are notified of changes to this entity.
+            @param e entity
         </member>
-        <member name="M:Artemis.IntervalEntityProcessingSystem.Process(Artemis.Entity)">
-            Process a entity this system is interested in.
-            @param e the entity to process.
+        <member name="M:Artemis.EntityWorld.CreateEntity">
+            Create and return a new or reused entity instance.
+            @return entity
         </member>
-        <member name="M:Artemis.Bag`1.#ctor">
-            Constructs an empty Bag with an initial capacity of 64.
-            
+        <member name="M:Artemis.EntityWorld.GetEntity(System.Int32)">
+            Get a entity having the specified id.
+            @param entityId
+            @return entity
         </member>
-        <member name="M:Artemis.Bag`1.#ctor(System.Int32)">
-            Constructs an empty Bag with the specified initial capacity.
-            
-            @param capacity
-                       the initial capacity of Bag
-        </member>
-        <member name="M:Artemis.Bag`1.Remove(System.Int32)">
-            Removes the element at the specified position in this Bag. does this by
-            overwriting it was last element then removing last element
-            
-            @param index
-                       the index of element to be removed
-            @return element that was removed from the Bag
-        </member>
-        <member name="M:Artemis.Bag`1.RemoveLast">
-            Remove and return the last object in the bag.
-            
-            @return the last object in the bag, null if empty.
-        </member>
-        <member name="M:Artemis.Bag`1.Remove(`0)">
-            Removes the first occurrence of the specified element from this Bag, if
-            it is present. If the Bag does not contain the element, it is unchanged.
-            does this by overwriting it was last element then removing last element
-            
-            @param o
-                       element to be removed from this list, if present
-            @return <tt>true</tt> if this list contained the specified element
-        </member>
-        <member name="M:Artemis.Bag`1.Contains(`0)">
-            Check if bag contains this element.
-            
-            @param o
-            @return
-        </member>
-        <member name="M:Artemis.Bag`1.RemoveAll(Artemis.Bag{`0})">
-            Removes from this Bag all of its elements that are contained in the
-            specified Bag.
-            
-            @param bag
-                       Bag containing elements to be removed from this Bag
-            @return {@code true} if this Bag changed as a result of the call
-        </member>
-        <member name="M:Artemis.Bag`1.Get(System.Int32)">
-            Returns the element at the specified position in Bag.
-            
-            @param index
-                       index of the element to return
-            @return the element at the specified position in bag
-        </member>
-        <member name="M:Artemis.Bag`1.Size">
-            Returns the number of elements in this bag.
-            
-            @return the number of elements in this bag
-        </member>
-        <member name="M:Artemis.Bag`1.Add(`0)">
-            Adds the specified element to the end of this bag. if needed also
-            increases the capacity of the bag.
-            
-            @param o
-                       element to be added to this list
-        </member>
-        <member name="M:Artemis.Bag`1.Set(System.Int32,`0)">
-            Set element at specified index in the bag.
-            
-            @param index position of element
-            @param o the element
-        </member>
-        <member name="M:Artemis.Bag`1.Clear">
-            Removes all of the elements from this bag. The bag will be empty after
-            this call returns.
-        </member>
-        <member name="M:Artemis.Bag`1.AddAll(Artemis.Bag{`0})">
-            Add all items into this bag. 
-            @param added
-        </member>
-        <member name="P:Artemis.Bag`1.Capacity">
-            Returns the number of elements the bag can hold without growing.
-            
-            @return the number of elements the bag can hold without growing.
-        </member>
-        <member name="P:Artemis.Bag`1.IsEmpty">
-            Returns true if this list contains no elements.
-            
-            @return true if this list contains no elements
+        <member name="P:Artemis.EntityWorld.Delta">
+            Time since last game loop.
+            @return delta in milliseconds.
         </member>
         <member name="M:Artemis.DelayedEntityProcessingSystem.#ctor(System.Type,System.Type[])">
             <summary>
@@ -184,21 +103,18 @@
             <param name="entities">Entities to process</param>
             <param name="accumulatedDelta">Total Delay</param>
         </member>
-        <member name="M:Artemis.ComponentTypeManager.GetTypeFor``1">
-            <summary>
-            Get the component type for the given component instance
-            </summary>
-            <typeparam name="T">Component for which you want the component type</typeparam>
-            <returns>Component Type</returns>
+        <member name="M:Artemis.TagSystem.Process(Artemis.Entity)">
+            Process a entity this system is interested in.
+            @param e the entity to process.
         </member>
-        <member name="M:Artemis.ComponentTypeManager.GetTypeFor(System.Type)">
-            <summary>
-            Ensure the given component type [tag] is an "official" component type for your solution
-            If it does not already exist, add it to the bag of available component types
-            This is a way you can easily add "official" component types to your solution
-            </summary>
-            <param name="component">The component type label you want to ensure is an "official" component type</param>
-            <returns>ComponentType</returns>
+        <member name="M:Artemis.ParallelEntityProcessingSystem.#ctor(System.Type,System.Type[])">
+            Create a new EntityProcessingSystem. It requires at least one component.
+            @param requiredType the required component type.
+            @param otherTypes other component types.
+        </member>
+        <member name="M:Artemis.ParallelEntityProcessingSystem.Process(Artemis.Entity)">
+            Process a entity this system is interested in.
+            @param e the entity to process.
         </member>
         <member name="M:Artemis.EntityProcessingSystem.#ctor(System.Type,System.Type[])">
             Create a new EntityProcessingSystem. It requires at least one component.
@@ -209,67 +125,8 @@
             Process a entity this system is interested in.
             @param e the entity to process.
         </member>
-        <member name="M:Artemis.GroupManager.Set(System.String,Artemis.Entity)">
-            Set the group of the entity.
-            
-            @param group group to set the entity into.
-            @param e entity to set into the group.
-        </member>
-        <member name="M:Artemis.GroupManager.GetEntities(System.String)">
-            Get all entities that belong to the provided group.
-            @param group name of the group.
-            @return read-only bag of entities belonging to the group.
-        </member>
-        <member name="M:Artemis.GroupManager.Remove(Artemis.Entity)">
-            <summary>
-            Removes an entity from the group it is assigned to, if any.
-            </summary>
-            <param name="e">The entity to be removed</param>
-        </member>
-        <member name="M:Artemis.GroupManager.GetGroupOf(Artemis.Entity)">
-            @param e entity
-            @return the name of the group that this entity belongs to, null if none.
-        </member>
-        <member name="M:Artemis.GroupManager.IsGrouped(Artemis.Entity)">
-            Checks if the entity belongs to any group.
-            @param e the entity to check.
-            @return true if it is in any group, false if none.
-        </member>
-        <member name="M:Artemis.ComponentMapper`1.#ctor">
-            <summary>
-            Allows you to interact with components that are mapped to entities
-            </summary>
-        </member>
-        <member name="M:Artemis.ComponentMapper`1.#ctor(Artemis.EntityWorld)">
-            <summary>
-            Creates a component mapper within the given Entity World
-            </summary>
-            <param name="world">EntityWorld</param>
-        </member>
-        <member name="M:Artemis.ComponentMapper`1.Get(Artemis.Entity)">
-            <summary>
-            Gets the component for the given entity/component type combo
-            </summary>
-            <param name="e">Entity in which you are interested</param>
-            <returns>Component</returns>
-        </member>
-        <member name="P:Artemis.ComponentMapper`1.EntityManager">
-            <summary>
-            Sets the entity manager for this component mapper
-            </summary>
-            <param name="em">Entity Manager that manages the component</param>
-        </member>
         <member name="M:Artemis.SystemManager.InitializeAll">
             After adding all systems to the world, you must initialize them all.
-        </member>
-        <member name="M:Artemis.ParallelEntityProcessingSystem.#ctor(System.Type,System.Type[])">
-            Create a new EntityProcessingSystem. It requires at least one component.
-            @param requiredType the required component type.
-            @param otherTypes other component types.
-        </member>
-        <member name="M:Artemis.ParallelEntityProcessingSystem.Process(Artemis.Entity)">
-            Process a entity this system is interested in.
-            @param e the entity to process.
         </member>
         <member name="M:Artemis.EntityManager.Create">
             <summary>
@@ -430,26 +287,169 @@
             
             @return id of the entity.
         </member>
-        <member name="M:Artemis.EntityWorld.DeleteEntity(Artemis.Entity)">
-            Delete the provided entity from the world.
+        <member name="M:Artemis.GroupManager.Set(System.String,Artemis.Entity)">
+            Set the group of the entity.
+            
+            @param group group to set the entity into.
+            @param e entity to set into the group.
+        </member>
+        <member name="M:Artemis.GroupManager.GetEntities(System.String)">
+            Get all entities that belong to the provided group.
+            @param group name of the group.
+            @return read-only bag of entities belonging to the group.
+        </member>
+        <member name="M:Artemis.GroupManager.Remove(Artemis.Entity)">
+            <summary>
+            Removes an entity from the group it is assigned to, if any.
+            </summary>
+            <param name="e">The entity to be removed</param>
+        </member>
+        <member name="M:Artemis.GroupManager.GetGroupOf(Artemis.Entity)">
             @param e entity
+            @return the name of the group that this entity belongs to, null if none.
         </member>
-        <member name="M:Artemis.EntityWorld.RefreshEntity(Artemis.Entity)">
-            Ensure all systems are notified of changes to this entity.
-            @param e entity
+        <member name="M:Artemis.GroupManager.IsGrouped(Artemis.Entity)">
+            Checks if the entity belongs to any group.
+            @param e the entity to check.
+            @return true if it is in any group, false if none.
         </member>
-        <member name="M:Artemis.EntityWorld.CreateEntity">
-            Create and return a new or reused entity instance.
-            @return entity
+        <member name="M:Artemis.ComponentTypeManager.GetTypeFor``1">
+            <summary>
+            Get the component type for the given component instance
+            </summary>
+            <typeparam name="T">Component for which you want the component type</typeparam>
+            <returns>Component Type</returns>
         </member>
-        <member name="M:Artemis.EntityWorld.GetEntity(System.Int32)">
-            Get a entity having the specified id.
-            @param entityId
-            @return entity
+        <member name="M:Artemis.ComponentTypeManager.GetTypeFor(System.Type)">
+            <summary>
+            Ensure the given component type [tag] is an "official" component type for your solution
+            If it does not already exist, add it to the bag of available component types
+            This is a way you can easily add "official" component types to your solution
+            </summary>
+            <param name="component">The component type label you want to ensure is an "official" component type</param>
+            <returns>ComponentType</returns>
         </member>
-        <member name="P:Artemis.EntityWorld.Delta">
-            Time since last game loop.
-            @return delta in milliseconds.
+        <member name="M:Artemis.IntervalEntityProcessingSystem.#ctor(System.Int32,System.Type,System.Type[])">
+            Create a new IntervalEntityProcessingSystem. It requires at least one component.
+            @param requiredType the required component type.
+            @param otherTypes other component types.
+        </member>
+        <member name="M:Artemis.IntervalEntityProcessingSystem.Process(Artemis.Entity)">
+            Process a entity this system is interested in.
+            @param e the entity to process.
+        </member>
+        <member name="M:Artemis.Bag`1.#ctor">
+            Constructs an empty Bag with an initial capacity of 64.
+            
+        </member>
+        <member name="M:Artemis.Bag`1.#ctor(System.Int32)">
+            Constructs an empty Bag with the specified initial capacity.
+            
+            @param capacity
+                       the initial capacity of Bag
+        </member>
+        <member name="M:Artemis.Bag`1.Remove(System.Int32)">
+            Removes the element at the specified position in this Bag. does this by
+            overwriting it was last element then removing last element
+            
+            @param index
+                       the index of element to be removed
+            @return element that was removed from the Bag
+        </member>
+        <member name="M:Artemis.Bag`1.RemoveLast">
+            Remove and return the last object in the bag.
+            
+            @return the last object in the bag, null if empty.
+        </member>
+        <member name="M:Artemis.Bag`1.Remove(`0)">
+            Removes the first occurrence of the specified element from this Bag, if
+            it is present. If the Bag does not contain the element, it is unchanged.
+            does this by overwriting it was last element then removing last element
+            
+            @param o
+                       element to be removed from this list, if present
+            @return <tt>true</tt> if this list contained the specified element
+        </member>
+        <member name="M:Artemis.Bag`1.Contains(`0)">
+            Check if bag contains this element.
+            
+            @param o
+            @return
+        </member>
+        <member name="M:Artemis.Bag`1.RemoveAll(Artemis.Bag{`0})">
+            Removes from this Bag all of its elements that are contained in the
+            specified Bag.
+            
+            @param bag
+                       Bag containing elements to be removed from this Bag
+            @return {@code true} if this Bag changed as a result of the call
+        </member>
+        <member name="M:Artemis.Bag`1.Get(System.Int32)">
+            Returns the element at the specified position in Bag.
+            
+            @param index
+                       index of the element to return
+            @return the element at the specified position in bag
+        </member>
+        <member name="M:Artemis.Bag`1.Size">
+            Returns the number of elements in this bag.
+            
+            @return the number of elements in this bag
+        </member>
+        <member name="M:Artemis.Bag`1.Add(`0)">
+            Adds the specified element to the end of this bag. if needed also
+            increases the capacity of the bag.
+            
+            @param o
+                       element to be added to this list
+        </member>
+        <member name="M:Artemis.Bag`1.Set(System.Int32,`0)">
+            Set element at specified index in the bag.
+            
+            @param index position of element
+            @param o the element
+        </member>
+        <member name="M:Artemis.Bag`1.Clear">
+            Removes all of the elements from this bag. The bag will be empty after
+            this call returns.
+        </member>
+        <member name="M:Artemis.Bag`1.AddAll(Artemis.Bag{`0})">
+            Add all items into this bag. 
+            @param added
+        </member>
+        <member name="P:Artemis.Bag`1.Capacity">
+            Returns the number of elements the bag can hold without growing.
+            
+            @return the number of elements the bag can hold without growing.
+        </member>
+        <member name="P:Artemis.Bag`1.IsEmpty">
+            Returns true if this list contains no elements.
+            
+            @return true if this list contains no elements
+        </member>
+        <member name="M:Artemis.ComponentMapper`1.#ctor">
+            <summary>
+            Allows you to interact with components that are mapped to entities
+            </summary>
+        </member>
+        <member name="M:Artemis.ComponentMapper`1.#ctor(Artemis.EntityWorld)">
+            <summary>
+            Creates a component mapper within the given Entity World
+            </summary>
+            <param name="world">EntityWorld</param>
+        </member>
+        <member name="M:Artemis.ComponentMapper`1.Get(Artemis.Entity)">
+            <summary>
+            Gets the component for the given entity/component type combo
+            </summary>
+            <param name="e">Entity in which you are interested</param>
+            <returns>Component</returns>
+        </member>
+        <member name="P:Artemis.ComponentMapper`1.EntityManager">
+            <summary>
+            Sets the entity manager for this component mapper
+            </summary>
+            <param name="em">Entity Manager that manages the component</param>
         </member>
     </members>
 </doc>

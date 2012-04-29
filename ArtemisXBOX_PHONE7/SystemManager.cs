@@ -28,7 +28,7 @@ namespace Artemis
 		}
 		
 		public T SetSystem<T>(T system,ExecutionType execType , int layer = 0) where T : EntitySystem {
-			system.SetWorld(world);
+			system.World = world;
 			
 			systems.Add(typeof(T), (EntitySystem)system);
 			
