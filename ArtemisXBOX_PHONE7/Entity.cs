@@ -1,21 +1,10 @@
 using System;
-#if !XBOX && !WINDOWS_PHONE
 using System.Numerics;
-#endif
-
-#if XBOX || WINDOWS_PHONE
-using BigInteger = System.Int32;
-#endif
-
 namespace Artemis
 {
-
-    
 	public sealed class Entity {
 		private int id;
 		private long uniqueId;
-
-
 		private BigInteger typeBits = 0;
 		private BigInteger systemBits = 0;
 		
@@ -162,6 +151,10 @@ namespace Artemis
 		 */
 		public T GetComponent<T>() where T : Component {
 			return (T)GetComponent(ComponentTypeManager.GetTypeFor<T>());
+		}
+		
+		public bool HasComponent<T>() where T : Component {
+			return (T)GetComponent(ComponentTypeManager.GetTypeFor<T>()) != null;
 		}
 		
 		/**

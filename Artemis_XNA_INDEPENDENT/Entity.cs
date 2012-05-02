@@ -153,6 +153,10 @@ namespace Artemis
 			return (T)GetComponent(ComponentTypeManager.GetTypeFor<T>());
 		}
 		
+		public bool HasComponent<T>() where T : Component {
+			return (T)GetComponent(ComponentTypeManager.GetTypeFor<T>()) != null;
+		}
+		
 		/**
 		 * Get all components belonging to this entity.
 		 * WARNING. Use only for debugging purposes, it is dead slow.
