@@ -4,8 +4,3 @@ D:\opensource\artemis_CSharp\Artemis_XNA_INDEPENDENT\obj\x86\Debug\ResolveAssemb
 D:\opensource\artemis_CSharp\Artemis_XNA_INDEPENDENT\obj\x86\Debug\artemis.dll
 D:\opensource\artemis_CSharp\Artemis_XNA_INDEPENDENT\obj\x86\Debug\artemis.pdb
 D:\opensource\artemis_CSharp\Artemis_XNA_INDEPENDENT\bin\Debug\artemis.XML
-C:\Users\tpastor\Desktop\artemis\artemis_CSharp\Artemis_XNA_INDEPENDENT\bin\Debug\artemis.dll
-C:\Users\tpastor\Desktop\artemis\artemis_CSharp\Artemis_XNA_INDEPENDENT\bin\Debug\artemis.pdb
-C:\Users\tpastor\Desktop\artemis\artemis_CSharp\Artemis_XNA_INDEPENDENT\obj\x86\Debug\ResolveAssemblyReference.cache
-C:\Users\tpastor\Desktop\artemis\artemis_CSharp\Artemis_XNA_INDEPENDENT\obj\x86\Debug\artemis.dll
-C:\Users\tpastor\Desktop\artemis\artemis_CSharp\Artemis_XNA_INDEPENDENT\obj\x86\Debug\artemis.pdb

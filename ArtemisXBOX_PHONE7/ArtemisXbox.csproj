@@ -67,43 +67,103 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BlackBoard\BlackBoard.cs" />
-    <Compile Include="BlackBoard\SimpleTrigger.cs" />
-    <Compile Include="BlackBoard\Trigger.cs" />
-    <Compile Include="BlackBoard\TriggerMultiCondition.cs" />
-    <Compile Include="Component.cs" />
-    <Compile Include="ComponentMapper.cs" />
-    <Compile Include="ComponentType.cs" />
-    <Compile Include="ComponentTypeManager.cs" />
-    <Compile Include="DelayedEntityProcessingSystem.cs" />
-    <Compile Include="DelayedEntitySystem.cs" />
-    <Compile Include="Entity.cs" />
-    <Compile Include="EntityManager.cs" />
-    <Compile Include="EntityProcessingSystem.cs" />
-    <Compile Include="EntitySystem.cs" />
-    <Compile Include="EntityWorld.cs" />
-    <Compile Include="GroupManager.cs" />
-    <Compile Include="GroupSystem.cs" />
-    <Compile Include="HybridQueueSystemProcessing.cs" />
-    <Compile Include="IntervalEntityProcessingSystem.cs" />
-    <Compile Include="IntervalEntitySystem.cs" />
-    <Compile Include="IntervalGroupSystem.cs" />
-    <Compile Include="IntervalTagSystem.cs" />
-    <Compile Include="Manager.cs" />
-    <Compile Include="ParallelEntityProcessingSystem.cs" />
-    <Compile Include="Pool.cs" />
+    <Compile Include="BlackBoard\BlackBoard.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BlackBoard\SimpleTrigger.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BlackBoard\Trigger.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BlackBoard\TriggerMultiCondition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Component.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ComponentMapper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ComponentType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ComponentTypeManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DelayedEntityProcessingSystem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DelayedEntitySystem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entity.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EntityManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EntityProcessingSystem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EntitySystem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EntityWorld.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GroupManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HybridQueueSystemProcessing.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IntervalEntityProcessingSystem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IntervalEntitySystem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IntervalTagSystem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ParallelEntityProcessingSystem.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QueueSystemProcessing.cs" />
-    <Compile Include="QueueSystemProcessingThreadSafe.cs" />
-    <Compile Include="SystemBitManager.cs" />
-    <Compile Include="SystemManager.cs" />
-    <Compile Include="TagManager.cs" />
-    <Compile Include="TagSystem.cs" />
-    <Compile Include="Utils\Bag.cs" />
-    <Compile Include="Utils\FastMath.cs" />
-    <Compile Include="Utils\Timer.cs" />
-    <Compile Include="Utils\TrigLUT.cs" />
-    <Compile Include="Utils\Utils.cs" />
+    <Compile Include="QueueSystemProcessing.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="QueueSystemProcessingThreadSafe.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SystemBitManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SystemManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagSystem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utils\Bag.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utils\FastMath.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utils\Timer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utils\TrigLUT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utils\Utils.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />

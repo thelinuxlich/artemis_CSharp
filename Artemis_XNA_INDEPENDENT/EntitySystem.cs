@@ -1,6 +1,13 @@
 using System;
 using System.Collections.Generic;
+#if !XBOX && !WINDOWS_PHONE
 using System.Numerics;
+#endif
+
+#if XBOX || WINDOWS_PHONE
+using BigInteger = System.Int32;
+#endif
+
 namespace Artemis
 {
 	public abstract class EntitySystem {
@@ -28,7 +35,7 @@ namespace Artemis
 		public EntitySystem() {
 		}
 	
-		public EntitySystem(params Type[] types) {
+		public EntitySystem(params Type[] types) {            
 			for (int i = 0, j = types.Length; i < j; i++) {
                 Type type = types[i];
 				ComponentType ct = ComponentTypeManager.GetTypeFor(type);
@@ -36,7 +43,7 @@ namespace Artemis
 			}
 		}
 		
-		public BigInteger SystemBit {
+		internal BigInteger SystemBit {
 			set { systemBit = value; }
 		}
 		
@@ -86,13 +93,14 @@ namespace Artemis
 		 * Called if a entity was removed from this system, e.g. deleted or had one of it's components removed.
 		 * @param e the entity that was removed from this system.
 		 */
-        public virtual void Removed(Entity e) { }
+        public virtual void OnRemoved(Entity e) { }
 	
-		public virtual void Enabled(Entity e) { }
+		public virtual void OnEnabled(Entity e) { }
 		
-		public virtual void Disabled(Entity e) { }
+		public virtual void OnDisabled(Entity e) { }
 		
-		public virtual void Change(Entity e) {
+		public virtual void OnChange(Entity e) {
+            System.Diagnostics.Debug.Assert(e != null);
 			bool contains = (systemBit & e.SystemBits) == systemBit;
 			bool interest = (typeFlags & e.TypeBits) == typeFlags;
 	
@@ -108,6 +116,7 @@ namespace Artemis
 		}
 		
 		protected void Add(Entity e) {
+            System.Diagnostics.Debug.Assert(e != null);
 			e.AddSystemBit(systemBit);
 			if (e.Enabled == true) {
 				Enable(e);
@@ -116,44 +125,54 @@ namespace Artemis
 		}
 	
 		protected void Remove(Entity e) {
+            System.Diagnostics.Debug.Assert(e != null);
 			e.RemoveSystemBit(systemBit);
 			if (e.Enabled == true) {
 				Disable(e);
 			}
-			Removed(e);
+			OnRemoved(e);
 		}
 		
 		private void Enable(Entity e) {
+            System.Diagnostics.Debug.Assert(e != null);
 			if (actives.ContainsKey(e.Id)) {
 				return;
 			}
 			actives.Add(e.Id,e);
-			Enabled(e);
+			OnEnabled(e);
 		}
 		
 		private void Disable(Entity e) {
+            System.Diagnostics.Debug.Assert(e != null);
+
 			if (!actives.ContainsKey(e.Id)) {
 				return;
 			}
 			actives.Remove(e.Id);
-			Disabled(e);
+			OnDisabled(e);
 		}
 	
 		public EntityWorld World {
-			set { world = value; }
+			internal set { world = value; }
+            get { return world; }
+             
 		}
 		
-		public void Toggle() {
+		public void Toggle() {            
 			enabled = !enabled;
 		}
 		
-		public void Enable() {
-			enabled = true;
+		public bool Enabled {
+            get
+            {
+                return enabled;
+            }
+            set
+            {
+                this.enabled = value;
+            }			
 		}
 		
-		public void Disable() {
-			enabled = false;
-		}
 		
 		/**
 		 * Merge together a required type and a array of other types. Used in derived systems.
@@ -162,6 +181,7 @@ namespace Artemis
 		 * @return
 		 */
 		public static Type[] GetMergedTypes(Type requiredType, params Type[] otherTypes) {
+            System.Diagnostics.Debug.Assert(requiredType != null);
 			Type[] types = new Type[1+otherTypes.Length];
 			types[0] = requiredType;
 			for(int i = 0,j = otherTypes.Length; j > i; i++) {

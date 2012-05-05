@@ -17,10 +17,10 @@ namespace ArtemisTest
         	 Console.WriteLine("This was the component removed: "+(c.GetType()));
 			 Bag<Component> tempBag;
 			 componentPool.TryGetValue(c.GetType(),out tempBag);
-			 Console.WriteLine("Health Component Pool has "+tempBag.Size()+" objects");
+			 Console.WriteLine("Health Component Pool has "+tempBag.Size+" objects");
 			 tempBag.Add(c);
 			 componentPool.TryGetValue(c.GetType(),out tempBag);
-			 Console.WriteLine("Health Component Pool now has "+tempBag.Size()+" objects");
+			 Console.WriteLine("Health Component Pool now has "+tempBag.Size+" objects");
       	}
 		
 		private static void RemovedEntity(Entity e) 
@@ -132,14 +132,54 @@ namespace ArtemisTest
 #if !MONOTOUCH
         static void Main(String[] args)
         {
-	            multi();
-	            multsystem();
+                DummyTests();
+                multi();
+                multsystem();
 	            QueueSystemTeste();
 	            HybridQueueSystemTeste();
 	            SystemComunicationTeste();
 		}
 #endif		
 
+        public static void DummyTests()
+        {
+            EntityWorld world = new EntityWorld();
+            SystemManager systemManager = world.SystemManager;
+            DummyCommunicationSystem DummyCommunicationSystem = new DummyCommunicationSystem();
+            systemManager.SetSystem(DummyCommunicationSystem, ExecutionType.Update);
+            systemManager.InitializeAll();
+
+            for (int i = 0; i < 100; i++)
+            {
+                Entity et = world.CreateEntity();
+                et.AddComponent(new Health());
+                et.GetComponent<Health>().HP += 100;
+                et.Group = "teste";
+                et.Refresh();
+            }
+
+            {
+                Entity et = world.CreateEntity("tag");
+                et.AddComponent(new Health());
+                et.GetComponent<Health>().HP += 100;             
+                et.Refresh();
+            }
+
+            {
+                DateTime dt = DateTime.Now;
+                world.LoopStart();
+                systemManager.UpdateSynchronous(ExecutionType.Update);
+                Console.WriteLine((DateTime.Now - dt).TotalMilliseconds);
+            }
+
+            Debug.Assert(world.TagManager.GetEntity("tag") != null);
+            Debug.Assert(world.GroupManager.GetEntities("teste").Size == 100);
+            Debug.Assert(world.EntityManager.ActiveEntitiesCount == 101);
+            Debug.Assert(world.SystemManager.Systems.Size == 1);
+
+
+
+        }
         public static void SystemComunicationTeste()
         {
             EntitySystem.BlackBoard.SetEntry<int>("Damage", 5);
@@ -191,17 +231,21 @@ namespace ArtemisTest
             QueueSystemTest QueueSystemTest2 = new ArtemisTest.QueueSystemTest();
             systemManager.SetSystem(QueueSystemTest, ExecutionType.Update);
             systemManager.SetSystem(QueueSystemTest2, ExecutionType.Update);
-            
+
+            QueueSystemTest2 QueueSystemTestteste = new ArtemisTest.QueueSystemTest2();
+            systemManager.SetSystem(QueueSystemTestteste, ExecutionType.Update);
+
             systemManager.InitializeAll();
 
             QueueSystemTest.SetQueueProcessingLimit(20, QueueSystemTest.Id);
             Debug.Assert(QueueSystemTest.GetQueueProcessingLimit(QueueSystemTest.Id) == QueueSystemTest.GetQueueProcessingLimit(QueueSystemTest2.Id));
+
+
             
-            
-            QueueSystemTest2 QueueSystemTestteste = new ArtemisTest.QueueSystemTest2();
             Debug.Assert(QueueSystemTest.GetQueueProcessingLimit(QueueSystemTestteste.Id) != QueueSystemTest.GetQueueProcessingLimit(QueueSystemTest2.Id));
-            
-            QueueSystemTest.SetQueueProcessingLimit(1000, QueueSystemTest.Id);            
+
+            QueueSystemTest.SetQueueProcessingLimit(1000, QueueSystemTest.Id);
+            QueueSystemTest.SetQueueProcessingLimit(2000, QueueSystemTestteste.Id);
 
             List<Entity> l = new List<Entity>();
             for (int i = 0; i < 1000000; i++)
@@ -212,9 +256,19 @@ namespace ArtemisTest
                 QueueSystemTest.AddToQueue(et, QueueSystemTest.Id);
                 l.Add(et);
             }
+            
+            List<Entity> l2 = new List<Entity>();
+            for (int i = 0; i < 1000000; i++)
+            {
+                Entity et = world.CreateEntity();
+                et.AddComponent(new Health());
+                et.GetComponent<Health>().HP = 100;
+                QueueSystemTest.AddToQueue(et, QueueSystemTestteste.Id);
+                l2.Add(et);
+            }
 
             Console.WriteLine("Start");
-            while (QueueSystemTest.QueueCount(QueueSystemTest.Id) > 0 && QueueSystemTest.QueueCount(QueueSystemTest2.Id) > 0)
+            while (QueueSystemTest.QueueCount(QueueSystemTest.Id) > 0 || QueueSystemTest.QueueCount(QueueSystemTestteste.Id) > 0)
             {
                 DateTime dt = DateTime.Now;
                 world.LoopStart();
@@ -228,6 +282,10 @@ namespace ArtemisTest
             foreach (var item in l)
             {
                 Debug.Assert(item.GetComponent<Health>().HP == 90);
+            }
+            foreach (var item in l2)
+            {
+                Debug.Assert(item.GetComponent<Health>().HP == 80);
             }
         }
 
@@ -256,7 +314,8 @@ namespace ArtemisTest
                 Entity et = world.CreateEntity();
                 et.AddComponent(new Health());
                 et.GetComponent<Health>().HP += 100;
-                HybridQueueSystemTest.AddToQueue(et);
+                HybridQueueSystemTest.
+                    AddToQueue(et);
                 l.Add(et);
             }
 

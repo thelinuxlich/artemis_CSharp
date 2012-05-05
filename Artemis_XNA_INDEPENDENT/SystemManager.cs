@@ -19,7 +19,7 @@ namespace Artemis
         private Dictionary<int, Bag<EntitySystem>> Drawlayers = new Dictionary<int, Bag<EntitySystem>>();
 		private Bag<EntitySystem> mergedBag = new Bag<EntitySystem>();
 		
-		public SystemManager(EntityWorld world) {
+		internal SystemManager(EntityWorld world) {
 			this.world = world;
 		}
 		
@@ -87,7 +87,7 @@ namespace Artemis
 		 * After adding all systems to the world, you must initialize them all.
 		 */
 		public void InitializeAll() {
-		   for (int i = 0, j = mergedBag.Size(); i < j; i++) {
+		   for (int i = 0, j = mergedBag.Size; i < j; i++) {
 		      mergedBag.Get(i).Initialize();
 		   }
 		}
@@ -95,7 +95,7 @@ namespace Artemis
 
         void UpdatebagSync(Bag<EntitySystem> temp) 
         {
-            for (int i = 0, j = temp.Size(); i < j; i++)
+            for (int i = 0, j = temp.Size; i < j; i++)
             {
                 temp.Get(i).Process();
             }             
@@ -123,7 +123,7 @@ namespace Artemis
         void UpdatebagASSync(Bag<EntitySystem> temp)
         {
             tasks.Clear();
-            for (int i = 0, j = temp.Size(); i < j; i++)
+            for (int i = 0, j = temp.Size; i < j; i++)
             {
                 EntitySystem es = temp.Get(i);
                 tasks.Add(factory.StartNew(

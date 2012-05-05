@@ -22,7 +22,8 @@
     <XnaWindowsPhoneManifestTemplate Condition="$(XnaOutputType)=='Game'">Properties\WMAppManifest.xml</XnaWindowsPhoneManifestTemplate>
     <TileImage Condition="$(XnaOutputType)=='Game'">Background.png</TileImage>
     <TileTitle Condition="$(XnaOutputType)=='Game'">$(AssemblyName)</TileTitle>
-    <Thumbnail>PhoneGameThumb.png</Thumbnail>
+    <Thumbnail>
+    </Thumbnail>
     <SupportedCultures />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Windows Phone' ">
@@ -51,12 +52,6 @@
     <LangVersion>default</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="Background.png">
-      <XnaPlatformSpecific>true</XnaPlatformSpecific>
-    </None>
-    <None Include="PhoneGameThumb.png">
-      <XnaPlatformSpecific>true</XnaPlatformSpecific>
-    </None>
     <None Include="Properties\AppManifest.xml">
       <XnaPlatformSpecific>true</XnaPlatformSpecific>
     </None>
@@ -65,10 +60,18 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BlackBoard\BlackBoard.cs" />
-    <Compile Include="BlackBoard\SimpleTrigger.cs" />
-    <Compile Include="BlackBoard\Trigger.cs" />
-    <Compile Include="BlackBoard\TriggerMultiCondition.cs" />
+    <Compile Include="BlackBoard\BlackBoard.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BlackBoard\SimpleTrigger.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BlackBoard\Trigger.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BlackBoard\TriggerMultiCondition.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Component.cs" />
     <Compile Include="ComponentMapper.cs" />
     <Compile Include="ComponentType.cs" />
@@ -81,15 +84,11 @@
     <Compile Include="EntitySystem.cs" />
     <Compile Include="EntityWorld.cs" />
     <Compile Include="GroupManager.cs" />
-    <Compile Include="GroupSystem.cs" />
     <Compile Include="HybridQueueSystemProcessing.cs" />
     <Compile Include="IntervalEntityProcessingSystem.cs" />
     <Compile Include="IntervalEntitySystem.cs" />
-    <Compile Include="IntervalGroupSystem.cs" />
     <Compile Include="IntervalTagSystem.cs" />
-    <Compile Include="Manager.cs" />
     <Compile Include="ParallelEntityProcessingSystem.cs" />
-    <Compile Include="Pool.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueueSystemProcessing.cs" />
     <Compile Include="QueueSystemProcessingThreadSafe.cs" />
@@ -97,11 +96,21 @@
     <Compile Include="SystemManager.cs" />
     <Compile Include="TagManager.cs" />
     <Compile Include="TagSystem.cs" />
-    <Compile Include="Utils\Bag.cs" />
-    <Compile Include="Utils\FastMath.cs" />
-    <Compile Include="Utils\Timer.cs" />
-    <Compile Include="Utils\TrigLUT.cs" />
-    <Compile Include="Utils\Utils.cs" />
+    <Compile Include="Utils\Bag.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utils\FastMath.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utils\Timer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utils\TrigLUT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utils\Utils.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Xna.Framework" />

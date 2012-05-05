@@ -1,4 +1,5 @@
 using System;
+
 #if !XBOX && !WINDOWS_PHONE
 using System.Numerics;
 #endif
@@ -9,13 +10,9 @@ using BigInteger = System.Int32;
 
 namespace Artemis
 {
-
-    
 	public sealed class Entity {
 		private int id;
 		private long uniqueId;
-
-
 		private BigInteger typeBits = 0;
 		private BigInteger systemBits = 0;
 		
@@ -25,7 +22,7 @@ namespace Artemis
 		private bool refreshingState = false;
 		private bool deletingState = false;
 		
-		public Entity(EntityWorld world, int id) {
+		internal Entity(EntityWorld world, int id) {
 			this.world = world;
 			this.entityManager = world.EntityManager;
 			this.id = id;
@@ -37,25 +34,28 @@ namespace Artemis
 		 * 
 		 * @return id of the entity.
 		 */
-		public int Id {
+		internal int Id {
 			get { return id;}
 		}
 		
 		public long UniqueId {
 			get { return uniqueId; }
-			set { uniqueId = value;}
+			internal set {
+                System.Diagnostics.Debug.Assert(uniqueId >= 0);
+                uniqueId = value;
+            }
 		}
 		
-		public BigInteger TypeBits {
+		internal BigInteger TypeBits {
 			get { return typeBits; }
 			set { typeBits = value; }
 		}
 		
-		public void AddTypeBit(BigInteger bit) {
+		internal void AddTypeBit(BigInteger bit) {
 			typeBits |= bit;
 		}
 		
-		public void RemoveTypeBit(BigInteger bit) {
+		internal void RemoveTypeBit(BigInteger bit) {
 			typeBits &= ~bit;
 		}
 		
@@ -69,48 +69,53 @@ namespace Artemis
 			set { deletingState = value; }
 		}
 		
-		public BigInteger SystemBits {
+		internal BigInteger SystemBits {
 			get { return systemBits;}
 			set { systemBits = value; }
 		}
 		
-		public void AddSystemBit(BigInteger bit) {
+		internal void AddSystemBit(BigInteger bit) {
 			systemBits |= bit;
 		}
 		
-		public void RemoveSystemBit(BigInteger bit) {
+		internal void RemoveSystemBit(BigInteger bit) {
 			systemBits &= ~bit;
 		}
 		
 		public void Reset() {
 			systemBits = 0;
 			typeBits = 0;
-			Enable();
+			enabled = true;
 		}
 		
 		public override String ToString() {
 			return "Entity["+id+"]";
 		}
 
-        public void Enable()
+        public bool Enabled
         {
-            enabled = true;
+            get
+            {
+                return enabled;
+            }
+            set
+            {
+                enabled = value;
+            }            
         }
 
-        public void Disable()
-        {
-            enabled = false;
-        }
 
 		/**
 		 * Add a component to this entity.
 		 * @param component to add to this entity
 		 */
 		public void AddComponent(Component component){
+            System.Diagnostics.Debug.Assert(component != null);
 			entityManager.AddComponent(this, component);
 		}
 		
 		public void AddComponent<T>(Component component) where T : Component {
+            System.Diagnostics.Debug.Assert(component != null);
 			entityManager.AddComponent<T>(this, component);
 		}
 		
@@ -119,6 +124,7 @@ namespace Artemis
 		 * @param component to remove from this entity.
 		 */
 		public void RemoveComponent<T>(Component component) where T : Component{
+            System.Diagnostics.Debug.Assert(component != null);
 			entityManager.RemoveComponent<T>(this, component);
 		}
 		
@@ -127,6 +133,7 @@ namespace Artemis
 		 * @param component to remove from this entity.
 		 */
 		public void RemoveComponent(ComponentType type){
+            System.Diagnostics.Debug.Assert(type != null);
 			entityManager.RemoveComponent(this, type);
 		}
 		
@@ -134,14 +141,12 @@ namespace Artemis
 		 * Checks if the entity has been deleted from somewhere.
 		 * @return if it's active.
 		 */
-		public bool IsActive(){
-			return entityManager.IsActive(id);
+		public bool isActive{
+            get
+            {
+                return entityManager.IsActive(id);
+            }
 		}
-
-        public bool Enabled
-        {
-            get {return enabled;}
-        }
 
 		/**
 		 * This is the preferred method to use when retrieving a component from a entity. It will provide good performance.
@@ -150,6 +155,7 @@ namespace Artemis
 		 * @return
 		 */
 		public Component GetComponent(ComponentType type) {
+            System.Diagnostics.Debug.Assert(type != null);
 			return entityManager.GetComponent(this, type);
 		}
 		
@@ -170,8 +176,11 @@ namespace Artemis
 		 * WARNING. The returned bag is only valid until this method is called again, then it is overwritten.
 		 * @return all components of this entity.
 		 */
-		public Bag<Component> GetComponents() {
-			return entityManager.GetComponents(this);
+		public Bag<Component> Components {
+            get
+            {
+                return entityManager.GetComponents(this);
+            }
 		}
 		
 		/**
@@ -202,21 +211,34 @@ namespace Artemis
 		 * Set the group of the entity. Same as World.setGroup().
 		 * @param group of the entity.
 		 */
-		public void SetGroup(String group) {
-			world.GroupManager.Set(group, this);
-		}
+        public String Group
+        {
+            get
+            {
+                return world.GroupManager.GetGroupOf(this);
+            }
+            set
+            {
+                world.GroupManager.Set(value, this);
+            }
+
+        }
 		
 		/**
 		 * Assign a tag to this entity. Same as World.setTag().
 		 * @param tag of the entity.
 		 */
-		public void SetTag(String tag) {
-			world.TagManager.Register(tag, this);
-		}
-		
-		public String GetTag() {
-			return world.TagManager.GetTagOfEntity(this);
-		}
+        public String Tag
+        {
+            get
+            {
+                return world.TagManager.GetTagOfEntity(this);
+            }
+            set
+            {
+                world.TagManager.Register(value, this);
+            }
+        }
 	}
 }
 

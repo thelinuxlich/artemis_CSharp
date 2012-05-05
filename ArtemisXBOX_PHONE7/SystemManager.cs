@@ -23,7 +23,8 @@ namespace Artemis
         private Dictionary<int, Bag<EntitySystem>> Drawlayers = new Dictionary<int, Bag<EntitySystem>>();
 		private Bag<EntitySystem> mergedBag = new Bag<EntitySystem>();
 		
-		public SystemManager(EntityWorld world) {
+		internal SystemManager(EntityWorld world) {
+            System.Diagnostics.Debug.Assert(world != null);
 			this.world = world;
 		}
 		
@@ -70,16 +71,16 @@ namespace Artemis
             systems.TryGetValue(typeof(T), out system);
 			return (T)system;
 		}
-		
-		public Bag<EntitySystem> GetSystems() {
-			return mergedBag;
-		}
-		
+
+        public Bag<EntitySystem> Systems
+        {
+            get { return mergedBag; }
+        }
 		/**
 		 * After adding all systems to the world, you must initialize them all.
 		 */
 		public void InitializeAll() {
-		   for (int i = 0, j = mergedBag.Size(); i < j; i++) {
+		   for (int i = 0, j = mergedBag.Size; i < j; i++) {
 		      mergedBag.Get(i).Initialize();
 		   }
 		}
@@ -87,7 +88,7 @@ namespace Artemis
 
         void UpdatebagSync(Bag<EntitySystem> temp) 
         {
-            for (int i = 0, j = temp.Size(); i < j; i++)
+            for (int i = 0, j = temp.Size; i < j; i++)
             {
                 temp.Get(i).Process();
             }             
@@ -118,7 +119,7 @@ namespace Artemis
         void UpdatebagASSync(Bag<EntitySystem> temp)
         {
             tasks.Clear();
-            for (int i = 0, j = temp.Size(); i < j; i++)
+            for (int i = 0, j = temp.Size; i < j; i++)
             {
                 EntitySystem es = temp.Get(i);
                 #if WINDOWS

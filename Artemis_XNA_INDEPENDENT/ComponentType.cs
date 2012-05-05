@@ -1,5 +1,12 @@
 using System;
+#if !XBOX && !WINDOWS_PHONE
 using System.Numerics;
+#endif
+
+#if XBOX || WINDOWS_PHONE
+using BigInteger = System.Int32;
+#endif
+
 namespace Artemis
 {
 	public sealed class ComponentType {

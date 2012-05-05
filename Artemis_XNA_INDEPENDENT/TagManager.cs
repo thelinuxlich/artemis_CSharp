@@ -6,26 +6,32 @@ namespace Artemis
 		private EntityWorld world;
 		private Dictionary<String, Entity> entityByTag = new Dictionary<String, Entity>();
 	
-		public TagManager(EntityWorld world) {
+		internal TagManager(EntityWorld world) {
 			this.world = world;
 		}
 	
-		public void Register(String tag, Entity e) {
+		internal void Register(String tag, Entity e) {
+            System.Diagnostics.Debug.Assert(e != null);
+            System.Diagnostics.Debug.Assert(!String.IsNullOrEmpty(tag));
 			entityByTag.Add(tag, e);
 		}
-	
-		public void Unregister(String tag) {
+
+        internal void Unregister(String tag)
+        {
+            System.Diagnostics.Debug.Assert(!String.IsNullOrEmpty(tag));
 			entityByTag.Remove(tag);
 		}
 	
 		public bool IsRegistered(String tag) {
+            System.Diagnostics.Debug.Assert(!String.IsNullOrEmpty(tag));
 			return entityByTag.ContainsKey(tag);
 		}
 	
 		public Entity GetEntity(String tag) {
+            System.Diagnostics.Debug.Assert(!String.IsNullOrEmpty(tag));
             Entity e;
             entityByTag.TryGetValue(tag, out e);
-            if (e == null || e.IsActive())
+            if (e == null || e.isActive)
             {
                 return e;
             }
@@ -37,6 +43,7 @@ namespace Artemis
 		}
 	
 		public String GetTagOfEntity(Entity e) {
+            System.Diagnostics.Debug.Assert(e != null);
 			String tag = "";
 			foreach (var pair in entityByTag)
 			{

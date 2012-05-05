@@ -7,6 +7,7 @@ using System.Numerics;
 #if XBOX || WINDOWS_PHONE
 using BigInteger = System.Int32;
 #endif
+
 namespace Artemis
 {
 	public static class ComponentTypeManager {
@@ -36,7 +37,8 @@ namespace Artemis
         /// <param name="component">The component type label you want to ensure is an "official" component type</param>
         /// <returns>ComponentType</returns>
 		public static ComponentType GetTypeFor(Type component)
-        { 
+        {
+            System.Diagnostics.Debug.Assert(component != null);
 			ComponentType type = null;
 			if(!componentTypes.TryGetValue(component,out type)){ 
 				type = new ComponentType();

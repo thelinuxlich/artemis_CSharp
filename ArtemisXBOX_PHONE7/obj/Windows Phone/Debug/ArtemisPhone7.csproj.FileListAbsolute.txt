@@ -1,7 +1,0 @@
-C:\Users\tpastor\Desktop\artemis\artemis_CSharp\ArtemisXBOX_PHONE7\obj\Windows Phone\Debug\ResolveAssemblyReference.cache
-C:\Users\tpastor\Desktop\artemis\artemis_CSharp\ArtemisXBOX_PHONE7\obj\Windows Phone\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
-C:\Users\tpastor\Desktop\artemis\artemis_CSharp\ArtemisXBOX_PHONE7\bin\Windows Phone\Debug\ArtemisXbox.dll
-C:\Users\tpastor\Desktop\artemis\artemis_CSharp\ArtemisXBOX_PHONE7\bin\Windows Phone\Debug\ArtemisXbox.pdb
-C:\Users\tpastor\Desktop\artemis\artemis_CSharp\ArtemisXBOX_PHONE7\bin\Windows Phone\Debug\ParallelTasks.dll
-C:\Users\tpastor\Desktop\artemis\artemis_CSharp\ArtemisXBOX_PHONE7\obj\Windows Phone\Debug\ArtemisXbox.dll
-C:\Users\tpastor\Desktop\artemis\artemis_CSharp\ArtemisXBOX_PHONE7\obj\Windows Phone\Debug\ArtemisXbox.pdb

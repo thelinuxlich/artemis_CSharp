@@ -1,8 +1,10 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 namespace Artemis
 {
-	public class Bag<E> where E : class 
-    {
+    public class Bag<E> : IEnumerable<E> where E : class 
+    {       
 		private E[] data;
 		private int size = 0;
 	
@@ -108,7 +110,7 @@ namespace Artemis
 		public bool RemoveAll(Bag<E> bag) {
 			bool modified = false;
 	
-			for (int i = 0, bagSize = bag.Size(); i < bagSize; i++) {
+			for (int i = 0, bagSize = bag.Size; i < bagSize; i++) {
 				Object o1 = bag.Get(i);
 	
 				for (int j = 0; j < size; j++) {
@@ -141,10 +143,14 @@ namespace Artemis
 		 * Returns the number of elements in this bag.
 		 * 
 		 * @return the number of elements in this bag
-		 */
-		public int Size() {
-			return size;
-		}
+		 */		
+        public int Size
+        {
+            get
+            {
+                return size;
+            }
+        }
 		
 		/**
 		 * Returns the number of elements the bag can hold without growing.
@@ -225,11 +231,58 @@ namespace Artemis
 		 * @param added
 		 */
 		public void AddAll(Bag<E> items) {
-			for(int i = 0,j = items.Size(); j > i; i++) {
+			for(int i = 0,j = items.Size; j > i; i++) {
 				Add(items.Get(i));
 			}
 		}
-		
-	}
+
+
+        IEnumerator<E> IEnumerable<E>.GetEnumerator()
+        {
+            return new BagEnumerator<E>(this);
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return new BagEnumerator<E>(this);
+        }
+    }
+
+    class BagEnumerator<E> : IEnumerator<E> where E : class  
+    {
+        Bag<E> bag;
+        int i = -1;
+
+        public BagEnumerator(Bag<E> bag)
+        {
+            this.bag = bag;
+        }
+
+        public bool MoveNext()
+        {
+            i++;
+            return bag.Size< i;       
+        }
+
+        public void Reset()
+        {
+            i = -1;
+        }
+
+        E IEnumerator<E>.Current
+        {
+            get { return bag.Get(i); }
+        }
+
+        public void Dispose()
+        {
+            this.bag = null;
+        }
+
+        object IEnumerator.Current
+        {
+            get { return bag.Get(i); }
+        }
+    }
 }
 

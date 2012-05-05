@@ -8,10 +8,8 @@ namespace Artemis
 		private TagManager tagManager;
 		private GroupManager groupManager;
         private Bag<Entity> refreshed = new Bag<Entity>();
-        private Bag<Entity> deleted = new Bag<Entity>();
-        private ArtemisPool pool;
+        private Bag<Entity> deleted = new Bag<Entity>();        
 		private Dictionary<String,Stack<int>> cached = new Dictionary<String, Stack<int>>();
-
 		private int delta;
 		
 		public EntityWorld() {
@@ -51,6 +49,7 @@ namespace Artemis
 		 * @param e entity
 		 */
 		public void DeleteEntity(Entity e) {
+            System.Diagnostics.Debug.Assert(e != null);
 	        deleted.Add(e);
     	}
 		
@@ -58,7 +57,8 @@ namespace Artemis
 		 * Ensure all systems are notified of changes to this entity.
 		 * @param e entity
 		 */
-		public void RefreshEntity(Entity e) {
+		internal void RefreshEntity(Entity e) {
+            System.Diagnostics.Debug.Assert(e != null);
 			refreshed.Add(e);
 		}
 
@@ -72,7 +72,8 @@ namespace Artemis
 		}
 		
 		public Entity CreateEntity(string tag) {
-			Entity e = entityManager.Create();
+            System.Diagnostics.Debug.Assert(!String.IsNullOrEmpty(tag));
+			Entity e = entityManager.Create();            
 			tagManager.Register(tag,e);
 			return e;
 		}
@@ -83,20 +84,16 @@ namespace Artemis
 		 * @return entity
 		 */
 		public Entity GetEntity(int entityId) {
+            System.Diagnostics.Debug.Assert(entityId >= 0);
 			return entityManager.GetEntity(entityId);
 		}
 
-        public ArtemisPool Pool
-        {
-			get { return pool; }
-            set { pool = value; }
-        }
 
         public void LoopStart()
         {
             if (!deleted.IsEmpty)
             {
-                for (int i = 0, j = deleted.Size(); j > i; i++)
+                for (int i = 0, j = deleted.Size; j > i; i++)
                 {
                     Entity e = deleted.Get(i);
                     entityManager.Remove(e);
@@ -108,7 +105,7 @@ namespace Artemis
 
             if (!refreshed.IsEmpty)
             {
-                for (int i = 0, j = refreshed.Size(); j > i; i++)
+                for (int i = 0, j = refreshed.Size; j > i; i++)
                 {
 					Entity e = refreshed.Get(i);
                     entityManager.Refresh(e);
@@ -118,28 +115,40 @@ namespace Artemis
             }
         }
 		
-		public Dictionary<Entity,Bag<Component>> GetCurrentState() {
-			Bag<Entity> entities = entityManager.ActiveEntities;
-			Dictionary<Entity,Bag<Component>> currentState = new Dictionary<Entity, Bag<Component>>();
-			for(int i = 0,j = entities.Size(); i < j; i++) {
-				Entity e = entities.Get(i);
-				Bag<Component> components = e.GetComponents();
-				currentState.Add(e, components);
-			}
-			return currentState;
+		public Dictionary<Entity,Bag<Component>> CurrentState {
+            get
+            {
+                Bag<Entity> entities = entityManager.ActiveEntities;
+                Dictionary<Entity, Bag<Component>> currentState = new Dictionary<Entity, Bag<Component>>();
+                for (int i = 0, j = entities.Size; i < j; i++)
+                {
+                    Entity e = entities.Get(i);
+                    Bag<Component> components = e.Components;
+                    currentState.Add(e, components);
+                }
+                return currentState;
+            }
 		}
-		
+
+        /// <summary>
+        /// Loads the state of the entity.
+        /// </summary>
+        /// <param name="tag">The tag. Can be null</param>
+        /// <param name="groupName">Name of the group. Can be null</param>
+        /// <param name="components">The components.</param>
 		public void LoadEntityState(String tag,String groupName,Bag<Component> components) {
+            System.Diagnostics.Debug.Assert(components != null);
 			Entity e;
-			if(tag != null) {
+			if(!String.IsNullOrEmpty(tag)) {
 				e = CreateEntity(tag);
 			} else {
 				e = CreateEntity();
 			}
-			if(groupName != null) {
+            if (String.IsNullOrEmpty(groupName))
+            {
 				groupManager.Set(groupName,e);
 			}		
-			for(int i = 0, j = components.Size(); i < j; i++) {
+			for(int i = 0, j = components.Size; i < j; i++) {
 				e.AddComponent(components.Get(i));
 			}
 		}

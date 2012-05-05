@@ -9,6 +9,7 @@ namespace Artemis
     {
         protected string tag;
         public TagSystem(string tag) {
+            System.Diagnostics.Debug.Assert(!String.IsNullOrEmpty(tag));
             this.tag = tag;
 		}
 		

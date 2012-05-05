@@ -57,11 +57,11 @@ namespace Artemis
         {
         }
 
-        public override void Change(Entity e)
+        public override void OnChange(Entity e)
         {
         }
 
-        public override void Removed(Entity e)
+        public override void OnRemoved(Entity e)
         {
         }
 

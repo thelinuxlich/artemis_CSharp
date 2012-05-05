@@ -20,11 +20,3 @@ D:\opensource\artemis_CSharp\Artemis_XNA_INDEPENDENT\ArtemisTest\bin\Debug\artem
 D:\opensource\artemis_CSharp\Artemis_XNA_INDEPENDENT\ArtemisTest\obj\Debug\ResolveAssemblyReference.cache
 D:\opensource\artemis_CSharp\Artemis_XNA_INDEPENDENT\ArtemisTest\obj\Debug\ArtemisTest.exe
 D:\opensource\artemis_CSharp\Artemis_XNA_INDEPENDENT\ArtemisTest\obj\Debug\ArtemisTest.pdb
-C:\Users\tpastor\Desktop\artemis\artemis_CSharp\Artemis_XNA_INDEPENDENT\ArtemisTest\obj\Debug\ResolveAssemblyReference.cache
-C:\Users\tpastor\Desktop\artemis\artemis_CSharp\Artemis_XNA_INDEPENDENT\ArtemisTest\obj\Debug\ArtemisTest.exe
-C:\Users\tpastor\Desktop\artemis\artemis_CSharp\Artemis_XNA_INDEPENDENT\ArtemisTest\obj\Debug\ArtemisTest.pdb
-C:\Users\tpastor\Desktop\artemis\artemis_CSharp\Artemis_XNA_INDEPENDENT\ArtemisTest\bin\Debug\ArtemisTest.exe
-C:\Users\tpastor\Desktop\artemis\artemis_CSharp\Artemis_XNA_INDEPENDENT\ArtemisTest\bin\Debug\ArtemisTest.pdb
-C:\Users\tpastor\Desktop\artemis\artemis_CSharp\Artemis_XNA_INDEPENDENT\ArtemisTest\bin\Debug\artemis.dll
-C:\Users\tpastor\Desktop\artemis\artemis_CSharp\Artemis_XNA_INDEPENDENT\ArtemisTest\bin\Debug\artemis.pdb
-C:\Users\tpastor\Desktop\artemis\artemis_CSharp\Artemis_XNA_INDEPENDENT\ArtemisTest\bin\Debug\artemis.xml

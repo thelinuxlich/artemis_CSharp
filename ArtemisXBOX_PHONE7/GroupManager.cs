@@ -8,7 +8,7 @@ namespace Artemis
 		private Dictionary<String, Bag<Entity>> entitiesByGroup = new Dictionary<String, Bag<Entity>>();
 		private Bag<String> groupByEntity = new Bag<String>();
 	
-		public GroupManager(EntityWorld world) {
+		internal GroupManager(EntityWorld world) {
 			this.world = world;
 		}
 		
@@ -18,7 +18,9 @@ namespace Artemis
 		 * @param group group to set the entity into.
 		 * @param e entity to set into the group.
 		 */
-		public void Set(String group, Entity e) {
+		internal void Set(String group, Entity e) {
+            System.Diagnostics.Debug.Assert(!String.IsNullOrEmpty(group));
+            System.Diagnostics.Debug.Assert(e != null);
 			Remove(e); // Entity can only belong to one group.
 			
 			Bag<Entity> entities;
@@ -37,6 +39,8 @@ namespace Artemis
 		 * @return read-only bag of entities belonging to the group.
 		 */
 		public Bag<Entity> GetEntities(String group) {
+            System.Diagnostics.Debug.Assert(!String.IsNullOrEmpty(group));
+            
 			Bag<Entity> bag;
 			if(!entitiesByGroup.TryGetValue(group,out bag))
 				return EMPTY_BAG;
@@ -47,7 +51,8 @@ namespace Artemis
         /// Removes an entity from the group it is assigned to, if any.
         /// </summary>
         /// <param name="e">The entity to be removed</param>
-		public void Remove(Entity e) {
+		internal void Remove(Entity e) {            
+            System.Diagnostics.Debug.Assert(e != null);
 			int entityId = e.Id;
 			if(entityId < groupByEntity.Capacity) {
 				String group = groupByEntity.Get(entityId);
@@ -67,6 +72,7 @@ namespace Artemis
 		 * @return the name of the group that this entity belongs to, null if none.
 		 */
 		public String GetGroupOf(Entity e) {
+            System.Diagnostics.Debug.Assert(e != null);
 			int entityId = e.Id;
 			if(entityId < groupByEntity.Capacity) {
 				return groupByEntity.Get(entityId);
@@ -80,6 +86,7 @@ namespace Artemis
 		 * @return true if it is in any group, false if none.
 		 */
 		public bool IsGrouped(Entity e) {
+            System.Diagnostics.Debug.Assert(e != null);
 			return GetGroupOf(e) != null;
 		}
 	

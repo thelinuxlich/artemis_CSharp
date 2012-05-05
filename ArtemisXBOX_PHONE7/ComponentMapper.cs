@@ -15,6 +15,7 @@ namespace Artemis
         /// </summary>
         /// <param name="world">EntityWorld</param>
 		public ComponentMapper(EntityWorld world) {
+            System.Diagnostics.Debug.Assert(world != null);
 			em = world.EntityManager;
 			type = ComponentTypeManager.GetTypeFor<T>();
 		}
@@ -34,6 +35,7 @@ namespace Artemis
         /// <param name="e">Entity in which you are interested</param>
         /// <returns>Component</returns>
 		public T Get(Entity e) {
+            System.Diagnostics.Debug.Assert(e != null);
 			return (T)em.GetComponent(e, type);
 		}
 	}

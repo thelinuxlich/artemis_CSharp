@@ -7,7 +7,7 @@ using ArtemisTest.Components;
 
 namespace ArtemisTest
 {
-    public class QueueSystemTest : Artemis.QueueProcessingSystemThreadSafe
+    public class QueueSystemTest : Artemis.QueueSystemProcessingThreadSafe
     {
         public QueueSystemTest() : base()
         {

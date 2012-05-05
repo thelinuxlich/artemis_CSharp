@@ -7,9 +7,10 @@ using System.Numerics;
 #if XBOX || WINDOWS_PHONE
 using BigInteger = System.Int32;
 #endif
+
 namespace Artemis
 {
-	public static class SystemBitManager {
+	internal static class SystemBitManager {
 		private static int POS = 0;
 		private static Dictionary<EntitySystem, BigInteger> systemBits = new Dictionary<EntitySystem, BigInteger>();
 		
@@ -17,7 +18,7 @@ namespace Artemis
             BigInteger bit;
             bool hasBit = systemBits.TryGetValue(es, out bit);
 			if(!hasBit){
-#if XBOX || WINDOWS_PHONE
+#if WINDOWS_PHONE || XBOX
 				bit = 1 << POS;
 #else
                 bit = 1L << POS;
