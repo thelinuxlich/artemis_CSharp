@@ -169,6 +169,11 @@ namespace Artemis
 		public T GetComponent<T>() where T : Component {
 			return (T)GetComponent(ComponentTypeManager.GetTypeFor<T>());
 		}
+
+        public bool HasComponent<T>() where T : Component {
+          return (T)GetComponent(ComponentTypeManager.GetTypeFor<T>()) != null;
+        }
+    
 		
 		/**
 		 * Get all components belonging to this entity.
