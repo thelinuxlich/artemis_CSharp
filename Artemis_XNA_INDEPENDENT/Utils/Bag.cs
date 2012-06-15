@@ -261,7 +261,7 @@ namespace Artemis
         public bool MoveNext()
         {
             i++;
-            return bag.Size< i;       
+            return i < bag.Size;       
         }
 
         public void Reset()
