@@ -9,7 +9,7 @@ namespace Artemis
 		private int size = 0;
 	
 		/**
-		 * Constructs an empty Bag with an initial capacity of 64.
+		 * Constructs an empty Bag with an initial capacity of 16.
 		 * 
 		 */
 		public Bag() {
