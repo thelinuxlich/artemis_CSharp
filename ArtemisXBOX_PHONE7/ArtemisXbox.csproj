@@ -118,6 +118,7 @@
     <Compile Include="HybridQueueSystemProcessing.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="IEntityTemplate.cs" />
     <Compile Include="IntervalEntityProcessingSystem.cs">
       <SubType>Code</SubType>
     </Compile>

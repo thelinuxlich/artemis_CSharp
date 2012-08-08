@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using ArtemisXbox;
 namespace Artemis
 {
 	public sealed class EntityWorld {
@@ -10,6 +11,7 @@ namespace Artemis
         private Bag<Entity> refreshed = new Bag<Entity>();
         private Bag<Entity> deleted = new Bag<Entity>();        
 		private Dictionary<String,Stack<int>> cached = new Dictionary<String, Stack<int>>();
+        private Dictionary<String, IEntityTemplate> entityTemplates = new Dictionary<String, IEntityTemplate>();
 		private int delta;
 		
 		public EntityWorld() {
@@ -70,13 +72,20 @@ namespace Artemis
 		public Entity CreateEntity() {
 			return entityManager.Create();
 		}
-		
-		public Entity CreateEntity(string tag) {
-            System.Diagnostics.Debug.Assert(!String.IsNullOrEmpty(tag));
-			Entity e = entityManager.Create();            
-			tagManager.Register(tag,e);
-			return e;
-		}
+
+        public Entity CreateEntity(string entityTemplateTag)
+        {
+            System.Diagnostics.Debug.Assert(!String.IsNullOrEmpty(entityTemplateTag));
+            Entity e = entityManager.Create();
+            IEntityTemplate entityTemplate;  
+            entityTemplates.TryGetValue(entityTemplateTag, out entityTemplate);
+            return entityTemplate.BuildEntity(e);
+        }
+
+        public void SetEntityTemplate(string entityTag, IEntityTemplate entityTemplate)
+        {
+            entityTemplates.Add(entityTag, entityTemplate);
+        }
 		
 		/**
 		 * Get a entity having the specified id.
@@ -87,7 +96,6 @@ namespace Artemis
             System.Diagnostics.Debug.Assert(entityId >= 0);
 			return entityManager.GetEntity(entityId);
 		}
-
 
         public void LoopStart()
         {
@@ -127,7 +135,7 @@ namespace Artemis
                     currentState.Add(e, components);
                 }
                 return currentState;
-            }
+            }  
 		}
 
         /// <summary>
