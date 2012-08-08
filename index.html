@@ -174,17 +174,16 @@ systemManager.UpdateSynchronous(ExecutionType.Update);
 		<h3>Templates</h3>
 		Create your entity templates to avoid manually creating and configurating entities:
 		<pre><code>public EnemyTemplate : Artemis.IEntityTemplate {
-		public Entity BuildEntity(Entity e) {
-			e.AddComponent(new Transform(200,400));
-			e.AddComponent(new Velocity(2.4f,0.9f));
-		}
-	}</code></pre>
+	public Entity BuildEntity(Entity e) {
+		e.AddComponent(new Transform(200,400));
+		e.AddComponent(new Velocity(2.4f,0.9f));
+	}
+}</code></pre>
 		Then on your game initialization:
 		<pre><code>world.SetEntityTemplate("Enemy", new EnemyTemplate());</code></pre>
 		Create your entities with the template applied:
-		<pre><code>Entity enemy = world.CreateEntity("Enemy");
-	enemy.GetComponent\<Transform\>().X = 300;
-	enemy.Refresh();</code></pre>
+		<pre><code>var enemy = world.CreateEntity("Enemy");
+enemy.Refresh();</code></pre>
 	</section>
     <section>
         <h3>Documentation</h3>
