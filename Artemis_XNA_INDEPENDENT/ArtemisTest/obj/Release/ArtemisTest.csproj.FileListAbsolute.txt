@@ -1,5 +1,0 @@
-C:\Users\tpastor\Desktop\thelinuxlich-artemis_CSharp-4864858\ArtemisTest\bin\Release\ArtemisTest.exe
-C:\Users\tpastor\Desktop\thelinuxlich-artemis_CSharp-4864858\ArtemisTest\bin\Release\artemis.dll
-C:\Users\tpastor\Desktop\thelinuxlich-artemis_CSharp-4864858\ArtemisTest\bin\Release\artemis.xml
-C:\Users\tpastor\Desktop\thelinuxlich-artemis_CSharp-4864858\ArtemisTest\obj\Release\ResolveAssemblyReference.cache
-C:\Users\tpastor\Desktop\thelinuxlich-artemis_CSharp-4864858\ArtemisTest\obj\Release\ArtemisTest.exe
