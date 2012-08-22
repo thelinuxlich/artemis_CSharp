@@ -7,6 +7,6 @@ namespace Artemis
 {
     public interface IEntityTemplate
     {
-        Entity BuildEntity(Entity e);
+        Entity BuildEntity(Entity e, params object[] args);
     }
 }
