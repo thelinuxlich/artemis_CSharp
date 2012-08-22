@@ -72,12 +72,12 @@ namespace Artemis
 			return entityManager.Create();
 		}
 		
-		public Entity CreateEntity(string entityTemplateTag) {
+		public Entity CreateEntity(string entityTemplateTag, params object[] templateArgs) {
             System.Diagnostics.Debug.Assert(!String.IsNullOrEmpty(entityTemplateTag));
 			Entity e = entityManager.Create();  
             IEntityTemplate entityTemplate;
             entityTemplates.TryGetValue(entityTemplateTag, out entityTemplate);
-            return entityTemplate.BuildEntity(e);
+            return entityTemplate.BuildEntity(e, templateArgs);
 		}
 
         public void SetEntityTemplate(string entityTag, IEntityTemplate entityTemplate)
@@ -137,17 +137,18 @@ namespace Artemis
             }
 		}
 
-        /// <summary>
-        /// Loads the state of the entity.
-        /// </summary>
-        /// <param name="tag">The tag. Can be null</param>
-        /// <param name="groupName">Name of the group. Can be null</param>
-        /// <param name="components">The components.</param>
-		public void LoadEntityState(String tag,String groupName,Bag<Component> components) {
+	    /// <summary>
+	    /// Loads the state of the entity.
+	    /// </summary>
+	    /// <param name="templateTag">The template tag. Can be null</param>
+	    /// <param name="groupName">Name of the group. Can be null</param>
+	    /// <param name="components">The components.</param>
+	    /// <param name="templateArgs">Params for entity template</param>
+	    public void LoadEntityState(String templateTag, String groupName,Bag<Component> components, params object[] templateArgs) {
             System.Diagnostics.Debug.Assert(components != null);
 			Entity e;
-			if(!String.IsNullOrEmpty(tag)) {
-				e = CreateEntity(tag);
+			if(!String.IsNullOrEmpty(templateTag)) {
+				e = CreateEntity(templateTag, templateArgs);
 			} else {
 				e = CreateEntity();
 			}
