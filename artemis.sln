@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artemis", "Artemis_XNA_INDEPENDENT\Artemis.csproj", "{22C89AF2-E1CF-4976-91B9-7D33773DC6E7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtemisPhone7", "ArtemisXBOX_PHONE7\ArtemisPhone7.csproj", "{9FEEB631-277E-404E-B95D-49B1F4F0A2F3}"
@@ -8,6 +8,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtemisXbox", "ArtemisXBOX_PHONE7\ArtemisXbox.csproj", "{E890BAD4-64C6-442F-B466-7321A0BFA1A1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtemisTest", "Artemis_XNA_INDEPENDENT\ArtemisTest\ArtemisTest.csproj", "{C745FA99-5B03-4FBD-8BB4-C5F6D03F3AA2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtemisUnitTesting", "ArtemisUnitTesting\ArtemisUnitTesting.csproj", "{999168FB-1531-4256-AA9E-86087D498701}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -86,6 +88,20 @@ Global
 		{C745FA99-5B03-4FBD-8BB4-C5F6D03F3AA2}.Release|Windows Phone.ActiveCfg = Release|Any CPU
 		{C745FA99-5B03-4FBD-8BB4-C5F6D03F3AA2}.Release|x86.ActiveCfg = Release|Any CPU
 		{C745FA99-5B03-4FBD-8BB4-C5F6D03F3AA2}.Release|Xbox 360.ActiveCfg = Release|Any CPU
+		{999168FB-1531-4256-AA9E-86087D498701}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{999168FB-1531-4256-AA9E-86087D498701}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{999168FB-1531-4256-AA9E-86087D498701}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{999168FB-1531-4256-AA9E-86087D498701}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{999168FB-1531-4256-AA9E-86087D498701}.Debug|Windows Phone.ActiveCfg = Debug|Any CPU
+		{999168FB-1531-4256-AA9E-86087D498701}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{999168FB-1531-4256-AA9E-86087D498701}.Debug|Xbox 360.ActiveCfg = Debug|Any CPU
+		{999168FB-1531-4256-AA9E-86087D498701}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{999168FB-1531-4256-AA9E-86087D498701}.Release|Any CPU.Build.0 = Release|Any CPU
+		{999168FB-1531-4256-AA9E-86087D498701}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{999168FB-1531-4256-AA9E-86087D498701}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{999168FB-1531-4256-AA9E-86087D498701}.Release|Windows Phone.ActiveCfg = Release|Any CPU
+		{999168FB-1531-4256-AA9E-86087D498701}.Release|x86.ActiveCfg = Release|Any CPU
+		{999168FB-1531-4256-AA9E-86087D498701}.Release|Xbox 360.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
