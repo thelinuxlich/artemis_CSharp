@@ -115,9 +115,15 @@ namespace Artemis
 	
 				for (int j = 0; j < size; j++) {
 					Object o2 = data[j];
-	
-					if (o1 == o2) {
-						Remove(j);
+
+					if (o1 == o2)
+					{
+						//(2012-9-6) Squizzle : inlined method Remove(int)
+						{
+							E o = data[j];
+							data[j] = data[--size];
+							data[size] = null;
+						}
 						j--;
 						modified = true;
 						break;
@@ -179,8 +185,15 @@ namespace Artemis
 		 */
 		public void Add(E o) {
 			// is size greater than capacity increase capacity
-			if (size == data.Length) {
-				Grow();
+			if (size == data.Length)
+			{
+				//(2012-9-6) Squizzle : inlined method Grow(void)
+				{
+					int newCapacity = (data.Length * 3) / 2 + 1;
+					E[] oldData = data;
+					data = new E[newCapacity];
+					Array.Copy(oldData, 0, data, 0, oldData.Length);
+				}
 			}
 	
 			data[size++] = o;
@@ -204,7 +217,10 @@ namespace Artemis
 	
 		private void Grow() {
 			int newCapacity = (data.Length * 3) / 2 + 1;
-			Grow(newCapacity);
+			//(2012-9-6) Squizzle : inlined method Grow(int)
+			E[] oldData = data;
+			data = new E[newCapacity];
+			Array.Copy(oldData, 0, data, 0, oldData.Length);
 		}
 		
 		private void Grow(int newCapacity) {
@@ -232,7 +248,17 @@ namespace Artemis
 		 */
 		public void AddAll(Bag<E> items) {
 			for(int i = 0,j = items.Size; j > i; i++) {
-				Add(items.Get(i));
+				//(2012-9-6) Squizzle : inlined method Add(E)
+				if (size == data.Length)
+				{
+					//(2012-9-6) Squizzle : inlined method Grow(void)
+					int newCapacity = (data.Length * 3) / 2 + 1;
+					E[] oldData = data;
+					data = new E[newCapacity];
+					Array.Copy(oldData, 0, data, 0, oldData.Length);
+				}
+
+				data[size++] = items.Get(i);
 			}
 		}
 
