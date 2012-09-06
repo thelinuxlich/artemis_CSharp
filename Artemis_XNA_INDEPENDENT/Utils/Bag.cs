@@ -3,16 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 namespace Artemis
 {
-    public class Bag<E> : IEnumerable<E> where E : class 
+	//Notes: Usage of unsafe or fixed would not do much in terms of performance
+	// In future maybe make ConcurrentBag concurrently modified through concurrentqueue?  Too many concurrents?
+
+	// (2012-9-6) Squizzle : made Bag capable of using structs (Entity should be a struct)
+    public class Bag<E> : IEnumerable<E>
     {       
 		private E[] data;
 		private int size = 0;
-	
 		/**
 		 * Constructs an empty Bag with an initial capacity of 16.
 		 * 
 		 */
-		public Bag() {
+		public Bag()
+		{
 			data = new E[16];
 		}
 	
@@ -40,7 +44,7 @@ namespace Artemis
 			// returned
 			data[index] = data[--size]; // overwrite item to remove with last
 			// element
-			data[size] = null; // null last element, so gc can do its work
+			data[size] = default(E); // null last element, so gc can do its work
 			return o;
 		}
 		
@@ -53,7 +57,7 @@ namespace Artemis
 		public E RemoveLast() {
 			if(size > 0) {
 				E o = data[--size];
-				data[size] = null;
+				data[size] = default(E); // default(E) if class = null
 				return o;
 			}
 			
@@ -76,7 +80,7 @@ namespace Artemis
 				if (o.Equals(o1)) {
 					data[i] = data[--size]; // overwrite item to remove with last
 					// element
-					data[size] = null; // null last element, so gc can do its work
+					data[size] = default(E);
 					return true;
 				}
 			}
@@ -122,7 +126,7 @@ namespace Artemis
 						{
 							E o = data[j];
 							data[j] = data[--size];
-							data[size] = null;
+							data[size] = default(E);
 						}
 						j--;
 						modified = true;
@@ -143,6 +147,36 @@ namespace Artemis
 		 */
 		public E Get(int index) {
 			return data[index];
+		}
+
+		/// <summary>
+		/// Returns the element at the specified position in Bag.
+		/// </summary>
+		/// <param name="index">index of the element to return</param>
+		/// <returns>the element at the specified position in Bag</returns>
+		public E this[int index]
+		{
+			get
+			{
+				return data[index];
+			}
+			set
+			{
+				if (index >= data.Length)
+				{
+					//(2012-9-6) Squizzle : inlined method Grow(int)
+					E[] oldData = data;
+					data = new E[index * 2];
+					Array.Copy(oldData, 0, data, 0, oldData.Length);
+
+					size = index + 1;
+				}
+				else if (index >= size)
+				{
+					size = index + 1;
+				}
+				data[index] = value;
+			}
 		}
 	
 		/**
@@ -187,13 +221,7 @@ namespace Artemis
 			// is size greater than capacity increase capacity
 			if (size == data.Length)
 			{
-				//(2012-9-6) Squizzle : inlined method Grow(void)
-				{
-					int newCapacity = (data.Length * 3) / 2 + 1;
-					E[] oldData = data;
-					data = new E[newCapacity];
-					Array.Copy(oldData, 0, data, 0, oldData.Length);
-				}
+				Grow();
 			}
 	
 			data[size++] = o;
@@ -207,7 +235,11 @@ namespace Artemis
 		 */
 		public void Set(int index, E o) {
 			if(index >= data.Length) {
-				Grow(index*2);
+				//(2012-9-6) Squizzle : inlined method Grow(int)
+				E[] oldData = data;
+				data = new E[index*2];
+				Array.Copy(oldData, 0, data, 0, oldData.Length);
+
 				size = index+1;
 			} else if(index >= size) {
 				size = index+1;
@@ -236,7 +268,7 @@ namespace Artemis
 		public void Clear() {
 			// null all elements so gc can clean up
 			for (int i = 0; i < size; i++) {
-				data[i] = null;
+				data[i] = default(E);
 			}
 	
 			size = 0;
@@ -251,11 +283,7 @@ namespace Artemis
 				//(2012-9-6) Squizzle : inlined method Add(E)
 				if (size == data.Length)
 				{
-					//(2012-9-6) Squizzle : inlined method Grow(void)
-					int newCapacity = (data.Length * 3) / 2 + 1;
-					E[] oldData = data;
-					data = new E[newCapacity];
-					Array.Copy(oldData, 0, data, 0, oldData.Length);
+					Grow();
 				}
 
 				data[size++] = items.Get(i);
@@ -274,7 +302,7 @@ namespace Artemis
         }
     }
 
-    class BagEnumerator<E> : IEnumerator<E> where E : class  
+    class BagEnumerator<E> : IEnumerator<E>
     {
         Bag<E> bag;
         int i = -1;

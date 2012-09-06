@@ -39,7 +39,7 @@ namespace Artemis
 		 * @return id of the entity.
 		 */
 
-		internal int Id
+		public int Id
 		{
 			get { return id; }
 		}
