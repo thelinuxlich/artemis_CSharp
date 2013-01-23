@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -15,7 +15,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;</DefineConstants>
+    <DefineConstants>DEBUG;FULLDOTNET</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -27,6 +27,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <DefineConstants>FULLDOTNET</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -97,9 +98,6 @@
     <Compile Include="..\Artemis_XNA_INDEPENDENT\ParallelEntityProcessingSystem.cs">
       <Link>ParallelEntityProcessingSystem.cs</Link>
     </Compile>
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\Pool.cs">
-      <Link>Pool.cs</Link>
-    </Compile>
     <Compile Include="..\Artemis_XNA_INDEPENDENT\QueueSystemProcessing.cs">
       <Link>QueueSystemProcessing.cs</Link>
     </Compile>
@@ -133,5 +131,7 @@
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\Utils.cs">
       <Link>Utils.cs</Link>
     </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Aspect.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\IEntityTemplate.cs" />
   </ItemGroup>
 </Project>

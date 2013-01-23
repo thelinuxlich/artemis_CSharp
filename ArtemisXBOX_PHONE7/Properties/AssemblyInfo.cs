@@ -15,11 +15,11 @@ using System.Runtime.InteropServices;
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
-// COM, set the ComVisible attribute to true on that type. Only Windows
+// COM, set the ComVisible attribute to true on that type. Only FULLDOTNET
 // assemblies support COM.
 [assembly: ComVisible(false)]
 
-// On Windows, the following GUID is for the ID of the typelib if this
+// On FULLDOTNET, the following GUID is for the ID of the typelib if this
 // project is exposed to COM. On other platforms, it unique identifies the
 // title storage container when deploying this assembly to the device.
 [assembly: Guid("1ce79e1e-1e8a-472c-a84e-c245e9695ce0")]

@@ -1,6 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿#if FULLDOTNET
 using System.Threading.Tasks;
+#else
+using ParallelTasks;
+#endif
+using System;
+using System.Collections.Generic;
 namespace Artemis
 {
     public abstract class ParallelEntityProcessingSystem : EntitySystem
@@ -27,7 +31,9 @@ namespace Artemis
          */
         public abstract void Process(Entity e);
 
+#if FULLDOTNET
         TaskFactory factory = new TaskFactory(TaskScheduler.Default);
+#endif
         protected override void ProcessEntities(Dictionary<int, Entity> entities)
         {            
             float simultaneous = Environment.ProcessorCount *2;
@@ -40,7 +46,11 @@ namespace Artemis
             for (int j = 0; j < simultaneous; j++)
             {
                 int initial = num;
+#if FULLDOTNET
                 tasks.Add(factory.StartNew(
+#else
+                tasks.Add(Parallel.Start(
+#endif
                     () =>
                     {
                         for (int i = initial; i > initial - perThread && i >= 0; i--)
@@ -50,8 +60,15 @@ namespace Artemis
                     }
                 ));
                 num -= perThread;
-            }            
+            }
+#if FULLDOTNET
             Task.WaitAll(tasks.ToArray());
+#else
+            foreach (var item in tasks)
+            {
+                item.Wait();
+            }
+#endif
         }
     }
 }

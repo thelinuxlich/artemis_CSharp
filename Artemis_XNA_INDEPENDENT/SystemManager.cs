@@ -2,7 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+#if FULLDOTNET
 using System.Threading.Tasks;
+#else
+using ParallelTasks;
+#endif
 namespace Artemis
 {
 	public enum ExecutionType
@@ -117,7 +121,9 @@ namespace Artemis
 			}	
         }
 
+#if FULLDOTNET
         TaskFactory factory = new TaskFactory(TaskScheduler.Default);
+#endif
         List<Task> tasks = new List<Task>();
 
         void UpdatebagASSync(Bag<EntitySystem> temp)
@@ -126,7 +132,11 @@ namespace Artemis
             for (int i = 0, j = temp.Size; i < j; i++)
             {
                 EntitySystem es = temp.Get(i);
+#if FULLDOTNET
                 tasks.Add(factory.StartNew(
+#else
+                tasks.Add(Parallel.Start(
+#endif
                     () =>
                     {
                         es.Process();
@@ -134,7 +144,14 @@ namespace Artemis
                 ));
 
             }
+#if FULLDOTNET
             Task.WaitAll(tasks.ToArray());
+#else
+            foreach (var item in tasks)
+            {
+                item.Wait();
+            }
+#endif
         }
         public void UpdateAsynchronous(ExecutionType execType )
         {

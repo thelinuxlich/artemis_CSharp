@@ -71,8 +71,12 @@ namespace Artemis
 		public static float EuclideanDistance(float x1, float y1, float x2, float y2) {
 			float a = x1 - x2;
 			float b = y1 - y2;
-	
+
+#if FULLDOTNET
 			return (float) FastMath.Sqrt(a * a + b * b);
+#else
+            return (float)Math.Sqrt(a * a + b * b);
+#endif
 		}
 	
 		public static float AngleInDegrees(float ownerRotation, float x1, float y1, float x2, float y2) {
@@ -121,11 +125,29 @@ namespace Artemis
 	
 			return d < 0;
 		}
-	
-		public static String ReadFileContents(String file) {
+
+        public static String ReadFileContents(String file)
+        {
+#if FULLDOTNET
 		  	string readText = File.ReadAllText(file,System.Text.Encoding.UTF8);
         	return(readText);	
-		}
+#else
+            String allText = "";
+            StreamReader streamReader = new StreamReader(file);
+            String text = "";
+            text = streamReader.ReadLine();
+            while (text != null)
+            {
+                allText += text + "\n";
+                text = streamReader.ReadLine();
+            }
+
+            streamReader.Close();
+            return allText;
+
+#endif
+
+        }
 	}
 }
 

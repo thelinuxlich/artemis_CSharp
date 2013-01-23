@@ -67,102 +67,103 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BlackBoard\BlackBoard.cs">
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\BlackBoard\BlackBoard.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BlackBoard\SimpleTrigger.cs">
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\BlackBoard\SimpleTrigger.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BlackBoard\Trigger.cs">
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\BlackBoard\Trigger.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BlackBoard\TriggerMultiCondition.cs">
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\BlackBoard\TriggerMultiCondition.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Component.cs">
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Component.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ComponentMapper.cs">
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\ComponentMapper.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ComponentType.cs">
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\ComponentType.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ComponentTypeManager.cs">
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\ComponentTypeManager.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DelayedEntityProcessingSystem.cs">
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\DelayedEntityProcessingSystem.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DelayedEntitySystem.cs">
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\DelayedEntitySystem.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Entity.cs">
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Entity.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="EntityManager.cs">
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\EntityManager.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="EntityProcessingSystem.cs">
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\EntityProcessingSystem.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="EntitySystem.cs">
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\EntitySystem.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="EntityWorld.cs">
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\EntityWorld.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GroupManager.cs">
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\GroupManager.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="HybridQueueSystemProcessing.cs">
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\HybridQueueSystemProcessing.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="IEntityTemplate.cs" />
-    <Compile Include="IntervalEntityProcessingSystem.cs">
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\IEntityTemplate.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\IntervalEntityProcessingSystem.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="IntervalEntitySystem.cs">
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\IntervalEntitySystem.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="IntervalTagSystem.cs">
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\IntervalTagSystem.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ParallelEntityProcessingSystem.cs">
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\ParallelEntityProcessingSystem.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QueueSystemProcessing.cs">
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\QueueSystemProcessing.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="QueueSystemProcessingThreadSafe.cs">
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\QueueSystemProcessingThreadSafe.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="SystemBitManager.cs">
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\SystemBitManager.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="SystemManager.cs">
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\SystemManager.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="TagManager.cs">
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\TagManager.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="TagSystem.cs">
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\TagSystem.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Utils\Bag.cs">
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\Bag.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Utils\FastMath.cs">
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\FastMath.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Utils\Timer.cs">
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Aspect.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\Timer.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Utils\TrigLUT.cs">
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\TrigLUT.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Utils\Utils.cs">
+	<Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\Utils.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

@@ -4,15 +4,17 @@ using ArtemisTest.Components;
 using ArtemisTest.System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ArtemisTest
-{	
-	public class Test
+{
+    [TestClass]
+    public class GeneralTest
 	{
 		static Bag<Component> healthBag = new Bag<Component>();
 		static Dictionary<Type,Bag<Component>> componentPool = new Dictionary<Type, Bag<Component>>();			
 			
-		private static void RemovedComponent(Entity e,Component c) 
+		private void RemovedComponent(Entity e,Component c) 
       	{
         	 Console.WriteLine("This was the component removed: "+(c.GetType()));
 			 Bag<Component> tempBag;
@@ -23,13 +25,14 @@ namespace ArtemisTest
 			 Console.WriteLine("Health Component Pool now has "+tempBag.Size+" objects");
       	}
 		
-		private static void RemovedEntity(Entity e) 
+		private void RemovedEntity(Entity e) 
       	{
         	 Console.WriteLine("This was the entity removed: "+(e.UniqueId));
       	}
 
 
-        public static void multi()
+        [TestMethod]
+        public void multi()
         {
             healthBag.Add(new Health());
             healthBag.Add(new Health());
@@ -74,8 +77,8 @@ namespace ArtemisTest
 
              
         }
-
-        public static void multsystem()
+        [TestMethod]
+        public void multsystem()
         {
             healthBag.Clear();
             componentPool.Clear();
@@ -129,21 +132,8 @@ namespace ArtemisTest
             //}            
         }
 
-#if !MONOTOUCH
-        static void Main(String[] args)
-        {
-                DummyTests();
-                SecondMostSimpleSystemEverTest();
-                MostSimpleSystemEverTest();
-                multi();
-                multsystem();
-	            QueueSystemTeste();
-	            HybridQueueSystemTeste();
-	            SystemComunicationTeste();
-		}
-#endif		
-
-        public static void SecondMostSimpleSystemEverTest()
+        [TestMethod]
+        public void SecondMostSimpleSystemEverTest()
         {
             EntityWorld world = new EntityWorld();
             SystemManager systemManager = world.SystemManager;
@@ -156,9 +146,7 @@ namespace ArtemisTest
             et.AddComponent(new Health());
             et.GetComponent<Health>().HP = 100;
             et.Refresh();
-
-
-
+            
             Entity et1 = world.CreateEntity();        
             et1.AddComponent(new Power());       
             et1.GetComponent<Power>().POWER = 100;
@@ -178,7 +166,8 @@ namespace ArtemisTest
         }
 
 
-        public static void MostSimpleSystemEverTest()
+        [TestMethod]
+        public void MostSimpleSystemEverTest()
         {
             EntityWorld world = new EntityWorld();
             SystemManager systemManager = world.SystemManager;
@@ -215,8 +204,8 @@ namespace ArtemisTest
 
         }
 
-
-        public static void DummyTests()
+        [TestMethod]
+        public void DummyTests()
         {
             EntityWorld world = new EntityWorld();
             SystemManager systemManager = world.SystemManager;
@@ -256,7 +245,8 @@ namespace ArtemisTest
 
 
         }
-        public static void SystemComunicationTeste()
+        [TestMethod]
+        public  void SystemComunicationTeste()
         {
             EntitySystem.BlackBoard.SetEntry<int>("Damage", 5);
 
@@ -299,7 +289,8 @@ namespace ArtemisTest
             
         }
 
-        public static void QueueSystemTeste()
+        [TestMethod]
+        public void QueueSystemTeste()
         {
             EntityWorld world = new EntityWorld();
             SystemManager systemManager = world.SystemManager;
@@ -365,8 +356,8 @@ namespace ArtemisTest
             }
         }
 
-
-        public static void HybridQueueSystemTeste()
+        [TestMethod]
+        public void HybridQueueSystemTeste()
         {
 
             EntityWorld world = new EntityWorld();
