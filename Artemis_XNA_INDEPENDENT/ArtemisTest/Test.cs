@@ -159,10 +159,8 @@ namespace ArtemisTest
 
 
 
-            Entity et1 = world.CreateEntity();
-            et1.AddComponent(new Health());
-            et1.AddComponent(new Power());
-            et1.GetComponent<Health>().HP = 100;
+            Entity et1 = world.CreateEntity();        
+            et1.AddComponent(new Power());       
             et1.GetComponent<Power>().POWER = 100;
             et1.Refresh();
 
@@ -174,8 +172,7 @@ namespace ArtemisTest
                 Console.WriteLine((DateTime.Now - dt).TotalMilliseconds);
             }
 
-            Debug.Assert(et.GetComponent<Health>().HP == 90);
-            Debug.Assert(et1.GetComponent<Health>().HP == 90);
+            Debug.Assert(et.GetComponent<Health>().HP == 90);           
             Debug.Assert(et1.GetComponent<Power>().POWER == 90);
 
         }
