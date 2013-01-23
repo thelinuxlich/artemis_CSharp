@@ -1,15 +1,13 @@
 using System;
 namespace Artemis
 {
+    /// <summary>
+    /// Fast Way to get Components from entities
+    /// </summary>
 	public sealed class ComponentMapper<T> where T : Component {
 		private ComponentType type;
 		private EntityManager em;
-
-        /// <summary>
-        /// Allows you to interact with components that are mapped to entities
-        /// </summary>
-        public ComponentMapper() { }
-
+   
         /// <summary>
         /// Creates a component mapper within the given Entity World
         /// </summary>
@@ -18,16 +16,7 @@ namespace Artemis
             System.Diagnostics.Debug.Assert(world != null);
 			em = world.EntityManager;
 			type = ComponentTypeManager.GetTypeFor<T>();
-		}
-
-        /// <summary>
-        /// Sets the entity manager for this component mapper
-        /// </summary>
-        /// <param name="em">Entity Manager that manages the component</param>
-        public EntityManager EntityManager 
-        {
-            set { em = value; }
-        }
+		}     
 	
         /// <summary>
         /// Gets the component for the given entity/component type combo
@@ -38,6 +27,21 @@ namespace Artemis
             System.Diagnostics.Debug.Assert(e != null);
 			return (T)em.GetComponent(e, type);
 		}
+        
+        /// <summary>
+        /// Creates a ComponentMapper for a Type
+        /// </summary>
+        /// <typeparam name="K"></typeparam>
+        /// <param name="type"></param>
+        /// <param name="world"></param>
+        /// <returns></returns>
+          public static ComponentMapper<K> GetComponentMapperFor<K>(K type, EntityWorld world)
+           where K : Component
+          {
+                return new ComponentMapper<K>(world);
+        }
+
+
 	}
 }
 
