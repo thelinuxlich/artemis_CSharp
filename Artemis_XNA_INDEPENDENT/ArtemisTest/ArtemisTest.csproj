@@ -33,6 +33,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SecondMostSimpleSystemEver.cs" />
     <Compile Include="DummyCommunicationSystem.cs" />
     <Compile Include="HybridQueueSystemTest.cs" />
     <Compile Include="MostSimpleSystemEver.cs" />

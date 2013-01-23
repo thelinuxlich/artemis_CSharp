@@ -133,6 +133,7 @@ namespace ArtemisTest
         static void Main(String[] args)
         {
                 DummyTests();
+                SecondMostSimpleSystemEverTest();
                 MostSimpleSystemEverTest();
                 multi();
                 multsystem();
@@ -141,6 +142,44 @@ namespace ArtemisTest
 	            SystemComunicationTeste();
 		}
 #endif		
+
+        public static void SecondMostSimpleSystemEverTest()
+        {
+            EntityWorld world = new EntityWorld();
+            SystemManager systemManager = world.SystemManager;
+            SecondMostSimpleSystemEver DummyCommunicationSystem = new SecondMostSimpleSystemEver();
+            systemManager.SetSystem(DummyCommunicationSystem, ExecutionType.Update);
+            systemManager.InitializeAll();
+
+
+            Entity et = world.CreateEntity();
+            et.AddComponent(new Health());
+            et.GetComponent<Health>().HP = 100;
+            et.Refresh();
+
+
+
+            Entity et1 = world.CreateEntity();
+            et1.AddComponent(new Health());
+            et1.AddComponent(new Power());
+            et1.GetComponent<Health>().HP = 100;
+            et1.GetComponent<Power>().POWER = 100;
+            et1.Refresh();
+
+
+            {
+                DateTime dt = DateTime.Now;
+                world.LoopStart();
+                systemManager.UpdateSynchronous(ExecutionType.Update);
+                Console.WriteLine((DateTime.Now - dt).TotalMilliseconds);
+            }
+
+            Debug.Assert(et.GetComponent<Health>().HP == 90);
+            Debug.Assert(et1.GetComponent<Health>().HP == 90);
+            Debug.Assert(et1.GetComponent<Power>().POWER == 90);
+
+        }
+
 
         public static void MostSimpleSystemEverTest()
         {

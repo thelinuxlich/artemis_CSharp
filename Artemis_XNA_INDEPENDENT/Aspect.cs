@@ -14,6 +14,7 @@ namespace Artemis
     {
         protected BigInteger containsTypesMap = 0;
         protected BigInteger excludeTypesMap = 0;
+        protected BigInteger oneTypesMap = 0;
 
         protected Aspect()
         {
@@ -28,9 +29,26 @@ namespace Artemis
         {
             return new Aspect().Exclude(types);
         }
-        
+
+        public static Aspect AspectOne(params Type[] types)
+        {
+            return new Aspect().One(types);
+        }
+
+        public Aspect One(params Type[] types)
+        {
+            System.Diagnostics.Debug.Assert(types != null);
+            foreach (var item in types)
+            {
+                ComponentType ct = ComponentTypeManager.GetTypeFor(item);
+                oneTypesMap |= ct.Bit;
+            }
+            return this;
+        }
+
         public Aspect Contains(params Type[] types)
         {
+            System.Diagnostics.Debug.Assert(types != null);
             foreach (var item in types)
             {
                 ComponentType ct = ComponentTypeManager.GetTypeFor(item);
@@ -41,6 +59,7 @@ namespace Artemis
 
         public Aspect Exclude(params Type[] types)
         {
+            System.Diagnostics.Debug.Assert(types != null);
             foreach (var item in types)
             {
                 ComponentType ct = ComponentTypeManager.GetTypeFor(item);
@@ -51,10 +70,19 @@ namespace Artemis
 
         public virtual bool Interest(Entity e)
         {
-            if (!(containsTypesMap > 0 || excludeTypesMap > 0))
+            if (!(containsTypesMap > 0 || excludeTypesMap > 0 || oneTypesMap > 0))
                 return false;
 
-            return ((containsTypesMap & e.TypeBits) == containsTypesMap) && ((excludeTypesMap & e.TypeBits) != excludeTypesMap || excludeTypesMap == 0);
+            //Ajudazinha =P
+            //10010 & 10000 = 10000
+            //10010 | 10000 = 10010
+            //10010 | 01000 = 11010
+
+            //1001 & 0000 = 0000 OK
+            //1001 & 0100 = 0000 NOK           
+            //0011 & 1001 = 0001 Ok
+            
+            return ((oneTypesMap & e.TypeBits) != 0 || oneTypesMap == 0) && ((containsTypesMap & e.TypeBits) == containsTypesMap || containsTypesMap == 0) && ((excludeTypesMap & e.TypeBits) != excludeTypesMap || excludeTypesMap == 0);
         }
     }  
 
