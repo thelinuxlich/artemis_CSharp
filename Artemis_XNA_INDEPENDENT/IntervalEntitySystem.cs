@@ -9,6 +9,12 @@ namespace Artemis
 			this.interval = interval;
 		}
 
+        public IntervalEntitySystem(int interval, Aspect aspect)
+            : base(aspect)
+        {
+            this.interval = interval;
+        }
+
         protected override bool CheckProcessing()
         {
 			acc += world.Delta;

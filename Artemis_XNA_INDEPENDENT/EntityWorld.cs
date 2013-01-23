@@ -71,13 +71,13 @@ namespace Artemis
 		public Entity CreateEntity() {
 			return entityManager.Create();
 		}
-		
-		public Entity CreateEntity(string entityTemplateTag, params object[] templateArgs) {
+        		
+		public Entity CreateEntityFromTemplate(string entityTemplateTag, params object[] templateArgs) {
             System.Diagnostics.Debug.Assert(!String.IsNullOrEmpty(entityTemplateTag));
 			Entity e = entityManager.Create();  
             IEntityTemplate entityTemplate;
             entityTemplates.TryGetValue(entityTemplateTag, out entityTemplate);
-            return entityTemplate.BuildEntity(e, templateArgs);
+            return entityTemplate.BuildEntity(e, templateArgs);       
 		}
 
         public void SetEntityTemplate(string entityTag, IEntityTemplate entityTemplate)
@@ -148,7 +148,7 @@ namespace Artemis
             System.Diagnostics.Debug.Assert(components != null);
 			Entity e;
 			if(!String.IsNullOrEmpty(templateTag)) {
-				e = CreateEntity(templateTag, templateArgs);
+				e = CreateEntityFromTemplate(templateTag, templateArgs);
 			} else {
 				e = CreateEntity();
 			}

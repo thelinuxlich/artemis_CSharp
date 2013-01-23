@@ -14,6 +14,15 @@ namespace Artemis
 		}
 
         /// <summary>
+        /// Create a new DelayedEntityProcessingSystem. It requires an Aspect
+        /// </summary>
+        /// <param name="aspect"></param>
+        public DelayedEntityProcessingSystem(Aspect aspect)
+            : base(aspect)
+        {
+        }
+
+        /// <summary>
         /// Process an entity this system is interested in.
         /// </summary>
         /// <param name="e"></param>

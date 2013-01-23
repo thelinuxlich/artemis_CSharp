@@ -11,6 +11,11 @@ namespace Artemis
 		 */
 		public EntityProcessingSystem(Type requiredType,params Type[] otherTypes) : base(GetMergedTypes(requiredType, otherTypes)) {
 		}
+
+        public EntityProcessingSystem(Aspect aspect)
+            : base(aspect)
+        {
+        }
 		
 		/**
 		 * Process a entity this system is interested in.

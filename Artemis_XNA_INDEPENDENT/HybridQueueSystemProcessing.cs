@@ -21,13 +21,9 @@ namespace Artemis
 
         public void AddToQueue(Entity ent)
         {
-            foreach (var item in compTypes)
-            {
-                if (ent.GetComponent(item) == null)
-                {
-                    throw new Exception("You need to have the " + item + " Component to be able to use this queue" );
-                }
-            }
+            if (!this.Interests(ent))
+                throw new Exception("This EntitySystem does not process this kind of entity" );
+             
            queue.Enqueue(ent);         
         }
 

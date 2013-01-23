@@ -35,6 +35,8 @@
   <ItemGroup>
     <Compile Include="DummyCommunicationSystem.cs" />
     <Compile Include="HybridQueueSystemTest.cs" />
+    <Compile Include="MostSimpleSystemEver.cs" />
+    <Compile Include="Power.cs" />
     <Compile Include="QueueSystemTest2.cs" />
     <Compile Include="QueueSystemTest.cs" />
     <Compile Include="SingleHealthBarRenderSystem.cs" />

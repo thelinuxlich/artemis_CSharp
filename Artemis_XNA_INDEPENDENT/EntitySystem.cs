@@ -23,25 +23,28 @@ namespace Artemis
         }
 
 		private BigInteger systemBit = 0;
-	
-		private BigInteger typeFlags = 0;
-		
+			
 		protected bool enabled = true;
 	
 		protected EntityWorld world;
+
+        protected Aspect aspect = null; 
 	
 		private Dictionary<int,Entity> actives = new Dictionary<int, Entity>();
 		
 		public EntitySystem() {
 		}
 	
-		public EntitySystem(params Type[] types) {            
-			for (int i = 0, j = types.Length; i < j; i++) {
-                Type type = types[i];
-				ComponentType ct = ComponentTypeManager.GetTypeFor(type);
-				typeFlags |= ct.Bit;
-			}
+		public EntitySystem(params Type[] types) {
+            aspect = Aspect.AspectContains(types);
 		}
+
+        public EntitySystem(Aspect aspect)
+        {
+            System.Diagnostics.Debug.Assert(aspect != null);
+            this.aspect = aspect;
+		}
+        
 		
 		internal BigInteger SystemBit {
 			set { systemBit = value; }
@@ -102,18 +105,24 @@ namespace Artemis
 		public virtual void OnChange(Entity e) {
             System.Diagnostics.Debug.Assert(e != null);
 			bool contains = (systemBit & e.SystemBits) == systemBit;
-			bool interest = (typeFlags & e.TypeBits) == typeFlags;
+			//bool interest = (typeFlags & e.TypeBits) == typeFlags;
+            bool interest = aspect.Interest(e);
 	
-			if (interest && !contains && typeFlags > 0) {
+			if (interest && !contains ) {
 				Add(e);
-			} else if (!interest && contains && typeFlags > 0) {
+			} else if (!interest && contains ) {
 				Remove(e);
-			} else if (interest && contains && e.Enabled == true && typeFlags > 0) {
+			} else if (interest && contains && e.Enabled == true) {
 				Enable(e);
-			} else if (interest && contains && e.Enabled == false && typeFlags > 0) {
+			} else if (interest && contains && e.Enabled == false ) {
 				Disable(e);
 			}
 		}
+
+        protected bool Interests(Entity e)
+        {
+            return aspect.Interest(e);
+        }
 		
 		protected void Add(Entity e) {
             System.Diagnostics.Debug.Assert(e != null);

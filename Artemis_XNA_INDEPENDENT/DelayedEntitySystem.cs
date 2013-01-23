@@ -10,6 +10,11 @@ namespace Artemis
 		public DelayedEntitySystem(params Type[] types) : base(types) {
 		}
 
+        public DelayedEntitySystem(Aspect aspect)
+            : base(aspect)
+        {
+        }
+
         protected override void ProcessEntities(Dictionary<int, Entity> entities)
         {
 			ProcessEntities(entities, acc);

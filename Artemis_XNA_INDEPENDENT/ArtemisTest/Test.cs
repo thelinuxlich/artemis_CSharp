@@ -133,6 +133,7 @@ namespace ArtemisTest
         static void Main(String[] args)
         {
                 DummyTests();
+                MostSimpleSystemEverTest();
                 multi();
                 multsystem();
 	            QueueSystemTeste();
@@ -140,6 +141,44 @@ namespace ArtemisTest
 	            SystemComunicationTeste();
 		}
 #endif		
+
+        public static void MostSimpleSystemEverTest()
+        {
+            EntityWorld world = new EntityWorld();
+            SystemManager systemManager = world.SystemManager;
+            MostSimpleSystemEver DummyCommunicationSystem = new MostSimpleSystemEver();
+            systemManager.SetSystem(DummyCommunicationSystem, ExecutionType.Update);
+            systemManager.InitializeAll();
+                        
+            
+                Entity et = world.CreateEntity();
+                et.AddComponent(new Health());
+                et.GetComponent<Health>().HP = 100;                
+                et.Refresh();
+            
+
+            
+                Entity et1 = world.CreateEntity();
+                et1.AddComponent(new Health());
+                et1.AddComponent(new Power());
+                et1.GetComponent<Health>().HP = 100;
+                et1.GetComponent<Power>().POWER = 100;
+                et1.Refresh();
+            
+
+            {
+                DateTime dt = DateTime.Now;
+                world.LoopStart();
+                systemManager.UpdateSynchronous(ExecutionType.Update);
+                Console.WriteLine((DateTime.Now - dt).TotalMilliseconds);
+            }
+
+            Debug.Assert(et.GetComponent<Health>().HP == 90);
+            Debug.Assert(et1.GetComponent<Health>().HP == 100);
+            Debug.Assert(et1.GetComponent<Power>().POWER == 100);
+
+        }
+
 
         public static void DummyTests()
         {
@@ -159,7 +198,8 @@ namespace ArtemisTest
             }
 
             {
-                Entity et = world.CreateEntity("tag");
+                Entity et = world.CreateEntity();
+                et.Tag = "tag";
                 et.AddComponent(new Health());
                 et.GetComponent<Health>().HP += 100;             
                 et.Refresh();

@@ -11,7 +11,12 @@ namespace Artemis
 		 */
 		public IntervalEntityProcessingSystem(int interval, Type requiredType, params Type[] otherTypes) : base(interval, GetMergedTypes(requiredType, otherTypes)) {
 		}
-		
+
+        public IntervalEntityProcessingSystem(int interval, Aspect aspect)
+            : base(interval,aspect)
+        {
+        }
+
 		/**
 		 * Process a entity this system is interested in.
 		 * @param e the entity to process.

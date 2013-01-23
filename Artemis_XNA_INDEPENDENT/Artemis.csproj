@@ -53,6 +53,7 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
+    <Compile Include="Aspect.cs" />
     <Compile Include="BlackBoard\BlackBoard.cs" />
     <Compile Include="BlackBoard\SimpleTrigger.cs" />
     <Compile Include="BlackBoard\Trigger.cs" />

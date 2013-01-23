@@ -6,7 +6,6 @@ using System.Threading;
 
 namespace Artemis
 {
-
     class QueueManager
     {
         public QueueManager()
@@ -32,6 +31,10 @@ namespace Artemis
         public int EntitiesToProcessEachFrame = 50;
     }
 
+    /// <summary>
+    /// System Not based On Components
+    /// It Process ONCE everything you explicitely add to it using the method AddToQueue
+    /// </summary>
     public abstract class QueueSystemProcessingThreadSafe : EntitySystem
     {
         public QueueSystemProcessingThreadSafe()

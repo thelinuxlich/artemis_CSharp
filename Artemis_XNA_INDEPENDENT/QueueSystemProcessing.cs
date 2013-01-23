@@ -5,6 +5,10 @@ using System.Text;
 
 namespace Artemis
 {
+    /// <summary>
+    /// System Not based On Components
+    /// It Process ONCE everything you explicitely add to it using the method AddToQueue
+    /// </summary>
     public class QueueSystemProcessing : EntitySystem
     {
         public QueueSystemProcessing()

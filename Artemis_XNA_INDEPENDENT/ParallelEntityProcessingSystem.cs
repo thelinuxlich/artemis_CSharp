@@ -16,6 +16,11 @@ namespace Artemis
         {
         }
 
+        public ParallelEntityProcessingSystem(Aspect aspect)
+            : base(aspect)
+        {
+        }
+
         /**
          * Process a entity this system is interested in.
          * @param e the entity to process.
