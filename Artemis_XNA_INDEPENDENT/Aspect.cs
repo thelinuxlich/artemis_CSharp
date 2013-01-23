@@ -10,6 +10,9 @@ using BigInteger = System.Int32;
 
 namespace Artemis
 {
+    /// <summary>
+    /// Especify a Filter to filter what Entities (with what Components) a EntitySystem will Process
+    /// </summary>
     public class Aspect
     {
         protected BigInteger containsTypesMap = 0;
@@ -68,6 +71,11 @@ namespace Artemis
             return this;
         }
 
+        /// <summary>
+        /// Called by the EntitySystem to determine if the system is interested in the passed Entity
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
         public virtual bool Interest(Entity e)
         {
             if (!(containsTypesMap > 0 || excludeTypesMap > 0 || oneTypesMap > 0))

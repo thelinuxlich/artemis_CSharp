@@ -10,6 +10,10 @@ using BigInteger = System.Int32;
 
 namespace Artemis
 {
+    /// <summary>
+    /// Base of all Entity Systems
+    /// Provide basic funcionalities
+    /// </summary>
 	public abstract class EntitySystem {
 
         protected static BlackBoard blackBoard = new BlackBoard();

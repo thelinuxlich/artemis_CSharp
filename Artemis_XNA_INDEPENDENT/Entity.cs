@@ -12,6 +12,9 @@ using BigInteger = System.Int32;
 
 namespace Artemis
 {
+    /// <summary>
+    /// Basic Unity of an Entity System
+    /// </summary>
 	public sealed class Entity
 	{
 		private int id;
@@ -38,7 +41,6 @@ namespace Artemis
 		 *
 		 * @return id of the entity.
 		 */
-
 		public int Id
 		{
 			get { return id; }

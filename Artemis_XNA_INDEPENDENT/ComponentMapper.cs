@@ -2,7 +2,7 @@ using System;
 namespace Artemis
 {
     /// <summary>
-    /// Fast Way to get Components from entities
+    /// Fastest Way to get Components from entities
     /// </summary>
 	public sealed class ComponentMapper<T> where T : Component {
 		private ComponentType type;
