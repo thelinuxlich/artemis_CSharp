@@ -267,6 +267,18 @@ namespace Artemis
 			return activeEntities.Get(entityId);
 		}
 
+		public Bag<Entity> GetEntities (Aspect aspect)
+		{
+			Bag<Entity> entitiesBag = new Bag<Entity> ();
+			for (int i = 0; i < activeEntities.Size(); i++) {
+				Entity e = activeEntities.Get(i);
+				if(aspect.interests(e)) {
+					entitiesBag.Add(e);
+				}
+			}
+			return entitiesBag;
+		}
+
 		/// <summary>
 		/// Get how many entities are currently active
 		/// </summary>

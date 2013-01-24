@@ -1,0 +1,15 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="EntitySystem.cs">
+    <Files>
+      <File FileName="Utils/Bag.cs" Line="127" Column="22" />
+      <File FileName="Utils/TrigLUT.cs" Line="27" Column="33" />
+      <File FileName="EntitySystem.cs" Line="1" Column="1" />
+      <File FileName="EntityWorld.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
