@@ -129,7 +129,7 @@ e.Refresh();// always call Refresh() when adding/removing components!<code>
     ComponentMapper<Velocity> velocityMapper;
     ComponentMapper<Transform> transformMapper;
 
-    public MovementSystem() : base(typeof(Transform), typeof(Velocity)) { }
+    public MovementSystem() : base(Aspect.All(typeof(Transform), typeof(Velocity))) { }
 
     public override void Initialize() {
         velocityMapper = new ComponentMapper<Velocity>(world);
@@ -170,6 +170,18 @@ systemManager.UpdateSynchronous(ExecutionType.Update);
         And you are good to go. The Entity object has some intuitive methods like Delete(), GetComponent(), RemoveComponent(), which
         you can see in action on the <a href="https://github.com/thelinuxlich/starwarrior_CSharp">example game.</a>
     </section>
+	<section>
+		<h3>Aspects</h3>
+		Aspects are used in the constructor of your entity systems to tell them which components they should be interested. At the moment we have three 
+		methods to build Aspects:
+		<ul>
+			<li>Aspect.All(params Type[] types) - Most of the time you will use this option, so the system processes entities which have all components of the Aspect.</li>
+			<li>Aspect.One(params Type[] types) - The system will process entities which have at least one of the components of the Aspect.</li>
+			<li>Aspect.Exclude(params Type[] types) - The system will not process entities which have at least one of the components of the Aspect.</li>
+		</ul>
+		You can also compose your Aspect utilizing these methods together, example: 
+		<pre><code>public LogEnemySystem() : base(Aspect.All(typeof(Health)).One(typeof(Koopa),typeof(Goomba),typeof(Magikoopa)).exclude(typeof(Ghost))) {}</code></pre>
+	</section>
 	<section>
 		<h3>Templates</h3>
 		Create your entity templates to avoid manually creating and configuring entities:
