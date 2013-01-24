@@ -31,7 +31,7 @@ namespace Artemis
             System.Diagnostics.Debug.Assert(!String.IsNullOrEmpty(tag));
             Entity e;
             entityByTag.TryGetValue(tag, out e);
-            if (e == null || e.isActive)
+            if (e != null && e.isActive)
             {
                 return e;
             }

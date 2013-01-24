@@ -5,6 +5,10 @@ using System.Text;
 
 namespace Artemis
 {
+
+    /// <summary>
+    /// Tag System does not fire ANY Events of the EntitySystem
+    /// </summary>
     public abstract class TagSystem : EntitySystem
     {
         protected string tag;
@@ -27,5 +31,9 @@ namespace Artemis
                 Process(e);
             }
 		}
+
+        public override void OnChange(Entity e)
+        {            
+        }
     }
 }
