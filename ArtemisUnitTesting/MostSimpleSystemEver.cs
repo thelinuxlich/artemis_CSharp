@@ -10,7 +10,7 @@ namespace ArtemisTest
     public class MostSimpleSystemEver : EntityProcessingSystem
     {
         public MostSimpleSystemEver()
-            : base(Aspect.AspectExclude(typeof(Power)))
+            : base(Aspect.Exclude(typeof(Power)))
         {
         }
 

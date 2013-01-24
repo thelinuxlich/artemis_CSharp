@@ -40,7 +40,7 @@ namespace Artemis
 		}
 	
 		public EntitySystem(params Type[] types) {
-            aspect = Aspect.AspectContains(types);
+            aspect = Aspect.All(types);
 		}
 
         public EntitySystem(Aspect aspect)

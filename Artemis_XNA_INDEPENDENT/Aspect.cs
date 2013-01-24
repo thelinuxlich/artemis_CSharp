@@ -23,22 +23,22 @@ namespace Artemis
         {
         }
 
-        public static Aspect AspectContains(params Type[] types)
+        public static Aspect All(params Type[] types)
         {            
-            return new Aspect().Contains(types);         
+            return new Aspect()._All(types);         
         }
 
-        public static Aspect AspectExclude(params Type[] types)
+        public static Aspect Exclude(params Type[] types)
         {
-            return new Aspect().Exclude(types);
+            return new Aspect()._Exclude(types);
         }
 
-        public static Aspect AspectOne(params Type[] types)
+        public static Aspect One(params Type[] types)
         {
-            return new Aspect().One(types);
+            return new Aspect()._One(types);
         }
 
-        public Aspect One(params Type[] types)
+        public Aspect _One(params Type[] types)
         {
             System.Diagnostics.Debug.Assert(types != null);
             foreach (var item in types)
@@ -49,7 +49,7 @@ namespace Artemis
             return this;
         }
 
-        public Aspect Contains(params Type[] types)
+        public Aspect _All(params Type[] types)
         {
             System.Diagnostics.Debug.Assert(types != null);
             foreach (var item in types)
@@ -60,7 +60,7 @@ namespace Artemis
             return this;
         }
 
-        public Aspect Exclude(params Type[] types)
+        public Aspect _Exclude(params Type[] types)
         {
             System.Diagnostics.Debug.Assert(types != null);
             foreach (var item in types)
