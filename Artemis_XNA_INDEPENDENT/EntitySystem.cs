@@ -95,7 +95,7 @@ namespace Artemis
 		 * Called if the system has received a entity it is interested in, e.g. created or a component was added to it.
 		 * @param e the entity that was added to this system.
 		 */
-        public virtual void Added(Entity e) { }
+        public virtual void OnAdded(Entity e) { }
 		/**
 		 * Called if a entity was removed from this system, e.g. deleted or had one of it's components removed.
 		 * @param e the entity that was removed from this system.
@@ -134,7 +134,7 @@ namespace Artemis
 			if (e.Enabled == true) {
 				Enable(e);
 			}
-			Added(e);
+			OnAdded(e);
 		}
 	
 		protected void Remove(Entity e) {
