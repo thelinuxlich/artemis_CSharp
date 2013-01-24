@@ -95,21 +95,9 @@
     <Compile Include="..\Artemis_XNA_INDEPENDENT\SystemBitManager.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\TagManager.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\TagSystem.cs" />
-	<Compile Include="..\Artemis_XNA_INDEPENDENT\ParallelEntityProcessingSystem.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\ParallelEntityProcessingSystem.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Aspect.cs" />
-	<Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\Utils.cs">
-	  <SubType>Code</SubType>
-    </Compile>
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\Bag.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\FastMath.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\Timer.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\TrigLUT.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="..\Artemis_XNA_INDEPENDENT\SystemManager.cs" />

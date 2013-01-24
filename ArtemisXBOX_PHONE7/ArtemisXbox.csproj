@@ -153,19 +153,7 @@
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\Bag.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\FastMath.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Aspect.cs" />
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\Timer.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\TrigLUT.cs">
-      <SubType>Code</SubType>
-    </Compile>
-	<Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\Utils.cs">
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />

@@ -82,11 +82,7 @@
     <Compile Include="TagManager.cs" />
     <Compile Include="TagSystem.cs" />
     <Compile Include="EntityWorld.cs" />
-    <Compile Include="Utils\Utils.cs" />
     <Compile Include="Utils\Bag.cs" />
-    <Compile Include="Utils\Timer.cs" />
-    <Compile Include="Utils\TrigLUT.cs" />
-    <Compile Include="Utils\FastMath.cs" />
     <Compile Include="IntervalTagSystem.cs" />
   </ItemGroup>
   <ItemGroup>
