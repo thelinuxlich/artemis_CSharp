@@ -44,9 +44,9 @@ namespace ArtemisTest
             world.EntityManager.RemovedComponentEvent += new RemovedComponentHandler(RemovedComponent);
             world.EntityManager.RemovedEntityEvent += new RemovedEntityHandler(RemovedEntity);
 
-            EntitySystem hs = systemManager.SetSystem(new MultHealthBarRenderSystem(),ExecutionType.Update);
+            EntitySystem hs = systemManager.SetSystem(new MultHealthBarRenderSystem(),ExecutionType.UpdateSyncronous);
             //EntitySystem hs = systemManager.SetSystem(new SingleHEAVYHealthBarRenderSystem(),ExecutionType.Update);
-            systemManager.InitializeAll();
+            world.InitializeAll();
 
             List<Entity> l = new List<Entity>();
             for (int i = 0; i < 1000; i++)
@@ -61,8 +61,7 @@ namespace ArtemisTest
             for (int i = 0; i < 100; i++)
             {
                 DateTime dt = DateTime.Now;
-                world.LoopStart();                
-                systemManager.UpdateSynchronous(ExecutionType.Update);
+                world.Update();
                 Console.WriteLine((DateTime.Now - dt).TotalMilliseconds);
             }            
 
@@ -92,11 +91,11 @@ namespace ArtemisTest
             SystemManager systemManager = world.SystemManager;
             world.EntityManager.RemovedComponentEvent += new RemovedComponentHandler(RemovedComponent);
             world.EntityManager.RemovedEntityEvent += new RemovedEntityHandler(RemovedEntity);            
-            EntitySystem hs = systemManager.SetSystem(new SingleHealthBarRenderSystem(),ExecutionType.Update);
-            hs = systemManager.SetSystem(new DummySystem(),ExecutionType.Update);
-            hs = systemManager.SetSystem(new DummySystem2(),ExecutionType.Update);
-            hs = systemManager.SetSystem(new DummySystem3(),ExecutionType.Update);
-            systemManager.InitializeAll();           
+            EntitySystem hs = systemManager.SetSystem(new SingleHealthBarRenderSystem(),ExecutionType.UpdateAsynchronous);
+            hs = systemManager.SetSystem(new DummySystem(),ExecutionType.UpdateAsynchronous);
+            hs = systemManager.SetSystem(new DummySystem2(), ExecutionType.UpdateAsynchronous);
+            hs = systemManager.SetSystem(new DummySystem3(), ExecutionType.UpdateAsynchronous);
+            world.InitializeAll();
             
 
             List<Entity> l = new List<Entity>();
@@ -112,8 +111,7 @@ namespace ArtemisTest
             for (int i = 0; i < 100; i++)
             {
                 DateTime dt = DateTime.Now;
-                world.LoopStart();
-                systemManager.UpdateAsynchronous(ExecutionType.Update);
+                world.Update(ExecutionType.UpdateAsynchronous);
                 //systemManager.UpdateSynchronous(ExecutionType.Update);
                 Console.WriteLine((DateTime.Now - dt).TotalMilliseconds);
             }
@@ -136,10 +134,8 @@ namespace ArtemisTest
         public void SecondMostSimpleSystemEverTest()
         {
             EntityWorld world = new EntityWorld();
-            SystemManager systemManager = world.SystemManager;
             SecondMostSimpleSystemEver DummyCommunicationSystem = new SecondMostSimpleSystemEver();
-            systemManager.SetSystem(DummyCommunicationSystem, ExecutionType.Update);
-            systemManager.InitializeAll();
+            world.InitializeAll();            
 
 
             Entity et = world.CreateEntity();
@@ -155,8 +151,7 @@ namespace ArtemisTest
 
             {
                 DateTime dt = DateTime.Now;
-                world.LoopStart();
-                systemManager.UpdateSynchronous(ExecutionType.Update);
+                world.Update();
                 Console.WriteLine((DateTime.Now - dt).TotalMilliseconds);
             }
 
@@ -172,8 +167,8 @@ namespace ArtemisTest
             EntityWorld world = new EntityWorld();
             SystemManager systemManager = world.SystemManager;
             MostSimpleSystemEver DummyCommunicationSystem = new MostSimpleSystemEver();
-            systemManager.SetSystem(DummyCommunicationSystem, ExecutionType.Update);
-            systemManager.InitializeAll();
+            systemManager.SetSystem(DummyCommunicationSystem, ExecutionType.UpdateSyncronous);
+            world.InitializeAll(false);
                         
             
                 Entity et = world.CreateEntity();
@@ -193,8 +188,7 @@ namespace ArtemisTest
 
             {
                 DateTime dt = DateTime.Now;
-                world.LoopStart();
-                systemManager.UpdateSynchronous(ExecutionType.Update);
+                world.Update();
                 Console.WriteLine((DateTime.Now - dt).TotalMilliseconds);
             }
 
@@ -210,8 +204,8 @@ namespace ArtemisTest
             EntityWorld world = new EntityWorld();
             SystemManager systemManager = world.SystemManager;
             DummyCommunicationSystem DummyCommunicationSystem = new DummyCommunicationSystem();
-            systemManager.SetSystem(DummyCommunicationSystem, ExecutionType.Update);
-            systemManager.InitializeAll();
+            systemManager.SetSystem(DummyCommunicationSystem, ExecutionType.UpdateSyncronous);
+            world.InitializeAll();
 
             for (int i = 0; i < 100; i++)
             {
@@ -232,8 +226,7 @@ namespace ArtemisTest
 
             {
                 DateTime dt = DateTime.Now;
-                world.LoopStart();
-                systemManager.UpdateSynchronous(ExecutionType.Update);
+                world.Update();                
                 Console.WriteLine((DateTime.Now - dt).TotalMilliseconds);
             }
 
@@ -253,8 +246,8 @@ namespace ArtemisTest
             EntityWorld world = new EntityWorld();
             SystemManager systemManager = world.SystemManager;
             DummyCommunicationSystem DummyCommunicationSystem = new DummyCommunicationSystem();
-            systemManager.SetSystem(DummyCommunicationSystem, ExecutionType.Update);
-            systemManager.InitializeAll();            
+            systemManager.SetSystem(DummyCommunicationSystem, ExecutionType.UpdateSyncronous);
+            world.InitializeAll();            
 
             List<Entity> l = new List<Entity>();
             for (int i = 0; i < 100; i++)
@@ -268,8 +261,7 @@ namespace ArtemisTest
             
             {
                 DateTime dt = DateTime.Now;
-                world.LoopStart();
-                systemManager.UpdateSynchronous(ExecutionType.Update);
+                world.Update();
                 Console.WriteLine((DateTime.Now - dt).TotalMilliseconds);
             }
 
@@ -277,8 +269,7 @@ namespace ArtemisTest
 
             {
                 DateTime dt = DateTime.Now;
-                world.LoopStart();
-                systemManager.UpdateSynchronous(ExecutionType.Update);
+                world.Update();
                 Console.WriteLine((DateTime.Now - dt).TotalMilliseconds);
             }
 
@@ -296,13 +287,13 @@ namespace ArtemisTest
             SystemManager systemManager = world.SystemManager;
             QueueSystemTest QueueSystemTest = new ArtemisTest.QueueSystemTest();
             QueueSystemTest QueueSystemTest2 = new ArtemisTest.QueueSystemTest();
-            systemManager.SetSystem(QueueSystemTest, ExecutionType.Update);
-            systemManager.SetSystem(QueueSystemTest2, ExecutionType.Update);
+            systemManager.SetSystem(QueueSystemTest, ExecutionType.UpdateAsynchronous);
+            systemManager.SetSystem(QueueSystemTest2, ExecutionType.UpdateAsynchronous);
 
             QueueSystemTest2 QueueSystemTestteste = new ArtemisTest.QueueSystemTest2();
-            systemManager.SetSystem(QueueSystemTestteste, ExecutionType.Update);
+            systemManager.SetSystem(QueueSystemTestteste, ExecutionType.UpdateAsynchronous);
 
-            systemManager.InitializeAll();
+            world.InitializeAll();
 
             QueueSystemTest.SetQueueProcessingLimit(20, QueueSystemTest.Id);
             Debug.Assert(QueueSystemTest.GetQueueProcessingLimit(QueueSystemTest.Id) == QueueSystemTest.GetQueueProcessingLimit(QueueSystemTest2.Id));
@@ -338,8 +329,7 @@ namespace ArtemisTest
             while (QueueSystemTest.QueueCount(QueueSystemTest.Id) > 0 || QueueSystemTest.QueueCount(QueueSystemTestteste.Id) > 0)
             {
                 DateTime dt = DateTime.Now;
-                world.LoopStart();
-                systemManager.UpdateAsynchronous(ExecutionType.Update);
+                world.Update(ExecutionType.UpdateAsynchronous);                
                 Console.WriteLine("Count: " + QueueSystemTest.QueueCount(QueueSystemTest.Id));
                 Console.WriteLine("Time: " + (DateTime.Now - dt).TotalMilliseconds);
 
@@ -363,8 +353,8 @@ namespace ArtemisTest
             EntityWorld world = new EntityWorld();
             SystemManager systemManager = world.SystemManager;
             HybridQueueSystemTest HybridQueueSystemTest = new ArtemisTest.HybridQueueSystemTest();
-            EntitySystem hs = systemManager.SetSystem(HybridQueueSystemTest, ExecutionType.Update);
-            systemManager.InitializeAll();
+            EntitySystem hs = systemManager.SetSystem(HybridQueueSystemTest, ExecutionType.UpdateSyncronous);
+            world.InitializeAll();
 
             List<Entity> l = new List<Entity>();
             for (int i = 0; i < 100; i++)
@@ -391,8 +381,7 @@ namespace ArtemisTest
             {
                 j++;
                 DateTime dt = DateTime.Now;
-                world.LoopStart();                
-                systemManager.UpdateSynchronous(ExecutionType.Update);
+                world.Update();
                 Console.WriteLine((DateTime.Now - dt).TotalMilliseconds);
             }
 

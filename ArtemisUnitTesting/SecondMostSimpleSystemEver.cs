@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using Artemis;
 using ArtemisTest.Components;
+using Artemis.Attributes;
 
 namespace ArtemisTest
 {
+    [ArtemisEntitySystem]
     public class SecondMostSimpleSystemEver : EntityProcessingSystem
     {
         public SecondMostSimpleSystemEver()

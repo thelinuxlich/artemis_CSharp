@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Artemis.Attributes;
 #if FULLDOTNET
 using System.Threading.Tasks;
-using Artemis.Attributes;
 #else
 using ParallelTasks;
 #endif

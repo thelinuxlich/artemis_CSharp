@@ -154,6 +154,15 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Aspect.cs" />
+	
+	<Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\AttributesProcessor.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\ArtemisComponentCreate.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\ArtemisComponentPool.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\ArtemisEntitySystem.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\ArtemisEntityTemplate.cs" />
+	<Compile Include="..\Artemis_XNA_INDEPENDENT\ComponentPoolable.cs" />
+	<Compile Include="..\Artemis_XNA_INDEPENDENT\ComponentPool.cs" />
+	
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />

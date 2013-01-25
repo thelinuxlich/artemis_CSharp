@@ -97,6 +97,14 @@
     <Compile Include="..\Artemis_XNA_INDEPENDENT\TagSystem.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\ParallelEntityProcessingSystem.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Aspect.cs" />
+	<Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\AttributesProcessor.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\ArtemisComponentCreate.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\ArtemisComponentPool.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\ArtemisEntitySystem.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\ArtemisEntityTemplate.cs" />
+	<Compile Include="..\Artemis_XNA_INDEPENDENT\ComponentPoolable.cs" />
+	<Compile Include="..\Artemis_XNA_INDEPENDENT\ComponentPool.cs" />
+	
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\Bag.cs">
       <SubType>Code</SubType>
     </Compile>
