@@ -242,6 +242,20 @@ namespace Artemis
 			RemoveComponent(e, type);
 		}
 
+        /// <summary>
+        /// Removes the given component type from the given entity
+        /// </summary>
+        /// <typeparam name="T">The type of the component you want to remove</typeparam>
+        /// <param name="e">The entity for which you are removing the component</param>
+        /// <param name="component">The specific component type you want removed</param>
+        internal void RemoveComponent<T>(Entity e, ComponentType componentType) where T : Component
+        {
+            System.Diagnostics.Debug.Assert(componentType != null);
+            System.Diagnostics.Debug.Assert(e != null);
+            RemoveComponent(e, componentType);
+        }
+
+
 		/// <summary>
 		/// Reemoves the given component type from the given entity
 		/// </summary>

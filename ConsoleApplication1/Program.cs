@@ -14,6 +14,7 @@ namespace ConsoleApplication1
         static void Main(string[] args)
         {
             EntityWorld world = new EntityWorld();
+            world.PoolCleanupDelay = 1;
             SystemManager systemManager = world.SystemManager;            
             systemManager.InitializeAll();
 
@@ -31,9 +32,19 @@ namespace ConsoleApplication1
                 Console.WriteLine((DateTime.Now - dt).TotalMilliseconds);
             }
 
-            Debug.Assert(et.GetComponent<Health>().HP == 90);
-            Debug.Assert(et1.GetComponent<Power>().POWER == 90);
+            et.RemoveComponent<Power>();            
+            et.Refresh();
 
+            {
+                DateTime dt = DateTime.Now;
+                world.LoopStart();
+                systemManager.UpdateSynchronous(ExecutionType.Update);
+                Console.WriteLine((DateTime.Now - dt).TotalMilliseconds);
+            }
+
+            et.AddComponentFromPool<Power>();
+            et.GetComponent<Power>().POWER = 100;
+            et.Refresh();
         }
     }
 }

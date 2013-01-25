@@ -18,8 +18,6 @@ namespace ConsoleApplication1
             return new Power();            
         }
 
-
-
         #region ComponentPoolable Members
 
         public void Initialize()

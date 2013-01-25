@@ -146,16 +146,15 @@ namespace Artemis
 			entityManager.AddComponent<T>(this, component);
 		}
 
-		/**
-		 * Removes the component from this entity.
-		 * @param component to remove from this entity.
-		 */
 
-		public void RemoveComponent<T>(Component component) where T : Component
-		{
-			System.Diagnostics.Debug.Assert(component != null);
-			entityManager.RemoveComponent<T>(this, component);
-		}
+        /// <summary>
+        /// Remove Component frmo this entity
+        /// </summary>
+        /// <typeparam name="T">Component Type</typeparam>
+        public void RemoveComponent<T>() where T : Component
+        {            
+            entityManager.RemoveComponent<T>(this, ComponentTypeManager.GetTypeFor<T>());
+        }
 
 		/**
 		 * Faster removal of components from a entity.
