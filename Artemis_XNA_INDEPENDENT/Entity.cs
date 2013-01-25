@@ -135,9 +135,11 @@ namespace Artemis
 			entityManager.AddComponent(this, component);
 		}
 
-        public void AddComponentFromPool<T>() where T : ComponentPoolable
+        public T AddComponentFromPool<T>() where T : ComponentPoolable
         {            
-            entityManager.AddComponent(this, world.GetComponentFromPool(typeof(T)));
+            var component = world.GetComponentFromPool(typeof(T));
+            entityManager.AddComponent(this, component);
+            return (T) component;
         }
 
 		public void AddComponent<T>(Component component) where T : Component
