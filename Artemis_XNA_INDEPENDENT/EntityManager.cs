@@ -296,14 +296,14 @@ namespace Artemis
 
 		public Bag<Entity> GetEntities (Aspect aspect)
 		{
-			Bag<Entity> entitiesBag = new Bag<Entity> ();
+			/*Bag<Entity> entitiesBag = new Bag<Entity> ();
 			for (int i = 0; i < activeEntities.Size; i++) {
 				Entity e = activeEntities.Get(i);
 				if(aspect.Interests(e)) {
 					entitiesBag.Add(e);
 				}
-			}
-			return entitiesBag;
+			}*/
+			return aspect.InterestedEntities(this);
 		}
 
 		/// <summary>
