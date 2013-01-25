@@ -62,7 +62,6 @@
     <Compile Include="PerformanceTests.cs" />
     <Compile Include="Power.cs" />
     <Compile Include="Power2.cs" />
-    <Compile Include="AttributesTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueueSystemTest.cs" />
     <Compile Include="QueueSystemTest2.cs" />

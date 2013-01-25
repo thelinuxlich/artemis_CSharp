@@ -278,6 +278,42 @@ namespace ArtemisTest
         }
 
         [TestMethod]
+        public void AttributesTestsMethod()
+        {
+            EntityWorld world = new EntityWorld();
+            world.PoolCleanupDelay = 1;
+            world.InitializeAll();
+
+            Debug.Assert(world.SystemManager.Systems.Size == 2);
+
+            Entity et = world.CreateEntity();
+            var power = et.AddComponentFromPool<Power2>();
+            power.POWER = 100;
+            et.Refresh();
+
+            Entity et1 = world.CreateEntityFromTemplate("teste");
+            Debug.Assert(et1 != null);
+
+            {
+                world.Update(ExecutionType.UpdateSyncronous);
+            }
+
+            et.RemoveComponent<Power>();
+            et.Refresh();
+
+            {
+                world.Update(ExecutionType.UpdateSyncronous);
+            }
+
+            et.AddComponentFromPool<Power2>();
+            et.GetComponent<Power2>().POWER = 100;
+            et.Refresh();
+
+
+            world.Update(ExecutionType.UpdateSyncronous);
+        }
+
+        [TestMethod]
         public void QueueSystemTeste()
         {
             EntityWorld world = new EntityWorld();
