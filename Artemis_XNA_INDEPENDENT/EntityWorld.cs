@@ -12,8 +12,7 @@ namespace Artemis
 		private Dictionary<String,Stack<int>> cached = new Dictionary<String, Stack<int>>();
         private Dictionary<String, IEntityTemplate> entityTemplates = new Dictionary<String, IEntityTemplate>();
 		private int delta;
-        private Dictionary<Type, Pool<ComponentPoolable>> pools = new Dictionary<Type, Pool<ComponentPoolable>>();
-        private int poolCleanupDelay = 10;
+        private Dictionary<Type, Pool<ComponentPoolable>> pools = new Dictionary<Type, Pool<ComponentPoolable>>();        
         private int poolCleanupDelayCounter = 0;
 
         /// <summary>
@@ -29,7 +28,8 @@ namespace Artemis
 			entityManager = new EntityManager(this);
 			systemManager = new SystemManager(this);
 			tagManager = new TagManager(this);
-			groupManager = new GroupManager(this);		
+			groupManager = new GroupManager(this);
+            PoolCleanupDelay = 10;
 		}
 		
 		public GroupManager GroupManager {

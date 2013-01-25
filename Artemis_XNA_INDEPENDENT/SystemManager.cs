@@ -97,17 +97,19 @@ namespace Artemis
 		/**
 		 * After adding all systems to the world, you must initialize them all.
 		 */
-		public void InitializeAll() {
+		public void InitializeAll(bool processAttributes = true) {
 
+            if(processAttributes)
+            {
             var types = AttributesProcessor.Process(AttributesProcessor.SupportedAttributes);
             foreach (var item in types)
             {
                 if (typeof(EntitySystem).IsAssignableFrom(item.Key))
                 {
                     var type = item.Key;
-                    AttributeEntitySystem pee = (AttributeEntitySystem) item.Value[0];
+                    AttributeEntitySystem pee = (AttributeEntitySystem)item.Value[0];
                     var instance = (EntitySystem)Activator.CreateInstance(type);
-                    this.SetSystem<EntitySystem>(instance, pee.ExecutionType, pee.Layer);                
+                    this.SetSystem<EntitySystem>(instance, pee.ExecutionType, pee.Layer);
                 }
                 else if (typeof(IEntityTemplate).IsAssignableFrom(item.Key))
                 {
@@ -118,18 +120,18 @@ namespace Artemis
                 }
                 else if (typeof(ComponentPoolable).IsAssignableFrom(item.Key))
                 {
-                    AttributeComponentPool PropertyComponentPool = null;                   
+                    AttributeComponentPool PropertyComponentPool = null;
 
                     foreach (var val in item.Value)
                     {
                         if (val is AttributeComponentPool)
-                            PropertyComponentPool = (AttributeComponentPool)val;                        
+                            PropertyComponentPool = (AttributeComponentPool)val;
                     }
-                    
+
                     var type = item.Key;
                     var methods = type.GetMethods();
-                    
-                    Func<Type,ComponentPoolable> create = null;
+
+                    Func<Type, ComponentPoolable> create = null;
                     foreach (var meth in methods)
                     {
                         var attributes = meth.GetCustomAttributes(false);
@@ -137,7 +139,7 @@ namespace Artemis
                         {
                             if (att is AttributeComponentCreate)
                             {
-                                create = (Func<Type,ComponentPoolable>)Delegate.CreateDelegate(typeof(Func<Type,ComponentPoolable>), meth);                                
+                                create = (Func<Type, ComponentPoolable>)Delegate.CreateDelegate(typeof(Func<Type, ComponentPoolable>), meth);
                             }
                         }
                     }
@@ -145,9 +147,10 @@ namespace Artemis
                     if (create == null)
                         create = CreateInstance;
 
-                    Pool<ComponentPoolable> pool = new Pool<ComponentPoolable>(PropertyComponentPool.InitialSize, PropertyComponentPool.Resizes, create);                    
+                    Pool<ComponentPoolable> pool = new Pool<ComponentPoolable>(PropertyComponentPool.InitialSize, PropertyComponentPool.Resizes, create);
                     world.SetPool(type, pool);
                 }
+            }
             }
 
 		   for (int i = 0, j = mergedBag.Size; i < j; i++) {
