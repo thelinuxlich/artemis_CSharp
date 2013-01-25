@@ -18,7 +18,8 @@ namespace ConsoleApplication1
             world.InitializeAll();
 
             Entity et = world.CreateEntity();
-            et.AddComponentFromPool<Power>().POWER = 100;                        
+            var power = et.AddComponentFromPool<Power>();                
+            power.POWER = 100;                        
             et.Refresh();
 
             Entity et1 = world.CreateEntityFromTemplate("teste");
