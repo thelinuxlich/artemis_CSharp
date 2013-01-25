@@ -81,7 +81,7 @@
     <Compile Include="IntervalEntityProcessingSystem.cs" />
     <Compile Include="IntervalEntitySystem.cs" />
     <Compile Include="ParallelEntityProcessingSystem.cs" />
-    <Compile Include="Pool.cs" />
+    <Compile Include="ComponentPool.cs" />
     <Compile Include="QueueSystemProcessing.cs" />
     <Compile Include="QueueSystemProcessingThreadSafe.cs" />
     <Compile Include="SystemBitManager.cs" />

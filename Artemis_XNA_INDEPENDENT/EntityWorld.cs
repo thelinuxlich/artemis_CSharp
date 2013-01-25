@@ -12,7 +12,7 @@ namespace Artemis
 		private Dictionary<String,Stack<int>> cached = new Dictionary<String, Stack<int>>();
         private Dictionary<String, IEntityTemplate> entityTemplates = new Dictionary<String, IEntityTemplate>();
 		private int delta;
-        private Dictionary<Type, Pool<ComponentPoolable>> pools = new Dictionary<Type, Pool<ComponentPoolable>>();        
+        private Dictionary<Type, ComponentPool<ComponentPoolable>> pools = new Dictionary<Type, ComponentPool<ComponentPoolable>>();        
         private int poolCleanupDelayCounter = 0;
 
         /// <summary>
@@ -84,17 +84,22 @@ namespace Artemis
 			return entityManager.Create();
 		}
 
-        public void SetPool(Type type, Pool<ComponentPoolable> pool)
+        public void SetPool(Type type, ComponentPool<ComponentPoolable> pool)
         {
             System.Diagnostics.Debug.Assert(type != null);
             System.Diagnostics.Debug.Assert(pool != null);
             pools.Add(type, pool);
         }
 
-        public Pool<ComponentPoolable> GetPool(Type type)
+        public ComponentPool<ComponentPoolable> GetPool(Type type)
         {
             System.Diagnostics.Debug.Assert(type != null);
             return pools[type];
+        }
+
+        public void InitializeAll(bool processAttributes = true)
+        {
+            systemManager.InitializeAll(processAttributes);
         }
 
         public Component GetComponentFromPool(Type type)
@@ -132,7 +137,7 @@ namespace Artemis
 		}
 
 
-        public void LoopStart()
+        public void Update(ExecutionType executionType = ExecutionType.UpdateSyncronous)
         {
             poolCleanupDelayCounter++;
             if (poolCleanupDelayCounter > PoolCleanupDelay)
@@ -166,6 +171,9 @@ namespace Artemis
                 }
                 refreshed.Clear();
             }
+
+            systemManager.Update(executionType);
+
         }
 		
 		public Dictionary<Entity,Bag<Component>> CurrentState {

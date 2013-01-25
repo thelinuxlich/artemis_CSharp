@@ -12,10 +12,12 @@ namespace Artemis
 {
 	public enum ExecutionType
     {
-        Draw,
-        Update
+        DrawSyncronous,
+        DrawAsynchronous,
+        UpdateSyncronous,
+        UpdateAsynchronous
     }
-	
+
 	public sealed class SystemManager {
 		private EntityWorld world;
         private Dictionary<Type, List<EntitySystem>> systems = new Dictionary<Type, List<EntitySystem>>();
@@ -41,9 +43,9 @@ namespace Artemis
                 systems[typeof(T)].Add((EntitySystem)system);
             }
 
-			
-			if(execType == ExecutionType.Draw) {
 
+            if (execType == ExecutionType.DrawSyncronous || execType == ExecutionType.DrawAsynchronous)
+            {
                 if (!Drawlayers.ContainsKey(layer))
                     Drawlayers[layer] = new Bag<EntitySystem>();
 
@@ -55,8 +57,9 @@ namespace Artemis
 				if(!drawBag.Contains((EntitySystem)system))
 					drawBag.Add((EntitySystem)system);
 				Drawlayers = (from d in Drawlayers orderby d.Key ascending select d).ToDictionary(pair => pair.Key, pair => pair.Value);
-			} else if(execType == ExecutionType.Update) {
-
+            }
+            else if (execType == ExecutionType.UpdateSyncronous || execType == ExecutionType.UpdateAsynchronous)
+            {
                 if (!Updatelayers.ContainsKey(layer))
                     Updatelayers[layer] = new Bag<EntitySystem>();                
 
@@ -97,7 +100,7 @@ namespace Artemis
 		/**
 		 * After adding all systems to the world, you must initialize them all.
 		 */
-		public void InitializeAll(bool processAttributes = true) {
+		internal void InitializeAll(bool processAttributes) {
 
             if(processAttributes)
             {
@@ -147,7 +150,7 @@ namespace Artemis
                     if (create == null)
                         create = CreateInstance;
 
-                    Pool<ComponentPoolable> pool = new Pool<ComponentPoolable>(PropertyComponentPool.InitialSize, PropertyComponentPool.Resizes, create);
+                    ComponentPool<ComponentPoolable> pool = new ComponentPool<ComponentPoolable>(PropertyComponentPool.InitialSize, PropertyComponentPool.Resizes, create);
                     world.SetPool(type, pool);
                 }
             }
@@ -166,22 +169,8 @@ namespace Artemis
                 temp.Get(i).Process();
             }             
         }
-		
-		public void UpdateSynchronous(ExecutionType execType )
-        {            
-			if(execType == ExecutionType.Draw) {
 
-                foreach (int item in Drawlayers.Keys)                
-                {
-                    UpdatebagSync(Drawlayers[item]);
-                } 				
-			} else if(execType == ExecutionType.Update) {
-                foreach (int item in Updatelayers.Keys)
-                {
-                    UpdatebagSync(Updatelayers[item]);
-                } 
-			}	
-        }
+      
 
 #if FULLDOTNET
         TaskFactory factory = new TaskFactory(TaskScheduler.Default);
@@ -215,16 +204,32 @@ namespace Artemis
             }
 #endif
         }
-        public void UpdateAsynchronous(ExecutionType execType )
+        internal void Update(ExecutionType execType )
         {
-            if (execType == ExecutionType.Draw)
+           
+            if (execType == ExecutionType.UpdateSyncronous)
+            {
+                foreach (int item in Updatelayers.Keys)
+                {
+                    UpdatebagSync(Updatelayers[item]);
+                }
+            }
+            else if (execType == ExecutionType.DrawSyncronous)
+            {
+
+                foreach (int item in Drawlayers.Keys)
+                {
+                    UpdatebagSync(Drawlayers[item]);
+                }
+            }
+            else if (execType == ExecutionType.DrawAsynchronous)
             {
                 foreach (int item in Drawlayers.Keys)
                 {
                     UpdatebagASSync(Drawlayers[item]);
                 }
             }
-            else if (execType == ExecutionType.Update)
+            else if (execType == ExecutionType.UpdateAsynchronous)
             {
                 foreach (int item in Updatelayers.Keys)
                 {

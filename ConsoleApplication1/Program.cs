@@ -15,8 +15,7 @@ namespace ConsoleApplication1
         {
             EntityWorld world = new EntityWorld();
             world.PoolCleanupDelay = 1;
-            SystemManager systemManager = world.SystemManager;            
-            systemManager.InitializeAll();
+            world.InitializeAll();
 
             Entity et = world.CreateEntity();
             et.AddComponentFromPool<Power>();
@@ -27,8 +26,7 @@ namespace ConsoleApplication1
 
             {
                 DateTime dt = DateTime.Now;
-                world.LoopStart();
-                systemManager.UpdateSynchronous(ExecutionType.Update);
+                world.Update(ExecutionType.UpdateSyncronous);
                 Console.WriteLine((DateTime.Now - dt).TotalMilliseconds);
             }
 
@@ -37,8 +35,7 @@ namespace ConsoleApplication1
 
             {
                 DateTime dt = DateTime.Now;
-                world.LoopStart();
-                systemManager.UpdateSynchronous(ExecutionType.Update);
+                world.Update(ExecutionType.UpdateSyncronous);
                 Console.WriteLine((DateTime.Now - dt).TotalMilliseconds);
             }
 
