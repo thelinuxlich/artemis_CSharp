@@ -12,7 +12,7 @@ namespace Artemis
 		private Dictionary<String,Stack<int>> cached = new Dictionary<String, Stack<int>>();
         private Dictionary<String, IEntityTemplate> entityTemplates = new Dictionary<String, IEntityTemplate>();
 		private int delta;
-        private Dictionary<Type, Pool<Component>> pools = new Dictionary<Type, Pool<Component>>();
+        private Dictionary<Type, Pool<ComponentPoolable>> pools = new Dictionary<Type, Pool<ComponentPoolable>>();
         private int poolCleanupDelay = 10;
         private int poolCleanupDelayCounter = 0;
 
@@ -83,15 +83,15 @@ namespace Artemis
 		public Entity CreateEntity() {
 			return entityManager.Create();
 		}
-        
-        public void SetPool(Type type, Pool<Component> pool)
+
+        public void SetPool(Type type, Pool<ComponentPoolable> pool)
         {
             System.Diagnostics.Debug.Assert(type != null);
             System.Diagnostics.Debug.Assert(pool != null);
             pools.Add(type, pool);
         }
 
-        public Pool<Component> GetPool(Type type)
+        public Pool<ComponentPoolable> GetPool(Type type)
         {
             System.Diagnostics.Debug.Assert(type != null);
             return pools[type];

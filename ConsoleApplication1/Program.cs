@@ -18,10 +18,9 @@ namespace ConsoleApplication1
             systemManager.InitializeAll();
 
             Entity et = world.CreateEntity();
-            et.AddComponent(new Health());
-            et.GetComponent<Health>().HP = 100;
+            et.AddComponentFromPool<Power>();
+            et.GetComponent<Power>().POWER = 100;
             et.Refresh();
-
 
             Entity et1 = world.CreateEntityFromTemplate("teste");
 

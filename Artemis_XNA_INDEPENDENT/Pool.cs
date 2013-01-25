@@ -10,7 +10,7 @@ namespace Artemis
     /// instances and minimizing the effects of garbage collection.
     /// </summary>
     /// <typeparam name="T">The type of object to store in the Pool. Pools can only hold class types.</typeparam>
-    public class Pool<T> where T : class
+    public class Pool<T> where T : ComponentPoolable
     {
         // the amount to enlarge the items array if New is called and there are no free items
         private const int resizeAmount = 20;
@@ -26,18 +26,7 @@ namespace Artemis
         private Dictionary<int, T> itemDic = new Dictionary<int, T>();
                 
         // used for allocating instances of the object
-        private readonly Func<T> allocate;
-
-        /// <summary>
-        /// Gets or sets a delegate used for initializing objects before returning them from the New method.
-        /// </summary>
-        public Action<T> Initialize { get; set; }
-
-        /// <summary>
-        /// Gets or sets a delegate that is run when an object is moved from being valid to invalid
-        /// in the CleanUp method.
-        /// </summary>
-        public Action<T> Deinitialize { get; set; }
+        private readonly Func<Type, T> allocate;
 
         /// <summary>
         /// Gets the number of valid objects in the pool.
@@ -74,7 +63,7 @@ namespace Artemis
         /// <param name="resizes">Whether or not the pool is allowed to increase its size as needed.</param>
         /// <param name="validateFunc">A predicate used to determine if a given object is still valid.</param>
         /// <param name="allocateFunc">A function used to allocate an instance for the pool.</param>
-        public Pool(int initialSize, bool resizes, Func<T> allocateFunc)
+        public Pool(int initialSize, bool resizes, Func<Type,T> allocateFunc)
         {
             // validate some parameters
             if (initialSize < 1)
@@ -120,9 +109,7 @@ namespace Artemis
                 }
 
                 // clean the object if desired
-                if (Deinitialize != null)
-                    Deinitialize(obj);
-
+                obj.Cleanup();
                 InvalidCount++;
             }
 
@@ -140,7 +127,7 @@ namespace Artemis
             {
                 // if we can't resize, then we can't give the user back any instance
                 if (!canResize)
-                    return null;
+                    return default(T);
 
                 //System.Diagnostics.Debug.WriteLine("Resizing pool. Old size: " + items.Length + ". New size: " + (items.Length + resizeAmount));
 
@@ -163,7 +150,7 @@ namespace Artemis
             // if the item is null, we need to allocate a new instance
             if (obj == null)
             {
-                obj = allocate();
+                obj = allocate(typeof(T));
 
                 if (obj == null)
                     throw new InvalidOperationException("The pool's allocate method returned a null object reference.");
@@ -172,8 +159,7 @@ namespace Artemis
             }
 
             // initialize the object if a delegate was provided
-            if (Initialize != null)
-                Initialize(obj);
+            obj.Initialize();
 
             return obj;
         }

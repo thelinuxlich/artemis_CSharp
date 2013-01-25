@@ -87,7 +87,13 @@ namespace Artemis
 		public Bag<EntitySystem> Systems {
 			get { return mergedBag;}
 		}
-		
+
+        private static ComponentPoolable CreateInstance(Type type) 
+        {
+            return (ComponentPoolable) Activator.CreateInstance(type);
+        }
+
+
 		/**
 		 * After adding all systems to the world, you must initialize them all.
 		 */
@@ -110,10 +116,9 @@ namespace Artemis
                     var instance = (IEntityTemplate)Activator.CreateInstance(type);
                     this.world.SetEntityTemplate(pee.Name, instance);
                 }
-                else if (typeof(Component).IsAssignableFrom(item.Key))
+                else if (typeof(ComponentPoolable).IsAssignableFrom(item.Key))
                 {
-                    PropertyComponentPool PropertyComponentPool = null;
-                    
+                    PropertyComponentPool PropertyComponentPool = null;                   
 
                     foreach (var val in item.Value)
                     {
@@ -123,10 +128,8 @@ namespace Artemis
                     
                     var type = item.Key;
                     var methods = type.GetMethods();
-
-                    Func<Component> create = null;
-                    Action<Component> cleanup = null;
-                    Action<Component> initialize = null;
+                    
+                    Func<Type,ComponentPoolable> create = null;
                     foreach (var meth in methods)
                     {
                         var attributes = meth.GetCustomAttributes(false);
@@ -134,28 +137,17 @@ namespace Artemis
                         {
                             if (att is PropertyComponentCreate)
                             {
-                                create = (Func<Component>)Delegate.CreateDelegate(typeof(Func<Component>), meth);                                
-                            }
-
-                            if (att is PropertyComponentCleanup)
-                            {
-                                cleanup = (Action<Component>)Delegate.CreateDelegate(typeof(Action<Component>), meth);
-                            }
-
-                            if (att is PropertyComponentInitialize)
-                            {
-                                initialize = (Action<Component>)Delegate.CreateDelegate(typeof(Action<Component>), meth);
+                                create = (Func<Type,ComponentPoolable>)Delegate.CreateDelegate(typeof(Func<Type,ComponentPoolable>), meth);                                
                             }
                         }
                     }
 
-                    Pool<Component> pool = new Pool<Component>(PropertyComponentPool.InitialSize, PropertyComponentPool.Resizes, create);
-                    pool.Deinitialize = cleanup;
-                    pool.Initialize = initialize;
+                    if (create == null)
+                        create = CreateInstance;
+
+                    Pool<ComponentPoolable> pool = new Pool<ComponentPoolable>(PropertyComponentPool.InitialSize, PropertyComponentPool.Resizes, create);                    
                     world.SetPool(type, pool);
                 }
-
-
             }
 
 		   for (int i = 0, j = mergedBag.Size; i < j; i++) {

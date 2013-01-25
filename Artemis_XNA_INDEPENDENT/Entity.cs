@@ -135,6 +135,11 @@ namespace Artemis
 			entityManager.AddComponent(this, component);
 		}
 
+        public void AddComponentFromPool<T>() where T : ComponentPoolable
+        {            
+            entityManager.AddComponent(this, world.GetComponentFromPool(typeof(T)));
+        }
+
 		public void AddComponent<T>(Component component) where T : Component
 		{
 			System.Diagnostics.Debug.Assert(component != null);

@@ -8,25 +8,28 @@ using Artemis.Attributes;
 namespace ConsoleApplication1
 {
     [PropertyComponentPool(InitialSize=10,Resizes=false)]
-    public class Power : Component
+    public class Power : ComponentPoolable
     {
         public int POWER;
 
         [PropertyComponentCreate]
-        public static Power CreateInstance()
+        public static Power CreateInstance(Type type)
         {
             return new Power();            
         }
 
-        [PropertyComponentInitialize]
-        public static void Initialize(Component Power)
+
+
+        #region ComponentPoolable Members
+
+        public void Initialize()
+        {            
+        }
+
+        public void Cleanup()
         {
         }
 
-        [PropertyComponentCleanup]
-        public static void Cleanup(Component Power)
-        {
-        }
-
+        #endregion
     }
 }

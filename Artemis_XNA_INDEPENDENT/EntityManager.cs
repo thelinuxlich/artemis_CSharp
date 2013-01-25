@@ -57,7 +57,7 @@ namespace Artemis
             var pool = this.world.GetPool(c.GetType());
             if (pool != null)
             {
-                pool.ReturnObject(c);
+                pool.ReturnObject(c as ComponentPoolable);
             }
         }
 
