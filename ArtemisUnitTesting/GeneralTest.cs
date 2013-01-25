@@ -298,7 +298,7 @@ namespace ArtemisTest
                 world.Update(ExecutionType.UpdateSyncronous);
             }
 
-            et.RemoveComponent<Power>();
+            et.RemoveComponent<Power2>();
             et.Refresh();
 
             {
@@ -308,7 +308,6 @@ namespace ArtemisTest
             et.AddComponentFromPool<Power2>();
             et.GetComponent<Power2>().POWER = 100;
             et.Refresh();
-
 
             world.Update(ExecutionType.UpdateSyncronous);
         }
