@@ -5,17 +5,17 @@ using System.Text;
 using Artemis;
 using Artemis.Attributes;
 
-namespace ConsoleApplication1
+namespace ArtemisTest
 {
     [ArtemisComponentPool(InitialSize=10,Resizes=false)]
-    public class Power : ComponentPoolable
+    public class Power2 : ComponentPoolable
     {
         public int POWER;
 
         [ArtemisComponentCreate]
-        public static Power CreateInstance(Type type)
+        public static Power2 CreateInstance(Type type)
         {
-            return new Power();            
+            return new Power2();            
         }
 
         #region ComponentPoolable Members

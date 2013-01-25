@@ -119,19 +119,14 @@
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\Bag.cs">
       <Link>Bag.cs</Link>
     </Compile>
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\FastMath.cs">
-      <Link>FastMath.cs</Link>
-    </Compile>
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\Timer.cs">
-      <Link>Timer.cs</Link>
-    </Compile>
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\TrigLUT.cs">
-      <Link>TrigLUT.cs</Link>
-    </Compile>
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\Utils.cs">
-      <Link>Utils.cs</Link>
-    </Compile>
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Aspect.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\IEntityTemplate.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\AttributesProcessor.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\ArtemisComponentCreate.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\ArtemisComponentPool.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\ArtemisEntitySystem.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\ArtemisEntityTemplate.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\ComponentPoolable.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\ComponentPool.cs" />
   </ItemGroup>
 </Project>

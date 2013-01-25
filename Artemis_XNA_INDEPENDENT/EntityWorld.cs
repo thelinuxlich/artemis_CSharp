@@ -97,7 +97,17 @@ namespace Artemis
             return pools[type];
         }
 
-        public void InitializeAll(bool processAttributes = true)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="processAttributes"></param>
+        public void InitializeAll(
+#if FULLDOTNET
+            bool processAttributes = true
+#else
+            bool processAttributes = false
+#endif
+            )
         {
             systemManager.InitializeAll(processAttributes);
         }

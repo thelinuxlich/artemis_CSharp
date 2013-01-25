@@ -10,10 +10,10 @@ using ConsoleApplication1;
 namespace ArtemisTest
 {
     [ArtemisEntitySystem(ExecutionType = ExecutionType.UpdateSyncronous, Layer = 0)]
-    public class SecondMostSimpleSystemEver : EntityProcessingSystem
-    {        
-        public SecondMostSimpleSystemEver()
-            : base(Aspect.One(typeof(Power), typeof(Health)))
+    public class ThirdMostSimpleSystemEver : EntityProcessingSystem
+    {
+        public ThirdMostSimpleSystemEver()
+            : base(Aspect.One(typeof(Power2), typeof(Health)))
         {
         }
 
@@ -22,8 +22,8 @@ namespace ArtemisTest
             if(e.GetComponent<Health>()!=null)
                 e.GetComponent<Health>().AddDamage(10);
 
-            if (e.GetComponent<Power>() != null)
-                e.GetComponent<Power>().POWER -=10;
+            if (e.GetComponent<Power2>() != null)
+                e.GetComponent<Power2>().POWER -=10;
         }
 
         

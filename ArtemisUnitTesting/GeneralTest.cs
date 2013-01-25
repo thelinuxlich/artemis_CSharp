@@ -37,8 +37,7 @@ namespace ArtemisTest
             healthBag.Add(new Health());
             healthBag.Add(new Health());
             componentPool.Add(typeof(Health), healthBag);
-
-            Bag<Component> tempBag;
+                        
             EntityWorld world = new EntityWorld();
             SystemManager systemManager = world.SystemManager;
             world.EntityManager.RemovedComponentEvent += new RemovedComponentHandler(RemovedComponent);
@@ -46,7 +45,7 @@ namespace ArtemisTest
 
             EntitySystem hs = systemManager.SetSystem(new MultHealthBarRenderSystem(),ExecutionType.UpdateSyncronous);
             //EntitySystem hs = systemManager.SetSystem(new SingleHEAVYHealthBarRenderSystem(),ExecutionType.Update);
-            world.InitializeAll();
+            world.InitializeAll(false);
 
             List<Entity> l = new List<Entity>();
             for (int i = 0; i < 1000; i++)
@@ -85,8 +84,7 @@ namespace ArtemisTest
             healthBag.Add(new Health());
             healthBag.Add(new Health());
             componentPool.Add(typeof(Health), healthBag);
-
-            Bag<Component> tempBag;
+            
             EntityWorld world = new EntityWorld();
             SystemManager systemManager = world.SystemManager;
             world.EntityManager.RemovedComponentEvent += new RemovedComponentHandler(RemovedComponent);
@@ -95,7 +93,7 @@ namespace ArtemisTest
             hs = systemManager.SetSystem(new DummySystem(),ExecutionType.UpdateAsynchronous);
             hs = systemManager.SetSystem(new DummySystem2(), ExecutionType.UpdateAsynchronous);
             hs = systemManager.SetSystem(new DummySystem3(), ExecutionType.UpdateAsynchronous);
-            world.InitializeAll();
+            world.InitializeAll(false);
             
 
             List<Entity> l = new List<Entity>();
@@ -135,7 +133,7 @@ namespace ArtemisTest
         {
             EntityWorld world = new EntityWorld();
             SecondMostSimpleSystemEver DummyCommunicationSystem = new SecondMostSimpleSystemEver();
-            world.InitializeAll();            
+            world.InitializeAll(true);           
 
 
             Entity et = world.CreateEntity();
@@ -205,7 +203,7 @@ namespace ArtemisTest
             SystemManager systemManager = world.SystemManager;
             DummyCommunicationSystem DummyCommunicationSystem = new DummyCommunicationSystem();
             systemManager.SetSystem(DummyCommunicationSystem, ExecutionType.UpdateSyncronous);
-            world.InitializeAll();
+            world.InitializeAll(false);
 
             for (int i = 0; i < 100; i++)
             {
@@ -247,7 +245,7 @@ namespace ArtemisTest
             SystemManager systemManager = world.SystemManager;
             DummyCommunicationSystem DummyCommunicationSystem = new DummyCommunicationSystem();
             systemManager.SetSystem(DummyCommunicationSystem, ExecutionType.UpdateSyncronous);
-            world.InitializeAll();            
+            world.InitializeAll(false);            
 
             List<Entity> l = new List<Entity>();
             for (int i = 0; i < 100; i++)
@@ -293,7 +291,7 @@ namespace ArtemisTest
             QueueSystemTest2 QueueSystemTestteste = new ArtemisTest.QueueSystemTest2();
             systemManager.SetSystem(QueueSystemTestteste, ExecutionType.UpdateAsynchronous);
 
-            world.InitializeAll();
+            world.InitializeAll(false);
 
             QueueSystemTest.SetQueueProcessingLimit(20, QueueSystemTest.Id);
             Debug.Assert(QueueSystemTest.GetQueueProcessingLimit(QueueSystemTest.Id) == QueueSystemTest.GetQueueProcessingLimit(QueueSystemTest2.Id));
@@ -354,7 +352,7 @@ namespace ArtemisTest
             SystemManager systemManager = world.SystemManager;
             HybridQueueSystemTest HybridQueueSystemTest = new ArtemisTest.HybridQueueSystemTest();
             EntitySystem hs = systemManager.SetSystem(HybridQueueSystemTest, ExecutionType.UpdateSyncronous);
-            world.InitializeAll();
+            world.InitializeAll(false);
 
             List<Entity> l = new List<Entity>();
             for (int i = 0; i < 100; i++)

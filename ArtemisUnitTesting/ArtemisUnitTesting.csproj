@@ -54,12 +54,15 @@
     <Compile Include="DummySystem.cs" />
     <Compile Include="DummySystem2.cs" />
     <Compile Include="DummySystem3.cs" />
+    <Compile Include="EntTemplate.cs" />
     <Compile Include="Health.cs" />
     <Compile Include="HybridQueueSystemTest.cs" />
     <Compile Include="MostSimpleSystemEver.cs" />
     <Compile Include="MultHealthBarRenderSystem.cs" />
     <Compile Include="PerformanceTests.cs" />
     <Compile Include="Power.cs" />
+    <Compile Include="Power2.cs" />
+    <Compile Include="AttributesTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueueSystemTest.cs" />
     <Compile Include="QueueSystemTest2.cs" />
@@ -67,6 +70,7 @@
     <Compile Include="SingleHealthBarRenderSystem.cs" />
     <Compile Include="SingleHEAVYHealthBarRenderSystem.cs" />
     <Compile Include="GeneralTest.cs" />
+    <Compile Include="ThirdMostSimpleSystemEver.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Artemis_XNA_INDEPENDENT\Artemis.csproj">
