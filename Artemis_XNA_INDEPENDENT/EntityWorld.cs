@@ -135,7 +135,6 @@ namespace Artemis
         public void LoopStart()
         {
             poolCleanupDelayCounter++;
-			Aspect.ClearEntitiesCache();
             if (poolCleanupDelayCounter > PoolCleanupDelay)
             {
                 poolCleanupDelayCounter = 0;
