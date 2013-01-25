@@ -47,6 +47,7 @@ namespace Artemis
         {
             System.Diagnostics.Debug.Assert(aspect != null);
             this.aspect = aspect;
+			aspect.FinishBuild();
 		}
         
 		

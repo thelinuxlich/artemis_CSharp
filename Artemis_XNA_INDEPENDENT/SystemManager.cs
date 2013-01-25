@@ -153,6 +153,7 @@ namespace Artemis
 		   for (int i = 0, j = mergedBag.Size; i < j; i++) {
 		      mergedBag.Get(i).Initialize();
 		   }
+			Aspect.FinishBuildAll();
 		}
 
 

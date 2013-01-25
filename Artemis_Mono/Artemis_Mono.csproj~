@@ -36,16 +36,16 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Compile Include="..\Artemis_XNA_INDEPENDENT\BlackBoard\BlackBoard.cs">
-      <Link>BlackBoard\BlackBoard.cs</Link>
+      <Link>BlackBoard.cs</Link>
     </Compile>
     <Compile Include="..\Artemis_XNA_INDEPENDENT\BlackBoard\SimpleTrigger.cs">
-      <Link>BlackBoard\SimpleTrigger.cs</Link>
+      <Link>SimpleTrigger.cs</Link>
     </Compile>
     <Compile Include="..\Artemis_XNA_INDEPENDENT\BlackBoard\Trigger.cs">
-      <Link>BlackBoard\Trigger.cs</Link>
+      <Link>Trigger.cs</Link>
     </Compile>
     <Compile Include="..\Artemis_XNA_INDEPENDENT\BlackBoard\TriggerMultiCondition.cs">
-      <Link>BlackBoard\TriggerMultiCondition.cs</Link>
+      <Link>TriggerMultiCondition.cs</Link>
     </Compile>
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Component.cs">
       <Link>Component.cs</Link>
@@ -117,38 +117,21 @@
       <Link>TagSystem.cs</Link>
     </Compile>
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\Bag.cs">
-      <Link>Utils\Bag.cs</Link>
+      <Link>Bag.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\FastMath.cs">
+      <Link>FastMath.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\Timer.cs">
+      <Link>Timer.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\TrigLUT.cs">
+      <Link>TrigLUT.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\Utils.cs">
+      <Link>Utils.cs</Link>
     </Compile>
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Aspect.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\IEntityTemplate.cs" />
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\ComponentPoolable.cs">
-      <Link>ComponentPoolable.cs</Link>
-    </Compile>
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\Pool.cs">
-      <Link>Pool.cs</Link>
-    </Compile>
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\AttributeComponentCreate.cs">
-      <Link>Attributes\AttributeComponentCreate.cs</Link>
-    </Compile>
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\AttributeComponentPool.cs">
-      <Link>Attributes\AttributeComponentPool.cs</Link>
-    </Compile>
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\AttributeEntitySystem.cs">
-      <Link>Attributes\AttributeEntitySystem.cs</Link>
-    </Compile>
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\AttributeEntityTemplate.cs">
-      <Link>Attributes\AttributeEntityTemplate.cs</Link>
-    </Compile>
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\AttributesProcessor.cs">
-      <Link>Attributes\AttributesProcessor.cs</Link>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\Artemis_XNA_INDEPENDENT\LICENSE.txt">
-      <Link>LICENSE.txt</Link>
-    </None>
-    <None Include="..\Artemis_XNA_INDEPENDENT\README">
-      <Link>README</Link>
-    </None>
   </ItemGroup>
 </Project>
