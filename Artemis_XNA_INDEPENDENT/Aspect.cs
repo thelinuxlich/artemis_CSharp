@@ -57,9 +57,11 @@ namespace Artemis
 					Aspect b = aspectsCache.Get(j);
 					if(a.Id != b.Id && (a.containsTypesMap & b.containsTypesMap) == a.containsTypesMap && a.containsTypesMap > b.containsTypesMap) {
 						a.referenceContainsType = b.Id;
-					} else if(a.Id != b.Id && (a.excludeTypesMap & b.excludeTypesMap) == a.excludeTypesMap && a.excludeTypesMap > b.excludeTypesMap) {
+					}
+					if(a.Id != b.Id && (a.excludeTypesMap & b.excludeTypesMap) == a.excludeTypesMap && a.excludeTypesMap > b.excludeTypesMap) {
 						a.referenceExcludeType = b.Id;
-					} else if(a.Id != b.Id && a.referenceOneType == -1 && a.oneTypesMap == b.oneTypesMap) {
+					}
+					if(a.Id != b.Id && a.referenceOneType == -1 && a.oneTypesMap == b.oneTypesMap) {
 						a.referenceOneType = b.Id;
 					}
 				}
