@@ -10,16 +10,17 @@ namespace Artemis.Attributes
     {
         public static readonly List<Type> SupportedAttributes = new List<Type>()
         {
-        typeof(PropertyEntitySystem),typeof(PropertyEntityTemplate)
+        typeof(PropertyEntitySystem),typeof(PropertyEntityTemplate),typeof(PropertyComponentPool), typeof(PropertyComponentCleanup), typeof(PropertyComponentCreate)
         }
         ;
 
-        public static IDictionary<Type, Attribute> Process(List<Type> supportedAttributes)
+        public static IDictionary<Type, List<Attribute>> Process(List<Type> supportedAttributes)
         {
-            IDictionary<Type, Attribute> attTypes = new Dictionary<Type, Attribute>();
+            IDictionary<Type, List<Attribute>> attTypes = new Dictionary<Type, List<Attribute>>();
 
             var loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies();
             foreach (var item in loadedAssemblies)
+            //var item = loadedAssemblies[15];
             {
                 var types = item.GetTypes();
                 foreach (var type in types)
@@ -27,13 +28,13 @@ namespace Artemis.Attributes
                     var attributes = type.GetCustomAttributes(false);
                     foreach (var att in attributes)
                     {
-                        if (supportedAttributes.Contains(attributes.GetType()))
+                        if (supportedAttributes.Contains(att.GetType()))
                         {
-                            if (attTypes[type] != null)
+                            if (!attTypes.ContainsKey(type) )
                             {
-                                throw new Exception("Type " + type.ToString() + "Cannot have more than one attribute ");
+                                attTypes[type] = new List<Attribute>();
                             }
-                            attTypes[type] = (Attribute)att;
+                            attTypes[type].Add((Attribute)att);
                         }
                     }
                 }

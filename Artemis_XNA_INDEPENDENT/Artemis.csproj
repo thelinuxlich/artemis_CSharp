@@ -56,6 +56,9 @@
   <ItemGroup>
     <Compile Include="Aspect.cs" />
     <Compile Include="Attributes\AttributesProcessor.cs" />
+    <Compile Include="Attributes\PropertyComponentInitialize.cs" />
+    <Compile Include="Attributes\PropertyComponentCleanup.cs" />
+    <Compile Include="Attributes\PropertyComponentCreate.cs" />
     <Compile Include="Attributes\PropertyComponentPool.cs" />
     <Compile Include="Attributes\PropertyEntitySystem.cs" />
     <Compile Include="Attributes\PropertyEntityTemplate.cs" />

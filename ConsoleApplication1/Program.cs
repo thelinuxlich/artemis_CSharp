@@ -14,17 +14,16 @@ namespace ConsoleApplication1
         static void Main(string[] args)
         {
             EntityWorld world = new EntityWorld();
-            SystemManager systemManager = world.SystemManager;
+            SystemManager systemManager = world.SystemManager;            
             systemManager.InitializeAll();
-
 
             Entity et = world.CreateEntity();
             et.AddComponent(new Health());
             et.GetComponent<Health>().HP = 100;
             et.Refresh();
 
-            Entity et1 = world.CreateEntityFromTemplate("teste");
 
+            Entity et1 = world.CreateEntityFromTemplate("teste");
 
             {
                 DateTime dt = DateTime.Now;

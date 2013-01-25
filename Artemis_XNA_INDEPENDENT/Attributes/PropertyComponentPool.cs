@@ -8,11 +8,10 @@ namespace Artemis.Attributes
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
     public sealed class PropertyComponentPool : Attribute
     {
-        public PropertyComponentPool(Func<Component> AllocateComponent)
+        public PropertyComponentPool()
         {
             InitialSize = 10;
-            Resizes = false;
-            this.AllocateComponent = AllocateComponent;
+            Resizes = false;            
         }
 
         /// <summary>
@@ -24,22 +23,6 @@ namespace Artemis.Attributes
             get;
             set;
         }
-
-        public  Func<Component> AllocateComponent
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// Called when the object if found in the pool
-        /// </summary>
-        public Action<Component> Initialize { get; set; }
-
-        /// <summary>
-        /// Called when the object is cleaned and returned to the pool
-        /// </summary>
-        public Action<Component> Deinitialize { get; set; }
 
         /// <summary>
         /// If the pool can be resized

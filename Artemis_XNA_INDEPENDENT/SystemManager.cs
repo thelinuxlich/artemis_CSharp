@@ -96,29 +96,65 @@ namespace Artemis
             var types = AttributesProcessor.Process(AttributesProcessor.SupportedAttributes);
             foreach (var item in types)
             {
-                if(item.Key == typeof(EntitySystem))
+                if (typeof(EntitySystem).IsAssignableFrom(item.Key))
                 {
                     var type = item.Key;
-                    PropertyEntitySystem pee = (PropertyEntitySystem) item.Value;
-                    var instance = Activator.CreateInstance<EntitySystem>();
+                    PropertyEntitySystem pee = (PropertyEntitySystem) item.Value[0];
+                    var instance = (EntitySystem)Activator.CreateInstance(type);
                     this.SetSystem<EntitySystem>(instance, pee.ExecutionType, pee.Layer);                
                 }
-                else if (item.Key == typeof(IEntityTemplate))
+                else if (typeof(IEntityTemplate).IsAssignableFrom(item.Key))
                 {
                     var type = item.Key;
-                    PropertyEntityTemplate pee = (PropertyEntityTemplate)item.Value;
-                    var instance = Activator.CreateInstance<IEntityTemplate>();
+                    PropertyEntityTemplate pee = (PropertyEntityTemplate)item.Value[0];
+                    var instance = (IEntityTemplate)Activator.CreateInstance(type);
                     this.world.SetEntityTemplate(pee.Name, instance);
                 }
-                else if (item.Key == typeof(Component))
+                else if (typeof(Component).IsAssignableFrom(item.Key))
                 {
+                    PropertyComponentPool PropertyComponentPool = null;
+                    
+
+                    foreach (var val in item.Value)
+                    {
+                        if (val is PropertyComponentPool)
+                            PropertyComponentPool = (PropertyComponentPool)val;                        
+                    }
+                    
                     var type = item.Key;
-                    PropertyComponentPool pee = (PropertyComponentPool)item.Value;                    
-                    Pool<Component> pool = new Pool<Component>(pee.InitialSize,pee.Resizes,pee.AllocateComponent);
-                    pool.Deinitialize = pee.Deinitialize;
-                    pool.Initialize = pee.Initialize;
+                    var methods = type.GetMethods();
+
+                    Func<Component> create = null;
+                    Action<Component> cleanup = null;
+                    Action<Component> initialize = null;
+                    foreach (var meth in methods)
+                    {
+                        var attributes = meth.GetCustomAttributes(false);
+                        foreach (var att in attributes)
+                        {
+                            if (att is PropertyComponentCreate)
+                            {
+                                create = (Func<Component>)Delegate.CreateDelegate(typeof(Func<Component>), meth);                                
+                            }
+
+                            if (att is PropertyComponentCleanup)
+                            {
+                                cleanup = (Action<Component>)Delegate.CreateDelegate(typeof(Action<Component>), meth);
+                            }
+
+                            if (att is PropertyComponentInitialize)
+                            {
+                                initialize = (Action<Component>)Delegate.CreateDelegate(typeof(Action<Component>), meth);
+                            }
+                        }
+                    }
+
+                    Pool<Component> pool = new Pool<Component>(PropertyComponentPool.InitialSize, PropertyComponentPool.Resizes, create);
+                    pool.Deinitialize = cleanup;
+                    pool.Initialize = initialize;
                     world.SetPool(type, pool);
                 }
+
 
             }
 
