@@ -131,8 +131,7 @@ namespace ArtemisTest
         [TestMethod]
         public void SecondMostSimpleSystemEverTest()
         {
-            EntityWorld world = new EntityWorld();
-            SecondMostSimpleSystemEver DummyCommunicationSystem = new SecondMostSimpleSystemEver();
+            EntityWorld world = new EntityWorld();            
             world.InitializeAll(true);           
 
 
@@ -147,13 +146,13 @@ namespace ArtemisTest
             et1.Refresh();
 
 
-            {
-                DateTime dt = DateTime.Now;
-                world.Update();
-                Console.WriteLine((DateTime.Now - dt).TotalMilliseconds);
+            {                
+                world.Update();                
             }
 
-            Debug.Assert(et.GetComponent<Health>().HP == 90);           
+            ///two systems runnning
+            ///each remove 10 HP
+            Debug.Assert(et.GetComponent<Health>().HP == 80);           
             Debug.Assert(et1.GetComponent<Power>().POWER == 90);
 
         }
