@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 #if FULLDOTNET
 using System.Threading.Tasks;
+using Artemis.Attributes;
 #else
 using ParallelTasks;
 #endif
@@ -91,6 +92,36 @@ namespace Artemis
 		 * After adding all systems to the world, you must initialize them all.
 		 */
 		public void InitializeAll() {
+
+            var types = AttributesProcessor.Process(AttributesProcessor.SupportedAttributes);
+            foreach (var item in types)
+            {
+                if(item.Key == typeof(EntitySystem))
+                {
+                    var type = item.Key;
+                    PropertyEntitySystem pee = (PropertyEntitySystem) item.Value;
+                    var instance = Activator.CreateInstance<EntitySystem>();
+                    this.SetSystem<EntitySystem>(instance, pee.ExecutionType, pee.Layer);                
+                }
+                else if (item.Key == typeof(IEntityTemplate))
+                {
+                    var type = item.Key;
+                    PropertyEntityTemplate pee = (PropertyEntityTemplate)item.Value;
+                    var instance = Activator.CreateInstance<IEntityTemplate>();
+                    this.world.SetEntityTemplate(pee.Name, instance);
+                }
+                else if (item.Key == typeof(Component))
+                {
+                    var type = item.Key;
+                    PropertyComponentPool pee = (PropertyComponentPool)item.Value;                    
+                    Pool<Component> pool = new Pool<Component>(pee.InitialSize,pee.Resizes,pee.AllocateComponent);
+                    pool.Deinitialize = pee.Deinitialize;
+                    pool.Initialize = pee.Initialize;
+                    world.SetPool(type, pool);
+                }
+
+            }
+
 		   for (int i = 0, j = mergedBag.Size; i < j; i++) {
 		      mergedBag.Get(i).Initialize();
 		   }

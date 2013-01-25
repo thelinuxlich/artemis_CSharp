@@ -12,7 +12,19 @@ namespace Artemis
 		private Dictionary<String,Stack<int>> cached = new Dictionary<String, Stack<int>>();
         private Dictionary<String, IEntityTemplate> entityTemplates = new Dictionary<String, IEntityTemplate>();
 		private int delta;
-		
+        private Dictionary<Type, Pool<Component>> pools = new Dictionary<Type, Pool<Component>>();
+        private int poolCleanupDelay = 10;
+        private int poolCleanupDelayCounter = 0;
+
+        /// <summary>
+        /// Interval in FrameUpdates between pools cleanup
+        /// </summary>
+        public int PoolCleanupDelay
+        {
+            get;
+            set;
+        }
+
 		public EntityWorld() {
 			entityManager = new EntityManager(this);
 			systemManager = new SystemManager(this);
@@ -71,13 +83,37 @@ namespace Artemis
 		public Entity CreateEntity() {
 			return entityManager.Create();
 		}
+        
+        public void SetPool(Type type, Pool<Component> pool)
+        {
+            System.Diagnostics.Debug.Assert(type != null);
+            System.Diagnostics.Debug.Assert(pool != null);
+            pools.Add(type, pool);
+        }
+
+        public Pool<Component> GetPool(Type type)
+        {
+            System.Diagnostics.Debug.Assert(type != null);
+            return pools[type];
+        }
+
+        public Component GetComponentFromPool(Type type)
+        {
+            System.Diagnostics.Debug.Assert(type != null);
+            if (!pools.ContainsKey(type))
+                throw new Exception("There is no pool for the type " + type);
+
+            return pools[type].New();
+        }
         		
 		public Entity CreateEntityFromTemplate(string entityTemplateTag, params object[] templateArgs) {
             System.Diagnostics.Debug.Assert(!String.IsNullOrEmpty(entityTemplateTag));
 			Entity e = entityManager.Create();  
             IEntityTemplate entityTemplate;
             entityTemplates.TryGetValue(entityTemplateTag, out entityTemplate);
-            return entityTemplate.BuildEntity(e, templateArgs);       
+            if (entityTemplate == null)
+                throw new Exception("EntityTemplate for the tag " + entityTemplateTag + " was not registered");
+            return entityTemplate.BuildEntity(e, this, templateArgs);       
 		}
 
         public void SetEntityTemplate(string entityTag, IEntityTemplate entityTemplate)
@@ -98,6 +134,16 @@ namespace Artemis
 
         public void LoopStart()
         {
+            poolCleanupDelayCounter++;
+            if (poolCleanupDelayCounter > PoolCleanupDelay)
+            {
+                poolCleanupDelayCounter = 0;
+                foreach (var item in pools.Keys)
+                {
+                    pools[item].CleanUp();
+                }
+            }
+
             if (!deleted.IsEmpty)
             {
                 for (int i = 0, j = deleted.Size; j > i; i++)

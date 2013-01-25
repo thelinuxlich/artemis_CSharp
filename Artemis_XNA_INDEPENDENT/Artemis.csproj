@@ -55,6 +55,10 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Compile Include="Aspect.cs" />
+    <Compile Include="Attributes\AttributesProcessor.cs" />
+    <Compile Include="Attributes\PropertyComponentPool.cs" />
+    <Compile Include="Attributes\PropertyEntitySystem.cs" />
+    <Compile Include="Attributes\PropertyEntityTemplate.cs" />
     <Compile Include="BlackBoard\BlackBoard.cs" />
     <Compile Include="BlackBoard\SimpleTrigger.cs" />
     <Compile Include="BlackBoard\Trigger.cs" />
@@ -75,6 +79,7 @@
     <Compile Include="IntervalEntityProcessingSystem.cs" />
     <Compile Include="IntervalEntitySystem.cs" />
     <Compile Include="ParallelEntityProcessingSystem.cs" />
+    <Compile Include="Pool.cs" />
     <Compile Include="QueueSystemProcessing.cs" />
     <Compile Include="QueueSystemProcessingThreadSafe.cs" />
     <Compile Include="SystemBitManager.cs" />

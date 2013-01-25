@@ -69,7 +69,7 @@ namespace Artemis
         {
         }
 
-        public override void Added(Entity e)
+        public override void OnAdded(Entity e)
         {
         }
     }

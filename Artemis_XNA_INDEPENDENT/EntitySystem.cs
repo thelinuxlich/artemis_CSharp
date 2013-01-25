@@ -110,7 +110,7 @@ namespace Artemis
             System.Diagnostics.Debug.Assert(e != null);
 			bool contains = (systemBit & e.SystemBits) == systemBit;
 			//bool interest = (typeFlags & e.TypeBits) == typeFlags;
-            bool interest = aspect.Interest(e);
+            bool interest = aspect.Interests(e);
 	
 			if (interest && !contains ) {
 				Add(e);
@@ -125,7 +125,7 @@ namespace Artemis
 
         protected bool Interests(Entity e)
         {
-            return aspect.Interest(e);
+            return aspect.Interests(e);
         }
 		
 		protected void Add(Entity e) {

@@ -76,7 +76,7 @@ namespace Artemis
         /// </summary>
         /// <param name="e"></param>
         /// <returns></returns>
-        public virtual bool Interest(Entity e)
+        public virtual bool Interests(Entity e)
         {
             if (!(containsTypesMap > 0 || excludeTypesMap > 0 || oneTypesMap > 0))
                 return false;

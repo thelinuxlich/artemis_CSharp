@@ -19,6 +19,19 @@ namespace Artemis
 		private int count;
 		private long totalCreated;
 		private long totalRemoved;
+        private int removedEntitiesRetention = 100;
+
+        public int RemovedEntitiesRetention
+        {
+            get
+            {
+                return removedEntitiesRetention;
+            }
+            set
+            {
+                this.removedEntitiesRetention = value;
+            }
+        }
 
 		public event RemovedComponentHandler RemovedComponentEvent;
 
@@ -36,7 +49,17 @@ namespace Artemis
 		{
 			System.Diagnostics.Debug.Assert(world != null);
 			this.world = world;
+            this.RemovedComponentEvent += EntityManager_RemovedComponentEvent;
 		}
+
+        void EntityManager_RemovedComponentEvent(Entity e, Component c)
+        {
+            var pool = this.world.GetPool(c.GetType());
+            if (pool != null)
+            {
+                pool.ReturnObject(c);
+            }
+        }
 
 		/// <summary>
 		/// Create a new, "blank" entity
@@ -82,7 +105,11 @@ namespace Artemis
 			count--;
 			totalRemoved++;
 
-			removedAndAvailable.Add(e);
+            if (removedAndAvailable.Size < removedEntitiesRetention)
+            {
+                removedAndAvailable.Add(e);
+            }
+
 			if (RemovedEntityEvent != null)
 			{
 				RemovedEntityEvent(e);
@@ -270,9 +297,9 @@ namespace Artemis
 		public Bag<Entity> GetEntities (Aspect aspect)
 		{
 			Bag<Entity> entitiesBag = new Bag<Entity> ();
-			for (int i = 0; i < activeEntities.Size(); i++) {
+			for (int i = 0; i < activeEntities.Size; i++) {
 				Entity e = activeEntities.Get(i);
-				if(aspect.interests(e)) {
+				if(aspect.Interests(e)) {
 					entitiesBag.Add(e);
 				}
 			}
