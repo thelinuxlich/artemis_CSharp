@@ -6,11 +6,11 @@ using System.Text;
 namespace Artemis.Attributes
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
-    public sealed class AttributeEntityTemplate : Attribute
+    public sealed class ArtemisEntityTemplate : Attribute
     {
         readonly string name;
      
-        public AttributeEntityTemplate(string name)
+        public ArtemisEntityTemplate(string name)
         {
             this.name = name;
 

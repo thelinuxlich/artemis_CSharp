@@ -6,9 +6,9 @@ using System.Text;
 namespace Artemis.Attributes
 {
     [AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
-    public sealed class AttributeComponentCreate: Attribute
+    public sealed class ArtemisComponentCreate: Attribute
     {
-        public AttributeComponentCreate()
+        public ArtemisComponentCreate()
         {            
         }        
     }

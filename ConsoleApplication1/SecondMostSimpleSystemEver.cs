@@ -9,7 +9,7 @@ using ConsoleApplication1;
 
 namespace ArtemisTest
 {
-    [AttributeEntitySystem(ExecutionType = ExecutionType.UpdateSyncronous, Layer = 0)]
+    [ArtemisEntitySystem(ExecutionType = ExecutionType.UpdateSyncronous, Layer = 0)]
     public class SecondMostSimpleSystemEver : EntityProcessingSystem
     {        
         public SecondMostSimpleSystemEver()

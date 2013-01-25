@@ -56,10 +56,10 @@
   <ItemGroup>
     <Compile Include="Aspect.cs" />
     <Compile Include="Attributes\AttributesProcessor.cs" />
-    <Compile Include="Attributes\AttributeComponentCreate.cs" />
-    <Compile Include="Attributes\AttributeComponentPool.cs" />
-    <Compile Include="Attributes\AttributeEntitySystem.cs" />
-    <Compile Include="Attributes\AttributeEntityTemplate.cs" />
+    <Compile Include="Attributes\ArtemisComponentCreate.cs" />
+    <Compile Include="Attributes\ArtemisComponentPool.cs" />
+    <Compile Include="Attributes\ArtemisEntitySystem.cs" />
+    <Compile Include="Attributes\ArtemisEntityTemplate.cs" />
     <Compile Include="BlackBoard\BlackBoard.cs" />
     <Compile Include="BlackBoard\SimpleTrigger.cs" />
     <Compile Include="BlackBoard\Trigger.cs" />

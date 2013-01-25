@@ -110,25 +110,25 @@ namespace Artemis
                 if (typeof(EntitySystem).IsAssignableFrom(item.Key))
                 {
                     var type = item.Key;
-                    AttributeEntitySystem pee = (AttributeEntitySystem)item.Value[0];
+                    ArtemisEntitySystem pee = (ArtemisEntitySystem)item.Value[0];
                     var instance = (EntitySystem)Activator.CreateInstance(type);
                     this.SetSystem<EntitySystem>(instance, pee.ExecutionType, pee.Layer);
                 }
                 else if (typeof(IEntityTemplate).IsAssignableFrom(item.Key))
                 {
                     var type = item.Key;
-                    AttributeEntityTemplate pee = (AttributeEntityTemplate)item.Value[0];
+                    ArtemisEntityTemplate pee = (ArtemisEntityTemplate)item.Value[0];
                     var instance = (IEntityTemplate)Activator.CreateInstance(type);
                     this.world.SetEntityTemplate(pee.Name, instance);
                 }
                 else if (typeof(ComponentPoolable).IsAssignableFrom(item.Key))
                 {
-                    AttributeComponentPool PropertyComponentPool = null;
+                    ArtemisComponentPool PropertyComponentPool = null;
 
                     foreach (var val in item.Value)
                     {
-                        if (val is AttributeComponentPool)
-                            PropertyComponentPool = (AttributeComponentPool)val;
+                        if (val is ArtemisComponentPool)
+                            PropertyComponentPool = (ArtemisComponentPool)val;
                     }
 
                     var type = item.Key;
@@ -140,7 +140,7 @@ namespace Artemis
                         var attributes = meth.GetCustomAttributes(false);
                         foreach (var att in attributes)
                         {
-                            if (att is AttributeComponentCreate)
+                            if (att is ArtemisComponentCreate)
                             {
                                 create = (Func<Type, ComponentPoolable>)Delegate.CreateDelegate(typeof(Func<Type, ComponentPoolable>), meth);
                             }

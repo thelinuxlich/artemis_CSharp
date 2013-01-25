@@ -7,12 +7,12 @@ using Artemis.Attributes;
 
 namespace ConsoleApplication1
 {
-    [AttributeComponentPool(InitialSize=10,Resizes=false)]
+    [ArtemisComponentPool(InitialSize=10,Resizes=false)]
     public class Power : ComponentPoolable
     {
         public int POWER;
 
-        [AttributeComponentCreate]
+        [ArtemisComponentCreate]
         public static Power CreateInstance(Type type)
         {
             return new Power();            

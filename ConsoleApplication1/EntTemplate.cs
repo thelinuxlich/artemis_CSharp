@@ -8,7 +8,7 @@ using ArtemisTest;
 
 namespace ConsoleApplication1
 {
-    [AttributeEntityTemplate("teste")]
+    [ArtemisEntityTemplate("teste")]
     public class EntTemplate : IEntityTemplate
     {
         public Entity BuildEntity(Entity et1, EntityWorld world , params object[] args)
