@@ -6,9 +6,9 @@ using System.Text;
 namespace Artemis.Attributes
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
-    public sealed class PropertyComponentPool : Attribute
+    public sealed class AttributeComponentPool : Attribute
     {
-        public PropertyComponentPool()
+        public AttributeComponentPool()
         {
             InitialSize = 10;
             Resizes = false;            

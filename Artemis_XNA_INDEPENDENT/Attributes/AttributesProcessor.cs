@@ -10,7 +10,7 @@ namespace Artemis.Attributes
     {
         public static readonly List<Type> SupportedAttributes = new List<Type>()
         {
-        typeof(PropertyEntitySystem),typeof(PropertyEntityTemplate),typeof(PropertyComponentPool), typeof(PropertyComponentCreate)
+        typeof(AttributeEntitySystem),typeof(AttributeEntityTemplate),typeof(AttributeComponentPool), typeof(AttributeComponentCreate)
         }
         ;
 

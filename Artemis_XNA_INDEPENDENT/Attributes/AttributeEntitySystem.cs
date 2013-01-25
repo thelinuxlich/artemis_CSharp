@@ -6,9 +6,9 @@ using System.Text;
 namespace Artemis.Attributes
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
-    public sealed class PropertyEntitySystem : Attribute
+    public sealed class AttributeEntitySystem : Attribute
     {
-        public PropertyEntitySystem()
+        public AttributeEntitySystem()
         {
             this.ExecutionType = Artemis.ExecutionType.Update;
             this.Layer = 0;
