@@ -2,6 +2,10 @@ using System;
 using System.Collections.Generic;
 namespace Artemis
 {
+    /// <summary>
+    /// Entity World Class
+    /// Main interface of the Entity System
+    /// </summary>
 	public sealed class EntityWorld {
 		private SystemManager systemManager;
 		private EntityManager entityManager;
@@ -11,7 +15,7 @@ namespace Artemis
         private Bag<Entity> deleted = new Bag<Entity>();        
 		private Dictionary<String,Stack<int>> cached = new Dictionary<String, Stack<int>>();
         private Dictionary<String, IEntityTemplate> entityTemplates = new Dictionary<String, IEntityTemplate>();
-		private int delta;
+		private float elapsedTime;
         private Dictionary<Type, ComponentPool<ComponentPoolable>> pools = new Dictionary<Type, ComponentPool<ComponentPoolable>>();        
         private int poolCleanupDelayCounter = 0;
 
@@ -52,9 +56,8 @@ namespace Artemis
 		 * Time since last game loop.
 		 * @return delta in milliseconds.
 		 */
-		public int Delta {
-			get { return delta; }
-			set { delta = value; }
+		public float ElapsedTime {
+			get { return elapsedTime; }			
 		}
 		
 		/**
@@ -146,9 +149,15 @@ namespace Artemis
 			return entityManager.GetEntity(entityId);
 		}
 
-
-        public void Update(ExecutionType executionType = ExecutionType.UpdateSyncronous)
+        /// <summary>
+        /// Updates the World
+        /// </summary>
+        /// <param name="executionType">Type of the execution.</param>
+        /// <param name="elapsedTime">The elapsed TIME in milliseconds.</param>
+        public void Update(float elapsedTime ,ExecutionType executionType = ExecutionType.UpdateSyncronous)
         {
+            this.elapsedTime = elapsedTime;
+
             poolCleanupDelayCounter++;
             if (poolCleanupDelayCounter > PoolCleanupDelay)
             {

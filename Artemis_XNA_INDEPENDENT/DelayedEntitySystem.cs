@@ -3,9 +3,9 @@ using System.Collections.Generic;
 namespace Artemis
 {
 	public abstract class DelayedEntitySystem : EntitySystem {
-		private int delay;
+		private float delay;
 		private bool running;
-		private int acc;
+		private float acc;
 	
 		public DelayedEntitySystem(params Type[] types) : base(types) {
 		}
@@ -24,7 +24,7 @@ namespace Artemis
         protected override bool CheckProcessing()
         {
 			if(running) {
-				acc += world.Delta;
+				acc += world.ElapsedTime;
 				
 				if(acc >= delay) {
 					return enabled;
@@ -37,7 +37,7 @@ namespace Artemis
 		 * The entities to process with accumulated delta.
 		 * @param entities read-only bag of entities.
 		 */
-        public abstract void ProcessEntities(Dictionary<int, Entity> entities, int accumulatedDelta);
+        public abstract void ProcessEntities(Dictionary<int, Entity> entities, float accumulatedDelta);
 		
 		
 		
@@ -49,7 +49,7 @@ namespace Artemis
 		 * 
 		 * @param delay time delay in milliseconds until processing starts.
 		 */
-		public void StartDelayedRun(int delay) {
+		public void StartDelayedRun(float delay) {
 			this.delay = delay;
 			acc = 0;
 			running = true;
@@ -60,11 +60,11 @@ namespace Artemis
 		 * 
 		 * @return the originally set delay.
 		 */
-		public int InitialTimeDelay {
+		public float InitialTimeDelay {
 			get { return delay;}
 		}
 		
-		public int GetRemainingTimeUntilProcessing() {
+		public float GetRemainingTimeUntilProcessing() {
 			if(running) {
 				return delay-acc;
 			}

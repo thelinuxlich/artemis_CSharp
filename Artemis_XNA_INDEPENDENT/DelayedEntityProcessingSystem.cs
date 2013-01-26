@@ -27,7 +27,7 @@ namespace Artemis
         /// </summary>
         /// <param name="e"></param>
         /// <param name="accumulatedDelta">The entity to process.</param>
-		public abstract void Process(Entity e, int accumulatedDelta);
+		public abstract void Process(Entity e, float accumulatedDelta);
 
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace Artemis
         /// </summary>
         /// <param name="entities">Entities to process</param>
         /// <param name="accumulatedDelta">Total Delay</param>
-        public override void ProcessEntities(Dictionary<int, Entity> entities, int accumulatedDelta)
+        public override void ProcessEntities(Dictionary<int, Entity> entities, float accumulatedDelta)
         {
 			foreach (Entity item in entities.Values)
 	        {

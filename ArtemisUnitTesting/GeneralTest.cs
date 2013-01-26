@@ -60,7 +60,7 @@ namespace ArtemisTest
             for (int i = 0; i < 100; i++)
             {
                 DateTime dt = DateTime.Now;
-                world.Update();
+                world.Update(0);
                 Console.WriteLine((DateTime.Now - dt).TotalMilliseconds);
             }            
 
@@ -109,7 +109,7 @@ namespace ArtemisTest
             for (int i = 0; i < 100; i++)
             {
                 DateTime dt = DateTime.Now;
-                world.Update(ExecutionType.UpdateAsynchronous);
+                world.Update(0,ExecutionType.UpdateAsynchronous);
                 //systemManager.UpdateSynchronous(ExecutionType.Update);
                 Console.WriteLine((DateTime.Now - dt).TotalMilliseconds);
             }
@@ -145,9 +145,8 @@ namespace ArtemisTest
             et1.GetComponent<Power>().POWER = 100;
             et1.Refresh();
 
-
             {                
-                world.Update();                
+                world.Update(0);                
             }
 
             ///two systems runnning
@@ -171,8 +170,7 @@ namespace ArtemisTest
                 Entity et = world.CreateEntity();
                 et.AddComponent(new Health());
                 et.GetComponent<Health>().HP = 100;                
-                et.Refresh();
-            
+                et.Refresh();           
 
             
                 Entity et1 = world.CreateEntity();
@@ -185,7 +183,7 @@ namespace ArtemisTest
 
             {
                 DateTime dt = DateTime.Now;
-                world.Update();
+                world.Update(0);
                 Console.WriteLine((DateTime.Now - dt).TotalMilliseconds);
             }
 
@@ -223,7 +221,7 @@ namespace ArtemisTest
 
             {
                 DateTime dt = DateTime.Now;
-                world.Update();                
+                world.Update(0);                
                 Console.WriteLine((DateTime.Now - dt).TotalMilliseconds);
             }
 
@@ -258,7 +256,7 @@ namespace ArtemisTest
             
             {
                 DateTime dt = DateTime.Now;
-                world.Update();
+                world.Update(0);
                 Console.WriteLine((DateTime.Now - dt).TotalMilliseconds);
             }
 
@@ -266,7 +264,7 @@ namespace ArtemisTest
 
             {
                 DateTime dt = DateTime.Now;
-                world.Update();
+                world.Update(0);
                 Console.WriteLine((DateTime.Now - dt).TotalMilliseconds);
             }
 
@@ -295,21 +293,21 @@ namespace ArtemisTest
             Debug.Assert(et1 != null);
 
             {
-                world.Update(ExecutionType.UpdateSyncronous);
+                world.Update(0,ExecutionType.UpdateSyncronous);
             }
 
             et.RemoveComponent<Power2>();
             et.Refresh();
 
             {
-                world.Update(ExecutionType.UpdateSyncronous);
+                world.Update(0, ExecutionType.UpdateSyncronous);
             }
 
             et.AddComponentFromPool<Power2>();
             et.GetComponent<Power2>().POWER = 100;
             et.Refresh();
 
-            world.Update(ExecutionType.UpdateSyncronous);
+            world.Update(0, ExecutionType.UpdateSyncronous);
         }
 
         [TestMethod]
@@ -361,7 +359,7 @@ namespace ArtemisTest
             while (QueueSystemTest.QueueCount(QueueSystemTest.Id) > 0 || QueueSystemTest.QueueCount(QueueSystemTestteste.Id) > 0)
             {
                 DateTime dt = DateTime.Now;
-                world.Update(ExecutionType.UpdateAsynchronous);                
+                world.Update(0, ExecutionType.UpdateAsynchronous);                
                 Console.WriteLine("Count: " + QueueSystemTest.QueueCount(QueueSystemTest.Id));
                 Console.WriteLine("Time: " + (DateTime.Now - dt).TotalMilliseconds);
 
@@ -413,7 +411,7 @@ namespace ArtemisTest
             {
                 j++;
                 DateTime dt = DateTime.Now;
-                world.Update();
+                world.Update(0);
                 Console.WriteLine((DateTime.Now - dt).TotalMilliseconds);
             }
 

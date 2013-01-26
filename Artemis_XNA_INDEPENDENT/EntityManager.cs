@@ -54,10 +54,13 @@ namespace Artemis
 
         void EntityManager_RemovedComponentEvent(Entity e, Component c)
         {
-            var pool = this.world.GetPool(c.GetType());
-            if (pool != null)
+            if (c is ComponentPoolable)
             {
-                pool.ReturnObject(c as ComponentPoolable);
+                var pool = this.world.GetPool(c.GetType());
+                if (pool != null)
+                {
+                    pool.ReturnObject(c as ComponentPoolable);
+                }
             }
         }
 

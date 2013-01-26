@@ -4,16 +4,16 @@ namespace Artemis
 {
 	public abstract class IntervalTagSystem : TagSystem
 	{
-		private int acc;
-		private int interval;
+		private float acc;
+		private float interval;
 	
-		public IntervalTagSystem(int interval, string tag) : base(tag) {
+		public IntervalTagSystem(float interval, string tag) : base(tag) {
 			this.interval = interval;
 		}
 
         protected override bool CheckProcessing()
         {
-			acc += world.Delta;
+			acc += world.ElapsedTime;
 			if(acc >= interval) {
 				acc -= interval;
 				return enabled;

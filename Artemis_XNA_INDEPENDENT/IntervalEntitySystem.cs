@@ -2,10 +2,10 @@ using System;
 namespace Artemis
 {
 	public abstract class IntervalEntitySystem : EntitySystem {
-		private int acc;
-		private int interval;
+		private float acc;
+		private float interval;
 	
-		public IntervalEntitySystem(int interval, params Type[] types) : base(types) {
+		public IntervalEntitySystem(float interval, params Type[] types) : base(types) {
 			this.interval = interval;
 		}
 
@@ -17,7 +17,7 @@ namespace Artemis
 
         protected override bool CheckProcessing()
         {
-			acc += world.Delta;
+			acc += world.ElapsedTime;
 			if(acc >= interval) {
 				acc -= interval;
 				return enabled;
