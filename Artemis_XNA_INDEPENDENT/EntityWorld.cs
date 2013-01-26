@@ -21,6 +21,7 @@ namespace Artemis
 
         /// <summary>
         /// Interval in FrameUpdates between pools cleanup
+        /// Default 10
         /// </summary>
         public int PoolCleanupDelay
         {
@@ -35,19 +36,43 @@ namespace Artemis
 			groupManager = new GroupManager(this);
             PoolCleanupDelay = 10;
 		}
-		
+
+        /// <summary>
+        /// Gets the group manager.
+        /// </summary>
+        /// <value>
+        /// The group manager.
+        /// </value>
 		public GroupManager GroupManager {
 			get { return groupManager; }
 		}
-		
+
+        /// <summary>
+        /// Gets the system manager.
+        /// </summary>
+        /// <value>
+        /// The system manager.
+        /// </value>
 		public SystemManager SystemManager {
 			get { return systemManager; }
 		}
-		
+
+        /// <summary>
+        /// Gets the entity manager.
+        /// </summary>
+        /// <value>
+        /// The entity manager.
+        /// </value>
 		public EntityManager EntityManager {
 			get { return entityManager; }
 		}
-		
+
+        /// <summary>
+        /// Gets the tag manager.
+        /// </summary>
+        /// <value>
+        /// The tag manager.
+        /// </value>
 		public TagManager TagManager {
 			get { return tagManager; }
 		}
@@ -111,7 +136,7 @@ namespace Artemis
         }
 
         /// <summary>
-        /// 
+        /// Initialize the World
         /// </summary>
         /// <param name="processAttributes"></param>
         public void InitializeAll(
@@ -230,7 +255,13 @@ namespace Artemis
             systemManager.Update(executionType);
 
         }
-		
+
+        /// <summary>
+        /// Gets the current state of the workd.
+        /// </summary>
+        /// <value>
+        /// The state of the current.
+        /// </value>
 		public Dictionary<Entity,Bag<Component>> CurrentState {
             get
             {

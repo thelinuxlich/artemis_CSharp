@@ -100,6 +100,9 @@ namespace Artemis
 			systemBits &= ~bit;
 		}
 
+        /// <summary>
+        /// Resets this instance.
+        /// </summary>
 		public void Reset()
 		{
 			systemBits = 0;
@@ -112,6 +115,12 @@ namespace Artemis
 			return "Entity[" + id + "]";
 		}
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="Entity"/> is enabled.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if enabled; otherwise, <c>false</c>.
+        /// </value>
 		public bool Enabled
 		{
 			get
@@ -208,6 +217,13 @@ namespace Artemis
 			return (T)GetComponent(ComponentTypeManager.GetTypeFor<T>());
 		}
 
+        /// <summary>
+        /// Determines whether this instance has a specific component.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>
+        ///   <c>true</c> if this instance has a specific component; otherwise, <c>false</c>.
+        /// </returns>
 		public bool HasComponent<T>() where T : Component
 		{
 			return (T)GetComponent(ComponentTypeManager.GetTypeFor<T>()) != null;

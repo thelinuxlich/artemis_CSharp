@@ -10,6 +10,9 @@ namespace Artemis
 
 	public delegate void AddedEntityHandler(Entity e);
 
+    /// <summary>
+    /// Entity Manager
+    /// </summary>
 	public sealed class EntityManager
 	{
 		private EntityWorld world;
@@ -45,6 +48,10 @@ namespace Artemis
 
 		private Bag<Component> entityComponents = new Bag<Component>(); // Added for debug support.
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EntityManager"/> class.
+        /// </summary>
+        /// <param name="world">The world.</param>
 		public EntityManager(EntityWorld world)
 		{
 			System.Diagnostics.Debug.Assert(world != null);
