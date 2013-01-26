@@ -150,12 +150,20 @@ namespace Artemis
                     if (create == null)
                         create = CreateInstance;
 
+                    IComponentPool<ComponentPoolable> pool = null;
                     //Type[] typeArgs = { type };
                     //Type d1 = typeof(ComponentPool<>);
                     //var typeGen = d1.MakeGenericType(typeArgs);
                     //Activator.CreateInstance(typeGen, new object[] {PropertyComponentPool.InitialSize, PropertyComponentPool.Resizes, create}
-
-                    ComponentPool<ComponentPoolable> pool = new ComponentPool<ComponentPoolable>(PropertyComponentPool.InitialSize, PropertyComponentPool.Resizes, create,type);
+                    if (!PropertyComponentPool.isSupportMultiThread)
+                    {
+                        pool = new ComponentPool<ComponentPoolable>(PropertyComponentPool.InitialSize, PropertyComponentPool.ResizeSize, PropertyComponentPool.Resizes, create, type);
+                    }
+                    else
+                    {
+                        pool = new MultiThreadComponentPool<ComponentPoolable>(PropertyComponentPool.InitialSize, PropertyComponentPool.ResizeSize, PropertyComponentPool.Resizes, create, type);
+                    }
+                    
                     world.SetPool(type, pool);
                 }
             }

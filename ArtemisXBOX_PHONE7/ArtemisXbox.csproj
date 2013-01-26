@@ -155,6 +155,8 @@
     </Compile>
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Aspect.cs" />
 	
+	<Compile Include="..\Artemis_XNA_INDEPENDENT\IComponentPool.cs" />
+	<Compile Include="..\Artemis_XNA_INDEPENDENT\MultiThreadComponentPool.cs" />
 	<Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\AttributesProcessor.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\ArtemisComponentCreate.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\ArtemisComponentPool.cs" />

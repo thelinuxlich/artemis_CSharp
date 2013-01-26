@@ -10,8 +10,9 @@ namespace Artemis
     /// instances and minimizing the effects of garbage collection.
     /// </summary>
     /// <typeparam name="T">The type of object to store in the Pool. Pools can only hold class types.</typeparam>
-    public class ComponentPool<T> : Artemis.IComponentPool<T> where T : ComponentPoolable
+    public class MultiThreadComponentPool<T> : Artemis.IComponentPool<T> where T : ComponentPoolable
     {
+        private object sync = new object();
         // the amount to enlarge the items array if New is called and there are no free items
         public int ResizeAmount
         {
@@ -53,12 +54,15 @@ namespace Artemis
         {
             get
             {
-                index += InvalidCount;
+                lock (sync)
+                {
+                    index += InvalidCount;
 
-                if (index < InvalidCount || index >= items.Length)
-                    throw new IndexOutOfRangeException("The index must be less than or equal to ValidCount");
+                    if (index < InvalidCount || index >= items.Length)
+                        throw new IndexOutOfRangeException("The index must be less than or equal to ValidCount");
 
-                return items[index];
+                    return items[index];
+                }
             }
         }
 
@@ -72,7 +76,7 @@ namespace Artemis
         /// <param name="innerType">Type ComponentPoolable.</param>
         /// <exception cref="ArgumentOutOfRangeException">initialSize;initialSize must be at least 1.</exception>
         /// <exception cref="ArgumentNullException">allocateFunc</exception>
-        internal ComponentPool(int initialSize,int resizePool ,bool resizes, Func<Type,T> allocateFunc,Type innerType)
+        internal MultiThreadComponentPool(int initialSize, int resizePool, bool resizes, Func<Type, T> allocateFunc, Type innerType)
         {
             // validate some parameters
             if (initialSize < 1)
@@ -105,7 +109,8 @@ namespace Artemis
         /// <param name="obj"></param>
         public void ReturnObject(T obj)
         {
-            invalidObjects.Add(obj);
+            lock(sync)
+                invalidObjects.Add(obj);
         }
 
         /// <summary>
@@ -113,29 +118,32 @@ namespace Artemis
         /// Must be called regularly to free returned Objects
         /// </summary>
         public void CleanUp()
-        {            
+        {
 
-            ///////////30////////////50
-            for (int i = 0; i < invalidObjects.Count; i++)
+            lock (sync)
             {
-                T obj = invalidObjects[i];
 
-                // otherwise if we're not at the start of the invalid objects, we have to move
-                // the object to the invalid object section of the array
-                if (obj.poolId != InvalidCount)
+                for (int i = 0; i < invalidObjects.Count; i++)
                 {
-                    items[obj.poolId] = items[InvalidCount];
-                    items[InvalidCount].poolId = obj.poolId;
-                    items[InvalidCount] = obj;
-                    obj.poolId = -1;
+                    T obj = invalidObjects[i];
+
+                    // otherwise if we're not at the start of the invalid objects, we have to move
+                    // the object to the invalid object section of the array
+                    if (obj.poolId != InvalidCount)
+                    {
+                        items[obj.poolId] = items[InvalidCount];
+                        items[InvalidCount].poolId = obj.poolId;
+                        items[InvalidCount] = obj;
+                        obj.poolId = -1;
+                    }
+
+                    // clean the object if desired
+                    obj.Cleanup();
+                    InvalidCount++;
                 }
 
-                // clean the object if desired
-                obj.Cleanup();
-                InvalidCount++;
+                invalidObjects.Clear();
             }
-
-            invalidObjects.Clear();
         }
 
         /// <summary>
@@ -144,53 +152,56 @@ namespace Artemis
         /// <returns>The next object in the pool if available, null if all instances are valid.</returns>
         public T New()
         {
-            // if we're out of invalid instances...
-            if (InvalidCount == 0)
+            lock (sync)
             {
-                // if we can't resize, then we can't give the user back any instance
-                if (!canResize)
-                    throw new Exception("Limit Exceeded " + this.items.Length + " , and the pool was set to not resize");
-
-                // create a new array with some more slots and copy over the existing items
-                T[] newItems = new T[items.Length + ResizeAmount];
-
-                for (int i = items.Length - 1; i >= 0; i--)
+                // if we're out of invalid instances...
+                if (InvalidCount == 0)
                 {
-                    if (i >= InvalidCount)
+                    // if we can't resize, then we can't give the user back any instance
+                    if (!canResize)
+                        throw new Exception("Limit Exceeded " + this.items.Length + " , and the pool was set to not resize");
+
+                    // create a new array with some more slots and copy over the existing items
+                    T[] newItems = new T[items.Length + ResizeAmount];
+
+                    for (int i = items.Length - 1; i >= 0; i--)
                     {
-                        items[i].poolId = i + ResizeAmount;
+                        if (i >= InvalidCount)
+                        {
+                            items[i].poolId = i + ResizeAmount;
+                        }
+                        newItems[i + ResizeAmount] = items[i];
+
                     }
-                    newItems[i + ResizeAmount] = items[i];
-                    
+                    items = newItems;
+
+                    // move the invalid count based on our resize amount
+                    InvalidCount += ResizeAmount;
                 }
-                items = newItems;
 
-                // move the invalid count based on our resize amount
-                InvalidCount += ResizeAmount;
-            }
+                // decrement the counter
+                InvalidCount--;
 
-            // decrement the counter
-            InvalidCount--;
+                // get the next item in the list
+                T obj = items[InvalidCount];
 
-            // get the next item in the list
-            T obj = items[InvalidCount];
-
-            // if the item is null, we need to allocate a new instance
-            if (obj == null)
-            {
-                obj = allocate(innerType);
-
+                // if the item is null, we need to allocate a new instance
                 if (obj == null)
-                    throw new InvalidOperationException("The pool's allocate method returned a null object reference.");
+                {
+                    obj = allocate(innerType);
 
-                items[InvalidCount] = obj;                
+                    if (obj == null)
+                        throw new InvalidOperationException("The pool's allocate method returned a null object reference.");
+
+                    items[InvalidCount] = obj;
+                }
+
+                obj.poolId = InvalidCount;
+                // initialize the object if a delegate was provided
+                obj.Initialize();
+
+                return obj;
             }
-
-            obj.poolId = InvalidCount;
-            // initialize the object if a delegate was provided
-            obj.Initialize();
-
-            return obj;
         }
     }
 }

@@ -104,7 +104,8 @@
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\ArtemisEntityTemplate.cs" />
 	<Compile Include="..\Artemis_XNA_INDEPENDENT\ComponentPoolable.cs" />
 	<Compile Include="..\Artemis_XNA_INDEPENDENT\ComponentPool.cs" />
-	
+	<Compile Include="..\Artemis_XNA_INDEPENDENT\IComponentPool.cs" />
+	<Compile Include="..\Artemis_XNA_INDEPENDENT\MultiThreadComponentPool.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\Bag.cs">
       <SubType>Code</SubType>
     </Compile>

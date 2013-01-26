@@ -16,7 +16,7 @@ namespace Artemis
 		private Dictionary<String,Stack<int>> cached = new Dictionary<String, Stack<int>>();
         private Dictionary<String, IEntityTemplate> entityTemplates = new Dictionary<String, IEntityTemplate>();
 		private float elapsedTime;
-        private Dictionary<Type, ComponentPool<ComponentPoolable>> pools = new Dictionary<Type, ComponentPool<ComponentPoolable>>();        
+        private Dictionary<Type, IComponentPool<ComponentPoolable>> pools = new Dictionary<Type, IComponentPool<ComponentPoolable>>();        
         private int poolCleanupDelayCounter = 0;
 
         /// <summary>
@@ -87,14 +87,24 @@ namespace Artemis
 			return entityManager.Create();
 		}
 
-        public void SetPool(Type type, ComponentPool<ComponentPoolable> pool)
+        /// <summary>
+        /// Sets the pool for a specific type
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="pool">The pool.</param>
+        public void SetPool(Type type, IComponentPool<ComponentPoolable> pool)
         {
             System.Diagnostics.Debug.Assert(type != null);
             System.Diagnostics.Debug.Assert(pool != null);
             pools.Add(type, pool);
         }
 
-        public ComponentPool<ComponentPoolable> GetPool(Type type)
+        /// <summary>
+        /// Gets the pool for a Type
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns></returns>
+        public IComponentPool<ComponentPoolable> GetPool(Type type)
         {
             System.Diagnostics.Debug.Assert(type != null);
             return pools[type];
@@ -115,6 +125,11 @@ namespace Artemis
             systemManager.InitializeAll(processAttributes);
         }
 
+        /// <summary>
+        /// Gets a component from a pool.
+        /// </summary>
+        /// <param name="type">The typeof the object to get</param>
+        /// <returns></returns>
         public Component GetComponentFromPool(Type type)
         {
             System.Diagnostics.Debug.Assert(type != null);
@@ -123,7 +138,28 @@ namespace Artemis
 
             return pools[type].New();
         }
-        		
+
+        /// <summary>
+        /// Gets the component from pool.
+        /// </summary>
+        /// <typeparam name="T">Type of the component</typeparam>
+        /// <returns></returns>
+        public Component GetComponentFromPool<T>() where T : ComponentPoolable
+        {
+            var type = typeof(T);
+            if (!pools.ContainsKey(type))
+                throw new Exception("There is no pool for the type " + type);
+
+            return pools[type].New();
+        }
+
+
+        /// <summary>
+        /// Creates a entity from template.
+        /// </summary>
+        /// <param name="entityTemplateTag">The entity template tag.</param>
+        /// <param name="templateArgs">The template args.</param>
+        /// <returns></returns>
 		public Entity CreateEntityFromTemplate(string entityTemplateTag, params object[] templateArgs) {
             System.Diagnostics.Debug.Assert(!String.IsNullOrEmpty(entityTemplateTag));
 			Entity e = entityManager.Create();  

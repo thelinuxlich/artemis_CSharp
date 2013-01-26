@@ -69,6 +69,7 @@
     <Compile Include="ComponentPoolable.cs" />
     <Compile Include="ComponentType.cs" />
     <Compile Include="ComponentTypeManager.cs" />
+    <Compile Include="MultiThreadComponentPool.cs" />
     <Compile Include="DelayedEntityProcessingSystem.cs" />
     <Compile Include="DelayedEntitySystem.cs" />
     <Compile Include="Entity.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="EntitySystem.cs" />
     <Compile Include="GroupManager.cs" />
     <Compile Include="HybridQueueSystemProcessing.cs" />
+    <Compile Include="IComponentPool.cs" />
     <Compile Include="IEntityTemplate.cs" />
     <Compile Include="IntervalEntityProcessingSystem.cs" />
     <Compile Include="IntervalEntitySystem.cs" />
