@@ -5,9 +5,10 @@ using System.Text;
 
 namespace Artemis
 {
-    public interface ComponentPoolable : Component
+    public abstract class ComponentPoolable : Component
     {
-        void Initialize();
-        void Cleanup();
+        internal int poolId = 0;
+        public virtual void Initialize() { }
+        public virtual void Cleanup() { }
     }
 }

@@ -56,10 +56,14 @@ namespace Artemis
         {
             if (c is ComponentPoolable)
             {
+                ComponentPoolable ComponentPoolable = c as ComponentPoolable;
+                if (ComponentPoolable.poolId < 0)
+                    return;
+
                 var pool = this.world.GetPool(c.GetType());
                 if (pool != null)
                 {
-                    pool.ReturnObject(c as ComponentPoolable);
+                    pool.ReturnObject(ComponentPoolable);
                 }
             }
         }

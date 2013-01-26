@@ -150,7 +150,12 @@ namespace Artemis
                     if (create == null)
                         create = CreateInstance;
 
-                    ComponentPool<ComponentPoolable> pool = new ComponentPool<ComponentPoolable>(PropertyComponentPool.InitialSize, PropertyComponentPool.Resizes, create);
+                    //Type[] typeArgs = { type };
+                    //Type d1 = typeof(ComponentPool<>);
+                    //var typeGen = d1.MakeGenericType(typeArgs);
+                    //Activator.CreateInstance(typeGen, new object[] {PropertyComponentPool.InitialSize, PropertyComponentPool.Resizes, create}
+
+                    ComponentPool<ComponentPoolable> pool = new ComponentPool<ComponentPoolable>(PropertyComponentPool.InitialSize, PropertyComponentPool.Resizes, create,type);
                     world.SetPool(type, pool);
                 }
             }

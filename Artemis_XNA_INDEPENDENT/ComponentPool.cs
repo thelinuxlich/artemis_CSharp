@@ -38,6 +38,8 @@ namespace Artemis
         /// </summary>
         public int InvalidCount { get; private set; }
 
+        private Type innerType;
+
         /// <summary>
         /// Returns a valid object at the given index. The index must fall in the range of [0, ValidCount].
         /// </summary>
@@ -61,9 +63,11 @@ namespace Artemis
         /// </summary>
         /// <param name="initialSize">The initial size of the pool.</param>
         /// <param name="resizes">Whether or not the pool is allowed to increase its size as needed.</param>
-        /// <param name="validateFunc">A predicate used to determine if a given object is still valid.</param>
         /// <param name="allocateFunc">A function used to allocate an instance for the pool.</param>
-        public ComponentPool(int initialSize, bool resizes, Func<Type,T> allocateFunc)
+        /// <param name="innerType">Type ComponentPoolable.</param>
+        /// <exception cref="ArgumentOutOfRangeException">initialSize;initialSize must be at least 1.</exception>
+        /// <exception cref="ArgumentNullException">allocateFunc</exception>
+        internal ComponentPool(int initialSize, bool resizes, Func<Type,T> allocateFunc,Type innerType)
         {
             // validate some parameters
             if (initialSize < 1)
@@ -71,6 +75,10 @@ namespace Artemis
             if (allocateFunc == null)
                 throw new ArgumentNullException("allocateFunc");
 
+            if (innerType == null)
+                throw new ArgumentNullException("innerType");
+
+            this.innerType = innerType;
             canResize = resizes;
 
             // create our items array
@@ -95,17 +103,21 @@ namespace Artemis
         /// Must be called regularly to free returned Objects
         /// </summary>
         public void CleanUp()
-        {
+        {            
+
+            ///////////30////////////50
             for (int i = 0; i < invalidObjects.Count; i++)
             {
                 T obj = invalidObjects[i];
-               
+
                 // otherwise if we're not at the start of the invalid objects, we have to move
                 // the object to the invalid object section of the array
-                if (i != InvalidCount)
+                if (obj.poolId != InvalidCount)
                 {
-                    items[i] = items[InvalidCount];
+                    items[obj.poolId] = items[InvalidCount];
+                    items[InvalidCount].poolId = obj.poolId;
                     items[InvalidCount] = obj;
+                    obj.poolId = -1;
                 }
 
                 // clean the object if desired
@@ -127,14 +139,20 @@ namespace Artemis
             {
                 // if we can't resize, then we can't give the user back any instance
                 if (!canResize)
-                    return default(T);
-
-                //System.Diagnostics.Debug.WriteLine("Resizing pool. Old size: " + items.Length + ". New size: " + (items.Length + resizeAmount));
+                    throw new Exception("Limit Exceeded " + this.items.Length + " , and the pool was set to not resize");
 
                 // create a new array with some more slots and copy over the existing items
                 T[] newItems = new T[items.Length + resizeAmount];
+
                 for (int i = items.Length - 1; i >= 0; i--)
+                {
+                    if (i >= InvalidCount)
+                    {
+                        items[i].poolId = i + resizeAmount;
+                    }
                     newItems[i + resizeAmount] = items[i];
+                    
+                }
                 items = newItems;
 
                 // move the invalid count based on our resize amount
@@ -150,14 +168,15 @@ namespace Artemis
             // if the item is null, we need to allocate a new instance
             if (obj == null)
             {
-                obj = allocate(typeof(T));
+                obj = allocate(innerType);
 
                 if (obj == null)
                     throw new InvalidOperationException("The pool's allocate method returned a null object reference.");
 
-                items[InvalidCount] = obj;
+                items[InvalidCount] = obj;                
             }
 
+            obj.poolId = InvalidCount;
             // initialize the object if a delegate was provided
             obj.Initialize();
 
