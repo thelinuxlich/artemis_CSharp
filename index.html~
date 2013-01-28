@@ -42,7 +42,6 @@
               <li>Bugs fixed, performance improvements</li>
               <li>Xbox/WP7/Mono(Android/Linux/Mac/iOS) support </li>
               <li>Events for intercepting adding/removal of entities/components</li>
-              <li>Blackboard for sharing common objects between systems</li>
               <li>Entity Pool (to make objects reusable, minimize garbage collection activity, improve performance)</li>
               <li>Small goodies, like feeding the EntityWorld with whole Entities(maybe loading from external resources), enabling/disabling systems and entities, getting Entity tag, API shortcuts(see unit tests for more on this), etc.</li>
          </ul>
