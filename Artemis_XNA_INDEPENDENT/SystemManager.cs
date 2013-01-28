@@ -12,9 +12,9 @@ namespace Artemis
 {
 	public enum ExecutionType
     {
-        DrawSyncronous,
+        DrawSynchronous,
         DrawAsynchronous,
-        UpdateSyncronous,
+        UpdateSynchronous,
         UpdateAsynchronous
     }
 
@@ -44,7 +44,7 @@ namespace Artemis
             }
 
 
-            if (execType == ExecutionType.DrawSyncronous || execType == ExecutionType.DrawAsynchronous)
+            if (execType == ExecutionType.DrawSynchronous || execType == ExecutionType.DrawAsynchronous)
             {
                 if (!Drawlayers.ContainsKey(layer))
                     Drawlayers[layer] = new Bag<EntitySystem>();
@@ -58,7 +58,7 @@ namespace Artemis
 					drawBag.Add((EntitySystem)system);
 				Drawlayers = (from d in Drawlayers orderby d.Key ascending select d).ToDictionary(pair => pair.Key, pair => pair.Value);
             }
-            else if (execType == ExecutionType.UpdateSyncronous || execType == ExecutionType.UpdateAsynchronous)
+            else if (execType == ExecutionType.UpdateSynchronous || execType == ExecutionType.UpdateAsynchronous)
             {
                 if (!Updatelayers.ContainsKey(layer))
                     Updatelayers[layer] = new Bag<EntitySystem>();                
@@ -220,14 +220,14 @@ namespace Artemis
         internal void Update(ExecutionType execType )
         {
            
-            if (execType == ExecutionType.UpdateSyncronous)
+            if (execType == ExecutionType.UpdateSynchronous)
             {
                 foreach (int item in Updatelayers.Keys)
                 {
                     UpdatebagSync(Updatelayers[item]);
                 }
             }
-            else if (execType == ExecutionType.DrawSyncronous)
+            else if (execType == ExecutionType.DrawSynchronous)
             {
 
                 foreach (int item in Drawlayers.Keys)

@@ -10,7 +10,7 @@ namespace Artemis.Attributes
     {
         public ArtemisEntitySystem()
         {
-            this.ExecutionType = Artemis.ExecutionType.UpdateSyncronous;
+            this.ExecutionType = Artemis.ExecutionType.UpdateSynchronous;
             this.Layer = 0;
         }
 

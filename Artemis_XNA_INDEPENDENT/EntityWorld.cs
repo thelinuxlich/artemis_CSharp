@@ -215,7 +215,7 @@ namespace Artemis
         /// </summary>
         /// <param name="executionType">Type of the execution.</param>
         /// <param name="elapsedTime">The elapsed TIME in milliseconds.</param>
-        public void Update(float elapsedTime ,ExecutionType executionType = ExecutionType.UpdateSyncronous)
+        public void Update(float elapsedTime ,ExecutionType executionType = ExecutionType.UpdateSynchronous)
         {
             this.elapsedTime = elapsedTime;
 
