@@ -72,7 +72,7 @@ namespace Artemis
         /// <param name="innerType">Type ComponentPoolable.</param>
         /// <exception cref="ArgumentOutOfRangeException">initialSize;initialSize must be at least 1.</exception>
         /// <exception cref="ArgumentNullException">allocateFunc</exception>
-        internal ComponentPool(int initialSize,int resizePool ,bool resizes, Func<Type,T> allocateFunc,Type innerType)
+        public ComponentPool(int initialSize,int resizePool ,bool resizes, Func<Type,T> allocateFunc,Type innerType)
         {
             // validate some parameters
             if (initialSize < 1)
