@@ -21,6 +21,7 @@
           <p>An Entity System Framework</p>
           <p class="view"><a href="https://github.com/thelinuxlich/artemis_CSharp">View the Project on GitHub <small>thelinuxlich/artemis_CSharp</small></a></p>
           <ul>
+              <li><a href="https://github.com/thelinuxlich/starwarrior_CSharp/archive/master.zip">Download <strong>Game Example</strong></a></li>
               <li><a href="https://github.com/thelinuxlich/artemis_CSharp/zipball/master">Download <strong>ZIP File</strong></a></li>
               <li><a href="https://github.com/thelinuxlich/artemis_CSharp/tarball/master">Download <strong>TAR Ball</strong></a></li>
               <li><a href="https://github.com/thelinuxlich/artemis_CSharp">View On <strong>GitHub</strong></a></li>
@@ -166,7 +167,7 @@ public class MovementSystem : EntityProcessingSystem {
 world.InitializeAll();
         </code></pre>
         On your game update loop, update the world passing the elapsed time and telling which type of system execution(update or draw) it should do:
-        <pre><code>world.Update(elapsed.Milliseconds,ExecutionType.UpdateSyncronous);
+        <pre><code>world.Update(elapsed.Milliseconds,ExecutionType.UpdateSynchronous);
         </code></pre>
         And you are good to go. The Entity object has some intuitive methods like Delete(), GetComponent(), RemoveComponent(), which
         you can see in action on the <a href="https://github.com/thelinuxlich/starwarrior_CSharp">example game.</a>
