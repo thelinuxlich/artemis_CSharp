@@ -166,7 +166,7 @@ public class MovementSystem : EntityProcessingSystem {
 world.InitializeAll();
         </code></pre>
         On your game update loop, update the world passing the elapsed time and telling which type of system execution(update or draw) it should do:
-        <pre><code>world.Update(elapsed.Milliseconds,ExecutionType.UpdateSyncronous);
+        <pre><code>world.Update(elapsed.Milliseconds,ExecutionType.UpdateSynchronous);
         </code></pre>
         And you are good to go. The Entity object has some intuitive methods like Delete(), GetComponent(), RemoveComponent(), which
         you can see in action on the <a href="https://github.com/thelinuxlich/starwarrior_CSharp">example game.</a>
