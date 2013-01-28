@@ -26,16 +26,16 @@
               <li><a href="https://github.com/thelinuxlich/artemis_CSharp">View On <strong>GitHub</strong></a></li>
           </ul>
       </header>
-      <section>
+      <section id="description">
           <h3>Description</h3>
           Artemis is a high performance Entity System framework for games, <a href="http://gamadu.com/artemis">originally written in Java</a> by Arni Arent and Tiago Costa, now ported to C#. <br/>
           Its goal is to provide a clean API to abstract your game world organization into entities, components and systems.<br/>
           Artemis has no dependencies (for PC, in Xbox and Windows Phone 7 we have one) and can be used with any game framework or library, 2D or 3D, and even multiplatform, if you use it with Mono/MonoTouch/Mono4Android.
      </section>
-     <section>
+     <section id="differences">
           <h3>Differences from the original version</h3>
           We support all the features included in the original Java version, but we've also added the following features:
-          <ul>  
+          <ul>
               <li>Multithreading Support (two ways of doing this)</li>
               <li>Specialized System templates for your multithreading needs</li>
               <li>Communication between Systems using a Blackboard approach</li>
@@ -46,10 +46,10 @@
               <li>Small goodies, like feeding the EntityWorld with whole Entities(maybe loading from external resources), enabling/disabling systems and entities, getting Entity tag, API shortcuts(see unit tests for more on this), etc.</li>
          </ul>
     </section>
-    <section>
+    <section id="getting_started">
         <h3>Getting Started</h3>
         <ul>
-            <li>Entities are only an aggregation of Components, identified by a unique id</li> 
+            <li>Entities are only an aggregation of Components, identified by a unique id</li>
             <li>Components are only data</li>
             <li>Systems publish/subscribe to Components, creating behavior</li>
         </ul>
@@ -61,9 +61,11 @@
             <li><a href="http://gamesfromwithin.com/data-oriented-design">Data-Oriented Design</a></li>
         </ul>
         And many more can be found <a href="http://www.ploobs.com.br/forum/viewtopic.php?f=39&t=136">here.</a><br/><br/>
-        Your components must inherit from the class Component. Example:
+        Your components must inherit from the class Component or ComponentPoolable if you want it to use the Artemis Component Pool. Example:
         <div class="highlight">
-        <pre lang="csharp"><code>class Velocity : Component
+        <pre lang="csharp"><code>//Add this Attribute and extend ComponentPoolable if you want your Component to use Artemis Component Pool
+[Artemis.Attributes.ArtemisComponentPool(InitialSize=5,Resizes=true, ResizeSize=20, isSupportMultiThread=false)]
+class Velocity : ComponentPoolable
 {
         private float velocity;
         private float angle;
@@ -88,7 +90,7 @@
 
         public float Angle
         {
-            get { return angle; }   
+            get { return angle; }
             set { angle = value;}
         }
 
@@ -100,6 +102,12 @@
         public float AngleAsRadians
         {
             get { return (float)Math.PI * angle / 180.0f; }
+        }
+
+        //obligatory for poolable Components
+        public void Cleanup()
+        {
+             coords = Vector3.Zero;
         }
 }</code></pre>
         </div>
@@ -125,7 +133,9 @@ e.Refresh();// always call Refresh() when adding/removing components!<code>
             <li>DelayedEntityProcessingSystem - a template that starts processing entities after a given time, based on world delta. Tied to components</li>
         </ul>
         And here is a system example, using Velocity and Transform components to create the Movement behavior:
-        <pre><code>public class MovementSystem : EntityProcessingSystem {
+        <pre><code>//Add this attribute so the EntityWorld knows the systems it should execute, use the Layer to determine execution order
+[Artemis.Attributes.ArtemisEntitySystem(ExecutionType = ExecutionType.UpdateSynchronous, Layer = 1)]
+public class MovementSystem : EntityProcessingSystem {
     ComponentMapper<Velocity> velocityMapper;
     ComponentMapper<Transform> transformMapper;
 
@@ -150,58 +160,43 @@ e.Refresh();// always call Refresh() when adding/removing components!<code>
         transform.SetLocation(xn, yn);
     }
 }</code></pre>
-        On your game initialization, create a new EntityWorld:
-        <pre><code>var world = new EntityWorld();</code></pre>
-        Add your systems to SystemManager:
-        <pre><code>var systemManager = world.SystemManager;
-systemManager.SetSystem(new MovementSystem(),ExecutionType.Update);
-systemManager.SetSystem(new CollisionSystem(),ExecutionType.Update);
-systemManager.SetSystem(new EnemySpawnSystem(),ExecutionType.Update);
-systemManager.SetSystem(new RenderSystem(),ExecutionType.Draw);
-systemManager.InitializeAll();
+        On your game initialization, create a new EntityWorld and initialize it:
+        <pre><code>var world = new EntityWorld();
+world.InitializeAll();
         </code></pre>
-        On your game update loop, set the world delta and execute the systems:
-        <pre><code>world.LoopStart();                
-world.Delta = gameDelta;
-systemManager.UpdateSynchronous(ExecutionType.Update);
+        On your game update loop, update the world passing the elapsed time and telling which type of system execution(update or draw) it should do:
+        <pre><code>world.Update(elapsed.Milliseconds,ExecutionType.UpdateSyncronous);
         </code></pre>
-        Execute your rendering systems on the draw loop:
-        <pre><code>world.SystemManager.UpdateSynchronous(ExecutionType.Draw);</code></pre>
         And you are good to go. The Entity object has some intuitive methods like Delete(), GetComponent(), RemoveComponent(), which
         you can see in action on the <a href="https://github.com/thelinuxlich/starwarrior_CSharp">example game.</a>
     </section>
-	<section>
+	<section id="aspects">
 		<h3>Aspects</h3>
-		Aspects are used in the constructor of your entity systems to tell them which components they should be interested. At the moment we have three 
+		Aspects are used in the constructor of your entity systems to tell them which components they should be interested. At the moment we have three
 		methods to build Aspects:
 		<ul>
 			<li>Aspect.All(params Type[] types) - Most of the time you will use this option, so the system processes entities which have all components of the Aspect.</li>
 			<li>Aspect.One(params Type[] types) - The system will process entities which have at least one of the components of the Aspect.</li>
 			<li>Aspect.Exclude(params Type[] types) - The system will not process entities which have at least one of the components of the Aspect.</li>
 		</ul>
-		You can also compose your Aspect utilizing these methods together, example: 
+		You can also compose your Aspect utilizing these methods together, example:
 		<pre><code>public LogEnemySystem() : base(Aspect.All(typeof(Health)).One(typeof(Koopa),typeof(Goomba),typeof(Magikoopa)).exclude(typeof(Ghost))) {}</code></pre>
 	</section>
-	<section>
+	<section id="templates">
 		<h3>Templates</h3>
 		Create your entity templates to avoid manually creating and configuring entities:
-		<pre><code>public EnemyTemplate : Artemis.IEntityTemplate {
+		<pre><code>[Artemis.Attributes.ArtemisEntityTemplate("BulletExplosion")]
+public EnemyTemplate : Artemis.IEntityTemplate {
 	public Entity BuildEntity(Entity e) {
 		e.AddComponent(new Transform(200,400));
 		e.AddComponent(new Velocity(2.4f,0.9f));
 	}
 }</code></pre>
-		Then on your game initialization:
-		<pre><code>world.SetEntityTemplate("Enemy", new EnemyTemplate());</code></pre>
 		Create your entities with the template applied:
-		<pre><code>var enemy = world.CreateEntity("Enemy");
+		<pre><code>var enemy = world.CreateEntityFromTemplate("BulletExplosion");
 enemy.Refresh();</code></pre>
 	</section>
-    <section>
-        <h3>Documentation</h3>
-        Coming soon.
-    </section>
-    <section>
+    <section id="discussion">
         <h3>Discussion, issues, suggestions</h3>
         We have a forum section <a href="http://www.ploobs.com.br/forum/viewforum.php?f=39">here.</a>
     </section>

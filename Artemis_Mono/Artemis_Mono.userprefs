@@ -1,0 +1,18 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="../Artemis_XNA_INDEPENDENT/Aspect.cs">
+    <Files>
+      <File FileName="../Artemis_XNA_INDEPENDENT/Entity.cs" Line="138" Column="57" />
+      <File FileName="../Artemis_XNA_INDEPENDENT/EntityWorld.cs" Line="138" Column="4" />
+      <File FileName="../Artemis_XNA_INDEPENDENT/Aspect.cs" Line="83" Column="4" />
+      <File FileName="../Artemis_XNA_INDEPENDENT/EntitySystem.cs" Line="154" Column="15" />
+      <File FileName="../Artemis_XNA_INDEPENDENT/SystemManager.cs" Line="17" Column="6" />
+      <File FileName="../Artemis_XNA_INDEPENDENT/EntityManager.cs" Line="298" Column="14" />
+      <File FileName="../Artemis_XNA_INDEPENDENT/Utils/Bag.cs" Line="290" Column="5" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
