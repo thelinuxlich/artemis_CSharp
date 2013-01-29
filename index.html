@@ -116,7 +116,7 @@ class Velocity : ComponentPoolable
         A sample for entity assembling:
         <pre>Entity e = world.CreateEntity();
 e.AddComponent(new Transform(200,400));
-e.AddComponent(new Velocity(2.4f,0.9f));
+e.AddComponentFromPool(new Velocity(2.4f,0.9f)); // use AddComponentFromPool if the Component extend from ComponentPoolable
 e.Refresh();// always call Refresh() when adding/removing components!<code>
         </code></pre>
         Your systems should inherit from one of the following templates:
