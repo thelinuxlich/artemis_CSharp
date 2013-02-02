@@ -1,24 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Artemis.Attributes
+﻿namespace Artemis.Attributes
 {
+    #region Using statements
+
+    using global::System;
+
+    #endregion Using statements
+
+    /// <summary>Class ArtemisEntityTemplate.</summary>
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
     public sealed class ArtemisEntityTemplate : Attribute
     {
-        readonly string name;
-     
+        /// <summary>Initializes a new instance of the <see cref="ArtemisEntityTemplate"/> class.</summary>
+        /// <param name="name">The name.</param>
         public ArtemisEntityTemplate(string name)
         {
-            this.name = name;
-
+            this.Name = name;
         }
 
-        public string Name
-        {
-            get { return name; }
-        }
+        /// <summary>Gets the name.</summary>
+        /// <value>The name.</value>
+        public string Name { get; private set; }
     }
 }

@@ -1,47 +1,40 @@
-using System;
-#if !XBOX && !WINDOWS_PHONE
-using System.Numerics;
-#endif
-
-#if XBOX || WINDOWS_PHONE
-using BigInteger = System.Int32;
-#endif
-
 namespace Artemis
 {
-    /// <summary>
-    /// Represents a Component Type
-    /// </summary>
-	public sealed class ComponentType {
-		private static BigInteger nextBit = 1;
-		private static int nextId = 0;
-		
-		private BigInteger bit;
-		private int id;
-		
-		public ComponentType() {
-			Init();
-		}
-		
-		private void Init() {
-			bit = nextBit;
-			nextBit = nextBit << 1;
-			id = nextId++;
-		}
-		
-        /// <summary>
-        /// The unique Bit representation of a type
-        /// </summary>
-		public BigInteger Bit {
-			get { return bit;}
-		}
-		
-        /// <summary>
-        /// The unique integer representing a type
-        /// </summary>
-		public int Id {
-			get { return id; }
-		}
-	}
-}
+    #region Using statements
 
+#if !XBOX && !WINDOWS_PHONE
+    using global::System.Numerics;
+#endif
+#if XBOX || WINDOWS_PHONE
+    using BigInteger = System.Int32;
+#endif
+
+    #endregion Using statements
+
+    /// <summary>Represents a Component Type</summary>
+    public sealed class ComponentType
+    {
+        /// <summary>The next bit.</summary>
+        private static BigInteger nextBit = 1;
+
+        /// <summary>The next id.</summary>
+        private static int nextId;
+
+        /// <summary>Initializes a new instance of the <see cref="ComponentType"/> class.</summary>
+        public ComponentType()
+        {
+            this.Bit = nextBit;
+            nextBit <<= 1;
+            this.Id = nextId;
+            ++nextId;
+        }
+
+        /// <summary>Gets the unique bit representation of a type.</summary>
+        /// <value>The bit.</value>
+        public BigInteger Bit { get; private set; }
+
+        /// <summary>Gets the unique integer representing a type.</summary>
+        /// <value>The id.</value>
+        public int Id { get; private set; }
+    }
+}
