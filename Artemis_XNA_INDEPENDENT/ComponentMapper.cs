@@ -1,47 +1,53 @@
-using System;
 namespace Artemis
 {
-    /// <summary>
-    /// Fastest Way to get Components from entities
-    /// </summary>
-	public sealed class ComponentMapper<T> where T : Component {
-		private ComponentType type;
-		private EntityManager em;
-   
-        /// <summary>
-        /// Creates a component mapper within the given Entity World
-        /// </summary>
-        /// <param name="world">EntityWorld</param>
-		public ComponentMapper(EntityWorld world) {
-            System.Diagnostics.Debug.Assert(world != null);
-			em = world.EntityManager;
-			type = ComponentTypeManager.GetTypeFor<T>();
-		}     
-	
-        /// <summary>
-        /// Gets the component for the given entity/component type combo
-        /// </summary>
-        /// <param name="e">Entity in which you are interested</param>
-        /// <returns>Component</returns>
-		public T Get(Entity e) {
-            System.Diagnostics.Debug.Assert(e != null);
-			return (T)em.GetComponent(e, type);
-		}
-        
-        /// <summary>
-        /// Creates a ComponentMapper for a Type
-        /// </summary>
-        /// <typeparam name="K"></typeparam>
-        /// <param name="type"></param>
-        /// <param name="world"></param>
-        /// <returns></returns>
-          public static ComponentMapper<K> GetComponentMapperFor<K>(K type, EntityWorld world)
-           where K : Component
-          {
-                return new ComponentMapper<K>(world);
+    #region Using statements
+
+    using global::System.Diagnostics;
+
+    using Artemis.Interface;
+    using Artemis.Manager;
+
+    #endregion Using statements
+
+    /// <summary>Fastest Way to get Components from entities.</summary>
+    /// <typeparam name="T">The <see langword="Type"/> T.</typeparam>
+    public sealed class ComponentMapper<T>
+        where T : IComponent
+    {
+        /// <summary>The entity manager.</summary>
+        private readonly EntityManager entityManager;
+
+        /// <summary>The component type.</summary>
+        private readonly ComponentType componentType;
+
+        /// <summary>Initializes a new instance of the <see cref="ComponentMapper{T}"/> class.</summary>
+        /// <param name="entityWorld">The entity world.</param>
+        public ComponentMapper(EntityWorld entityWorld)
+        {
+            Debug.Assert(entityWorld != null, "Entity world must not be null.");
+
+            this.entityManager = entityWorld.EntityManager;
+            this.componentType = ComponentTypeManager.GetTypeFor<T>();
         }
 
+        /// <summary>Gets the component mapper for.</summary>
+        /// <typeparam name="TK">The <see langword="Type"/> TK.</typeparam>
+        /// <param name="type">The type.</param>
+        /// <param name="entityWorld">The entity world.</param>
+        /// <returns>The specified ComponentMapper.</returns>
+        public static ComponentMapper<TK> GetComponentMapperFor<TK>(TK type, EntityWorld entityWorld) where TK : IComponent
+        {
+            return new ComponentMapper<TK>(entityWorld);
+        }
 
-	}
+        /// <summary>Gets the specified entity.</summary>
+        /// <param name="entity">The entity.</param>
+        /// <returns>The specified <see langword="Type"/> T.</returns>
+        public T Get(Entity entity)
+        {
+            Debug.Assert(entity != null, "Entity must not be null.");
+
+            return (T)this.entityManager.GetComponent(entity, this.componentType);
+        }
+    }
 }
-

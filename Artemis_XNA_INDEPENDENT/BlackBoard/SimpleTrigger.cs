@@ -1,30 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Artemis
+﻿namespace Artemis.Blackboard
 {
+    #region Using statements
+
+    using global::System;
+
+    #endregion Using statements
+
+    /// <summary>Class SimpleTrigger.</summary>
     public class SimpleTrigger : Trigger
     {
-        Func<BlackBoard, TriggerState, bool> Condition;
-        Action<TriggerState> onFire;
-        public SimpleTrigger(String Name, Func<BlackBoard, TriggerState, bool> Condition, Action<TriggerState> onFire = null)
+        /// <summary>The condition.</summary>
+        private readonly Func<BlackBoard, TriggerStateType, bool> condition;
+
+        /// <summary>The on fire.</summary>
+        private readonly Action<TriggerStateType> onFire;
+
+        /// <summary>Initializes a new instance of the <see cref="SimpleTrigger"/> class.</summary>
+        /// <param name="name">The name.</param>
+        /// <param name="condition">The condition.</param>
+        /// <param name="onFire">The on fire.</param>
+        public SimpleTrigger(string name, Func<BlackBoard, TriggerStateType, bool> condition, Action<TriggerStateType> onFire = null)
         {
-            this.WorldPropertiesMonitored.Add(Name);
-            this.Condition = Condition;
+            this.WorldPropertiesMonitored.Add(name);
+            this.condition = condition;
             this.onFire = onFire;
         }
 
-        protected override bool CheckConditionToFire()
+        /// <summary>Called if is fired.</summary>
+        /// <param name="triggerStateType">State of the trigger.</param>
+        protected override void CalledOnFire(TriggerStateType triggerStateType)
         {
-            return Condition(BlackBoard, TriggerState);
+            if (this.onFire != null)
+            {
+                this.onFire(triggerStateType);
+            }
         }
 
-        protected override void CalledOnFire(TriggerState TriggerState)
+        /// <summary>Checks the condition to fire.</summary>
+        /// <returns><see langword="true" /> if XXXX, <see langword="false" /> otherwise</returns>
+        protected override bool CheckConditionToFire()
         {
-            if (onFire != null)
-                onFire(TriggerState);
+            return this.condition(this.BlackBoard, this.TriggerStateType);
         }
     }
 }

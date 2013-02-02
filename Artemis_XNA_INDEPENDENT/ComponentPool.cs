@@ -1,196 +1,214 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Artemis
+﻿namespace Artemis
 {
+    #region Using statements
+
+    using global::System;
+    using global::System.Collections.Generic;
+
+    using Artemis.Interface;
+
+    #endregion Using statements
+
     /// <summary>
-    /// A collection that maintains a set of class instances to allow for recycling
-    /// instances and minimizing the effects of garbage collection.
+    /// <para>A collection that maintains a set of class instances</para>
+    /// <para>to allow for recycling instances and</para>
+    /// <para>minimizing the effects of garbage collection.</para>
     /// </summary>
     /// <typeparam name="T">The type of object to store in the Pool. Pools can only hold class types.</typeparam>
-    public class ComponentPool<T> : Artemis.IComponentPool<T> where T : ComponentPoolable
+    public class ComponentPool<T> : IComponentPool<T>
+        where T : ComponentPoolable
     {
-        // the amount to enlarge the items array if New is called and there are no free items
-        public int ResizeAmount
-        {
-            get;
-            internal set;
-        }
-
-        // whether or not the pool is allowed to resize
-        private bool canResize;
-
-        // the actual items of the pool
-        private T[] items;
-
-        private List<T> invalidObjects = new List<T>();
-
-        private Dictionary<int, T> itemDic = new Dictionary<int, T>();
-                
-        // used for allocating instances of the object
+        /// <summary>The allocate.</summary>
         private readonly Func<Type, T> allocate;
 
-        /// <summary>
-        /// Gets the number of valid objects in the pool.
-        /// </summary>
-        public int ValidCount { get { return items.Length - InvalidCount; } }
+        /// <summary>The is resize allowed indicates whether or not the pool is allowed to resize.</summary>
+        private readonly bool isResizeAllowed;
 
-        /// <summary>
-        /// Gets the number of invalid objects in the pool.
-        /// </summary>
-        public int InvalidCount { get; private set; }
+        /// <summary>The inner type.</summary>
+        private readonly Type innerType;
 
-        private Type innerType;
+        /// <summary>The invalid objects.</summary>
+        private readonly List<T> invalidObjects;
 
-        /// <summary>
-        /// Returns a valid object at the given index. The index must fall in the range of [0, ValidCount].
-        /// </summary>
-        /// <param name="index">The index of the valid object to get</param>
-        /// <returns>A valid object found at the index</returns>
-        public T this[int index]
-        {
-            get
-            {
-                index += InvalidCount;
+        /// <summary>The actual items of the pool.</summary>
+        private T[] items;
 
-                if (index < InvalidCount || index >= items.Length)
-                    throw new IndexOutOfRangeException("The index must be less than or equal to ValidCount");
-
-                return items[index];
-            }
-        }
-
-        /// <summary>
-        /// Creates a new pool with a specific starting size.
-        /// </summary>
+        /// <summary>Initializes a new instance of the <see cref="ComponentPool{T}"/> class.</summary>
         /// <param name="initialSize">The initial size of the pool.</param>
         /// <param name="resizePool">The resize pool size.</param>
         /// <param name="resizes">Whether or not the pool is allowed to increase its size as needed.</param>
         /// <param name="allocateFunc">A function used to allocate an instance for the pool.</param>
-        /// <param name="innerType">Type ComponentPoolable.</param>
-        /// <exception cref="ArgumentOutOfRangeException">initialSize;initialSize must be at least 1.</exception>
-        /// <exception cref="ArgumentNullException">allocateFunc</exception>
-        public ComponentPool(int initialSize,int resizePool ,bool resizes, Func<Type,T> allocateFunc,Type innerType)
+        /// <param name="innerType">Type ComponentPool-able.</param>
+        /// <exception cref="ArgumentOutOfRangeException">InitialSize and ResizePool must be at least 1.</exception>
+        /// <exception cref="ArgumentNullException">AllocateFunc and InnerType must not be null.</exception>
+        public ComponentPool(int initialSize, int resizePool, bool resizes, Func<Type, T> allocateFunc, Type innerType)
         {
+            this.invalidObjects = new List<T>();
+
             // validate some parameters
             if (initialSize < 1)
+            {
                 throw new ArgumentOutOfRangeException("initialSize", "initialSize must be at least 1.");
+            }
 
             if (resizePool < 1)
-                throw new ArgumentOutOfRangeException("resizePool", "resizePool must be at least 1.");           
+            {
+                throw new ArgumentOutOfRangeException("resizePool", "resizePool must be at least 1.");
+            }
 
             if (allocateFunc == null)
+            {
                 throw new ArgumentNullException("allocateFunc");
+            }
 
             if (innerType == null)
+            {
                 throw new ArgumentNullException("innerType");
+            }
 
             this.innerType = innerType;
-            canResize = resizes;
+            this.isResizeAllowed = resizes;
             this.ResizeAmount = resizePool;
 
-            // create our items array
-            items = new T[initialSize];
-            InvalidCount = items.Length;
+            // Create our items array.
+            this.items = new T[initialSize];
+            this.InvalidCount = this.items.Length;
 
-            // store our delegates           
-            allocate = allocateFunc;
+            // Store our delegates.         
+            this.allocate = allocateFunc;
         }
 
-        /// <summary>
-        /// Return an object to the pool
-        /// </summary>
-        /// <param name="obj"></param>
-        public void ReturnObject(T obj)
+        /// <summary>Gets the number of invalid objects in the pool.</summary>
+        /// <value>The invalid count.</value>
+        public int InvalidCount { get; private set; }
+
+        /// <summary>Gets the resize amount.</summary>
+        /// <value>The resize amount.</value>
+        public int ResizeAmount { get; internal set; }
+
+        /// <summary>Gets the number of valid objects in the pool.</summary>
+        /// <value>The valid count.</value>
+        public int ValidCount
         {
-            invalidObjects.Add(obj);
+            get
+            {
+                return this.items.Length - this.InvalidCount;
+            }
+        }
+
+        /// <summary>Returns a valid object at the given index. The index must fall in the range of [0, ValidCount].</summary>
+        /// <param name="index">The index.</param>
+        /// <returns>A valid object found at the index</returns>
+        /// <exception cref="IndexOutOfRangeException">The index must be less than or equal to ValidCount.</exception>
+        public T this[int index]
+        {
+            get
+            {
+                index += this.InvalidCount;
+
+                if (index < this.InvalidCount || index >= this.items.Length)
+                {
+                    throw new IndexOutOfRangeException("The index must be less than or equal to ValidCount");
+                }
+
+                return this.items[index];
+            }
         }
 
         /// <summary>
-        /// Cleans up the pool by checking each valid object to ensure it is still actually valid.
-        /// Must be called regularly to free returned Objects
+        /// <para>Cleans up the pool by checking each valid object</para>
+        /// <para>to ensure it is still actually valid.</para>
+        /// <para>Must be called regularly to free returned Objects.</para>
         /// </summary>
         public void CleanUp()
-        {            
-
+        {
             ///////////30////////////50
-            for (int i = 0; i < invalidObjects.Count; i++)
+            foreach (T item in this.invalidObjects)
             {
-                T obj = invalidObjects[i];
-
                 // otherwise if we're not at the start of the invalid objects, we have to move
                 // the object to the invalid object section of the array
-                if (obj.poolId != InvalidCount)
+                if (item.PoolId != this.InvalidCount)
                 {
-                    items[obj.poolId] = items[InvalidCount];
-                    items[InvalidCount].poolId = obj.poolId;
-                    items[InvalidCount] = obj;
-                    obj.poolId = -1;
+                    this.items[item.PoolId] = this.items[this.InvalidCount];
+                    this.items[this.InvalidCount].PoolId = item.PoolId;
+                    this.items[this.InvalidCount] = item;
+                    item.PoolId = -1;
                 }
 
                 // clean the object if desired
-                obj.Cleanup();
-                InvalidCount++;
+                item.CleanUp();
+                ++this.InvalidCount;
             }
 
-            invalidObjects.Clear();
+            this.invalidObjects.Clear();
         }
 
-        /// <summary>
-        /// Returns a new object from the Pool.
-        /// </summary>
+        /// <summary>Returns a new object from the Pool.</summary>
         /// <returns>The next object in the pool if available, null if all instances are valid.</returns>
+        /// <exception cref="Exception">Limit Exceeded items.Length and the pool was set to not resize.</exception>
+        /// <exception cref="InvalidOperationException">The pool's allocate method returned a null object reference.</exception>
         public T New()
         {
-            // if we're out of invalid instances...
-            if (InvalidCount == 0)
+            // If we're out of invalid instances...
+            if (this.InvalidCount == 0)
             {
-                // if we can't resize, then we can't give the user back any instance
-                if (!canResize)
-                    throw new Exception("Limit Exceeded " + this.items.Length + " , and the pool was set to not resize");
-
-                // create a new array with some more slots and copy over the existing items
-                T[] newItems = new T[items.Length + ResizeAmount];
-
-                for (int i = items.Length - 1; i >= 0; i--)
+                // If we can't resize, then we can not give the user back any instance.
+                if (!this.isResizeAllowed)
                 {
-                    if (i >= InvalidCount)
-                    {
-                        items[i].poolId = i + ResizeAmount;
-                    }
-                    newItems[i + ResizeAmount] = items[i];
-                    
+                    throw new Exception("Limit Exceeded " + this.items.Length + ", and the pool was set to not resize.");
                 }
-                items = newItems;
+
+                // Create a new array with some more slots and copy over the existing items.
+                T[] newItems = new T[this.items.Length + this.ResizeAmount];
+
+                for (int index = this.items.Length - 1; index >= 0; --index)
+                {
+                    if (index >= this.InvalidCount)
+                    {
+                        this.items[index].PoolId = index + this.ResizeAmount;
+                    }
+
+                    newItems[index + this.ResizeAmount] = this.items[index];
+                }
+
+                this.items = newItems;
 
                 // move the invalid count based on our resize amount
-                InvalidCount += ResizeAmount;
+                this.InvalidCount += this.ResizeAmount;
             }
 
             // decrement the counter
-            InvalidCount--;
+            --this.InvalidCount;
 
             // get the next item in the list
-            T obj = items[InvalidCount];
+            T result = this.items[this.InvalidCount];
 
             // if the item is null, we need to allocate a new instance
-            if (obj == null)
+            if (result == null)
             {
-                obj = allocate(innerType);
+                result = this.allocate(this.innerType);
 
-                if (obj == null)
+                if (result == null)
+                {
                     throw new InvalidOperationException("The pool's allocate method returned a null object reference.");
+                }
 
-                items[InvalidCount] = obj;                
+                this.items[this.InvalidCount] = result;
             }
 
-            obj.poolId = InvalidCount;
-            // initialize the object if a delegate was provided
-            obj.Initialize();
+            result.PoolId = this.InvalidCount;
 
-            return obj;
+            // Initialize the object if a delegate was provided.
+            result.Initialize();
+
+            return result;
+        }
+
+        /// <summary>Returns the object.</summary>
+        /// <param name="item">The item.</param>
+        public void ReturnObject(T item)
+        {
+            this.invalidObjects.Add(item);
         }
     }
 }

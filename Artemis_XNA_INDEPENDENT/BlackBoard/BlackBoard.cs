@@ -1,117 +1,161 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-
-namespace Artemis
+﻿namespace Artemis.Blackboard
 {
+    #region Using statements
+
+    using global::System;
+    using global::System.Collections.Generic;
+    using global::System.Linq;
+
+    #endregion Using statements
+
+    /// <summary>Class BlackBoard.</summary>
     public class BlackBoard
     {
-        private Dictionary<String, object> intelligence = new Dictionary<string, object>();
-        private Dictionary<String, List<Trigger>> triggers = new Dictionary<string, List<Trigger>>();                
-        private object entrylock = new object();       
-        
-        public void SetEntry<T>(String name, T intel)
+        /// <summary>The entry lock.</summary>
+        private readonly object entryLock;
+
+        /// <summary>The intelligence.</summary>
+        private readonly Dictionary<string, object> intelligence;
+
+        /// <summary>The triggers.</summary>
+        private readonly Dictionary<string, List<Trigger>> triggers;
+
+        /// <summary>Initializes a new instance of the <see cref="BlackBoard"/> class.</summary>
+        public BlackBoard()
         {
-            lock (entrylock)
+            this.triggers = new Dictionary<string, List<Trigger>>();
+            this.intelligence = new Dictionary<string, object>();
+            this.entryLock = new object();
+        }
+
+        /// <summary>Adds the trigger.</summary>
+        /// <param name="trigger">The trigger.</param>
+        /// <param name="evaluateNow">if set to <see langword="true" /> [evaluate now].</param>
+        public void AddTrigger(Trigger trigger, bool evaluateNow = false)
+        {
+            lock (this.entryLock)
             {
-                TriggerState TriggerState = intelligence.ContainsKey(name) == true ? TriggerState.VALUE_CHANGED : TriggerState.VALUE_ADDED;
-                intelligence[name] = intel;
-
-
-                if (triggers.ContainsKey(name))
+                trigger.BlackBoard = this;
+                foreach (string intelName in trigger.WorldPropertiesMonitored)
                 {
-                    foreach (var item in triggers[name])
+                    if (this.triggers.ContainsKey(intelName))
                     {
-                        if(item.fired ==false)
-                            item.Fire(TriggerState);
+                        this.triggers[intelName].Add(trigger);
+                    }
+                    else
+                    {
+                        this.triggers[intelName] = new List<Trigger>
+                                                       {
+                                                           trigger
+                                                       };
+                    }
+                }
+
+                if (evaluateNow)
+                {
+                    if (trigger.IsFired == false)
+                    {
+                        trigger.Fire(TriggerStateType.TriggerAdded);
                     }
                 }
             }
         }
 
-        public void AtomicOperateOnEntry<T>(Action<BlackBoard> operation)
+        /// <summary>Atomics the operate on entry.</summary>
+        /// <param name="operation">The operation.</param>
+        public void AtomicOperateOnEntry(Action<BlackBoard> operation)
         {
-            lock (entrylock)
+            lock (this.entryLock)
             {
                 operation(this);
             }
         }
 
-
-        public void RemoveEntry(String name)
+        /// <summary>Gets the entry.</summary>
+        /// <typeparam name="T">The <see langword="Type"/> T.</typeparam>
+        /// <param name="name">The name.</param>
+        /// <returns>The specified <see langword="Type"/> T.</returns>
+        public T GetEntry<T>(string name)
         {
-            lock (entrylock)
+            if (this.intelligence.ContainsKey(name))
             {
-                intelligence.Remove(name);
-
-
-                if (triggers.ContainsKey(name))
-                {
-                    foreach (var item in triggers[name])
-                    {
-                        if (item.fired == false)
-                            item.Fire(TriggerState.VALUE_REMOVED);
-                    }
-                }
+                return (T)this.intelligence[name];
             }
-        }
 
-        public T GetEntry<T>(String name)
-        {
-            if (intelligence.ContainsKey(name))
-                return (T)intelligence[name];
             return default(T);
         }
 
-        public object GetEntry(String name)
+        /// <summary>Gets the entry.</summary>
+        /// <param name="name">The name.</param>
+        /// <returns>The specified System.Object.</returns>
+        public object GetEntry(string name)
         {
-            if (intelligence.ContainsKey(name))
-                return intelligence[name];
+            if (this.intelligence.ContainsKey(name))
+            {
+                return this.intelligence[name];
+            }
+
             return null;
         }
 
-        public void AddTrigger(Trigger Trigger, bool evaluateNow = false)
+        /// <summary>Removes the entry.</summary>
+        /// <param name="name">The name.</param>
+        public void RemoveEntry(string name)
         {
-            lock (entrylock)
+            lock (this.entryLock)
             {
-                Trigger.BlackBoard = this;
-                foreach (var IntellName in Trigger.WorldPropertiesMonitored)
-                {
+                this.intelligence.Remove(name);
 
-                    if (triggers.ContainsKey(IntellName))
-                    {
-                        triggers[IntellName].Add(Trigger);
-                    }
-                    else
-                    {
-                        triggers[IntellName] = new List<Trigger>();
-                        triggers[IntellName].Add(Trigger);
-                    }
-                }
-                if (evaluateNow)
+                if (this.triggers.ContainsKey(name))
                 {
-                    if (Trigger.fired == false)
-                        Trigger.Fire(TriggerState.TRIGGER_ADDED);
+                    foreach (Trigger item in this.triggers[name].Where(item => item.IsFired == false))
+                    {
+                        item.Fire(TriggerStateType.ValueRemoved);
+                    }
                 }
             }
         }
 
-        public void RemoveTrigger(Trigger Trigger)
+        /// <summary>Removes the trigger.</summary>
+        /// <param name="trigger">The trigger.</param>
+        public void RemoveTrigger(Trigger trigger)
         {
-            lock (entrylock)
+            lock (this.entryLock)
             {
-                foreach (var IntellName in Trigger.WorldPropertiesMonitored)
+                foreach (string intelName in trigger.WorldPropertiesMonitored)
                 {
-                    triggers[IntellName].Remove(Trigger);
+                    this.triggers[intelName].Remove(trigger);
                 }
             }
         }
 
-        public List<Trigger> TriggerList(String Name)
+        /// <summary>Sets the entry.</summary>
+        /// <typeparam name="T">The <see langword="Type"/> T.</typeparam>
+        /// <param name="name">The name.</param>
+        /// <param name="intel">The intel.</param>
+        public void SetEntry<T>(string name, T intel)
         {
-            return triggers[Name];
+            lock (this.entryLock)
+            {
+                TriggerStateType triggerStateType = this.intelligence.ContainsKey(name) ? TriggerStateType.ValueChanged : TriggerStateType.ValueAdded;
+                this.intelligence[name] = intel;
+
+                if (this.triggers.ContainsKey(name))
+                {
+                    foreach (Trigger item in this.triggers[name].Where(item => item.IsFired == false))
+                    {
+                        item.Fire(triggerStateType);
+                    }
+                }
+            }
+        }
+
+        /// <summary>Triggers the list.</summary>
+        /// <param name="name">The name.</param>
+        /// <returns>The specified List{Trigger}.</returns>
+        public List<Trigger> TriggerList(string name)
+        {
+            return this.triggers[name];
         }
     }
 }

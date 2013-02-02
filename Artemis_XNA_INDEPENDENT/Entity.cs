@@ -1,311 +1,305 @@
-using System;
-
-#if !XBOX && !WINDOWS_PHONE
-
-using System.Numerics;
-
-#endif
-
-#if XBOX || WINDOWS_PHONE
-using BigInteger = System.Int32;
-#endif
-
 namespace Artemis
 {
-    /// <summary>
-    /// Basic Unity of an Entity System
-    /// </summary>
-	public sealed class Entity
-	{
-		private int id;
-		private long uniqueId;
-		private BigInteger typeBits = 0;
-		private BigInteger systemBits = 0;
+    #region Using statements
 
-		private EntityWorld world;
-		private EntityManager entityManager;
-		private bool enabled = true;
-		private bool refreshingState = false;
-		private bool deletingState = false;
+    using global::System.Diagnostics;
 
-		internal Entity(EntityWorld world, int id)
-		{
-			this.world = world;
-			this.entityManager = world.EntityManager;
-			this.id = id;
-		}
+#if !XBOX && !WINDOWS_PHONE
+    using global::System.Numerics;
+#endif
+#if XBOX || WINDOWS_PHONE
+    using BigInteger = System.Int32;
+#endif
 
-		/**
-		 * The internal id for this entity within the framework. No other entity will have the same ID, but
-		 * ID's are however reused so another entity may acquire this ID if the previous entity was deleted.
-		 *
-		 * @return id of the entity.
-		 */
-		public int Id
-		{
-			get { return id; }
-		}
+    using Artemis.Interface;
+    using Artemis.Manager;
+    using Artemis.Utils;
 
-		public long UniqueId
-		{
-			get { return uniqueId; }
-			internal set
-			{
-				System.Diagnostics.Debug.Assert(uniqueId >= 0);
-				uniqueId = value;
-			}
-		}
+    #endregion Using statements
 
-		internal BigInteger TypeBits
-		{
-			get { return typeBits; }
-			set { typeBits = value; }
-		}
+    /// <summary>Basic unity of this entity system.</summary>
+    public sealed class Entity
+    {
+        /// <summary>The entity manager.</summary>
+        private readonly EntityManager entityManager;
 
-		internal void AddTypeBit(BigInteger bit)
-		{
-			typeBits |= bit;
-		}
+        /// <summary>The entity world.</summary>
+        private readonly EntityWorld entityWorld;
 
-		internal void RemoveTypeBit(BigInteger bit)
-		{
-			typeBits &= ~bit;
-		}
+        /// <summary>The unique id.</summary>
+        private long uniqueId;
 
-		public bool RefreshingState
-		{
-			get { return refreshingState; }
-			set { refreshingState = value; }
-		}
-
-		public bool DeletingState
-		{
-			get { return deletingState; }
-			set { deletingState = value; }
-		}
-
-		internal BigInteger SystemBits
-		{
-			get { return systemBits; }
-			set { systemBits = value; }
-		}
-
-		internal void AddSystemBit(BigInteger bit)
-		{
-			systemBits |= bit;
-		}
-
-		internal void RemoveSystemBit(BigInteger bit)
-		{
-			systemBits &= ~bit;
-		}
+        /// <summary>Initializes a new instance of the <see cref="Entity"/> class.</summary>
+        /// <param name="entityWorld">The entity world.</param>
+        /// <param name="id">The id.</param>
+        internal Entity(EntityWorld entityWorld, int id)
+        {
+            this.SystemBits = 0;
+            this.TypeBits = 0;
+            this.IsEnabled = true;
+            this.entityWorld = entityWorld;
+            this.entityManager = entityWorld.EntityManager;
+            this.Id = id;
+        }
 
         /// <summary>
-        /// Resets this instance.
+        /// <para>Gets all components belonging to this entity.</para>
+        /// <para>Warning: Use only for debugging purposes, it is dead slow.</para>
+        /// <para>The returned bag is only valid until this method is called</para>
+        /// <para>again, then it is overwritten.</para>
         /// </summary>
-		public void Reset()
-		{
-			systemBits = 0;
-			typeBits = 0;
-			enabled = true;
-		}
+        /// <value>All components of this entity.</value>
+        public Bag<IComponent> Components
+        {
+            get
+            {
+                return this.entityManager.GetComponents(this);
+            }
+        }
 
-		public override String ToString()
-		{
-			return "Entity[" + id + "]";
-		}
+        /// <summary>Gets or sets a value indicating whether [deleting state].</summary>
+        /// <value><see langword="true" /> if [deleting state]; otherwise, <see langword="false" />.</value>
+        public bool DeletingState { get; set; }
+
+        /// <summary>Gets or sets a value indicating whether this <see cref="Entity" /> is enabled.</summary>
+        /// <value><see langword="true" /> if enabled; otherwise, <see langword="false" />.</value>
+        public bool IsEnabled { get; set; }
+
+        /// <summary>Gets or sets the group.</summary>
+        /// <value>The group.</value>
+        public string Group
+        {
+            get
+            {
+                return this.entityWorld.GroupManager.GetGroupOf(this);
+            }
+
+            set
+            {
+                this.entityWorld.GroupManager.Set(value, this);
+            }
+        }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="Entity"/> is enabled.
+        /// <para>Gets the internal id for this entity within the framework.</para>
+        /// <para>No other entity will have the same ID,</para>
+        /// <para>but ID's are however reused so another entity may acquire</para>
+        /// <para> this ID if the previous entity was deleted.</para>
         /// </summary>
-        /// <value>
-        ///   <c>true</c> if enabled; otherwise, <c>false</c>.
-        /// </value>
-		public bool Enabled
-		{
-			get
-			{
-				return enabled;
-			}
-			set
-			{
-				enabled = value;
-			}
-		}
+        /// <value>The id.</value>
+        public int Id { get; private set; }
 
-		/**
-		 * Add a component to this entity.
-		 * @param component to add to this entity
-		 */
+        /// <summary>Gets or sets a value indicating whether [refreshing state].</summary>
+        /// <value><see langword="true" /> if [refreshing state]; otherwise, <see langword="false" />.</value>
+        public bool RefreshingState { get; set; }
 
-		public void AddComponent(Component component)
-		{
-			System.Diagnostics.Debug.Assert(component != null);
-			entityManager.AddComponent(this, component);
-		}
+        /// <summary>Gets or sets the tag.</summary>
+        /// <value>The tag.</value>
+        public string Tag
+        {
+            get
+            {
+                return this.entityWorld.TagManager.GetTagOfEntity(this);
+            }
 
+            set
+            {
+                this.entityWorld.TagManager.Register(value, this);
+            }
+        }
+
+        /// <summary>Gets the unique id.</summary>
+        /// <value>The unique id.</value>
+        public long UniqueId
+        {
+            get
+            {
+                return this.uniqueId;
+            }
+
+            internal set
+            {
+                Debug.Assert(this.uniqueId >= 0, "UniqueId must be at least 0.");
+
+                this.uniqueId = value;
+            }
+        }
+
+        /// <summary>Gets a value indicating whether this instance is active.</summary>
+        /// <value><see langword="true" /> if this instance is active; otherwise, <see langword="false" />.</value>
+        public bool IsActive
+        {
+            get
+            {
+                return this.entityManager.IsActive(this.Id);
+            }
+        }
+
+        /// <summary>Gets or sets the system bits.</summary>
+        /// <value>The system bits.</value>
+        internal BigInteger SystemBits { get; set; }
+
+        /// <summary>Gets or sets the type bits.</summary>
+        /// <value>The type bits.</value>
+        internal BigInteger TypeBits { get; set; }
+
+        /// <summary>Adds the component.</summary>
+        /// <param name="component">The component.</param>
+        public void AddComponent(IComponent component)
+        {
+            Debug.Assert(component != null, "Component must not be null.");
+
+            this.entityManager.AddComponent(this, component);
+        }
+
+        /// <summary>Adds the component.</summary>
+        /// <typeparam name="T">The <see langword="Type"/> T.</typeparam>
+        /// <param name="component">The component.</param>
+        public void AddComponent<T>(IComponent component) where T : IComponent
+        {
+            Debug.Assert(component != null, "Component must not be null.");
+
+            this.entityManager.AddComponent<T>(this, component);
+        }
+
+        /// <summary>Adds the component from pool.</summary>
+        /// <typeparam name="T">The <see langword="Type"/> T.</typeparam>
+        /// <returns>The added component.</returns>
         public T AddComponentFromPool<T>() where T : ComponentPoolable
-        {            
-            var component = world.GetComponentFromPool(typeof(T));
-            entityManager.AddComponent(this, component);
-            return (T) component;
+        {
+            IComponent component = this.entityWorld.GetComponentFromPool(typeof(T));
+            this.entityManager.AddComponent(this, component);
+            return (T)component;
         }
 
-		public void AddComponent<T>(Component component) where T : Component
-		{
-			System.Diagnostics.Debug.Assert(component != null);
-			entityManager.AddComponent<T>(this, component);
-		}
+        /// <summary>Deletes this instance.</summary>
+        public void Delete()
+        {
+            if (this.DeletingState)
+            {
+                return;
+            }
 
-
-        /// <summary>
-        /// Remove Component frmo this entity
-        /// </summary>
-        /// <typeparam name="T">Component Type</typeparam>
-        public void RemoveComponent<T>() where T : Component
-        {            
-            entityManager.RemoveComponent<T>(this, ComponentTypeManager.GetTypeFor<T>());
+            this.entityWorld.DeleteEntity(this);
+            this.DeletingState = true;
         }
 
-		/**
-		 * Faster removal of components from a entity.
-		 * @param component to remove from this entity.
-		 */
+        /// <summary>
+        /// <para>Gets the component.</para>
+        /// <para>Slower retrieval of components from this entity.</para>
+        /// <para>Minimize usage of this, but is fine to use e.g. when</para>
+        /// <para>creating new entities and setting data in components.</para>
+        /// </summary>
+        /// <param name="componentType">Type of the component.</param>
+        /// <returns>component that matches, or null if none is found.</returns>
+        public IComponent GetComponent(ComponentType componentType)
+        {
+            Debug.Assert(componentType != null, "Component type must not be null.");
 
-		public void RemoveComponent(ComponentType type)
-		{
-			System.Diagnostics.Debug.Assert(type != null);
-			entityManager.RemoveComponent(this, type);
-		}
-
-		/**
-		 * Checks if the entity has been deleted from somewhere.
-		 * @return if it's active.
-		 */
-
-		public bool isActive
-		{
-			get
-			{
-				return entityManager.IsActive(id);
-			}
-		}
-
-		/**
-		 * This is the preferred method to use when retrieving a component from a entity. It will provide good performance.
-		 *
-		 * @param type in order to retrieve the component fast you must provide a ComponentType instance for the expected component.
-		 * @return
-		 */
-
-		public Component GetComponent(ComponentType type)
-		{
-			System.Diagnostics.Debug.Assert(type != null);
-			return entityManager.GetComponent(this, type);
-		}
-
-		/**
-		 * Slower retrieval of components from this entity. Minimize usage of this, but is fine to use e.g. when creating new entities
-		 * and setting data in components.
-		 * @param <T> the expected return component type.
-		 * @param type the expected return component type.
-		 * @return component that matches, or null if none is found.
-		 */
-
-		public T GetComponent<T>() where T : Component
-		{
-			return (T)GetComponent(ComponentTypeManager.GetTypeFor<T>());
-		}
+            return this.entityManager.GetComponent(this, componentType);
+        }
 
         /// <summary>
-        /// Determines whether this instance has a specific component.
+        /// <para>Gets the component.</para>
+        /// <para>This is the preferred method to use when</para>
+        /// <para>retrieving a component from a entity.</para>
+        /// <para>It will provide good performance.</para>
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns>
-        ///   <c>true</c> if this instance has a specific component; otherwise, <c>false</c>.
-        /// </returns>
-		public bool HasComponent<T>() where T : Component
-		{
-			return (T)GetComponent(ComponentTypeManager.GetTypeFor<T>()) != null;
-		}
+        /// <typeparam name="T">the expected return component type.</typeparam>
+        /// <returns>component that matches, or null if none is found.</returns>
+        public T GetComponent<T>() where T : IComponent
+        {
+            return (T)this.GetComponent(ComponentTypeManager.GetTypeFor<T>());
+        }
 
-		/**
-		 * Get all components belonging to this entity.
-		 * WARNING. Use only for debugging purposes, it is dead slow.
-		 * WARNING. The returned bag is only valid until this method is called again, then it is overwritten.
-		 * @return all components of this entity.
-		 */
+        /// <summary>Determines whether this instance has a specific component.</summary>
+        /// <typeparam name="T">The <see langword="Type"/> T.</typeparam>
+        /// <returns><see langword="true" /> if this instance has a specific component; otherwise, <see langword="false" />.</returns>
+        public bool HasComponent<T>() where T : IComponent
+        {
+            return !object.Equals((T)this.GetComponent(ComponentTypeManager.GetTypeFor<T>()), default(T));
+        }
 
-		public Bag<Component> Components
-		{
-			get
-			{
-				return entityManager.GetComponents(this);
-			}
-		}
+        /// <summary>
+        /// <para>Refreshes this instance.</para>
+        /// <para>Refresh all changes to components for this entity.</para>
+        /// <para>After adding or removing components,</para>
+        /// <para>you must call this method.</para>
+        /// <para>It will update all relevant systems.</para>
+        /// <para>It is typical to call this after adding components</para>
+        /// <para>to a newly created entity.</para>
+        /// </summary>
+        public void Refresh()
+        {
+            if (this.RefreshingState)
+            {
+                return;
+            }
 
-		/**
-		 * Refresh all changes to components for this entity. After adding or removing components, you must call
-		 * this method. It will update all relevant systems.
-		 * It is typical to call this after adding components to a newly created entity.
-		 */
+            this.entityWorld.RefreshEntity(this);
+            this.RefreshingState = true;
+        }
 
-		public void Refresh()
-		{
-			if (refreshingState == true)
-			{
-				return;
-			}
-			world.RefreshEntity(this);
-			refreshingState = true;
-		}
+        /// <summary>Remove Component from this entity.</summary>
+        /// <typeparam name="T">Component Type.</typeparam>
+        public void RemoveComponent<T>() where T : IComponent
+        {
+            this.entityManager.RemoveComponent(this, ComponentTypeManager.GetTypeFor<T>());
+        }
 
-		/**
-		 * Delete this entity from the world.
-		 */
+        /// <summary>
+        /// <para>Removes the component.</para>
+        /// <para>Faster removal of components from a entity.</para>
+        /// </summary>
+        /// <param name="componentType">The type.</param>
+        public void RemoveComponent(ComponentType componentType)
+        {
+            Debug.Assert(componentType != null, "Component type must not be null.");
 
-		public void Delete()
-		{
-			if (deletingState == true)
-			{
-				return;
-			}
-			world.DeleteEntity(this);
-			deletingState = true;
-		}
+            this.entityManager.RemoveComponent(this, componentType);
+        }
 
-		/**
-		 * Set the group of the entity. Same as World.setGroup().
-		 * @param group of the entity.
-		 */
+        /// <summary>Resets this instance.</summary>
+        public void Reset()
+        {
+            this.SystemBits = 0;
+            this.TypeBits = 0;
+            this.IsEnabled = true;
+        }
 
-		public String Group
-		{
-			get
-			{
-				return world.GroupManager.GetGroupOf(this);
-			}
-			set
-			{
-				world.GroupManager.Set(value, this);
-			}
-		}
+        /// <summary>Returns a <see cref="string" /> that represents this instance.</summary>
+        /// <returns>A <see cref="string" /> that represents this instance.</returns>
+        public override string ToString()
+        {
+            return "Entity[" + this.Id + "]";
+        }
 
-		/**
-		 * Assign a tag to this entity. Same as World.setTag().
-		 * @param tag of the entity.
-		 */
+        /// <summary>Adds the system bit.</summary>
+        /// <param name="bit">The bit.</param>
+        internal void AddSystemBit(BigInteger bit)
+        {
+            this.SystemBits |= bit;
+        }
 
-		public String Tag
-		{
-			get
-			{
-				return world.TagManager.GetTagOfEntity(this);
-			}
-			set
-			{
-				world.TagManager.Register(value, this);
-			}
-		}
-	}
+        /// <summary>Adds the type bit.</summary>
+        /// <param name="bit">The bit.</param>
+        internal void AddTypeBit(BigInteger bit)
+        {
+            this.TypeBits |= bit;
+        }
+
+        /// <summary>Removes the system bit.</summary>
+        /// <param name="bit">The bit.</param>
+        internal void RemoveSystemBit(BigInteger bit)
+        {
+            this.SystemBits &= ~bit;
+        }
+
+        /// <summary>Removes the type bit.</summary>
+        /// <param name="bit">The bit.</param>
+        internal void RemoveTypeBit(BigInteger bit)
+        {
+            this.TypeBits &= ~bit;
+        }
+    }
 }

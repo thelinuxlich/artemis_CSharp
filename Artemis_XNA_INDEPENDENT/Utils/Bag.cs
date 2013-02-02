@@ -1,342 +1,274 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-namespace Artemis
+namespace Artemis.Utils
 {
-	//Notes: Usage of unsafe or fixed would not do much in terms of performance
-	// In future maybe make ConcurrentBag concurrently modified through concurrentqueue?  Too many concurrents?
+    #region Using statements
 
-	// (2012-9-6) Squizzle : made Bag capable of using structs (Entity should be a struct)
-    public class Bag<E> : IEnumerable<E>
-    {       
-		private E[] data;
-		private int size = 0;
-		/**
-		 * Constructs an empty Bag with an initial capacity of 16.
-		 * 
-		 */
-		public Bag()
-		{
-			data = new E[16];
-		}
-	
-		/**
-		 * Constructs an empty Bag with the specified initial capacity.
-		 * 
-		 * @param capacity
-		 *            the initial capacity of Bag
-		 */
+    using global::System;
+    using global::System.Collections;
+    using global::System.Collections.Generic;
+
+    #endregion Using statements
+
+    /// <summary>Class Bag.</summary>
+    /// <typeparam name="T">The <see langword="Type"/> T.</typeparam>
+    public class Bag<T> : IEnumerable<T>
+    {
+        /// <summary>The data.</summary>
+        private T[] data;
+
+        /// <summary>Initializes a new instance of the <see cref="Bag{T}"/> class.</summary>
+        public Bag()
+        {
+            this.data = new T[16];
+        }
+
+        /// <summary>Initializes a new instance of the <see cref="Bag{T}"/> class.</summary>
+        /// <param name="capacity">The capacity.</param>
         public Bag(int capacity)
         {
-			data = new E[capacity];
-		}
-	
-		/**
-		 * Removes the element at the specified position in this Bag. does this by
-		 * overwriting it was last element then removing last element
-		 * 
-		 * @param index
-		 *            the index of element to be removed
-		 * @return element that was removed from the Bag
-		 */
-		public E Remove(int index) {
-			E o = data[index]; // make copy of element to remove so it can be
-			// returned
-			data[index] = data[--size]; // overwrite item to remove with last
-			// element
-			data[size] = default(E); // null last element, so gc can do its work
-			return o;
-		}
-		
-		
-		/**
-		 * Remove and return the last object in the bag.
-		 * 
-		 * @return the last object in the bag, null if empty.
-		 */
-		public E RemoveLast() {
-			if(size > 0) {
-				E o = data[--size];
-				data[size] = default(E); // default(E) if class = null
-				return o;
-			}
-			
-			return default(E);
-		}
-	
-		/**
-		 * Removes the first occurrence of the specified element from this Bag, if
-		 * it is present. If the Bag does not contain the element, it is unchanged.
-		 * does this by overwriting it was last element then removing last element
-		 * 
-		 * @param o
-		 *            element to be removed from this list, if present
-		 * @return <tt>true</tt> if this list contained the specified element
-		 */
-		public bool Remove(E o) {
-			for (int i = 0; i < size; i++) {
-				Object o1 = data[i];
-	
-				if (o.Equals(o1)) {
-					data[i] = data[--size]; // overwrite item to remove with last
-					// element
-					data[size] = default(E);
-					return true;
-				}
-			}
-	
-			return false;
-		}
-		
-		/**
-		 * Check if bag contains this element.
-		 * 
-		 * @param o
-		 * @return
-		 */
-		public bool Contains(E o) {
-			for(int i = 0; size > i; i++) {
-				if(o.Equals(data[i])) {
-					return true;
-				}
-			}
-			return false;
-		}
-	
-		/**
-		 * Removes from this Bag all of its elements that are contained in the
-		 * specified Bag.
-		 * 
-		 * @param bag
-		 *            Bag containing elements to be removed from this Bag
-		 * @return {@code true} if this Bag changed as a result of the call
-		 */
-		public bool RemoveAll(Bag<E> bag) {
-			bool modified = false;
-	
-			for (int i = 0, bagSize = bag.Size; i < bagSize; i++) {
-				Object o1 = bag.Get(i);
-	
-				for (int j = 0; j < size; j++) {
-					Object o2 = data[j];
+            this.data = new T[capacity];
+        }
 
-					if (o1 == o2)
-					{
-						//(2012-9-6) Squizzle : inlined method Remove(int)
-						{
-							E o = data[j];
-							data[j] = data[--size];
-							data[size] = default(E);
-						}
-						j--;
-						modified = true;
-						break;
-					}
-				}
-			}
-	
-			return modified;
-		}
-	
-		/**
-		 * Returns the element at the specified position in Bag.
-		 * 
-		 * @param index
-		 *            index of the element to return
-		 * @return the element at the specified position in bag
-		 */
-		public E Get(int index) {
-			return data[index];
-		}
-
-		/// <summary>
-		/// Returns the element at the specified position in Bag.
-		/// </summary>
-		/// <param name="index">index of the element to return</param>
-		/// <returns>the element at the specified position in Bag</returns>
-		public E this[int index]
-		{
-			get
-			{
-				return data[index];
-			}
-			set
-			{
-				if (index >= data.Length)
-				{
-					//(2012-9-6) Squizzle : inlined method Grow(int)
-					E[] oldData = data;
-					data = new E[index * 2];
-					Array.Copy(oldData, 0, data, 0, oldData.Length);
-
-					size = index + 1;
-				}
-				else if (index >= size)
-				{
-					size = index + 1;
-				}
-				data[index] = value;
-			}
-		}
-	
-		/**
-		 * Returns the number of elements in this bag.
-		 * 
-		 * @return the number of elements in this bag
-		 */		
-        public int Size
+        /// <summary>Gets the capacity.</summary>
+        /// <value>The capacity.</value>
+        public int Capacity
         {
             get
             {
-                return size;
+                return this.data.Length;
             }
         }
-		
-		/**
-		 * Returns the number of elements the bag can hold without growing.
-		 * 
-		 * @return the number of elements the bag can hold without growing.
-		 */
-		public int Capacity {
-			get { return data.Length;}
-		}
-	
-		/**
-		 * Returns true if this list contains no elements.
-		 * 
-		 * @return true if this list contains no elements
-		 */
-		public bool IsEmpty {
-			get { return size == 0;}
-		}
-	
-		/**
-		 * Adds the specified element to the end of this bag. if needed also
-		 * increases the capacity of the bag.
-		 * 
-		 * @param o
-		 *            element to be added to this list
-		 */
-		public void Add(E o) {
-			// is size greater than capacity increase capacity
-			if (size == data.Length)
-			{
-				Grow();
-			}
-	
-			data[size++] = o;
-		}
-	
-		/**
-		 * Set element at specified index in the bag.
-		 * 
-		 * @param index position of element
-		 * @param o the element
-		 */
-		public void Set(int index, E o) {
-			if(index >= data.Length) {
-				//(2012-9-6) Squizzle : inlined method Grow(int)
-				E[] oldData = data;
-				data = new E[index*2];
-				Array.Copy(oldData, 0, data, 0, oldData.Length);
 
-				size = index+1;
-			} else if(index >= size) {
-				size = index+1;
-			}
-			data[index] = o;
-		}
-	
-		private void Grow() {
-			int newCapacity = (data.Length * 3) / 2 + 1;
-			//(2012-9-6) Squizzle : inlined method Grow(int)
-			E[] oldData = data;
-			data = new E[newCapacity];
-			Array.Copy(oldData, 0, data, 0, oldData.Length);
-		}
-		
-		private void Grow(int newCapacity) {
-			E[] oldData = data;
-			data = new E[newCapacity];
-			Array.Copy(oldData, 0, data, 0, oldData.Length);
-		}
-	
-		/**
-		 * Removes all of the elements from this bag. The bag will be empty after
-		 * this call returns.
-		 */
-		public void Clear() {
-			// null all elements so gc can clean up
-			for (int i = 0; i < size; i++) {
-				data[i] = default(E);
-			}
-	
-			size = 0;
-		}
-	
-		/**
-		 * Add all items into this bag. 
-		 * @param added
-		 */
-		public void AddAll(Bag<E> items) {
-			for(int i = 0,j = items.Size; j > i; i++) {
-				//(2012-9-6) Squizzle : inlined method Add(E)
-				if (size == data.Length)
-				{
-					Grow();
-				}
-
-				data[size++] = items.Get(i);
-			}
-		}
-
-
-        IEnumerator<E> IEnumerable<E>.GetEnumerator()
+        /// <summary>Gets a value indicating whether this instance is empty.</summary>
+        /// <value><see langword="true" /> if this instance is empty; otherwise, <see langword="false" />.</value>
+        public bool IsEmpty
         {
-            return new BagEnumerator<E>(this);
+            get
+            {
+                return this.Size == 0;
+            }
         }
 
+        /// <summary>Gets the size.</summary>
+        /// <value>The size.</value>
+        public int Size { get; private set; }
+
+        /// <summary>Returns the element at the specified position in Bag.</summary>
+        /// <param name="index">The index.</param>
+        /// <returns>the element at the specified position in Bag</returns>
+        public T this[int index]
+        {
+            get
+            {
+                return this.data[index];
+            }
+
+            set
+            {
+                if (index >= this.data.Length)
+                {
+                    T[] oldData = this.data;
+                    this.data = new T[index * 2];
+                    Array.Copy(oldData, 0, this.data, 0, oldData.Length);
+
+                    this.Size = index + 1;
+                }
+                else if (index >= this.Size)
+                {
+                    this.Size = index + 1;
+                }
+
+                this.data[index] = value;
+            }
+        }
+
+        /// <summary>Adds the specified item.</summary>
+        /// <param name="item">The item.</param>
+        public void Add(T item)
+        {
+            // is size greater than capacity increase capacity
+            if (this.Size == this.data.Length)
+            {
+                this.Grow();
+            }
+
+            this.data[this.Size] = item;
+            ++this.Size;
+        }
+
+        /// <summary>Adds all.</summary>
+        /// <param name="items">The items.</param>
+        public void AddAll(Bag<T> items)
+        {
+            for (int index = 0, j = items.Size; j > index; ++index)
+            {
+                if (this.Size == this.data.Length)
+                {
+                    this.Grow();
+                }
+
+                this.data[this.Size] = items.Get(index);
+                ++this.Size;
+            }
+        }
+
+        /// <summary>Clears this instance.</summary>
+        public void Clear()
+        {
+            // null all elements so gc can clean up
+            for (int index = 0; index < this.Size; ++index)
+            {
+                this.data[index] = default(T);
+            }
+
+            this.Size = 0;
+        }
+
+        /// <summary>Determines whether [contains] [the specified item].</summary>
+        /// <param name="item">The item.</param>
+        /// <returns><see langword="true" /> if [contains] [the specified item]; otherwise, <see langword="false" />.</returns>
+        public bool Contains(T item)
+        {
+            for (int index = 0; this.Size > index; ++index)
+            {
+                if (item.Equals(this.data[index]))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>Gets the specified index.</summary>
+        /// <param name="index">The index.</param>
+        /// <returns>The specified element of <see langword="Type"/> T.</returns>
+        public T Get(int index)
+        {
+            return this.data[index];
+        }
+
+        /// <summary>Removes the specified element.</summary>
+        /// <param name="index">The index of the element.</param>
+        /// <returns>The specified element of <see langword="Type"/> T.</returns>
+        public T Remove(int index)
+        {
+            // Make copy of element to remove so it can be returned.
+            T result = this.data[index];
+            --this.Size;
+            
+            // Overwrite item to remove with last element.
+            this.data[index] = this.data[this.Size];
+
+            // Null last element, so gc can do its work.
+            this.data[this.Size] = default(T);
+            return result;
+        }
+
+        /// <summary>Removes the specified item.</summary>
+        /// <param name="item">The item.</param>
+        /// <returns><see langword="true" /> if XXXX, <see langword="false" /> otherwise</returns>
+        public bool Remove(T item)
+        {
+            for (int index = 0; index < this.Size; ++index)
+            {
+                if (item.Equals(this.data[index]))
+                {
+                    --this.Size;
+
+                    // Overwrite item to remove with last element.
+                    this.data[index] = this.data[this.Size];
+                    this.data[this.Size] = default(T);
+
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>Removes all.</summary>
+        /// <param name="bag">The bag.</param>
+        /// <returns><see langword="true" /> if XXXX, <see langword="false" /> otherwise</returns>
+        public bool RemoveAll(Bag<T> bag)
+        {
+            bool modified = false;
+
+            for (int index = bag.Size - 1; index >= 0; --index)
+            {
+                if (this.Remove(bag.Get(index)))
+                {
+                    modified = true;
+                }
+            }
+
+            return modified;
+        }
+
+        /// <summary>Removes the last.</summary>
+        /// <returns>The last <see langword="Type"/> T element.</returns>
+        public T RemoveLast()
+        {
+            if (this.Size > 0)
+            {
+                --this.Size;
+                T result = this.data[this.Size];
+
+                // default(E) if class = null.
+                this.data[this.Size] = default(T);
+                return result;
+            }
+
+            return default(T);
+        }
+
+        /// <summary>Sets the specified index.</summary>
+        /// <param name="index">The index.</param>
+        /// <param name="item">The item.</param>
+        public void Set(int index, T item)
+        {
+            if (index >= this.data.Length)
+            {
+                T[] oldData = this.data;
+                this.data = new T[index * 2];
+                Array.Copy(oldData, 0, this.data, 0, oldData.Length);
+
+                this.Size = index + 1;
+            }
+            else if (index >= this.Size)
+            {
+                this.Size = index + 1;
+            }
+
+            this.data[index] = item;
+        }
+
+        /// <summary>Returns an enumerator that iterates through a collection.</summary>
+        /// <returns>An <see cref="T:System.Collections.Generic.IEnumerator`1" /> object that can be used to iterate through the collection.</returns>
+        IEnumerator<T> IEnumerable<T>.GetEnumerator()
+        {
+            return new BagEnumerator<T>(this);
+        }
+
+        /// <summary>Returns an enumerator that iterates through a collection.</summary>
+        /// <returns>An <see cref="T:System.Collections.Generic.IEnumerator`1" /> object that can be used to iterate through the collection.</returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return new BagEnumerator<E>(this);
-        }
-    }
-
-    class BagEnumerator<E> : IEnumerator<E>
-    {
-        Bag<E> bag;
-        int i = -1;
-
-        public BagEnumerator(Bag<E> bag)
-        {
-            this.bag = bag;
+            return new BagEnumerator<T>(this);
         }
 
-        public bool MoveNext()
+        /// <summary>Grows this instance.</summary>
+        private void Grow()
         {
-            i++;
-            return i < bag.Size;       
+            this.Grow(((this.data.Length * 3) / 2) + 1);
         }
 
-        public void Reset()
+        /// <summary>Grows the specified new capacity.</summary>
+        /// <param name="newCapacity">The new capacity.</param>
+        private void Grow(int newCapacity)
         {
-            i = -1;
-        }
-
-        E IEnumerator<E>.Current
-        {
-            get { return bag.Get(i); }
-        }
-
-        public void Dispose()
-        {
-            this.bag = null;
-        }
-
-        object IEnumerator.Current
-        {
-            get { return bag.Get(i); }
+            T[] oldData = this.data;
+            this.data = new T[newCapacity];
+            Array.Copy(oldData, 0, this.data, 0, oldData.Length);
         }
     }
 }
-

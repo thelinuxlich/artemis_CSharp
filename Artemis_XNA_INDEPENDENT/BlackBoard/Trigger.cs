@@ -1,76 +1,81 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Artemis
+﻿namespace Artemis.Blackboard
 {
+    #region Using statements
+
+    using global::System;
+    using global::System.Collections.Generic;
+
+    #endregion Using statements
+
+    /// <summary>Class Trigger.</summary>
     public class Trigger
     {
-        public Trigger(params String[] PropetyName)
+        /// <summary>Initializes a new instance of the <see cref="Trigger"/> class.</summary>
+        /// <param name="propertyName">Name of the property.</param>
+        public Trigger(params string[] propertyName)
         {
-            WorldPropertiesMonitored = new List<string>();
-            foreach (var item in PropetyName)
+            this.IsFired = false;
+            this.WorldPropertiesMonitored = new List<string>();
+            foreach (string item in propertyName)
             {
-                WorldPropertiesMonitored.Add(item);
+                this.WorldPropertiesMonitored.Add(item);
             }
         }
 
-        public List<String> WorldPropertiesMonitored
-        {
-            get;
-            protected set;
-        }
-
-        public TriggerState TriggerState
-        {
-            get;
-            private set;
-        }
-
-        public BlackBoard BlackBoard
-        {
-            get;
-            internal set;
-        }
-
-        public void RemoveThisTrigger()
-        {
-            BlackBoard.RemoveTrigger(this);
-        }
-
-        internal bool fired = false;
-        internal void Fire(TriggerState TriggerState)
-        {
-            fired = true;
-            this.TriggerState = TriggerState;
-            if (CheckConditionToFire())
-            {
-                CalledOnFire(TriggerState);
-                if (OnFire != null)
-                    OnFire(this);
-            }
-            fired = false;
-        }
-
+        /// <summary>Occurs when [on fire].</summary>
         public event Action<Trigger> OnFire;
 
+        /// <summary>Gets the black board.</summary>
+        /// <value>The black board.</value>
+        public BlackBoard BlackBoard { get; internal set; }
+
+        /// <summary>Gets the state of the trigger.</summary>
+        /// <value>The state of the trigger.</value>
+        public TriggerStateType TriggerStateType { get; private set; }
+
+        /// <summary>Gets or sets the entityWorld properties monitored.</summary>
+        /// <value>The entityWorld properties monitored.</value>
+        public List<string> WorldPropertiesMonitored { get; protected set; }
+
+        /// <summary>Gets or sets a value indicating whether this instance is fired.</summary>
+        /// <value><see langword="true" /> if this instance is fired; otherwise, <see langword="false" />.</value>
+        internal bool IsFired { get; set; }
+
+        /// <summary>Removes the this trigger.</summary>
+        public void RemoveThisTrigger()
+        {
+            this.BlackBoard.RemoveTrigger(this);
+        }
+
+        /// <summary>Fires the specified trigger state.</summary>
+        /// <param name="triggerStateType">State of the trigger.</param>
+        internal void Fire(TriggerStateType triggerStateType)
+        {
+            this.IsFired = true;
+            this.TriggerStateType = triggerStateType;
+            if (this.CheckConditionToFire())
+            {
+                this.CalledOnFire(triggerStateType);
+                if (this.OnFire != null)
+                {
+                    this.OnFire(this);
+                }
+            }
+
+            this.IsFired = false;
+        }
+
+        /// <summary>Called if is fired.</summary>
+        /// <param name="triggerStateType">State of the trigger.</param>
+        protected virtual void CalledOnFire(TriggerStateType triggerStateType)
+        {
+        }
+
+        /// <summary>Checks the condition to fire.</summary>
+        /// <returns><see langword="true" /> if XXXX, <see langword="false" /> otherwise</returns>
         protected virtual bool CheckConditionToFire()
         {
             return true;
         }
-
-        protected virtual void CalledOnFire(TriggerState TriggerState)
-        {
-        }
-    }
-
-
-    public enum TriggerState : long
-    {
-        VALUE_ADDED = 0x00001,
-        VALUE_REMOVED = 0x00010,
-        VALUE_CHANGED = 0x00100,
-        TRIGGER_ADDED = 0x01000
     }
 }

@@ -1,304 +1,294 @@
-using System;
-using System.Collections.Generic;
 namespace Artemis
 {
-    /// <summary>
-    /// Entity World Class
-    /// Main interface of the Entity System
-    /// </summary>
-	public sealed class EntityWorld {
-		private SystemManager systemManager;
-		private EntityManager entityManager;
-		private TagManager tagManager;
-		private GroupManager groupManager;
-        private Bag<Entity> refreshed = new Bag<Entity>();
-        private Bag<Entity> deleted = new Bag<Entity>();        
-		private Dictionary<String,Stack<int>> cached = new Dictionary<String, Stack<int>>();
-        private Dictionary<String, IEntityTemplate> entityTemplates = new Dictionary<String, IEntityTemplate>();
-		private float elapsedTime;
-        private Dictionary<Type, IComponentPool<ComponentPoolable>> pools = new Dictionary<Type, IComponentPool<ComponentPoolable>>();        
-        private int poolCleanupDelayCounter = 0;
+    #region Using statements
 
-        /// <summary>
-        /// Interval in FrameUpdates between pools cleanup
-        /// Default 10
-        /// </summary>
-        public int PoolCleanupDelay
+    using global::System;
+    using global::System.Collections.Generic;
+    using global::System.Diagnostics;
+
+    using Artemis.Interface;
+    using Artemis.Manager;
+    using Artemis.Utils;
+
+    #endregion Using statements
+
+    /// <summary>
+    /// <para>The Entity World Class.</para>
+    /// <para>Main interface of the Entity System.</para>
+    /// </summary>
+    public sealed class EntityWorld
+    {
+        /// <summary>The deleted.</summary>
+        private readonly Bag<Entity> deleted;
+
+        /// <summary>The entity templates.</summary>
+        private readonly Dictionary<string, IEntityTemplate> entityTemplates;
+
+        /// <summary>The pools.</summary>
+        private readonly Dictionary<Type, IComponentPool<ComponentPoolable>> pools;
+
+        /// <summary>The refreshed.</summary>
+        private readonly Bag<Entity> refreshed;
+
+        /// <summary>The pool cleanup delay counter.</summary>
+        private int poolCleanupDelayCounter;
+
+        /// <summary>Initializes a new instance of the <see cref="EntityWorld"/> class.</summary>
+        public EntityWorld()
         {
-            get;
-            set;
+            this.refreshed = new Bag<Entity>();
+            this.pools = new Dictionary<Type, IComponentPool<ComponentPoolable>>();
+            this.entityTemplates = new Dictionary<string, IEntityTemplate>();
+            this.deleted = new Bag<Entity>();
+            this.EntityManager = new EntityManager(this);
+            this.SystemManager = new SystemManager(this);
+            this.TagManager = new TagManager();
+            this.GroupManager = new GroupManager();
+            this.PoolCleanupDelay = 10;
         }
 
-		public EntityWorld() {
-			entityManager = new EntityManager(this);
-			systemManager = new SystemManager(this);
-			tagManager = new TagManager(this);
-			groupManager = new GroupManager(this);
-            PoolCleanupDelay = 10;
-		}
+        /// <summary>Gets the current state of the entity world.</summary>
+        /// <value>The state of the current.</value>
+        public Dictionary<Entity, Bag<IComponent>> CurrentState
+        {
+            get
+            {
+                Bag<Entity> entities = this.EntityManager.ActiveEntities;
+                Dictionary<Entity, Bag<IComponent>> currentState = new Dictionary<Entity, Bag<IComponent>>();
+                for (int index = 0, j = entities.Size; index < j; ++index)
+                {
+                    Entity e = entities.Get(index);
+                    Bag<IComponent> components = e.Components;
+                    currentState.Add(e, components);
+                }
 
-        /// <summary>
-        /// Gets the group manager.
-        /// </summary>
-        /// <value>
-        /// The group manager.
-        /// </value>
-		public GroupManager GroupManager {
-			get { return groupManager; }
-		}
+                return currentState;
+            }
+        }
 
-        /// <summary>
-        /// Gets the system manager.
-        /// </summary>
-        /// <value>
-        /// The system manager.
-        /// </value>
-		public SystemManager SystemManager {
-			get { return systemManager; }
-		}
+        /// <summary>Gets the elapsed time.</summary>
+        /// <value>The elapsed time.</value>
+        public float ElapsedTime { get; private set; }
 
-        /// <summary>
-        /// Gets the entity manager.
-        /// </summary>
-        /// <value>
-        /// The entity manager.
-        /// </value>
-		public EntityManager EntityManager {
-			get { return entityManager; }
-		}
+        /// <summary>Gets the entity manager.</summary>
+        /// <value>The entity manager.</value>
+        public EntityManager EntityManager { get; private set; }
 
-        /// <summary>
-        /// Gets the tag manager.
-        /// </summary>
-        /// <value>
-        /// The tag manager.
-        /// </value>
-		public TagManager TagManager {
-			get { return tagManager; }
-		}
-		
-		/**
-		 * Time since last game loop.
-		 * @return delta in milliseconds.
-		 */
-		public float ElapsedTime {
-			get { return elapsedTime; }			
-		}
-		
-		/**
-		 * Delete the provided entity from the world.
-		 * @param e entity
-		 */
-		public void DeleteEntity(Entity e) {
-            System.Diagnostics.Debug.Assert(e != null);
-	        deleted.Add(e);
-    	}
-		
-		/**
-		 * Ensure all systems are notified of changes to this entity.
-		 * @param e entity
-		 */
-		internal void RefreshEntity(Entity e) {
-            System.Diagnostics.Debug.Assert(e != null);
-			refreshed.Add(e);
-		}
+        /// <summary>Gets the group manager.</summary>
+        /// <value>The group manager.</value>
+        public GroupManager GroupManager { get; private set; }
 
-       	
-		/**
-		 * Create and return a new or reused entity instance.
-		 * @return entity
-		 */
-		public Entity CreateEntity() {
-			return entityManager.Create();
-		}
+        /// <summary>Gets or sets the interval in FrameUpdates between pools cleanup. Default is 10.</summary>
+        /// <value>The pool cleanup delay.</value>
+        public int PoolCleanupDelay { get; set; }
 
-        /// <summary>
-        /// Sets the pool for a specific type
-        /// </summary>
+        /// <summary>Gets the system manager.</summary>
+        /// <value>The system manager.</value>
+        public SystemManager SystemManager { get; private set; }
+
+        /// <summary>Gets the tag manager.</summary>
+        /// <value>The tag manager.</value>
+        public TagManager TagManager { get; private set; }
+
+        /// <summary>Creates a entity.</summary>
+        /// <returns>A new entity.</returns>
+        public Entity CreateEntity()
+        {
+            return this.EntityManager.Create();
+        }
+
+        /// <summary>Creates a entity from template.</summary>
+        /// <param name="entityTemplateTag">The entity template tag.</param>
+        /// <param name="templateArgs">The template args.</param>
+        /// <returns>A new entity.</returns>
+        /// <exception cref="Exception">EntityTemplate for the tag "entityTemplateTag" was not registered.</exception>
+        public Entity CreateEntityFromTemplate(string entityTemplateTag, params object[] templateArgs)
+        {
+            Debug.Assert(!string.IsNullOrEmpty(entityTemplateTag), "Entity template tag must not be null or empty.");
+
+            Entity entity = this.EntityManager.Create();
+            IEntityTemplate entityTemplate;
+            this.entityTemplates.TryGetValue(entityTemplateTag, out entityTemplate);
+            if (entityTemplate == null)
+            {
+                throw new Exception("EntityTemplate for the tag " + entityTemplateTag + " was not registered");
+            }
+
+            return entityTemplate.BuildEntity(entity, this, templateArgs);
+        }
+
+        /// <summary>Deletes the entity.</summary>
+        /// <param name="entity">The entity.</param>
+        public void DeleteEntity(Entity entity)
+        {
+            Debug.Assert(entity != null, "Entity must not be null.");
+
+            this.deleted.Add(entity);
+        }
+
+        /// <summary>Gets a component from a pool.</summary>
+        /// <param name="type">The type of the object to get.</param>
+        /// <returns>The found Component.</returns>
+        /// <exception cref="Exception">There is no pool for the specified type.</exception>
+        public IComponent GetComponentFromPool(Type type)
+        {
+            Debug.Assert(type != null, "Type must not be null.");
+
+            if (!this.pools.ContainsKey(type))
+            {
+                throw new Exception("There is no pool for the specified type " + type);
+            }
+
+            return this.pools[type].New();
+        }
+
+        /// <summary>Gets the component from pool.</summary>
+        /// <typeparam name="T">Type of the component</typeparam>
+        /// <returns>The found Component.</returns>
+        /// <exception cref="Exception">There is no pool for the specified type.</exception>
+        public IComponent GetComponentFromPool<T>() where T : ComponentPoolable
+        {
+            Type type = typeof(T);
+            if (!this.pools.ContainsKey(type))
+            {
+                throw new Exception("There is no pool for the specified type " + type);
+            }
+
+            return this.pools[type].New();
+        }
+
+        /// <summary>Gets the entity.</summary>
+        /// <param name="entityId">The entity id.</param>
+        /// <returns>The specified Entity.</returns>
+        public Entity GetEntity(int entityId)
+        {
+            Debug.Assert(entityId >= 0, "Id must be at least 0.");
+
+            return this.EntityManager.GetEntity(entityId);
+        }
+
+        /// <summary>Gets the pool for a Type.</summary>
+        /// <param name="type">The type.</param>
+        /// <returns>The specified ComponentPool{ComponentPool-able}.</returns>
+        public IComponentPool<ComponentPoolable> GetPool(Type type)
+        {
+            Debug.Assert(type != null, "Type must not be null.");
+
+            return this.pools[type];
+        }
+
+        /// <summary>Initialize the EntityWorld.</summary>
+        /// <param name="processAttributes">if set to <see langword="true" /> [process attributes].</param>
+#if FULLDOTNET
+        public void InitializeAll(bool processAttributes = true)
+#else
+        public void InitializeAll(bool processAttributes = false)
+#endif
+        {
+            this.SystemManager.InitializeAll(processAttributes);
+        }
+
+        /// <summary>Loads the state of the entity.</summary>
+        /// <param name="templateTag">The template tag. Can be null.</param>
+        /// <param name="groupName">Name of the group. Can be null.</param>
+        /// <param name="components">The components.</param>
+        /// <param name="templateArgs">Parameters for entity template.</param>
+        public void LoadEntityState(string templateTag, string groupName, Bag<IComponent> components, params object[] templateArgs)
+        {
+            Debug.Assert(components != null, "Components must not be null.");
+
+            Entity entity;
+            if (!string.IsNullOrEmpty(templateTag))
+            {
+                entity = this.CreateEntityFromTemplate(templateTag, templateArgs);
+            }
+            else
+            {
+                entity = this.CreateEntity();
+            }
+
+            if (string.IsNullOrEmpty(groupName))
+            {
+                this.GroupManager.Set(groupName, entity);
+            }
+
+            for (int index = 0, j = components.Size; index < j; ++index)
+            {
+                entity.AddComponent(components.Get(index));
+            }
+        }
+
+        /// <summary>Sets the entity template.</summary>
+        /// <param name="entityTag">The entity tag.</param>
+        /// <param name="entityTemplate">The entity template.</param>
+        public void SetEntityTemplate(string entityTag, IEntityTemplate entityTemplate)
+        {
+            this.entityTemplates.Add(entityTag, entityTemplate);
+        }
+
+        /// <summary>Sets the pool for a specific type</summary>
         /// <param name="type">The type.</param>
         /// <param name="pool">The pool.</param>
         public void SetPool(Type type, IComponentPool<ComponentPoolable> pool)
         {
-            System.Diagnostics.Debug.Assert(type != null);
-            System.Diagnostics.Debug.Assert(pool != null);
-            pools.Add(type, pool);
+            Debug.Assert(type != null, "Type must not be null.");
+            Debug.Assert(pool != null, "Component pool must not be null.");
+
+            this.pools.Add(type, pool);
         }
 
-        /// <summary>
-        /// Gets the pool for a Type
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns></returns>
-        public IComponentPool<ComponentPoolable> GetPool(Type type)
-        {
-            System.Diagnostics.Debug.Assert(type != null);
-            return pools[type];
-        }
-
-        /// <summary>
-        /// Initialize the World
-        /// </summary>
-        /// <param name="processAttributes"></param>
-        public void InitializeAll(
-#if FULLDOTNET
-            bool processAttributes = true
-#else
-            bool processAttributes = false
-#endif
-            )
-        {
-            systemManager.InitializeAll(processAttributes);
-        }
-
-        /// <summary>
-        /// Gets a component from a pool.
-        /// </summary>
-        /// <param name="type">The typeof the object to get</param>
-        /// <returns></returns>
-        public Component GetComponentFromPool(Type type)
-        {
-            System.Diagnostics.Debug.Assert(type != null);
-            if (!pools.ContainsKey(type))
-                throw new Exception("There is no pool for the type " + type);
-
-            return pools[type].New();
-        }
-
-        /// <summary>
-        /// Gets the component from pool.
-        /// </summary>
-        /// <typeparam name="T">Type of the component</typeparam>
-        /// <returns></returns>
-        public Component GetComponentFromPool<T>() where T : ComponentPoolable
-        {
-            var type = typeof(T);
-            if (!pools.ContainsKey(type))
-                throw new Exception("There is no pool for the type " + type);
-
-            return pools[type].New();
-        }
-
-
-        /// <summary>
-        /// Creates a entity from template.
-        /// </summary>
-        /// <param name="entityTemplateTag">The entity template tag.</param>
-        /// <param name="templateArgs">The template args.</param>
-        /// <returns></returns>
-		public Entity CreateEntityFromTemplate(string entityTemplateTag, params object[] templateArgs) {
-            System.Diagnostics.Debug.Assert(!String.IsNullOrEmpty(entityTemplateTag));
-			Entity e = entityManager.Create();  
-            IEntityTemplate entityTemplate;
-            entityTemplates.TryGetValue(entityTemplateTag, out entityTemplate);
-            if (entityTemplate == null)
-                throw new Exception("EntityTemplate for the tag " + entityTemplateTag + " was not registered");
-            return entityTemplate.BuildEntity(e, this, templateArgs);       
-		}
-
-        public void SetEntityTemplate(string entityTag, IEntityTemplate entityTemplate)
-        {
-            entityTemplates.Add(entityTag, entityTemplate);
-        }
-		
-		/**
-		 * Get a entity having the specified id.
-		 * @param entityId
-		 * @return entity
-		 */
-		public Entity GetEntity(int entityId) {
-            System.Diagnostics.Debug.Assert(entityId >= 0);
-			return entityManager.GetEntity(entityId);
-		}
-
-        /// <summary>
-        /// Updates the World
-        /// </summary>
-        /// <param name="executionType">Type of the execution.</param>
+        /// <summary>Updates the EntityWorld</summary>
         /// <param name="elapsedTime">The elapsed TIME in milliseconds.</param>
-        public void Update(float elapsedTime ,ExecutionType executionType = ExecutionType.UpdateSynchronous)
+        /// <param name="executionType">Type of the execution.</param>
+        public void Update(float elapsedTime, ExecutionType executionType = ExecutionType.UpdateSynchronous)
         {
-            this.elapsedTime = elapsedTime;
+            this.ElapsedTime = elapsedTime;
 
-            poolCleanupDelayCounter++;
-            if (poolCleanupDelayCounter > PoolCleanupDelay)
+            ++this.poolCleanupDelayCounter;
+            if (this.poolCleanupDelayCounter > this.PoolCleanupDelay)
             {
-                poolCleanupDelayCounter = 0;
-                foreach (var item in pools.Keys)
+                this.poolCleanupDelayCounter = 0;
+                foreach (Type item in this.pools.Keys)
                 {
-                    pools[item].CleanUp();
+                    this.pools[item].CleanUp();
                 }
             }
 
-            if (!deleted.IsEmpty)
+            if (!this.deleted.IsEmpty)
             {
-                for (int i = 0, j = deleted.Size; j > i; i++)
+                for (int index = 0, j = this.deleted.Size; j > index; ++index)
                 {
-                    Entity e = deleted.Get(i);
-                    entityManager.Remove(e);
-                    groupManager.Remove(e);
+                    Entity e = this.deleted.Get(index);
+                    this.EntityManager.Remove(e);
+                    this.GroupManager.Remove(e);
                     e.DeletingState = false;
                 }
-                deleted.Clear();
+
+                this.deleted.Clear();
             }
 
-            if (!refreshed.IsEmpty)
+            if (!this.refreshed.IsEmpty)
             {
-                for (int i = 0, j = refreshed.Size; j > i; i++)
+                for (int index = 0, j = this.refreshed.Size; j > index; ++index)
                 {
-					Entity e = refreshed.Get(i);
-                    entityManager.Refresh(e);
-					e.RefreshingState = false;
+                    Entity entity = this.refreshed.Get(index);
+                    this.EntityManager.Refresh(entity);
+                    entity.RefreshingState = false;
                 }
-                refreshed.Clear();
+
+                this.refreshed.Clear();
             }
 
-            systemManager.Update(executionType);
-
+            this.SystemManager.Update(executionType);
         }
 
-        /// <summary>
-        /// Gets the current state of the workd.
-        /// </summary>
-        /// <value>
-        /// The state of the current.
-        /// </value>
-		public Dictionary<Entity,Bag<Component>> CurrentState {
-            get
-            {
-                Bag<Entity> entities = entityManager.ActiveEntities;
-                Dictionary<Entity, Bag<Component>> currentState = new Dictionary<Entity, Bag<Component>>();
-                for (int i = 0, j = entities.Size; i < j; i++)
-                {
-                    Entity e = entities.Get(i);
-                    Bag<Component> components = e.Components;
-                    currentState.Add(e, components);
-                }
-                return currentState;
-            }
-		}
+        /// <summary>Refreshes the entity.</summary>
+        /// <param name="entity">The entity.</param>
+        internal void RefreshEntity(Entity entity)
+        {
+            Debug.Assert(entity != null, "Entity must not be null.");
 
-	    /// <summary>
-	    /// Loads the state of the entity.
-	    /// </summary>
-	    /// <param name="templateTag">The template tag. Can be null</param>
-	    /// <param name="groupName">Name of the group. Can be null</param>
-	    /// <param name="components">The components.</param>
-	    /// <param name="templateArgs">Params for entity template</param>
-	    public void LoadEntityState(String templateTag, String groupName,Bag<Component> components, params object[] templateArgs) {
-            System.Diagnostics.Debug.Assert(components != null);
-			Entity e;
-			if(!String.IsNullOrEmpty(templateTag)) {
-				e = CreateEntityFromTemplate(templateTag, templateArgs);
-			} else {
-				e = CreateEntity();
-			}
-            if (String.IsNullOrEmpty(groupName))
-            {
-				groupManager.Set(groupName,e);
-			}		
-			for(int i = 0, j = components.Size; i < j; i++) {
-				e.AddComponent(components.Get(i));
-			}
-		}
-	}
+            this.refreshed.Add(entity);
+        }
+    }
 }
