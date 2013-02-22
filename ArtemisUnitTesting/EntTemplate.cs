@@ -5,6 +5,7 @@ using System.Text;
 using Artemis;
 using Artemis.Attributes;
 using ArtemisTest;
+using Artemis.Interface;
 
 namespace ConsoleApplication1
 {

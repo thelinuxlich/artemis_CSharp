@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using Artemis;
 using ArtemisTest.Components;
+using Artemis.System;
 
 namespace ArtemisTest
 {
-    public class QueueSystemTest : Artemis.QueueSystemProcessingThreadSafe
+    public class QueueSystemTest : QueueSystemProcessingThreadSafe
     {
         public QueueSystemTest() : base()
         {

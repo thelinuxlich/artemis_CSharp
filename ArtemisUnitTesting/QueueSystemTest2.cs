@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using Artemis;
 using ArtemisTest.Components;
+using Artemis.System;
 
 namespace ArtemisTest
 {
-    public class QueueSystemTest2 : Artemis.QueueSystemProcessingThreadSafe
+    public class QueueSystemTest2 : QueueSystemProcessingThreadSafe
     {
         public QueueSystemTest2() : base(){}
         public override void Process(Entity Entity)

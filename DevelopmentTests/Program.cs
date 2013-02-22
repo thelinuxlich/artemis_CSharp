@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArtemisTest;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,8 @@ namespace DevelopmentTests
     {
         static void Main(string[] args)
         {
+            GeneralTest gt = new GeneralTest();
+            gt.QueueSystemTeste();
         }
     }
 }

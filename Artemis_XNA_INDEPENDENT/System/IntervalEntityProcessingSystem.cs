@@ -33,7 +33,7 @@ namespace Artemis.System
 
         /// <summary>Processes the entities.</summary>
         /// <param name="entities">The entities.</param>
-        protected override void ProcessEntities(SortedDictionary<int, Entity> entities)
+        protected override void ProcessEntities(IDictionary<int, Entity> entities)
         {
             for (int index = 0, s = entities.Count; s > index; ++index)
             {

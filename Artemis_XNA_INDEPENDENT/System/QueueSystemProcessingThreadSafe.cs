@@ -69,7 +69,7 @@
         {
             QueueManager queueManager = QueuesManager[entitySystemType];
             queueManager.AcquireLock();
-            int result = QueueManager.EntitiesToProcessEachFrame;
+            int result = queueManager.EntitiesToProcessEachFrame;
             queueManager.ReleaseLock();
             return result;
         }
@@ -93,7 +93,7 @@
         {
             QueueManager queueManager = QueuesManager[entitySystemType];
             queueManager.AcquireLock();
-            QueueManager.EntitiesToProcessEachFrame = limit;
+            queueManager.EntitiesToProcessEachFrame = limit;
             queueManager.ReleaseLock();
         }
 
@@ -135,10 +135,10 @@
             queueManager.AcquireLock();
             {
                 int count = queueManager.Queue.Count;
-                if (count > QueueManager.EntitiesToProcessEachFrame)
+                if (count > queueManager.EntitiesToProcessEachFrame)
                 {
-                    entities = new Entity[QueueManager.EntitiesToProcessEachFrame];
-                    for (int index = 0; index < QueueManager.EntitiesToProcessEachFrame; ++index)
+                    entities = new Entity[queueManager.EntitiesToProcessEachFrame];
+                    for (int index = 0; index < queueManager.EntitiesToProcessEachFrame; ++index)
                     {
                         entities[index] = queueManager.Queue.Dequeue();
                     }

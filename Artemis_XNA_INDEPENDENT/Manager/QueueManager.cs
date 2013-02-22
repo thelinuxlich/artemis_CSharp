@@ -14,7 +14,7 @@ namespace Artemis.Manager
         private static readonly object LockObject = new object();
 
         /// <summary>The entities to process each frame.</summary>
-        public static int EntitiesToProcessEachFrame = 50;
+        public int EntitiesToProcessEachFrame = 50;
 
         /// <summary>The queue.</summary>
         public Queue<Entity> Queue;

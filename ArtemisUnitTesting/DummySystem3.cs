@@ -1,6 +1,8 @@
 using System;
 using Artemis;
 using ArtemisTest.Components;
+using Artemis.System;
+
 namespace ArtemisTest.System
 {
 	public class DummySystem3 : EntityProcessingSystem {
@@ -9,7 +11,7 @@ namespace ArtemisTest.System
         public DummySystem3() : base(typeof(Health)) { }
 	
 		public override void Initialize() {
-			healthMapper = new ComponentMapper<Health>(world);
+            healthMapper = new ComponentMapper<Health>(this.EntityWorld);
 		}
 	
 		public override void Process(Entity e) {

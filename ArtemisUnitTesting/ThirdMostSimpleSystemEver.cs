@@ -6,6 +6,8 @@ using Artemis;
 using ArtemisTest.Components;
 using Artemis.Attributes;
 using ConsoleApplication1;
+using Artemis.System;
+using Artemis.Manager;
 
 namespace ArtemisTest
 {

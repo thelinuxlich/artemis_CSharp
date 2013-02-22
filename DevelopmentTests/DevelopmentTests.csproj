@@ -48,6 +48,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ArtemisUnitTesting\ArtemisUnitTesting.csproj">
+      <Project>{999168fb-1531-4256-aa9e-86087d498701}</Project>
+      <Name>ArtemisUnitTesting</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Artemis_XNA_INDEPENDENT\Artemis.csproj">
       <Project>{22c89af2-e1cf-4976-91b9-7d33773dc6e7}</Project>
       <Name>Artemis</Name>

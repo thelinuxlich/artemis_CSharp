@@ -7,11 +7,12 @@
     using global::System;
     using global::System.Diagnostics;
     using global::System.Linq;
-    using global::System.Numerics;
+    
 #if !XBOX && !WINDOWS_PHONE
+    using global::System.Numerics;
 #endif
 #if XBOX || WINDOWS_PHONE
-    using BigInteger = System.Int32;
+    using BigInteger = global::System.Int32;
 #endif
 
     #endregion Using statements

@@ -18,6 +18,8 @@ namespace Artemis
     /// </summary>
     public sealed class EntityWorld
     {
+        internal bool isSorteEntities;
+
         /// <summary>The deleted.</summary>
         private readonly Bag<Entity> deleted;
 
@@ -34,8 +36,16 @@ namespace Artemis
         private int poolCleanupDelayCounter;
 
         /// <summary>Initializes a new instance of the <see cref="EntityWorld"/> class.</summary>
+#if !XBOX && !WINDOWS_PHONE
+        /// <param name="isSorteEntities">if set to <c>true</c> [is sorte entities].</param>
+        public EntityWorld(bool isSorteEntities = false)
+        {
+            this.isSorteEntities = isSorteEntities;
+#else
         public EntityWorld()
         {
+            this.isSorteEntities = false;
+#endif
             this.refreshed = new Bag<Entity>();
             this.pools = new Dictionary<Type, IComponentPool<ComponentPoolable>>();
             this.entityTemplates = new Dictionary<string, IEntityTemplate>();

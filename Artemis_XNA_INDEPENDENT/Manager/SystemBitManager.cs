@@ -9,7 +9,7 @@ namespace Artemis.Manager
     using global::System.Numerics;
 #endif
 #if XBOX || WINDOWS_PHONE
-    using BigInteger = System.Int32;
+    using BigInteger = global::System.Int32;
 #endif
 
     #endregion Using statements

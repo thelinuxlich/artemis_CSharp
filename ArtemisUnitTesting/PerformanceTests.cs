@@ -1,6 +1,7 @@
 ﻿using System;
 using Artemis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Artemis.Utils;
 
 namespace ArtemisUnitTesting
 {

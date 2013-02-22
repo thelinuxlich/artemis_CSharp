@@ -7,7 +7,7 @@ using Artemis.Attributes;
 
 namespace ArtemisTest
 {
-    [ArtemisComponentPool(InitialSize=10,Resizes=false)]
+    [ArtemisComponentPool(InitialSize=10,IsResizable=false)]
     public class Power2 : ComponentPoolable
     {
         public int POWER;
@@ -18,16 +18,5 @@ namespace ArtemisTest
             return new Power2();            
         }
 
-        #region ComponentPoolable Members
-
-        public void Initialize()
-        {            
-        }
-
-        public void Cleanup()
-        {
-        }
-
-        #endregion
     }
 }

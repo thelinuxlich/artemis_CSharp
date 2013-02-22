@@ -54,8 +54,8 @@
             
             var loadedAssemblies = new List<Assembly>()
             {
-            System.Reflection.Assembly.GetCallingAssembly(),
-            System.Reflection.Assembly.GetExecutingAssembly(),
+            global::System.Reflection.Assembly.GetCallingAssembly(),
+            global::System.Reflection.Assembly.GetExecutingAssembly(),
             };
             foreach (var item in loadedAssemblies)            
             {

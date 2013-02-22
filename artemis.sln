@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtemisXbox", "ArtemisXBOX_
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtemisUnitTesting", "ArtemisUnitTesting\ArtemisUnitTesting.csproj", "{999168FB-1531-4256-AA9E-86087D498701}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevelopmentTests", "DevelopmentTests\DevelopmentTests.csproj", "{6AE11027-F76D-4C74-B702-E59FEA973C79}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -89,6 +91,20 @@ Global
 		{999168FB-1531-4256-AA9E-86087D498701}.Release|Windows Phone.ActiveCfg = Release|Any CPU
 		{999168FB-1531-4256-AA9E-86087D498701}.Release|x86.ActiveCfg = Release|Any CPU
 		{999168FB-1531-4256-AA9E-86087D498701}.Release|Xbox 360.ActiveCfg = Release|Any CPU
+		{6AE11027-F76D-4C74-B702-E59FEA973C79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AE11027-F76D-4C74-B702-E59FEA973C79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AE11027-F76D-4C74-B702-E59FEA973C79}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{6AE11027-F76D-4C74-B702-E59FEA973C79}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{6AE11027-F76D-4C74-B702-E59FEA973C79}.Debug|Windows Phone.ActiveCfg = Debug|Any CPU
+		{6AE11027-F76D-4C74-B702-E59FEA973C79}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6AE11027-F76D-4C74-B702-E59FEA973C79}.Debug|Xbox 360.ActiveCfg = Debug|Any CPU
+		{6AE11027-F76D-4C74-B702-E59FEA973C79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AE11027-F76D-4C74-B702-E59FEA973C79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AE11027-F76D-4C74-B702-E59FEA973C79}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{6AE11027-F76D-4C74-B702-E59FEA973C79}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{6AE11027-F76D-4C74-B702-E59FEA973C79}.Release|Windows Phone.ActiveCfg = Release|Any CPU
+		{6AE11027-F76D-4C74-B702-E59FEA973C79}.Release|x86.ActiveCfg = Release|Any CPU
+		{6AE11027-F76D-4C74-B702-E59FEA973C79}.Release|Xbox 360.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

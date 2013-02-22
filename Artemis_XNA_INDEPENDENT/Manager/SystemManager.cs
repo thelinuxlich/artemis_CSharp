@@ -1,6 +1,4 @@
 
-
-
 namespace Artemis.Manager
 {
     #region Using statements
@@ -29,13 +27,13 @@ namespace Artemis.Manager
         private readonly EntityWorld entityWorld;
 
         /// <summary>The systems.</summary>
-        private readonly Dictionary<Type, List<EntitySystem>> systems;
+        private readonly IDictionary<Type, List<EntitySystem>> systems;
 
         /// <summary>The update layers.</summary>
-        private SortedDictionary<int, Bag<EntitySystem>> updateLayers;
+        private IDictionary<int, Bag<EntitySystem>> updateLayers;
 
         /// <summary>The draw layers.</summary>
-        private SortedDictionary<int, Bag<EntitySystem>> drawLayers;
+        private IDictionary<int, Bag<EntitySystem>> drawLayers;
 
         /// <summary>The merged bag.</summary>
         private readonly Bag<EntitySystem> mergedBag;
@@ -47,18 +45,31 @@ namespace Artemis.Manager
         /// <summary>The tasks.</summary>
         private readonly List<Task> tasks;
 
-        /// <summary>Initializes a new instance of the <see cref="SystemManager"/> class.</summary>
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SystemManager" /> class.
+        /// </summary>
         /// <param name="entityWorld">The entity world.</param>
+#if FULLDOTNET
+        /// <param name="keepEntitiesSorted">if set to <c>true</c> [keep entities sorted].</param>
+        internal SystemManager(EntityWorld entityWorld, bool keepEntitiesSorted = true)
+#else
         internal SystemManager(EntityWorld entityWorld)
+#endif
         {
             this.tasks = new List<Task>();
+            this.mergedBag = new Bag<EntitySystem>();
 #if FULLDOTNET
             this.factory = new TaskFactory(TaskScheduler.Default);
+            if(keepEntitiesSorted)
+            {
+                this.drawLayers = new SortedDictionary<int, Bag<EntitySystem>>();
+                this.updateLayers = new SortedDictionary<int, Bag<EntitySystem>>();
+            }
+#else
+            this.drawLayers = new Dictionary<int, Bag<EntitySystem>>();
+            this.updateLayers = new Dictionary<int, Bag<EntitySystem>>();     
 #endif
-            this.mergedBag = new Bag<EntitySystem>();
-            this.drawLayers = new SortedDictionary<int, Bag<EntitySystem>>();
-            this.updateLayers = new SortedDictionary<int, Bag<EntitySystem>>();
-            this.systems = new Dictionary<Type, List<EntitySystem>>();
+       this.systems = new Dictionary<Type, List<EntitySystem>>();
             this.entityWorld = entityWorld;
         }
 
@@ -100,7 +111,12 @@ namespace Artemis.Manager
                         {
                             drawBag.Add(system);
                         }
-                        this.drawLayers = new SortedDictionary<int, Bag<EntitySystem>>((from d in this.drawLayers orderby d.Key ascending select d).ToDictionary(pair => pair.Key, pair => pair.Value));
+#if FULLDOTNET
+                    this.drawLayers = new SortedDictionary<int, Bag<EntitySystem>>((from d in this.drawLayers orderby d.Key ascending select d).ToDictionary(pair => pair.Key, pair => pair.Value));
+#else
+                    this.drawLayers = new Dictionary<int, Bag<EntitySystem>>((from d in this.drawLayers orderby d.Key ascending select d).ToDictionary(pair => pair.Key, pair => pair.Value));
+#endif
+
                     }
                     break;
                 case ExecutionType.UpdateAsynchronous:
@@ -120,7 +136,12 @@ namespace Artemis.Manager
                         {
                             updateBag.Add(system);
                         }
-                        this.updateLayers = new SortedDictionary<int, Bag<EntitySystem>>((from d in this.updateLayers orderby d.Key ascending select d).ToDictionary(pair => pair.Key, pair => pair.Value));
+#if FULLDOTNET
+                    this.updateLayers = new SortedDictionary<int, Bag<EntitySystem>>((from d in this.updateLayers orderby d.Key ascending select d).ToDictionary(pair => pair.Key, pair => pair.Value));
+#else
+                    this.updateLayers = new Dictionary<int, Bag<EntitySystem>>((from d in this.updateLayers orderby d.Key ascending select d).ToDictionary(pair => pair.Key, pair => pair.Value));
+#endif
+                        
                     }
                     break;
             }

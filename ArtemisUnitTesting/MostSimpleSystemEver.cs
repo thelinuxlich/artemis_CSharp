@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Artemis;
 using ArtemisTest.Components;
+using Artemis.System;
 
 namespace ArtemisTest
 {

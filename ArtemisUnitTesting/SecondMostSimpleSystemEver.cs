@@ -5,6 +5,7 @@ using System.Text;
 using Artemis;
 using ArtemisTest.Components;
 using Artemis.Attributes;
+using Artemis.System;
 
 namespace ArtemisTest
 {

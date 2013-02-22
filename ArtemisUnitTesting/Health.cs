@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Artemis;
+using Artemis.Interface;
 
 namespace ArtemisTest.Components
 {
-    public class Health : Component
+    public class Health : IComponent
     {
         private float health = 0;
         private float maximumHealth = 0;

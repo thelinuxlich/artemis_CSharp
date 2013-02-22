@@ -5,19 +5,23 @@ using ArtemisTest.System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Artemis.Utils;
+using Artemis.Interface;
+using Artemis.Manager;
+using Artemis.System;
 
 namespace ArtemisTest
 {
     [TestClass]
     public class GeneralTest
 	{
-		static Bag<Component> healthBag = new Bag<Component>();
-		static Dictionary<Type,Bag<Component>> componentPool = new Dictionary<Type, Bag<Component>>();			
-			
-		private void RemovedComponent(Entity e,Component c) 
+		static Bag<IComponent> healthBag = new Bag<IComponent>();
+        static Dictionary<Type, Bag<IComponent>> componentPool = new Dictionary<Type, Bag<IComponent>>();
+
+        private void RemovedComponent(Entity e, IComponent c) 
       	{
         	 Console.WriteLine("This was the component removed: "+(c.GetType()));
-			 Bag<Component> tempBag;
+             Bag<IComponent> tempBag;
 			 componentPool.TryGetValue(c.GetType(),out tempBag);
 			 Console.WriteLine("Health Component Pool has "+tempBag.Size+" objects");
 			 tempBag.Add(c);
@@ -327,8 +331,6 @@ namespace ArtemisTest
             QueueSystemTest.SetQueueProcessingLimit(20, QueueSystemTest.Id);
             Debug.Assert(QueueSystemTest.GetQueueProcessingLimit(QueueSystemTest.Id) == QueueSystemTest.GetQueueProcessingLimit(QueueSystemTest2.Id));
 
-
-            
             Debug.Assert(QueueSystemTest.GetQueueProcessingLimit(QueueSystemTestteste.Id) != QueueSystemTest.GetQueueProcessingLimit(QueueSystemTest2.Id));
 
             QueueSystemTest.SetQueueProcessingLimit(1000, QueueSystemTest.Id);

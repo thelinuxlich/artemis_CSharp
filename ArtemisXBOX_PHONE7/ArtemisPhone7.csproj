@@ -59,57 +59,54 @@
       <XnaPlatformSpecific>true</XnaPlatformSpecific>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\BlackBoard\BlackBoard.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\BlackBoard\SimpleTrigger.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\BlackBoard\Trigger.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\BlackBoard\TriggerMultiCondition.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\Component.cs" />
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\ComponentMapper.cs" />
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\ComponentType.cs" />
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\ComponentTypeManager.cs" />
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\DelayedEntityProcessingSystem.cs" />
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\DelayedEntitySystem.cs" />
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\Entity.cs" />
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\EntityManager.cs" />
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\EntityProcessingSystem.cs" />
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\EntitySystem.cs" />
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\EntityWorld.cs" />
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\GroupManager.cs" />
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\HybridQueueSystemProcessing.cs" />
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\IEntityTemplate.cs" />
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\IntervalEntityProcessingSystem.cs" />
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\IntervalEntitySystem.cs" />
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\IntervalTagSystem.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\QueueSystemProcessing.cs" />
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\QueueSystemProcessingThreadSafe.cs" />
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\SystemBitManager.cs" />
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\TagManager.cs" />
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\TagSystem.cs" />
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\ParallelEntityProcessingSystem.cs" />
+  <ItemGroup>    
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Aspect.cs" />
-	<Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\AttributesProcessor.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\AttributesProcessor.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\ArtemisComponentCreate.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\ArtemisComponentPool.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\ArtemisEntitySystem.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\ArtemisEntityTemplate.cs" />
-	<Compile Include="..\Artemis_XNA_INDEPENDENT\ComponentPoolable.cs" />
-	<Compile Include="..\Artemis_XNA_INDEPENDENT\ComponentPool.cs" />
-	<Compile Include="..\Artemis_XNA_INDEPENDENT\IComponentPool.cs" />
-	<Compile Include="..\Artemis_XNA_INDEPENDENT\MultiThreadComponentPool.cs" />
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\Bag.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\SystemManager.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Blackboard\BlackBoard.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Blackboard\SimpleTrigger.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Blackboard\Trigger.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Blackboard\TriggerMultiCondition.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Blackboard\TriggerStateType.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Interface\IComponent.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\ComponentMapper.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\ComponentPoolable.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\ComponentType.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\AddedComponentHandler.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\AddedEntityHandler.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\ComponentTypeManager.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\QueueManager.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\ComponentPoolMultiThread.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\ExecutionType.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\RemovedComponentHandler.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\RemovedEntityHandler.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\System\DelayedEntityProcessingSystem.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\System\DelayedEntitySystem.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Entity.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\EntityManager.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\System\EntityProcessingSystem.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\System\EntitySystem.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\GroupManager.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\System\HybridQueueSystemProcessing.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Interface\IComponentPool.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Interface\IEntityTemplate.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\System\IntervalEntityProcessingSystem.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\System\IntervalEntitySystem.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\System\ParallelEntityProcessingSystem.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\ComponentPool.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\System\QueueSystemProcessing.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\System\QueueSystemProcessingThreadSafe.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\SystemBitManager.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\SystemManager.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\TagManager.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\System\TagSystem.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\EntityWorld.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\Bag.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\System\IntervalTagSystem.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\BagEnumerator.cs" />    	
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Xna.Framework" />

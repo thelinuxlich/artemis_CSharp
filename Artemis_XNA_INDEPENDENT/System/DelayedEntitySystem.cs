@@ -56,7 +56,7 @@ namespace Artemis.System
         /// <summary>Processes the entities.</summary>
         /// <param name="entities">The entities.</param>
         /// <param name="accumulatedDelta">The accumulated delta.</param>
-        public abstract void ProcessEntities(SortedDictionary<int, Entity> entities, float accumulatedDelta);
+        public abstract void ProcessEntities(IDictionary<int, Entity> entities, float accumulatedDelta);
 
         /// <summary>Starts the delayed run.</summary>
         /// <param name="milliseconds">The delay in milliseconds.</param>
@@ -96,7 +96,7 @@ namespace Artemis.System
 
         /// <summary>Processes the entities.</summary>
         /// <param name="entities">The entities.</param>
-        protected override void ProcessEntities(SortedDictionary<int, Entity> entities)
+        protected override void ProcessEntities(IDictionary<int, Entity> entities)
         {
             this.ProcessEntities(entities, this.accumulatedDelta);
             this.Stop();

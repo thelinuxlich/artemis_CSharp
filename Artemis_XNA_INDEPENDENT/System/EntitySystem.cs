@@ -11,7 +11,7 @@ namespace Artemis.System
     using global::System.Numerics;
 #endif
 #if XBOX || WINDOWS_PHONE
-    using BigInteger = System.Int32;
+    using BigInteger = global::System.Int32;
 #endif
 
     #endregion Using statements
@@ -25,24 +25,27 @@ namespace Artemis.System
         /// <summary>The aspect.</summary>
         protected Aspect Aspect;
 
-        /// <summary>The actives.</summary>
-        private readonly SortedDictionary<int, Entity> actives;
+        private EntityWorld entityWorld;
 
-        /// <summary>Initializes a new instance of the <see cref="EntitySystem"/> class.</summary>
+        /// <summary>The actives.</summary>
+        private IDictionary<int, Entity> actives;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EntitySystem"/> class.
+        /// </summary>
+
         protected EntitySystem()
         {
             SystemBit = 0;
-            this.actives = new SortedDictionary<int, Entity>();
             this.Aspect = null;
             this.IsEnabled = true;
         }
 
         /// <summary>Initializes a new instance of the <see cref="EntitySystem"/> class.</summary>
         /// <param name="types">The types.</param>
-        protected EntitySystem(params Type[] types)
+    protected EntitySystem(params Type[] types)
         {
             SystemBit = 0;
-            this.actives = new SortedDictionary<int, Entity>();
             this.Aspect = Aspect.All(types);
             this.IsEnabled = true;
         }
@@ -54,7 +57,6 @@ namespace Artemis.System
             Debug.Assert(aspect != null, "Aspect must not be null.");
 
             SystemBit = 0;
-            this.actives = new SortedDictionary<int, Entity>();
             this.Aspect = aspect;
             this.IsEnabled = true;
         }
@@ -75,7 +77,29 @@ namespace Artemis.System
 
         /// <summary>Gets or sets the entity world.</summary>
         /// <value>The entity world.</value>
-        public EntityWorld EntityWorld { get; protected internal set; }
+        public EntityWorld EntityWorld
+        {
+            get
+            {
+                return entityWorld;
+            }
+            protected internal set
+            {
+                this.entityWorld = value;
+#if !XBOX && !WINDOWS_PHONE
+                if (EntityWorld.isSorteEntities)
+                {
+                    this.actives = new SortedDictionary<int, Entity>();
+                }
+                else
+                {
+                    this.actives = new Dictionary<int, Entity>();
+                }
+#else 
+            this.actives = new Dictionary<int, Entity>();
+#endif            
+            }
+        }
 
         /// <summary>Sets the system bit.</summary>
         /// <value>The system bit.</value>
@@ -175,6 +199,10 @@ namespace Artemis.System
             this.IsEnabled = !this.IsEnabled;
         }
 
+        /// <summary>
+        /// Adds the specified entity.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
         protected void Add(Entity entity)
         {
             Debug.Assert(entity != null, "Entity must not be null.");
@@ -214,7 +242,7 @@ namespace Artemis.System
 
         /// <summary>Processes the entities.</summary>
         /// <param name="entities">The entities.</param>
-        protected virtual void ProcessEntities(SortedDictionary<int, Entity> entities)
+        protected virtual void ProcessEntities(IDictionary<int, Entity> entities)
         {
         }
 

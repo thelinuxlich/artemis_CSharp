@@ -33,7 +33,7 @@ namespace Artemis.System
         /// <summary>Process all entities with the delayed Entity processing system</summary>
         /// <param name="entities">Entities to process</param>
         /// <param name="accumulatedDelta">Total Delay</param>
-        public override void ProcessEntities(SortedDictionary<int, Entity> entities, float accumulatedDelta)
+        public override void ProcessEntities(IDictionary<int, Entity> entities, float accumulatedDelta)
         {
             foreach (Entity item in entities.Values)
             {

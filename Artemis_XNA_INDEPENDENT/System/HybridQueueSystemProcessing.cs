@@ -58,7 +58,11 @@
             this.queue.Enqueue(entity);
         }
 
-        protected override void ProcessEntities(SortedDictionary<int, Entity> entities)
+        /// <summary>
+        /// Processes the entities.
+        /// </summary>
+        /// <param name="entities">The entities.</param>
+        protected override void ProcessEntities(IDictionary<int, Entity> entities)
         {
             if (!this.IsEnabled)
             {

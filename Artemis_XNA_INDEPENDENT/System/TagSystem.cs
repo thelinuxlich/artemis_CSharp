@@ -34,7 +34,7 @@
 
         /// <summary>Processes the entities.</summary>
         /// <param name="entities">The entities.</param>
-        protected override void ProcessEntities(SortedDictionary<int, Entity> entities)
+        protected override void ProcessEntities(IDictionary<int, Entity> entities)
         {
             Entity entity = this.EntityWorld.TagManager.GetEntity(this.Tag);
             if (entity != null)

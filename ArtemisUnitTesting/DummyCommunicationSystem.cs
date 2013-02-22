@@ -1,14 +1,16 @@
 using System;
 using Artemis;
 using ArtemisTest.Components;
+using Artemis.System;
+using Artemis.Blackboard;
 namespace ArtemisTest.System
 {
 	public class DummyCommunicationSystem : EntityProcessingSystem {
 		private ComponentMapper<Health> healthMapper;
 
         public DummyCommunicationSystem() : base(typeof(Health)) {
-
-            blackBoard.AddTrigger(
+                        
+            BlackBoard.AddTrigger(
                 new SimpleTrigger("Damage",
                     (a,b) =>
                     {
@@ -17,7 +19,7 @@ namespace ArtemisTest.System
             ,
             (a) =>
             {
-                if(a == TriggerState.VALUE_CHANGED)
+                if (a == TriggerStateType.ValueChanged)
                 {                    
                     damage = BlackBoard.GetEntry<int>("Damage");
                 }
@@ -29,7 +31,7 @@ namespace ArtemisTest.System
 
         int damage = 10;
 		public override void Initialize() {
-			healthMapper = new ComponentMapper<Health>(world);
+            healthMapper = new ComponentMapper<Health>(this.EntityWorld);
 		}
 	
 		public override void Process(Entity e) {
