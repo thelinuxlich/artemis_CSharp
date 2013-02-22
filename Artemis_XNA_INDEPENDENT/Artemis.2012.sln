@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artemis", "Artemis.csproj", "{22C89AF2-E1CF-4976-91B9-7D33773DC6E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevelopmentTests", "..\DevelopmentTests\DevelopmentTests.csproj", "{6AE11027-F76D-4C74-B702-E59FEA973C79}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevelopmentTests", "..\DevelopmentTests\DevelopmentTests.2012.csproj", "{6AE11027-F76D-4C74-B702-E59FEA973C79}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

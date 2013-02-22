@@ -1,8 +1,8 @@
-#region File description
+﻿#region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AddedEntityHandler.cs" company="GAMADU.COM">
-//     Copyright � 2013 GAMADU.COM. All rights reserved.
+// <copyright file="Power1Component.cs" company="GAMADU.COM">
+//     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
 //     permitted provided that the following conditions are met:
@@ -29,14 +29,24 @@
 //     or implied, of GAMADU.COM.
 // </copyright>
 // <summary>
-//   Delegate AddedEntityHandler.
+//   The power 1.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
 
-namespace Artemis.Manager
+namespace ArtemisUnitTesting
 {
-    /// <summary>Delegate AddedEntityHandler.</summary>
-    /// <param name="entity">The entity.</param>
-    public delegate void AddedEntityHandler(Entity entity);
+    #region Using statements
+
+    using Artemis.Interface;
+
+    #endregion Using statements
+
+    /// <summary>The power 1.</summary>
+    public class Power1Component : IComponent
+    {
+        /// <summary>Gets or sets the power.</summary>
+        /// <value>The power.</value>
+        public float Power { get; set; }
+    }
 }

@@ -1,8 +1,8 @@
-#region File description
+﻿#region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AddedEntityHandler.cs" company="GAMADU.COM">
-//     Copyright � 2013 GAMADU.COM. All rights reserved.
+// <copyright file="EntityTestTemplate.cs" company="GAMADU.COM">
+//     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
 //     permitted provided that the following conditions are met:
@@ -29,14 +29,38 @@
 //     or implied, of GAMADU.COM.
 // </copyright>
 // <summary>
-//   Delegate AddedEntityHandler.
+//   Class EntityTestTemplate.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
 
-namespace Artemis.Manager
+namespace ArtemisUnitTesting
 {
-    /// <summary>Delegate AddedEntityHandler.</summary>
-    /// <param name="entity">The entity.</param>
-    public delegate void AddedEntityHandler(Entity entity);
+    #region Using statements
+
+    using Artemis;
+    using Artemis.Attributes;
+    using Artemis.Interface;
+
+    #endregion Using statements
+
+    /// <summary>Class EntityTestTemplate.</summary>
+    [ArtemisEntityTemplate("test")]
+    public class EntityTestTemplate : IEntityTemplate
+    {
+        /// <summary>The build entity.</summary>
+        /// <param name="entity">The entity.</param>
+        /// <param name="entityWorld">The entity world.</param>
+        /// <param name="args">The args.</param>
+        /// <returns>The built <see cref="Entity" />.</returns>
+        public Entity BuildEntity(Entity entity, EntityWorld entityWorld, params object[] args)
+        {
+            entity.AddComponent(new Power1Component());
+            entity.GetComponent<Power1Component>().Power = 100;
+
+            entity.Refresh();
+
+            return entity;
+        }
+    }
 }

@@ -1,430 +1,475 @@
-using System;
-using Artemis;
-using ArtemisTest.Components;
-using ArtemisTest.System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+#region File description
 
-namespace ArtemisTest
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="GeneralTest.cs" company="GAMADU.COM">
+//     Copyright © 2013 GAMADU.COM. All rights reserved.
+//
+//     Redistribution and use in source and binary forms, with or without modification, are
+//     permitted provided that the following conditions are met:
+//
+//        1. Redistributions of source code must retain the above copyright notice, this list of
+//           conditions and the following disclaimer.
+//
+//        2. Redistributions in binary form must reproduce the above copyright notice, this list
+//           of conditions and the following disclaimer in the documentation and/or other materials
+//           provided with the distribution.
+//
+//     THIS SOFTWARE IS PROVIDED BY GAMADU.COM 'AS IS' AND ANY EXPRESS OR IMPLIED
+//     WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+//     FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL GAMADU.COM OR
+//     CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+//     CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+//     SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+//     ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//     NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+//     ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+//     The views and conclusions contained in the software and documentation are those of the
+//     authors and should not be interpreted as representing official policies, either expressed
+//     or implied, of GAMADU.COM.
+// </copyright>
+// <summary>
+//   The general test.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+#endregion File description
+
+namespace ArtemisUnitTesting
 {
+    #region Using statements
+
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Linq;
+
+    using Artemis;
+    using Artemis.Interface;
+    using Artemis.Manager;
+    using Artemis.System;
+    using Artemis.Utils;
+
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+    #endregion Using statements
+
+    /// <summary>The general test.</summary>
     [TestClass]
     public class GeneralTest
-	{
-		static Bag<Component> healthBag = new Bag<Component>();
-		static Dictionary<Type,Bag<Component>> componentPool = new Dictionary<Type, Bag<Component>>();			
-			
-		private void RemovedComponent(Entity e,Component c) 
-      	{
-        	 Console.WriteLine("This was the component removed: "+(c.GetType()));
-			 Bag<Component> tempBag;
-			 componentPool.TryGetValue(c.GetType(),out tempBag);
-			 Console.WriteLine("Health Component Pool has "+tempBag.Size+" objects");
-			 tempBag.Add(c);
-			 componentPool.TryGetValue(c.GetType(),out tempBag);
-			 Console.WriteLine("Health Component Pool now has "+tempBag.Size+" objects");
-      	}
-		
-		private void RemovedEntity(Entity e) 
-      	{
-        	 Console.WriteLine("This was the entity removed: "+(e.UniqueId));
-      	}
+    {
+        /// <summary>The component pool.</summary>
+        private static readonly Dictionary<Type, Bag<IComponent>> ComponentPool = new Dictionary<Type, Bag<IComponent>>();
 
+        /// <summary>The health bag.</summary>
+        private static readonly Bag<IComponent> HealthBag = new Bag<IComponent>();
 
-        [TestMethod]
-        public void multi()
-        {
-            healthBag.Add(new Health());
-            healthBag.Add(new Health());
-            componentPool.Add(typeof(Health), healthBag);
-                        
-            EntityWorld world = new EntityWorld();
-            SystemManager systemManager = world.SystemManager;
-            world.EntityManager.RemovedComponentEvent += new RemovedComponentHandler(RemovedComponent);
-            world.EntityManager.RemovedEntityEvent += new RemovedEntityHandler(RemovedEntity);
-
-            EntitySystem hs = systemManager.SetSystem(new MultHealthBarRenderSystem(), ExecutionType.UpdateSynchronous);            
-            world.InitializeAll(false);
-
-            List<Entity> l = new List<Entity>();
-            for (int i = 0; i < 1000; i++)
-            {
-                Entity et = world.CreateEntity();
-                et.AddComponent(new Health());
-                et.GetComponent<Health>().HP += 100;
-                et.Refresh();
-                l.Add(et);
-            }
-
-            for (int i = 0; i < 100; i++)
-            {
-                DateTime dt = DateTime.Now;
-                world.Update(0);
-                Console.WriteLine((DateTime.Now - dt).TotalMilliseconds);
-            }            
-
-            int df = 0;
-            foreach (var item in l)
-            {
-                if (item.GetComponent<Health>().HP == 90)
-                {
-                    df++;
-                }
-            }
-
-             
-        }
-        [TestMethod]
-        public void multsystem()
-        {
-            healthBag.Clear();
-            componentPool.Clear();
-
-            healthBag.Add(new Health());
-            healthBag.Add(new Health());
-            componentPool.Add(typeof(Health), healthBag);
-            
-            EntityWorld world = new EntityWorld();
-            SystemManager systemManager = world.SystemManager;
-            world.EntityManager.RemovedComponentEvent += new RemovedComponentHandler(RemovedComponent);
-            world.EntityManager.RemovedEntityEvent += new RemovedEntityHandler(RemovedEntity);            
-            EntitySystem hs = systemManager.SetSystem(new SingleHealthBarRenderSystem(),ExecutionType.UpdateAsynchronous);
-            hs = systemManager.SetSystem(new DummySystem(),ExecutionType.UpdateAsynchronous);
-            hs = systemManager.SetSystem(new DummySystem2(), ExecutionType.UpdateAsynchronous);
-            hs = systemManager.SetSystem(new DummySystem3(), ExecutionType.UpdateAsynchronous);
-            world.InitializeAll(false);
-            
-
-            List<Entity> l = new List<Entity>();
-            for (int i = 0; i < 100000; i++)
-            {
-                Entity et = world.CreateEntity();
-                et.AddComponent(new Health());
-                et.GetComponent<Health>().HP += 100;
-                et.Refresh();
-                l.Add(et);
-            }
-
-            for (int i = 0; i < 100; i++)
-            {
-                DateTime dt = DateTime.Now;
-                world.Update(0,ExecutionType.UpdateAsynchronous);
-                //systemManager.UpdateSynchronous(ExecutionType.Update);
-                Console.WriteLine((DateTime.Now - dt).TotalMilliseconds);
-            }
-
-            //int df = 0;
-            //foreach (var item in l)
-            //{
-            //    if (item.GetComponent<Health>().GetHealth() == 90)
-            //    {
-            //        df++;
-            //    }
-            //    else
-            //    {
-            //        Console.WriteLine("errro");
-            //    }
-            //}            
-        }
-
-        [TestMethod]
-        public void SecondMostSimpleSystemEverTest()
-        {
-            EntityWorld world = new EntityWorld();            
-            world.InitializeAll(true);           
-
-
-            Entity et = world.CreateEntity();
-            et.AddComponent(new Health());
-            et.GetComponent<Health>().HP = 100;
-            et.Refresh();
-            
-            Entity et1 = world.CreateEntity();        
-            et1.AddComponent(new Power());       
-            et1.GetComponent<Power>().POWER = 100;
-            et1.Refresh();
-
-            {                
-                world.Update(0);                
-            }
-
-            ///two systems runnning
-            ///each remove 10 HP
-            Debug.Assert(et.GetComponent<Health>().HP == 80);           
-            Debug.Assert(et1.GetComponent<Power>().POWER == 90);
-
-        }
-
-
-        [TestMethod]
-        public void MostSimpleSystemEverTest()
-        {
-            EntityWorld world = new EntityWorld();
-            SystemManager systemManager = world.SystemManager;
-            MostSimpleSystemEver DummyCommunicationSystem = new MostSimpleSystemEver();
-            systemManager.SetSystem(DummyCommunicationSystem, ExecutionType.UpdateSynchronous);
-            world.InitializeAll(false);
-                        
-            
-                Entity et = world.CreateEntity();
-                et.AddComponent(new Health());
-                et.GetComponent<Health>().HP = 100;                
-                et.Refresh();           
-
-            
-                Entity et1 = world.CreateEntity();
-                et1.AddComponent(new Health());
-                et1.AddComponent(new Power());
-                et1.GetComponent<Health>().HP = 100;
-                et1.GetComponent<Power>().POWER = 100;
-                et1.Refresh();
-            
-
-            {
-                DateTime dt = DateTime.Now;
-                world.Update(0);
-                Console.WriteLine((DateTime.Now - dt).TotalMilliseconds);
-            }
-
-            Debug.Assert(et.GetComponent<Health>().HP == 90);
-            Debug.Assert(et1.GetComponent<Health>().HP == 100);
-            Debug.Assert(et1.GetComponent<Power>().POWER == 100);
-
-        }
-
-        [TestMethod]
-        public void DummyTests()
-        {
-            EntityWorld world = new EntityWorld();
-            SystemManager systemManager = world.SystemManager;
-            DummyCommunicationSystem DummyCommunicationSystem = new DummyCommunicationSystem();
-            systemManager.SetSystem(DummyCommunicationSystem, ExecutionType.UpdateSynchronous);
-            world.InitializeAll(false);
-
-            for (int i = 0; i < 100; i++)
-            {
-                Entity et = world.CreateEntity();
-                et.AddComponent(new Health());
-                et.GetComponent<Health>().HP += 100;
-                et.Group = "teste";
-                et.Refresh();
-            }
-
-            {
-                Entity et = world.CreateEntity();
-                et.Tag = "tag";
-                et.AddComponent(new Health());
-                et.GetComponent<Health>().HP += 100;             
-                et.Refresh();
-            }
-
-            {
-                DateTime dt = DateTime.Now;
-                world.Update(0);                
-                Console.WriteLine((DateTime.Now - dt).TotalMilliseconds);
-            }
-
-            Debug.Assert(world.TagManager.GetEntity("tag") != null);
-            Debug.Assert(world.GroupManager.GetEntities("teste").Size == 100);
-            Debug.Assert(world.EntityManager.ActiveEntitiesCount == 101);
-            Debug.Assert(world.SystemManager.Systems.Size == 1);
-
-
-
-        }
-        [TestMethod]
-        public  void SystemComunicationTeste()
-        {
-            EntitySystem.BlackBoard.SetEntry<int>("Damage", 5);
-
-            EntityWorld world = new EntityWorld();
-            SystemManager systemManager = world.SystemManager;
-            DummyCommunicationSystem DummyCommunicationSystem = new DummyCommunicationSystem();
-            systemManager.SetSystem(DummyCommunicationSystem, ExecutionType.UpdateSynchronous);
-            world.InitializeAll(false);            
-
-            List<Entity> l = new List<Entity>();
-            for (int i = 0; i < 100; i++)
-            {
-                Entity et = world.CreateEntity();
-                et.AddComponent(new Health());
-                et.GetComponent<Health>().HP += 100;
-                et.Refresh();
-                l.Add(et);
-            }
-            
-            {
-                DateTime dt = DateTime.Now;
-                world.Update(0);
-                Console.WriteLine((DateTime.Now - dt).TotalMilliseconds);
-            }
-
-            EntitySystem.BlackBoard.SetEntry<int>("Damage", 10);
-
-            {
-                DateTime dt = DateTime.Now;
-                world.Update(0);
-                Console.WriteLine((DateTime.Now - dt).TotalMilliseconds);
-            }
-
-            foreach (var item in l)
-            {
-                Debug.Assert(item.GetComponent<Health>().HP == 85);
-            }
-            
-        }
-
+        /// <summary>The attributes tests method.</summary>
         [TestMethod]
         public void AttributesTestsMethod()
         {
-            EntityWorld world = new EntityWorld();
-            world.PoolCleanupDelay = 1;
-            world.InitializeAll();
+            EntityWorld entityWorld = new EntityWorld
+                                          {
+                                              PoolCleanupDelay = 1
+                                          };
+            entityWorld.InitializeAll();
 
-            Debug.Assert(world.SystemManager.Systems.Size == 2);
+            Debug.Assert(entityWorld.SystemManager.Systems.Size == 2, "Number of Systems is not 2.");
 
-            Entity et = world.CreateEntity();
-            var power = et.AddComponentFromPool<Power2>();
-            power.POWER = 100;
-            et.Refresh();
+            Entity entity1 = entityWorld.CreateEntity();
+            Power2Component power = entity1.AddComponentFromPool<Power2Component>();
+            power.Power = 100;
+            entity1.Refresh();
 
-            Entity et1 = world.CreateEntityFromTemplate("teste");
-            Debug.Assert(et1 != null);
-
+            Entity entity2 = entityWorld.CreateEntityFromTemplate("test");
+            Debug.Assert(entity2 != null, "Entity from test template is null.");
             {
-                world.Update(0, ExecutionType.UpdateSynchronous);
+                entityWorld.Update(0);
             }
 
-            et.RemoveComponent<Power2>();
-            et.Refresh();
-
+            entity1.RemoveComponent<Power2Component>();
+            entity1.Refresh();
             {
-                world.Update(0, ExecutionType.UpdateSynchronous);
+                entityWorld.Update(0);
             }
 
-            et.AddComponentFromPool<Power2>();
-            et.GetComponent<Power2>().POWER = 100;
-            et.Refresh();
+            entity1.AddComponentFromPool<Power2Component>();
+            entity1.GetComponent<Power2Component>().Power = 100;
+            entity1.Refresh();
 
-            world.Update(0, ExecutionType.UpdateSynchronous);
+            entityWorld.Update(0);
         }
 
+        /// <summary>The dummy tests.</summary>
         [TestMethod]
-        public void QueueSystemTeste()
+        public void DummyTests()
         {
-            EntityWorld world = new EntityWorld();
-            SystemManager systemManager = world.SystemManager;
-            QueueSystemTest QueueSystemTest = new ArtemisTest.QueueSystemTest();
-            QueueSystemTest QueueSystemTest2 = new ArtemisTest.QueueSystemTest();
-            systemManager.SetSystem(QueueSystemTest, ExecutionType.UpdateAsynchronous);
-            systemManager.SetSystem(QueueSystemTest2, ExecutionType.UpdateAsynchronous);
+            EntityWorld entityWorld = new EntityWorld();
+            SystemManager systemManager = entityWorld.SystemManager;
+            DummyCommunicationSystem dummyCommunicationSystem = new DummyCommunicationSystem();
+            systemManager.SetSystem(dummyCommunicationSystem, ExecutionType.UpdateSynchronous);
+            entityWorld.InitializeAll(false);
 
-            QueueSystemTest2 QueueSystemTestteste = new ArtemisTest.QueueSystemTest2();
-            systemManager.SetSystem(QueueSystemTestteste, ExecutionType.UpdateAsynchronous);
-
-            world.InitializeAll(false);
-
-            QueueSystemTest.SetQueueProcessingLimit(20, QueueSystemTest.Id);
-            Debug.Assert(QueueSystemTest.GetQueueProcessingLimit(QueueSystemTest.Id) == QueueSystemTest.GetQueueProcessingLimit(QueueSystemTest2.Id));
-
-
-            
-            Debug.Assert(QueueSystemTest.GetQueueProcessingLimit(QueueSystemTestteste.Id) != QueueSystemTest.GetQueueProcessingLimit(QueueSystemTest2.Id));
-
-            QueueSystemTest.SetQueueProcessingLimit(1000, QueueSystemTest.Id);
-            QueueSystemTest.SetQueueProcessingLimit(2000, QueueSystemTestteste.Id);
-
-            List<Entity> l = new List<Entity>();
-            for (int i = 0; i < 1000000; i++)
+            for (int index = 0; index < 100; ++index)
             {
-                Entity et = world.CreateEntity();
-                et.AddComponent(new Health());
-                et.GetComponent<Health>().HP = 100;
-                QueueSystemTest.AddToQueue(et, QueueSystemTest.Id);
-                l.Add(et);
+                Entity entity = entityWorld.CreateEntity();
+                entity.AddComponent(new HealthComponent());
+                entity.GetComponent<HealthComponent>().Points += 100;
+                entity.Group = "test";
+                entity.Refresh();
             }
-            
-            List<Entity> l2 = new List<Entity>();
-            for (int i = 0; i < 1000000; i++)
+
             {
-                Entity et = world.CreateEntity();
-                et.AddComponent(new Health());
-                et.GetComponent<Health>().HP = 100;
-                QueueSystemTest.AddToQueue(et, QueueSystemTestteste.Id);
-                l2.Add(et);
+                Entity entity = entityWorld.CreateEntity();
+                entity.Tag = "tag";
+                entity.AddComponent(new HealthComponent());
+                entity.GetComponent<HealthComponent>().Points += 100;
+                entity.Refresh();
+            }
+
+            {
+                DateTime dateTime = DateTime.Now;
+                entityWorld.Update(0);
+                Console.WriteLine((DateTime.Now - dateTime).TotalMilliseconds);
+            }
+
+            Debug.Assert(entityWorld.TagManager.GetEntity("tag") != null, "Tagged entity not found.");
+            Debug.Assert(entityWorld.GroupManager.GetEntities("test").Size == 100, "Test entity size is not 100.");
+            Debug.Assert(entityWorld.EntityManager.ActiveEntitiesCount == 101, "Number of active entities is not 101.");
+            Debug.Assert(entityWorld.SystemManager.Systems.Size == 1, "Number of Systems is not 1.");
+        }
+
+        /// <summary>The hybrid queue system test.</summary>
+        [TestMethod]
+        public void HybridQueueSystemTest()
+        {
+            EntityWorld entityWorld = new EntityWorld();
+            SystemManager systemManager = entityWorld.SystemManager;
+            HybridQueueSystemTest hybridQueueSystemTest = new HybridQueueSystemTest();
+            systemManager.SetSystem(hybridQueueSystemTest, ExecutionType.UpdateSynchronous);
+            entityWorld.InitializeAll(false);
+
+            List<Entity> entities = new List<Entity>();
+            for (int index = 0; index < 100; ++index)
+            {
+                Entity entity = entityWorld.CreateEntity();
+                entity.AddComponent(new HealthComponent());
+                entity.GetComponent<HealthComponent>().Points += 100;
+                entity.Refresh();
+                entities.Add(entity);
+            }
+
+            for (int index = 0; index < 100; ++index)
+            {
+                Entity entity = entityWorld.CreateEntity();
+                entity.AddComponent(new HealthComponent());
+                entity.GetComponent<HealthComponent>().Points += 100;
+                hybridQueueSystemTest.AddToQueue(entity);
+                entities.Add(entity);
+            }
+
+            int numberOfQueues = 0;
+            while (hybridQueueSystemTest.QueueCount > 0)
+            {
+                ++numberOfQueues;
+                DateTime dateTime = DateTime.Now;
+                entityWorld.Update(0);
+                Console.WriteLine((DateTime.Now - dateTime).TotalMilliseconds);
+            }
+
+            for (int index = 0; index < 100; ++index)
+            {
+                Debug.Assert(Math.Abs(entities[index].GetComponent<HealthComponent>().Points - (100 - (10 * numberOfQueues))) < float.Epsilon, "Queue is not 100.");
+            }
+
+            for (int index = 100; index < 200; ++index)
+            {
+                Debug.Assert(Math.Abs(entities[index].GetComponent<HealthComponent>().Points - 90) < float.Epsilon, "Health is not 90.");
+            }
+        }
+
+        /// <summary>The most simple system ever test.</summary>
+        [TestMethod]
+        public void MostSimpleSystemEverTest()
+        {
+            EntityWorld entityWorld = new EntityWorld();
+            SystemManager systemManager = entityWorld.SystemManager;
+            MostSimpleSystemEver dummyCommunicationSystem = new MostSimpleSystemEver();
+            systemManager.SetSystem(dummyCommunicationSystem, ExecutionType.UpdateSynchronous);
+            entityWorld.InitializeAll(false);
+
+            Entity entity1 = entityWorld.CreateEntity();
+            entity1.AddComponent(new HealthComponent());
+            entity1.GetComponent<HealthComponent>().Points = 100;
+            entity1.Refresh();
+
+            Entity entity2 = entityWorld.CreateEntity();
+            entity2.AddComponent(new HealthComponent());
+            entity2.AddComponent(new Power1Component());
+            entity2.GetComponent<HealthComponent>().Points = 100;
+            entity2.GetComponent<Power1Component>().Power = 100;
+            entity2.Refresh();
+            {
+                DateTime dateTime = DateTime.Now;
+                entityWorld.Update(0);
+                Console.WriteLine((DateTime.Now - dateTime).TotalMilliseconds);
+            }
+
+            Debug.Assert(Math.Abs(entity1.GetComponent<HealthComponent>().Points - 90) < float.Epsilon, "Health is not 90.");
+            Debug.Assert(Math.Abs(entity2.GetComponent<HealthComponent>().Points - 100) < float.Epsilon, "Health is not 100.");
+            Debug.Assert(Math.Abs(entity2.GetComponent<Power1Component>().Power - 100) < float.Epsilon, "Power is not 100.");
+        }
+
+        /// <summary>The queue system test.</summary>
+        [TestMethod]
+        public void QueueSystemTest()
+        {
+            EntityWorld entityWorld = new EntityWorld();
+            SystemManager systemManager = entityWorld.SystemManager;
+            QueueSystemTest1 queueSystemTest1 = new QueueSystemTest1();
+            QueueSystemTest1 queueSystemTest2 = new QueueSystemTest1();
+            systemManager.SetSystem(queueSystemTest1, ExecutionType.UpdateAsynchronous);
+            systemManager.SetSystem(queueSystemTest2, ExecutionType.UpdateAsynchronous);
+
+            QueueSystemTest2 queueSystemTest3 = new QueueSystemTest2();
+            systemManager.SetSystem(queueSystemTest3, ExecutionType.UpdateAsynchronous);
+
+            entityWorld.InitializeAll(false);
+
+            QueueSystemProcessingThreadSafe.SetQueueProcessingLimit(20, queueSystemTest1.Id);
+            Debug.Assert(QueueSystemProcessingThreadSafe.GetQueueProcessingLimit(queueSystemTest1.Id) == QueueSystemProcessingThreadSafe.GetQueueProcessingLimit(queueSystemTest2.Id), "QueueProcessingLimit reached.");
+
+            Debug.Assert(QueueSystemProcessingThreadSafe.GetQueueProcessingLimit(queueSystemTest3.Id) != QueueSystemProcessingThreadSafe.GetQueueProcessingLimit(queueSystemTest2.Id), "QueueProcessingLimit not reached.");
+
+            QueueSystemProcessingThreadSafe.SetQueueProcessingLimit(1000, queueSystemTest1.Id);
+            QueueSystemProcessingThreadSafe.SetQueueProcessingLimit(2000, queueSystemTest3.Id);
+
+            List<Entity> entities1 = new List<Entity>();
+            for (int index = 0; index < 1000000; ++index)
+            {
+                Entity entity = entityWorld.CreateEntity();
+                entity.AddComponent(new HealthComponent());
+                entity.GetComponent<HealthComponent>().Points = 100;
+                QueueSystemProcessingThreadSafe.AddToQueue(entity, queueSystemTest1.Id);
+                entities1.Add(entity);
+            }
+
+            List<Entity> entities2 = new List<Entity>();
+            for (int index = 0; index < 1000000; ++index)
+            {
+                Entity entity = entityWorld.CreateEntity();
+                entity.AddComponent(new HealthComponent());
+                entity.GetComponent<HealthComponent>().Points = 100;
+                QueueSystemProcessingThreadSafe.AddToQueue(entity, queueSystemTest3.Id);
+                entities2.Add(entity);
             }
 
             Console.WriteLine("Start");
-            while (QueueSystemTest.QueueCount(QueueSystemTest.Id) > 0 || QueueSystemTest.QueueCount(QueueSystemTestteste.Id) > 0)
+            while (QueueSystemProcessingThreadSafe.QueueCount(queueSystemTest1.Id) > 0 || QueueSystemProcessingThreadSafe.QueueCount(queueSystemTest3.Id) > 0)
             {
-                DateTime dt = DateTime.Now;
-                world.Update(0, ExecutionType.UpdateAsynchronous);                
-                Console.WriteLine("Count: " + QueueSystemTest.QueueCount(QueueSystemTest.Id));
-                Console.WriteLine("Time: " + (DateTime.Now - dt).TotalMilliseconds);
-
+                DateTime dateTime = DateTime.Now;
+                entityWorld.Update(0, ExecutionType.UpdateAsynchronous);
+                Console.WriteLine("Count: " + QueueSystemProcessingThreadSafe.QueueCount(queueSystemTest1.Id));
+                Console.WriteLine("Time: " + (DateTime.Now - dateTime).TotalMilliseconds);
             }
+
             Console.WriteLine("End");
 
-            foreach (var item in l)
+            foreach (Entity item in entities1)
             {
-                Debug.Assert(item.GetComponent<Health>().HP == 90);
+                Debug.Assert(Math.Abs(item.GetComponent<HealthComponent>().Points - 90) < float.Epsilon, "Health points is not 90.");
             }
-            foreach (var item in l2)
+
+            foreach (Entity item in entities2)
             {
-                Debug.Assert(item.GetComponent<Health>().HP == 80);
+                Debug.Assert(Math.Abs(item.GetComponent<HealthComponent>().Points - 80) < float.Epsilon, "Health points is not 80.");
             }
         }
 
+        /// <summary>The second most simple system ever test.</summary>
         [TestMethod]
-        public void HybridQueueSystemTeste()
+        public void SecondMostSimpleSystemEverTest()
         {
+            EntityWorld entityWorld = new EntityWorld();
+            entityWorld.InitializeAll();
+
+            Entity entity1 = entityWorld.CreateEntity();
+            entity1.AddComponent(new HealthComponent());
+            entity1.GetComponent<HealthComponent>().Points = 100;
+            entity1.Refresh();
+
+            Entity entity2 = entityWorld.CreateEntity();
+            entity2.AddComponent(new Power1Component());
+            entity2.GetComponent<Power1Component>().Power = 100;
+            entity2.Refresh();
+            {
+                entityWorld.Update(0);
+            }
+
+            // two systems running
+            // each remove 10 HealthPoints
+            Debug.Assert(Math.Abs(entity1.GetComponent<HealthComponent>().Points - 80) < float.Epsilon, "Health points is not 80.");
+            Debug.Assert(Math.Abs(entity2.GetComponent<Power1Component>().Power - 90) < float.Epsilon, "Power is not 90.");
+        }
+
+        /// <summary>Systems the communication test.</summary>
+        [TestMethod]
+        public void SystemCommunicationTest()
+        {
+            EntitySystem.BlackBoard.SetEntry("Damage", 5);
 
             EntityWorld world = new EntityWorld();
             SystemManager systemManager = world.SystemManager;
-            HybridQueueSystemTest HybridQueueSystemTest = new ArtemisTest.HybridQueueSystemTest();
-            EntitySystem hs = systemManager.SetSystem(HybridQueueSystemTest, ExecutionType.UpdateSynchronous);
+            DummyCommunicationSystem dummyCommunicationSystem = new DummyCommunicationSystem();
+            systemManager.SetSystem(dummyCommunicationSystem, ExecutionType.UpdateSynchronous);
             world.InitializeAll(false);
 
-            List<Entity> l = new List<Entity>();
-            for (int i = 0; i < 100; i++)
+            List<Entity> entities = new List<Entity>();
+            for (int index = 0; index < 100; ++index)
             {
-                Entity et = world.CreateEntity();
-                et.AddComponent(new Health());
-                et.GetComponent<Health>().HP += 100;
-                et.Refresh();
-                l.Add(et);
+                Entity entity = world.CreateEntity();
+                entity.AddComponent(new HealthComponent());
+                entity.GetComponent<HealthComponent>().Points += 100;
+                entity.Refresh();
+                entities.Add(entity);
             }
 
-            for (int i = 0; i < 100; i++)
             {
-                Entity et = world.CreateEntity();
-                et.AddComponent(new Health());
-                et.GetComponent<Health>().HP += 100;
-                HybridQueueSystemTest.
-                    AddToQueue(et);
-                l.Add(et);
-            }
-
-            int j = 0;
-            while (HybridQueueSystemTest.QueueCount > 0) 
-            {
-                j++;
-                DateTime dt = DateTime.Now;
+                DateTime dateTime = DateTime.Now;
                 world.Update(0);
-                Console.WriteLine((DateTime.Now - dt).TotalMilliseconds);
+                Console.WriteLine((DateTime.Now - dateTime).TotalMilliseconds);
             }
 
-            for (int i = 0; i < 100; i++)
+            EntitySystem.BlackBoard.SetEntry("Damage", 10);
             {
-                Debug.Assert(l[i].GetComponent<Health>().HP == 100 - (10 * j));
+                DateTime dateTime = DateTime.Now;
+                world.Update(0);
+                Console.WriteLine((DateTime.Now - dateTime).TotalMilliseconds);
             }
 
-            for (int i = 100; i < 200; i++)
+            foreach (Entity item in entities)
             {
-                Debug.Assert(l[i].GetComponent<Health>().HP == 90);
+                Debug.Assert(Math.Abs(item.GetComponent<HealthComponent>().Points - 85) < float.Epsilon, "Health points is not 85.");
             }
-            
         }
-          
-	}
+
+        /// <summary>The multi.</summary>
+        [TestMethod]
+        public void Multi()
+        {
+            HealthBag.Add(new HealthComponent());
+            HealthBag.Add(new HealthComponent());
+            ComponentPool.Add(typeof(HealthComponent), HealthBag);
+
+            EntityWorld entityWorld = new EntityWorld();
+            SystemManager systemManager = entityWorld.SystemManager;
+            entityWorld.EntityManager.RemovedComponentEvent += RemovedComponent;
+            entityWorld.EntityManager.RemovedEntityEvent += RemovedEntity;
+
+            systemManager.SetSystem(new MultiHealthBarRenderSystem(), ExecutionType.UpdateSynchronous);
+            entityWorld.InitializeAll(false);
+
+            List<Entity> entities = new List<Entity>();
+            for (int index = 0; index < 1000; ++index)
+            {
+                Entity entity = entityWorld.CreateEntity();
+                entity.AddComponent(new HealthComponent());
+                entity.GetComponent<HealthComponent>().Points += 100;
+                entity.Refresh();
+                entities.Add(entity);
+            }
+
+            for (int index = 0; index < 100; ++index)
+            {
+                DateTime dateTime = DateTime.Now;
+                entityWorld.Update(0);
+                Console.WriteLine((DateTime.Now - dateTime).TotalMilliseconds);
+            }
+
+            int df = entities.Count(item => Math.Abs(item.GetComponent<HealthComponent>().Points - 90) < float.Epsilon);
+
+            Console.WriteLine("Found {0} entities with health of 90.", df);
+        }
+
+        /// <summary>The multi system.</summary>
+        [TestMethod]
+        public void MultiSystem()
+        {
+            HealthBag.Clear();
+            ComponentPool.Clear();
+
+            HealthBag.Add(new HealthComponent());
+            HealthBag.Add(new HealthComponent());
+            ComponentPool.Add(typeof(HealthComponent), HealthBag);
+
+            EntityWorld entityWorld = new EntityWorld();
+            SystemManager systemManager = entityWorld.SystemManager;
+            entityWorld.EntityManager.RemovedComponentEvent += RemovedComponent;
+            entityWorld.EntityManager.RemovedEntityEvent += RemovedEntity;
+            systemManager.SetSystem(new SingleHealthBarRenderSystem(), ExecutionType.UpdateAsynchronous);
+            systemManager.SetSystem(new DummySystem1(), ExecutionType.UpdateAsynchronous);
+            systemManager.SetSystem(new DummySystem2(), ExecutionType.UpdateAsynchronous);
+            systemManager.SetSystem(new DummySystem3(), ExecutionType.UpdateAsynchronous);
+            entityWorld.InitializeAll(false);
+
+            List<Entity> entities = new List<Entity>();
+            for (int index = 0; index < 100000; ++index)
+            {
+                Entity entity = entityWorld.CreateEntity();
+                entity.AddComponent(new HealthComponent());
+                entity.GetComponent<HealthComponent>().Points += 100;
+                entity.Refresh();
+                entities.Add(entity);
+            }
+
+            for (int index = 0; index < 100; ++index)
+            {
+                DateTime dateTime = DateTime.Now;
+                entityWorld.Update(0, ExecutionType.UpdateAsynchronous);
+
+                // systemManager.UpdateSynchronous(ExecutionType.Update);
+                Console.WriteLine((DateTime.Now - dateTime).TotalMilliseconds);
+            }
+
+            /*
+            int df = 0;
+            foreach (Entity entity in entities)
+            {
+                if (Math.Abs(entity.GetComponent<HealthComponent>().Points - 90) < float.Epsilon)
+                {
+                    df++;
+                }
+                else
+                {
+                    Console.WriteLine("Error " + df);
+                }
+            }
+            */
+        }
+
+        /// <summary>The removed component.</summary>
+        /// <param name="entity">The entity.</param>
+        /// <param name="component">The component.</param>
+        private static void RemovedComponent(Entity entity, IComponent component)
+        {
+            Console.WriteLine("This was the component removed: " + component.GetType());
+            Bag<IComponent> tempBag;
+            if (ComponentPool.TryGetValue(component.GetType(), out tempBag))
+            {
+                Console.WriteLine("Health Component Pool has " + tempBag.Size + " objects");
+                tempBag.Add(component);
+            }
+
+            if (ComponentPool.TryGetValue(component.GetType(), out tempBag))
+            {
+                Console.WriteLine("Health Component Pool now has " + tempBag.Size + " objects");
+            }
+        }
+
+        /// <summary>The removed entity.</summary>
+        /// <param name="entity">The entity.</param>
+        private static void RemovedEntity(Entity entity)
+        {
+            Console.WriteLine("The entity {0} was removed successfully.", entity.UniqueId);
+        }
+    }
 }

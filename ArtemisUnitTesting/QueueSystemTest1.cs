@@ -1,8 +1,8 @@
-#region File description
+﻿#region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AddedEntityHandler.cs" company="GAMADU.COM">
-//     Copyright � 2013 GAMADU.COM. All rights reserved.
+// <copyright file="QueueSystemTest1.cs" company="GAMADU.COM">
+//     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
 //     permitted provided that the following conditions are met:
@@ -29,14 +29,29 @@
 //     or implied, of GAMADU.COM.
 // </copyright>
 // <summary>
-//   Delegate AddedEntityHandler.
+//   The queue system test 1.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
 
-namespace Artemis.Manager
+namespace ArtemisUnitTesting
 {
-    /// <summary>Delegate AddedEntityHandler.</summary>
-    /// <param name="entity">The entity.</param>
-    public delegate void AddedEntityHandler(Entity entity);
+    #region Using statements
+
+    using Artemis;
+    using Artemis.System;
+
+    #endregion Using statements
+
+    /// <summary>The queue system test 1.</summary>
+    public class QueueSystemTest1 : QueueSystemProcessingThreadSafe
+    {
+        /// <summary>The process.</summary>
+        /// <param name="entity">The entity.</param>
+        public override void Process(Entity entity)
+        {
+            HealthComponent healthComponent = entity.GetComponent<HealthComponent>();
+            healthComponent.AddDamage(10);
+        }
+    }
 }

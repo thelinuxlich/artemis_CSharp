@@ -1,8 +1,8 @@
-#region File description
+﻿#region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AddedEntityHandler.cs" company="GAMADU.COM">
-//     Copyright � 2013 GAMADU.COM. All rights reserved.
+// <copyright file="TimeWaster.cs" company="GAMADU.COM">
+//     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
 //     permitted provided that the following conditions are met:
@@ -28,15 +28,47 @@
 //     authors and should not be interpreted as representing official policies, either expressed
 //     or implied, of GAMADU.COM.
 // </copyright>
+// <author>Jens-Axel Grünewald</author>
+// <date>2/23/2013 10:05:38 AM</date>
 // <summary>
-//   Delegate AddedEntityHandler.
+//     This is a time waster class.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
 
-namespace Artemis.Manager
+namespace ArtemisUnitTesting
 {
-    /// <summary>Delegate AddedEntityHandler.</summary>
-    /// <param name="entity">The entity.</param>
-    public delegate void AddedEntityHandler(Entity entity);
+    #region Using statements
+
+    using System;
+
+    #endregion Using statements
+
+    /// <summary>This is a class.</summary>
+    public class TimeWaster
+    {
+        /// <summary>Initializes static members of the <see cref="TimeWaster"/> class.</summary>
+        static TimeWaster()
+        {
+            Result = 0.0d;
+        }
+
+        /// <summary>Gets the result.</summary>
+        /// <value>The result.</value>
+        public static double Result { get; private set; }
+
+        /// <summary>Delays the specified iterations.</summary>
+        /// <param name="iterations">The iterations.</param>
+        public static void Delay(int iterations = 10)
+        {
+            double x = 0.1d;
+            for (double index = iterations - 1; index >= 0; --index)
+            {
+                x *= Math.Log(index);
+                x *= Math.Cos(index);
+            }
+
+            Result = x;
+        }
+    }
 }

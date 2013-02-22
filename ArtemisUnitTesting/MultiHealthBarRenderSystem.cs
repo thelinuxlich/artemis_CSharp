@@ -1,7 +1,7 @@
 #region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AddedEntityHandler.cs" company="GAMADU.COM">
+// <copyright file="MultiHealthBarRenderSystem.cs" company="GAMADU.COM">
 //     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
@@ -29,14 +29,46 @@
 //     or implied, of GAMADU.COM.
 // </copyright>
 // <summary>
-//   Delegate AddedEntityHandler.
+//   The multi health bar render system.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
 
-namespace Artemis.Manager
+namespace ArtemisUnitTesting
 {
-    /// <summary>Delegate AddedEntityHandler.</summary>
-    /// <param name="entity">The entity.</param>
-    public delegate void AddedEntityHandler(Entity entity);
+    #region Using statements
+
+    using Artemis;
+    using Artemis.System;
+
+    #endregion Using statements
+
+    /// <summary>The multi health bar render system.</summary>
+    public class MultiHealthBarRenderSystem : ParallelEntityProcessingSystem
+    {
+        /// <summary>The health mapper.</summary>
+        private ComponentMapper<HealthComponent> healthMapper;
+
+        /// <summary>Initializes a new instance of the <see cref="MultiHealthBarRenderSystem" /> class.</summary>
+        public MultiHealthBarRenderSystem()
+            : base(typeof(HealthComponent))
+        {
+        }
+
+        /// <summary>The initialize.</summary>
+        public override void Initialize()
+        {
+            this.healthMapper = new ComponentMapper<HealthComponent>(this.EntityWorld);
+        }
+
+        /// <summary>The process.</summary>
+        /// <param name="entity">The entity.</param>
+        public override void Process(Entity entity)
+        {
+            HealthComponent healthComponent = this.healthMapper.Get(entity);
+            healthComponent.AddDamage(10);
+
+            TimeWaster.Delay(1000);
+        }
+    }
 }

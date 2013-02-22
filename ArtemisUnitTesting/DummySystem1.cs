@@ -1,7 +1,7 @@
 #region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AddedEntityHandler.cs" company="GAMADU.COM">
+// <copyright file="DummySystem1.cs" company="GAMADU.COM">
 //     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
@@ -29,14 +29,34 @@
 //     or implied, of GAMADU.COM.
 // </copyright>
 // <summary>
-//   Delegate AddedEntityHandler.
+//   The dummy system 1.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
 
-namespace Artemis.Manager
+namespace ArtemisUnitTesting
 {
-    /// <summary>Delegate AddedEntityHandler.</summary>
-    /// <param name="entity">The entity.</param>
-    public delegate void AddedEntityHandler(Entity entity);
+    #region Using statements
+
+    using Artemis;
+    using Artemis.System;
+
+    #endregion Using statements
+
+    /// <summary>The dummy system 1.</summary>
+    public class DummySystem1 : EntityProcessingSystem
+    {
+        /// <summary>Initializes a new instance of the <see cref="DummySystem1" /> class.</summary>
+        public DummySystem1()
+            : base(typeof(HealthComponent))
+        {
+        }
+
+        /// <summary>The process.</summary>
+        /// <param name="entity">The entity.</param>
+        public override void Process(Entity entity)
+        {
+            TimeWaster.Delay();
+        }
+    }
 }

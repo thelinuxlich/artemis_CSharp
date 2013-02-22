@@ -1,8 +1,42 @@
+#region File description
+
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ComponentTypeManager.cs" company="GAMADU.COM">
+//     Copyright © 2013 GAMADU.COM. All rights reserved.
+//
+//     Redistribution and use in source and binary forms, with or without modification, are
+//     permitted provided that the following conditions are met:
+//
+//        1. Redistributions of source code must retain the above copyright notice, this list of
+//           conditions and the following disclaimer.
+//
+//        2. Redistributions in binary form must reproduce the above copyright notice, this list
+//           of conditions and the following disclaimer in the documentation and/or other materials
+//           provided with the distribution.
+//
+//     THIS SOFTWARE IS PROVIDED BY GAMADU.COM 'AS IS' AND ANY EXPRESS OR IMPLIED
+//     WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+//     FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL GAMADU.COM OR
+//     CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+//     CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+//     SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+//     ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//     NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+//     ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+//     The views and conclusions contained in the software and documentation are those of the
+//     authors and should not be interpreted as representing official policies, either expressed
+//     or implied, of GAMADU.COM.
+// </copyright>
+// <summary>
+//   Class ComponentTypeManager.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+#endregion File description
+
 namespace Artemis.Manager
 {
     #region Using statements
-
-    using Artemis.Interface;
 
     using global::System;
     using global::System.Collections.Generic;
@@ -10,8 +44,9 @@ namespace Artemis.Manager
 #if !XBOX && !WINDOWS_PHONE
     using global::System.Numerics;
 #endif
+    using Artemis.Interface;
 #if XBOX || WINDOWS_PHONE
-    using BigInteger = System.Int32;
+    using BigInteger = global::System.Int32;
 #endif
 
     #endregion Using statements
@@ -23,16 +58,16 @@ namespace Artemis.Manager
         private static readonly Dictionary<Type, ComponentType> ComponentTypes = new Dictionary<Type, ComponentType>();
 
         /// <summary>Gets the bit.</summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns>BigInteger.</returns>
+        /// <typeparam name="T">The <see langword="Type"/> T.</typeparam>
+        /// <returns>The bit flag register.</returns>
         public static BigInteger GetBit<T>() where T : IComponent
         {
             return GetTypeFor<T>().Bit;
         }
 
         /// <summary>Gets the id.</summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns>System.Int32.</returns>
+        /// <typeparam name="T">The <see langword="Type"/> T.</typeparam>
+        /// <returns>The id.</returns>
         public static int GetId<T>() where T : IComponent
         {
             return GetTypeFor<T>().Id;
@@ -60,7 +95,7 @@ namespace Artemis.Manager
         ///   <para>This is a way you can easily add "official" component</para>
         ///   <para>types to your solution.</para></summary>
         /// <param name="component">The component type label you want to ensure is an "official" component type</param>
-        /// <returns>ComponentType</returns>
+        /// <returns>The specified ComponentType.</returns>
         public static ComponentType GetTypeFor(Type component)
         {
             Debug.Assert(component != null, "Component must not be null.");

@@ -51,25 +51,26 @@
   </Choose>
   <ItemGroup>
     <Compile Include="DummyCommunicationSystem.cs" />
-    <Compile Include="DummySystem.cs" />
+    <Compile Include="DummySystem1.cs" />
     <Compile Include="DummySystem2.cs" />
     <Compile Include="DummySystem3.cs" />
-    <Compile Include="EntTemplate.cs" />
-    <Compile Include="Health.cs" />
+    <Compile Include="EntityTestTemplate.cs" />
+    <Compile Include="HealthComponent.cs" />
     <Compile Include="HybridQueueSystemTest.cs" />
     <Compile Include="MostSimpleSystemEver.cs" />
-    <Compile Include="MultHealthBarRenderSystem.cs" />
+    <Compile Include="MultiHealthBarRenderSystem.cs" />
     <Compile Include="PerformanceTests.cs" />
-    <Compile Include="Power.cs" />
-    <Compile Include="Power2.cs" />
+    <Compile Include="Power1Component.cs" />
+    <Compile Include="Power2Component.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QueueSystemTest.cs" />
+    <Compile Include="QueueSystemTest1.cs" />
     <Compile Include="QueueSystemTest2.cs" />
     <Compile Include="SecondMostSimpleSystemEver.cs" />
     <Compile Include="SingleHealthBarRenderSystem.cs" />
-    <Compile Include="SingleHEAVYHealthBarRenderSystem.cs" />
+    <Compile Include="SingleHeavyHealthBarRenderSystem.cs" />
     <Compile Include="GeneralTest.cs" />
     <Compile Include="ThirdMostSimpleSystemEver.cs" />
+    <Compile Include="TimeWaster.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Artemis_XNA_INDEPENDENT\Artemis.csproj">

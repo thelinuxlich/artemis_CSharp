@@ -1,8 +1,8 @@
-#region File description
+﻿#region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AddedEntityHandler.cs" company="GAMADU.COM">
-//     Copyright � 2013 GAMADU.COM. All rights reserved.
+// <copyright file="Power2Component.cs" company="GAMADU.COM">
+//     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
 //     permitted provided that the following conditions are met:
@@ -29,14 +29,37 @@
 //     or implied, of GAMADU.COM.
 // </copyright>
 // <summary>
-//   Delegate AddedEntityHandler.
+//   The power 2.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
 
-namespace Artemis.Manager
+namespace ArtemisUnitTesting
 {
-    /// <summary>Delegate AddedEntityHandler.</summary>
-    /// <param name="entity">The entity.</param>
-    public delegate void AddedEntityHandler(Entity entity);
+    #region Using statements
+
+    using System;
+
+    using Artemis;
+    using Artemis.Attributes;
+
+    #endregion Using statements
+
+    /// <summary>The power 2.</summary>
+    [ArtemisComponentPool(InitialSize = 10, IsResizable = false)]
+    public class Power2Component : ComponentPoolable
+    {
+        /// <summary>Gets or sets the power.</summary>
+        /// <value>The power.</value>
+        public int Power { get; set; }
+
+        /// <summary>The create instance.</summary>
+        /// <param name="type">The type.</param>
+        /// <returns>The <see cref="Power2Component" />.</returns>
+        [ArtemisComponentCreate]
+        public static Power2Component CreateInstance(Type type)
+        {
+            return new Power2Component();
+        }
+    }
 }
