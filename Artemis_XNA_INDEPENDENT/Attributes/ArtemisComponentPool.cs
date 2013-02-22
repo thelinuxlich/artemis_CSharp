@@ -1,64 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Artemis.Attributes
+﻿namespace Artemis.Attributes
 {
+    #region Using statements
+
+    using global::System;
+
+    #endregion Using statements
+
+    /// <summary>Class ArtemisComponentPool.</summary>
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
     public sealed class ArtemisComponentPool : Attribute
     {
+        /// <summary>Initializes a new instance of the <see cref="ArtemisComponentPool"/> class.</summary>
         public ArtemisComponentPool()
         {
-            InitialSize = 10;
-            ResizeSize = 10;
-            Resizes = true;
-            isSupportMultiThread = false;
+            this.InitialSize = 10;
+            this.ResizeSize = 10;
+            this.IsResizable = true;
+            this.IsSupportMultiThread = false;
         }
 
-        /// <summary>
-        /// Initial size of the Pool
-        /// Default 10
-        /// </summary>
-        public int InitialSize
-        {
-            get;
-            set;
-        }
+        /// <summary>Gets or sets the initial size of the Pool. Default is 10.</summary>
+        /// <value>The initial size.</value>
+        public int InitialSize { get; set; }
 
-        /// <summary>
-        /// The size of the pool resize        
-        /// Default 10
-        /// </summary>
-        public int ResizeSize
-        {
-            get;
-            set;
-        }
+        /// <summary>Gets or sets the size of the pool resize. Default is 10.</summary>
+        /// <value>The size of the resize.</value>
+        public int ResizeSize { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether this instance should support multi thread environemnt
-        /// Default false
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if this instance should support multi thread environemnt; otherwise, <c>false</c>.
-        /// </value>
-        public bool isSupportMultiThread
-        {
-            get;
-            set;
-        }
+        /// <summary>Gets or sets a value indicating whether the pool is resizable.</summary>
+        /// <value><see langword="true" /> if the pool is resizable; otherwise, <see langword="false" />.</value>
+        public bool IsResizable { get; set; }
 
-        /// <summary>
-        /// If the pool can be resized
-        /// Default False
-        /// </summary>
-        public bool Resizes
-        {
-            get;
-            set;
-        }
-
-
+        /// <summary>Gets or sets a value indicating whether this instance should support multi thread environment. Default is <see langword="false" />.</summary>
+        /// <value><see langword="true" /> if this instance should support multi thread environment; otherwise, <see langword="false" />.</value>
+        public bool IsSupportMultiThread { get; set; }
     }
 }

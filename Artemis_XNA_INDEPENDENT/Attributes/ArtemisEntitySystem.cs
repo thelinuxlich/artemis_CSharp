@@ -1,30 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Artemis.Attributes
+﻿namespace Artemis.Attributes
 {
+    #region Using statements
+
+    using Artemis.Manager;
+
+    using global::System;
+
+    #endregion Using statements
+
+    /// <summary>Class ArtemisEntitySystem.</summary>
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
     public sealed class ArtemisEntitySystem : Attribute
     {
+        /// <summary>Initializes a new instance of the <see cref="ArtemisEntitySystem"/> class.</summary>
         public ArtemisEntitySystem()
         {
-            this.ExecutionType = Artemis.ExecutionType.UpdateSynchronous;
+            this.ExecutionType = ExecutionType.UpdateSynchronous;
             this.Layer = 0;
         }
 
-        public ExecutionType ExecutionType
-        {
-            get;
-            set;
-        }
+        /// <summary>Gets or sets the type of the execution.</summary>
+        /// <value>The type of the execution.</value>
+        public ExecutionType ExecutionType { get; set; }
 
-        public int Layer
-        {
-            get;
-            set;
-        }
-
+        /// <summary>Gets or sets the layer.</summary>
+        /// <value>The layer.</value>
+        public int Layer { get; set; }
     }
 }
