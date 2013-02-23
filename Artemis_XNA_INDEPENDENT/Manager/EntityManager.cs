@@ -156,10 +156,10 @@ namespace Artemis.Manager
 
             this.entityComponents.Clear();
             int entityId = entity.Id;
-            for (int index = 0, b = this.componentsByType.Size; b > index; ++index)
+            for (int index = 0, b = this.componentsByType.Count; b > index; ++index)
             {
                 Bag<IComponent> components = this.componentsByType.Get(index);
-                if (components != null && entityId < components.Size)
+                if (components != null && entityId < components.Count)
                 {
                     IComponent component = components.Get(entityId);
                     if (component != null)
@@ -178,7 +178,7 @@ namespace Artemis.Manager
         public Bag<Entity> GetEntities(Aspect aspect)
         {
             Bag<Entity> entitiesBag = new Bag<Entity>();
-            for (int index = 0; index < this.ActiveEntities.Size; ++index)
+            for (int index = 0; index < this.ActiveEntities.Count; ++index)
             {
                 Entity entity = this.ActiveEntities.Get(index);
                 if (aspect.Interests(entity))
@@ -227,7 +227,7 @@ namespace Artemis.Manager
             // TODO: Prevent buffer overflows here!
             ++this.TotalRemoved;
 
-            if (this.removedAndAvailable.Size < this.RemovedEntitiesRetention)
+            if (this.removedAndAvailable.Count < this.RemovedEntitiesRetention)
             {
                 this.removedAndAvailable.Add(entity);
             }
@@ -335,7 +335,7 @@ namespace Artemis.Manager
         {
             SystemManager systemManager = this.entityWorld.SystemManager;
             Bag<EntitySystem> systems = systemManager.Systems;
-            for (int index = 0, s = systems.Size; s > index; ++index)
+            for (int index = 0, s = systems.Count; s > index; ++index)
             {
                 systems.Get(index).OnChange(entity);
             }
@@ -380,10 +380,10 @@ namespace Artemis.Manager
             Debug.Assert(entity != null, "Entity must not be null.");
 
             int entityId = entity.Id;
-            for (int index = 0, b = this.componentsByType.Size; b > index; ++index)
+            for (int index = 0, b = this.componentsByType.Count; b > index; ++index)
             {
                 Bag<IComponent> components = this.componentsByType.Get(index);
-                if (components != null && entityId < components.Size)
+                if (components != null && entityId < components.Count)
                 {
                     if (this.RemovedComponentEvent != null)
                     {

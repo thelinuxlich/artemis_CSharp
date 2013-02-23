@@ -74,7 +74,7 @@ namespace ArtemisUnitTesting
         }
 
         /// <summary>The initialize.</summary>
-        public override void Initialize()
+        public override void LoadContent()
         {
             this.healthMapper = new ComponentMapper<HealthComponent>(this.EntityWorld);
         }

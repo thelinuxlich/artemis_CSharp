@@ -156,12 +156,13 @@ namespace Artemis.System
             return types;
         }
 
-        /// <summary>
-        /// <para>Initializes this instance.</para>
-        /// <para>Override to implement code that gets executed</para>
-        /// <para>when systems are initialized.</para>
-        /// </summary>
-        public virtual void Initialize()
+        /// <summary>Override to implement code that gets executed when systems are initialized.</summary>
+        public virtual void LoadContent()
+        {
+        }
+
+        /// <summary>Override to implement code that gets executed when systems are terminated.</summary>
+        public virtual void UnloadContent()
         {
         }
 

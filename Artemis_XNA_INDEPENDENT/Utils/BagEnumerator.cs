@@ -93,7 +93,7 @@ namespace Artemis.Utils
         /// <returns>true if the enumerator was successfully advanced to the next element; false if the enumerator has passed the end of the collection.</returns>
         public bool MoveNext()
         {
-            return ++this.index < this.bag.Size;
+            return ++this.index < this.bag.Count;
         }
 
         /// <summary>Sets the enumerator to its initial position, which is before the first element in the collection.</summary>

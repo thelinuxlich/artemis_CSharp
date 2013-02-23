@@ -58,7 +58,7 @@ namespace Artemis.System
         /// <returns><see langword="true" /> if this instance is enabled, <see langword="false" /> otherwise</returns>
         protected override bool CheckProcessing()
         {
-            this.accumulatedDelta += this.EntityWorld.ElapsedTime;
+            this.accumulatedDelta += this.EntityWorld.Delta;
             if (this.accumulatedDelta >= this.interval)
             {
                 this.accumulatedDelta -= this.interval;

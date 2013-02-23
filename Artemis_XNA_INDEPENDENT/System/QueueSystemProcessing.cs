@@ -80,9 +80,13 @@ namespace Artemis.System
             this.queue.Enqueue(entity);
         }
 
-        /// <summary>Initializes this instance.</summary>
-        /// Override to implement code that gets executed when systems are initialized.
-        public override void Initialize()
+        /// <summary>Override to implement code that gets executed when systems are initialized.</summary>
+        public override void LoadContent()
+        {
+        }
+
+        /// <summary>Override to implement code that gets executed when systems are terminated.</summary>
+        public override void UnloadContent()
         {
         }
 
