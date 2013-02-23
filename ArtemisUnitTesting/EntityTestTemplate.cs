@@ -1,7 +1,7 @@
 ﻿#region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AssemblyInfo.cs" company="GAMADU.COM">
+// <copyright file="EntityTestTemplate.cs" company="GAMADU.COM">
 //     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
@@ -29,40 +29,38 @@
 //     or implied, of GAMADU.COM.
 // </copyright>
 // <summary>
-//   The assembly information file.
+//   Class EntityTestTemplate.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
 
-#region Using statements
+namespace ArtemisUnitTesting
+{
+    #region Using statements
 
-using System.Reflection;
-using System.Runtime.InteropServices;
+    using Artemis;
+    using Artemis.Attributes;
+    using Artemis.Interface;
 
-#endregion Using statements
+    #endregion Using statements
 
-// General Information about an assembly is controlled through the following set of attributes.
-// Change these attribute values to modify the information associated with an assembly.
-[assembly: AssemblyTitle("ArtemisXbox")]
-[assembly: AssemblyProduct("ArtemisXbox")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyCompany("GAMADU.COM")]
-[assembly: AssemblyCopyright("Copyright © 2013 GAMADU.COM. All rights reserved.")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
+    /// <summary>Class EntityTestTemplate.</summary>
+    [ArtemisEntityTemplate("test")]
+    public class EntityTestTemplate : IEntityTemplate
+    {
+        /// <summary>The build entity.</summary>
+        /// <param name="entity">The entity.</param>
+        /// <param name="entityWorld">The entity world.</param>
+        /// <param name="args">The args.</param>
+        /// <returns>The built <see cref="Entity" />.</returns>
+        public Entity BuildEntity(Entity entity, EntityWorld entityWorld, params object[] args)
+        {
+            entity.AddComponent(new Power1Component());
+            entity.GetComponent<Power1Component>().Power = 100;
 
-// Setting ComVisible to false makes the types in this assembly not visibleto COM components.
-// If you need to access a type in this assembly from COM, set the ComVisible attribute to true on that type.
-// Only FULLDOTNET assemblies support COM.
-[assembly: ComVisible(false)]
+            entity.Refresh();
 
-// On FULLDOTNET, the following GUID is for the ID of the typelib if this project is exposed to COM.
-// On other platforms, it unique identifies the title storage container when deploying this assembly to the device.
-[assembly: Guid("1ce79e1e-1e8a-472c-a84e-c245e9695ce0")]
-
-// Version information for an assembly consists of the following four values:
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-[assembly: AssemblyVersion("1.0.0.0")]
+            return entity;
+        }
+    }
+}

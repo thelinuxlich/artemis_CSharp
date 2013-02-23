@@ -1,7 +1,7 @@
 ﻿#region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AssemblyInfo.cs" company="GAMADU.COM">
+// <copyright file="TimeWaster.cs" company="GAMADU.COM">
 //     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
@@ -28,41 +28,47 @@
 //     authors and should not be interpreted as representing official policies, either expressed
 //     or implied, of GAMADU.COM.
 // </copyright>
+// <author>Jens-Axel Grünewald</author>
+// <date>2/23/2013 10:05:38 AM</date>
 // <summary>
-//   The assembly information file.
+//     This is a time waster class.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
 
-#region Using statements
+namespace ArtemisUnitTesting
+{
+    #region Using statements
 
-using System.Reflection;
-using System.Runtime.InteropServices;
+    using System;
 
-#endregion Using statements
+    #endregion Using statements
 
-// General Information about an assembly is controlled through the following set of attributes.
-// Change these attribute values to modify the information associated with an assembly.
-[assembly: AssemblyTitle("ArtemisXbox")]
-[assembly: AssemblyProduct("ArtemisXbox")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyCompany("GAMADU.COM")]
-[assembly: AssemblyCopyright("Copyright © 2013 GAMADU.COM. All rights reserved.")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
+    /// <summary>This is a class.</summary>
+    public class TimeWaster
+    {
+        /// <summary>Initializes static members of the <see cref="TimeWaster"/> class.</summary>
+        static TimeWaster()
+        {
+            Result = 0.0d;
+        }
 
-// Setting ComVisible to false makes the types in this assembly not visibleto COM components.
-// If you need to access a type in this assembly from COM, set the ComVisible attribute to true on that type.
-// Only FULLDOTNET assemblies support COM.
-[assembly: ComVisible(false)]
+        /// <summary>Gets the result.</summary>
+        /// <value>The result.</value>
+        public static double Result { get; private set; }
 
-// On FULLDOTNET, the following GUID is for the ID of the typelib if this project is exposed to COM.
-// On other platforms, it unique identifies the title storage container when deploying this assembly to the device.
-[assembly: Guid("1ce79e1e-1e8a-472c-a84e-c245e9695ce0")]
+        /// <summary>Delays the specified iterations.</summary>
+        /// <param name="iterations">The iterations.</param>
+        public static void Delay(int iterations = 10)
+        {
+            double x = 0.1d;
+            for (double index = iterations - 1; index >= 0; --index)
+            {
+                x *= Math.Log(index);
+                x *= Math.Cos(index);
+            }
 
-// Version information for an assembly consists of the following four values:
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-[assembly: AssemblyVersion("1.0.0.0")]
+            Result = x;
+        }
+    }
+}

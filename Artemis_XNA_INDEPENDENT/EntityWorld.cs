@@ -1,14 +1,50 @@
+#region File description
+
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="EntityWorld.cs" company="GAMADU.COM">
+//     Copyright © 2013 GAMADU.COM. All rights reserved.
+//
+//     Redistribution and use in source and binary forms, with or without modification, are
+//     permitted provided that the following conditions are met:
+//
+//        1. Redistributions of source code must retain the above copyright notice, this list of
+//           conditions and the following disclaimer.
+//
+//        2. Redistributions in binary form must reproduce the above copyright notice, this list
+//           of conditions and the following disclaimer in the documentation and/or other materials
+//           provided with the distribution.
+//
+//     THIS SOFTWARE IS PROVIDED BY GAMADU.COM 'AS IS' AND ANY EXPRESS OR IMPLIED
+//     WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+//     FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL GAMADU.COM OR
+//     CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+//     CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+//     SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+//     ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//     NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+//     ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+//     The views and conclusions contained in the software and documentation are those of the
+//     authors and should not be interpreted as representing official policies, either expressed
+//     or implied, of GAMADU.COM.
+// </copyright>
+// <summary>
+//   The Entity World Class. Main interface of the Entity System.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+#endregion File description
+
 namespace Artemis
 {
     #region Using statements
 
-    using Artemis.Interface;
-    using Artemis.Manager;
-    using Artemis.Utils;
-
     using global::System;
     using global::System.Collections.Generic;
     using global::System.Diagnostics;
+
+    using Artemis.Interface;
+    using Artemis.Manager;
+    using Artemis.Utils;
 
     #endregion Using statements
 
@@ -18,8 +54,6 @@ namespace Artemis
     /// </summary>
     public sealed class EntityWorld
     {
-        internal bool isSorteEntities;
-
         /// <summary>The deleted.</summary>
         private readonly Bag<Entity> deleted;
 
@@ -35,16 +69,17 @@ namespace Artemis
         /// <summary>The pool cleanup delay counter.</summary>
         private int poolCleanupDelayCounter;
 
-        /// <summary>Initializes a new instance of the <see cref="EntityWorld"/> class.</summary>
 #if !XBOX && !WINDOWS_PHONE
-        /// <param name="isSorteEntities">if set to <c>true</c> [is sorte entities].</param>
-        public EntityWorld(bool isSorteEntities = false)
+        /// <summary>Initializes a new instance of the <see cref="EntityWorld"/> class.</summary>
+        /// <param name="isSortedEntities">if set to <c>true</c> [is sorted entities].</param>
+        public EntityWorld(bool isSortedEntities = false)
         {
-            this.isSorteEntities = isSorteEntities;
+            this.IsSortedEntities = isSortedEntities;
 #else
+        /// <summary>Initializes a new instance of the <see cref="EntityWorld"/> class.</summary>
         public EntityWorld()
         {
-            this.isSorteEntities = false;
+            this.IsSortedEntities = false;
 #endif
             this.refreshed = new Bag<Entity>();
             this.pools = new Dictionary<Type, IComponentPool<ComponentPoolable>>();
@@ -88,7 +123,7 @@ namespace Artemis
         /// <value>The group manager.</value>
         public GroupManager GroupManager { get; private set; }
 
-        /// <summary>Interval in FrameUpdates between pools cleanup. Default is 10.</summary>
+        /// <summary>Gets or sets the interval in FrameUpdates between pools cleanup. Default is 10.</summary>
         /// <value>The pool cleanup delay.</value>
         public int PoolCleanupDelay { get; set; }
 
@@ -100,8 +135,12 @@ namespace Artemis
         /// <value>The tag manager.</value>
         public TagManager TagManager { get; private set; }
 
+        /// <summary>Gets a value indicating whether this instance is sorted entities.</summary>
+        /// <value><see langword="true" /> if this instance is sorted entities; otherwise, <see langword="false" />.</value>
+        internal bool IsSortedEntities { get; private set; }
+
         /// <summary>Creates the entity.</summary>
-        /// <returns>Entity.</returns>
+        /// <returns>A new entity.</returns>
         public Entity CreateEntity()
         {
             return this.EntityManager.Create();
@@ -110,7 +149,7 @@ namespace Artemis
         /// <summary>Creates a entity from template.</summary>
         /// <param name="entityTemplateTag">The entity template tag.</param>
         /// <param name="templateArgs">The template args.</param>
-        /// <returns>Entity.</returns>
+        /// <returns>The created entity.</returns>
         /// <exception cref="Exception">EntityTemplate for the tag "entityTemplateTag" was not registered.</exception>
         public Entity CreateEntityFromTemplate(string entityTemplateTag, params object[] templateArgs)
         {
@@ -121,7 +160,7 @@ namespace Artemis
             this.entityTemplates.TryGetValue(entityTemplateTag, out entityTemplate);
             if (entityTemplate == null)
             {
-                throw new Exception("EntityTemplate for the tag " + entityTemplateTag + " was not registered");
+                throw new Exception("EntityTemplate for the tag " + entityTemplateTag + " was not registered.");
             }
 
             return entityTemplate.BuildEntity(entity, this, templateArgs);
@@ -138,7 +177,7 @@ namespace Artemis
 
         /// <summary>Gets a component from a pool.</summary>
         /// <param name="type">The type of the object to get.</param>
-        /// <returns>IComponent.</returns>
+        /// <returns>The found component.</returns>
         /// <exception cref="Exception">There is no pool for the specified type</exception>
         public IComponent GetComponentFromPool(Type type)
         {
@@ -154,14 +193,14 @@ namespace Artemis
 
         /// <summary>Gets the component from pool.</summary>
         /// <typeparam name="T">Type of the component</typeparam>
-        /// <returns>IComponent.</returns>
+        /// <returns>The found component.</returns>
         /// <exception cref="Exception">There is no pool for the type  + type</exception>
         public IComponent GetComponentFromPool<T>() where T : ComponentPoolable
         {
             Type type = typeof(T);
             if (!this.pools.ContainsKey(type))
             {
-                throw new Exception("There is no pool for the type " + type);
+                throw new Exception("There is no pool for the specified type " + type);
             }
 
             return this.pools[type].New();
@@ -169,7 +208,7 @@ namespace Artemis
 
         /// <summary>Gets the entity.</summary>
         /// <param name="entityId">The entity id.</param>
-        /// <returns>Entity.</returns>
+        /// <returns>The specified entity.</returns>
         public Entity GetEntity(int entityId)
         {
             Debug.Assert(entityId >= 0, "Id must be at least 0.");
@@ -179,7 +218,7 @@ namespace Artemis
 
         /// <summary>Gets the pool for a Type.</summary>
         /// <param name="type">The type.</param>
-        /// <returns>IComponentPool{ComponentPoolable}.</returns>
+        /// <returns>The specified ComponentPool{ComponentPool-able}.</returns>
         public IComponentPool<ComponentPoolable> GetPool(Type type)
         {
             Debug.Assert(type != null, "Type must not be null.");
@@ -189,13 +228,11 @@ namespace Artemis
 
         /// <summary>Initialize the EntityWorld.</summary>
         /// <param name="processAttributes">if set to <see langword="true" /> [process attributes].</param>
-        public void InitializeAll(
 #if FULLDOTNET
-            bool processAttributes = true
+        public void InitializeAll(bool processAttributes = true)
 #else
-            bool processAttributes = false
+        public void InitializeAll(bool processAttributes = false)
 #endif
-            )
         {
             this.SystemManager.InitializeAll(processAttributes);
         }
@@ -218,10 +255,12 @@ namespace Artemis
             {
                 entity = this.CreateEntity();
             }
+
             if (string.IsNullOrEmpty(groupName))
             {
                 this.GroupManager.Set(groupName, entity);
             }
+
             for (int index = 0, j = components.Size; index < j; ++index)
             {
                 entity.AddComponent(components.Get(index));
@@ -242,7 +281,7 @@ namespace Artemis
         public void SetPool(Type type, IComponentPool<ComponentPoolable> pool)
         {
             Debug.Assert(type != null, "Type must not be null.");
-            Debug.Assert(pool != null, "Component pool must not be null." );
+            Debug.Assert(pool != null, "Component pool must not be null.");
 
             this.pools.Add(type, pool);
         }
@@ -273,6 +312,7 @@ namespace Artemis
                     this.GroupManager.Remove(e);
                     e.DeletingState = false;
                 }
+
                 this.deleted.Clear();
             }
 
@@ -284,6 +324,7 @@ namespace Artemis
                     this.EntityManager.Refresh(entity);
                     entity.RefreshingState = false;
                 }
+
                 this.refreshed.Clear();
             }
 

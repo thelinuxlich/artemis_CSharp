@@ -1,13 +1,49 @@
+#region File description
+
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="EntityManager.cs" company="GAMADU.COM">
+//     Copyright © 2013 GAMADU.COM. All rights reserved.
+//
+//     Redistribution and use in source and binary forms, with or without modification, are
+//     permitted provided that the following conditions are met:
+//
+//        1. Redistributions of source code must retain the above copyright notice, this list of
+//           conditions and the following disclaimer.
+//
+//        2. Redistributions in binary form must reproduce the above copyright notice, this list
+//           of conditions and the following disclaimer in the documentation and/or other materials
+//           provided with the distribution.
+//
+//     THIS SOFTWARE IS PROVIDED BY GAMADU.COM 'AS IS' AND ANY EXPRESS OR IMPLIED
+//     WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+//     FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL GAMADU.COM OR
+//     CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+//     CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+//     SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+//     ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//     NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+//     ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+//     The views and conclusions contained in the software and documentation are those of the
+//     authors and should not be interpreted as representing official policies, either expressed
+//     or implied, of GAMADU.COM.
+// </copyright>
+// <summary>
+//   The Entity Manager.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+#endregion File description
+
 namespace Artemis.Manager
 {
     #region Using statements
 
+    using global::System;
+    using global::System.Diagnostics;
+
     using Artemis.Interface;
     using Artemis.System;
     using Artemis.Utils;
-
-    using global::System;
-    using global::System.Diagnostics;
 
     #endregion Using statements
 
@@ -33,12 +69,13 @@ namespace Artemis.Manager
         /// <param name="entityWorld">The entity world.</param>
         public EntityManager(EntityWorld entityWorld)
         {
+            Debug.Assert(entityWorld != null, "EntityWorld must not be null.");
+
             this.removedAndAvailable = new Bag<Entity>();
             this.entityComponents = new Bag<IComponent>();
             this.componentsByType = new Bag<Bag<IComponent>>();
-            ActiveEntities = new Bag<Entity>();
-            RemovedEntitiesRetention = 100;
-            Debug.Assert(entityWorld != null);
+            this.ActiveEntities = new Bag<Entity>();
+            this.RemovedEntitiesRetention = 100;
             this.entityWorld = entityWorld;
             this.RemovedComponentEvent += this.EntityManagerRemovedComponentEvent;
         }
@@ -55,12 +92,12 @@ namespace Artemis.Manager
         /// <summary>Occurs when [removed entity event].</summary>
         public event RemovedEntityHandler RemovedEntityEvent;
 
-        /// <summary>Get all active Entities.</summary>
+        /// <summary>Gets all active Entities.</summary>
         /// <value>The active entities.</value>
         /// <returns>Bag of active entities.</returns>
         public Bag<Entity> ActiveEntities { get; private set; }
 
-        /// <summary>Get how many entities are currently active.</summary>
+        /// <summary>Gets how many entities are currently active.</summary>
         /// <value>The active entities count.</value>
         /// <returns>How many entities are currently active.</returns>
         public int ActiveEntitiesCount { get; private set; }
@@ -69,7 +106,7 @@ namespace Artemis.Manager
         /// <value>The removed entities retention.</value>
         public int RemovedEntitiesRetention { get; set; }
 
-        /// <summary>Get how many entities have been created since start.</summary>
+        /// <summary>Gets how many entities have been created since start.</summary>
         /// <value>The total created.</value>
         /// <returns>The total number of entities created.</returns>
         public long TotalCreated { get; private set; }
@@ -92,6 +129,7 @@ namespace Artemis.Manager
             {
                 result.Reset();
             }
+
             result.UniqueId = BitConverter.ToInt64(Guid.NewGuid().ToByteArray(), 0);
             this.ActiveEntities.Set(result.Id, result);
 
@@ -130,12 +168,13 @@ namespace Artemis.Manager
                     }
                 }
             }
+
             return this.entityComponents;
         }
 
         /// <summary>Gets the entities.</summary>
         /// <param name="aspect">The aspect.</param>
-        /// <returns>Bag{Entity}.</returns>
+        /// <returns>The filled Bag{Entity}.</returns>
         public Bag<Entity> GetEntities(Aspect aspect)
         {
             Bag<Entity> entitiesBag = new Bag<Entity>();
@@ -156,7 +195,7 @@ namespace Artemis.Manager
         /// <returns>The specified Entity.</returns>
         public Entity GetEntity(int entityId)
         {
-            Debug.Assert(entityId >= 0, "id must be at least 0.");
+            Debug.Assert(entityId >= 0, "Id must be at least 0.");
 
             return this.ActiveEntities.Get(entityId);
         }
@@ -350,6 +389,7 @@ namespace Artemis.Manager
                     {
                         this.RemovedComponentEvent(entity, components.Get(entityId));
                     }
+
                     components.Set(entityId, null);
                 }
             }

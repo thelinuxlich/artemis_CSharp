@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtemisPhone7", "ArtemisXBO
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtemisXbox", "ArtemisXBOX_PHONE7\ArtemisXbox.csproj", "{E890BAD4-64C6-442F-B466-7321A0BFA1A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtemisUnitTesting", "ArtemisUnitTesting\ArtemisUnitTesting.csproj", "{999168FB-1531-4256-AA9E-86087D498701}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtemisUnitTesting", "ArtemisUnitTesting\ArtemisUnitTesting.2012.csproj", "{999168FB-1531-4256-AA9E-86087D498701}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevelopmentTests", "DevelopmentTests\DevelopmentTests.csproj", "{6AE11027-F76D-4C74-B702-E59FEA973C79}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevelopmentTests", "DevelopmentTests\DevelopmentTests.2012.csproj", "{6AE11027-F76D-4C74-B702-E59FEA973C79}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
