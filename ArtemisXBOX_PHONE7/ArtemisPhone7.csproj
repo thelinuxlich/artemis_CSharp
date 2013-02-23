@@ -59,7 +59,7 @@
       <XnaPlatformSpecific>true</XnaPlatformSpecific>
     </None>
   </ItemGroup>
-  <ItemGroup>    
+  <ItemGroup>
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Aspect.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\AttributesProcessor.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\ArtemisComponentCreate.cs" />
@@ -78,6 +78,9 @@
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\AddedComponentHandler.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\AddedEntityHandler.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\ComponentTypeManager.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\GameLoopType.cs">
+      <Link>GameLoopType.cs</Link>
+    </Compile>
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\QueueManager.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\ComponentPoolMultiThread.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\ExecutionType.cs" />
@@ -106,7 +109,10 @@
     <Compile Include="..\Artemis_XNA_INDEPENDENT\EntityWorld.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\Bag.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\System\IntervalTagSystem.cs" />
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\BagEnumerator.cs" />    	
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\BagEnumerator.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\FastDateTime.cs">
+      <Link>FastDateTime.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Xna.Framework" />

@@ -1,8 +1,8 @@
-﻿#region File description
+#region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ThirdMostSimpleSystemEver.cs" company="GAMADU.COM">
-//     Copyright © 2013 GAMADU.COM. All rights reserved.
+// <copyright file="GameLoopType.cs" company="GAMADU.COM">
+//     Copyright � 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
 //     permitted provided that the following conditions are met:
@@ -29,45 +29,20 @@
 //     or implied, of GAMADU.COM.
 // </copyright>
 // <summary>
-//   The third most simple system ever.
+//   The game loop type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
 
-namespace ArtemisUnitTesting
+namespace Artemis.Manager
 {
-    #region Using statements
-
-    using Artemis;
-    using Artemis.Attributes;
-    using Artemis.Manager;
-    using Artemis.System;
-
-    #endregion Using statements
-
-    /// <summary>The third most simple system ever.</summary>
-    [ArtemisEntitySystem(GameLoopType = GameLoopType.Update, Layer = 0)]
-    public class ThirdMostSimpleSystemEver : EntityProcessingSystem
+    /// <summary>The game loop type.</summary>
+    public enum GameLoopType
     {
-        /// <summary>Initializes a new instance of the <see cref="ThirdMostSimpleSystemEver" /> class.</summary>
-        public ThirdMostSimpleSystemEver()
-            : base(Aspect.One(typeof(Power2Component), typeof(HealthComponent)))
-        {
-        }
+        /// <summary>The update.</summary>
+        Update,
 
-        /// <summary>The process.</summary>
-        /// <param name="entity">The entity.</param>
-        public override void Process(Entity entity)
-        {
-            if (entity.GetComponent<HealthComponent>() != null)
-            {
-                entity.GetComponent<HealthComponent>().AddDamage(10);
-            }
-
-            if (entity.GetComponent<Power2Component>() != null)
-            {
-                entity.GetComponent<Power2Component>().Power -= 10;
-            }
-        }
+        /// <summary>The draw.</summary>
+        Draw
     }
 }

@@ -55,10 +55,15 @@ namespace ArtemisUnitTesting
         {
         }
 
-        /// <summary>The initialize.</summary>
-        public override void Initialize()
+        /// <summary>Override to implement code that gets executed when systems are initialized.</summary>
+        public override void LoadContent()
         {
             this.healthMapper = new ComponentMapper<HealthComponent>(this.EntityWorld);
+        }
+
+        /// <summary>Override to implement code that gets executed when systems are terminated.</summary>
+        public override void UnloadContent()
+        {
         }
 
         /// <summary>The process.</summary>
