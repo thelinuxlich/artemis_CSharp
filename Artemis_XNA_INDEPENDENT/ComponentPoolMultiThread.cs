@@ -1,15 +1,52 @@
-﻿namespace Artemis
+﻿#region File description
+
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ComponentPoolMultiThread.cs" company="GAMADU.COM">
+//     Copyright © 2013 GAMADU.COM. All rights reserved.
+//
+//     Redistribution and use in source and binary forms, with or without modification, are
+//     permitted provided that the following conditions are met:
+//
+//        1. Redistributions of source code must retain the above copyright notice, this list of
+//           conditions and the following disclaimer.
+//
+//        2. Redistributions in binary form must reproduce the above copyright notice, this list
+//           of conditions and the following disclaimer in the documentation and/or other materials
+//           provided with the distribution.
+//
+//     THIS SOFTWARE IS PROVIDED BY GAMADU.COM 'AS IS' AND ANY EXPRESS OR IMPLIED
+//     WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+//     FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL GAMADU.COM OR
+//     CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+//     CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+//     SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+//     ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//     NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+//     ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+//     The views and conclusions contained in the software and documentation are those of the
+//     authors and should not be interpreted as representing official policies, either expressed
+//     or implied, of GAMADU.COM.
+// </copyright>
+// <summary>
+//   A collection that maintains a set of class instances to allow for recycling instances and minimizing the effects
+//   of garbage collection.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+#endregion File description
+
+namespace Artemis
 {
     #region Using statements
-
-    using Artemis.Interface;
 
     using global::System;
     using global::System.Collections.Generic;
 
+    using Artemis.Interface;
+
     #endregion Using statements
 
-    /// <summary><para> A collection that maintains a set of class instances</para>
+    /// <summary><para>A collection that maintains a set of class instances</para>
     ///   <para>to allow for recycling instances and</para>
     ///   <para>minimizing the effects of garbage collection.</para></summary>
     /// <typeparam name="T">The type of object to store in the Pool. Pools can only hold class types.</typeparam>
@@ -38,7 +75,7 @@
         /// <param name="initialSize">The initial size.</param>
         /// <param name="resizePool">The resize pool.</param>
         /// <param name="resizes">if set to <see langword="true" /> [resizes].</param>
-        /// <param name="allocateFunc">The allocate func.</param>
+        /// <param name="allocateFunc">The allocate <see langword="Func" />.</param>
         /// <param name="innerType">Type of the inner.</param>
         /// <exception cref="ArgumentOutOfRangeException">initialSize and resizePool must be at least 1.</exception>
         /// <exception cref="ArgumentNullException">allocateFunc or innerType is null.</exception>
@@ -155,39 +192,41 @@
         {
             lock (this.sync)
             {
-                // if we're out of invalid instances...
+                // If we're out of invalid instances...
                 if (this.InvalidCount == 0)
                 {
-                    // if we can't resize, then we can't give the user back any instance
+                    // If we can't resize, then we can't give the user back any instance.
                     if (!this.isResizeAllowed)
                     {
-                        throw new Exception("Limit Exceeded " + this.items.Length + ", and the pool was set to not resize");
+                        throw new Exception("Limit Exceeded " + this.items.Length + ", and the pool was set to not resize.");
                     }
 
-                    // create a new array with some more slots and copy over the existing items
+                    // Create a new array with some more slots and copy over the existing items
                     T[] newItems = new T[this.items.Length + this.ResizeAmount];
 
-                    for (int i = this.items.Length - 1; i >= 0; i--)
+                    for (int index = this.items.Length - 1; index >= 0; --index)
                     {
-                        if (i >= this.InvalidCount)
+                        if (index >= this.InvalidCount)
                         {
-                            this.items[i].PoolId = i + this.ResizeAmount;
+                            this.items[index].PoolId = index + this.ResizeAmount;
                         }
-                        newItems[i + this.ResizeAmount] = this.items[i];
+
+                        newItems[index + this.ResizeAmount] = this.items[index];
                     }
+
                     this.items = newItems;
 
-                    // move the invalid count based on our resize amount
+                    // Move the invalid count based on our resize amount.
                     this.InvalidCount += this.ResizeAmount;
                 }
 
-                // decrement the counter
-                this.InvalidCount--;
+                // Decrement the counter.
+                --this.InvalidCount;
 
-                // get the next item in the list
+                // Get the next item in the list.
                 T result = this.items[this.InvalidCount];
 
-                // if the item is null, we need to allocate a new instance
+                // If the item is null, we need to allocate a new instance.
                 if (result == null)
                 {
                     result = this.allocate(this.innerType);

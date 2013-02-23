@@ -1,8 +1,8 @@
-﻿#region File description
+#region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AssemblyInfo.cs" company="GAMADU.COM">
-//     Copyright © 2013 GAMADU.COM. All rights reserved.
+// <copyright file="MultiHealthBarRenderSystem.cs" company="GAMADU.COM">
+//     Copyright � 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
 //     permitted provided that the following conditions are met:
@@ -29,40 +29,46 @@
 //     or implied, of GAMADU.COM.
 // </copyright>
 // <summary>
-//   The assembly information file.
+//   The multi health bar render system.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
 
-#region Using statements
+namespace ArtemisUnitTesting
+{
+    #region Using statements
 
-using System.Reflection;
-using System.Runtime.InteropServices;
+    using Artemis;
+    using Artemis.System;
 
-#endregion Using statements
+    #endregion Using statements
 
-// General Information about an assembly is controlled through the following set of attributes.
-// Change these attribute values to modify the information associated with an assembly.
-[assembly: AssemblyTitle("ArtemisXbox")]
-[assembly: AssemblyProduct("ArtemisXbox")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyCompany("GAMADU.COM")]
-[assembly: AssemblyCopyright("Copyright © 2013 GAMADU.COM. All rights reserved.")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
+    /// <summary>The multi health bar render system.</summary>
+    public class MultiHealthBarRenderSystem : ParallelEntityProcessingSystem
+    {
+        /// <summary>The health mapper.</summary>
+        private ComponentMapper<HealthComponent> healthMapper;
 
-// Setting ComVisible to false makes the types in this assembly not visibleto COM components.
-// If you need to access a type in this assembly from COM, set the ComVisible attribute to true on that type.
-// Only FULLDOTNET assemblies support COM.
-[assembly: ComVisible(false)]
+        /// <summary>Initializes a new instance of the <see cref="MultiHealthBarRenderSystem" /> class.</summary>
+        public MultiHealthBarRenderSystem()
+            : base(typeof(HealthComponent))
+        {
+        }
 
-// On FULLDOTNET, the following GUID is for the ID of the typelib if this project is exposed to COM.
-// On other platforms, it unique identifies the title storage container when deploying this assembly to the device.
-[assembly: Guid("1ce79e1e-1e8a-472c-a84e-c245e9695ce0")]
+        /// <summary>The initialize.</summary>
+        public override void Initialize()
+        {
+            this.healthMapper = new ComponentMapper<HealthComponent>(this.EntityWorld);
+        }
 
-// Version information for an assembly consists of the following four values:
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-[assembly: AssemblyVersion("1.0.0.0")]
+        /// <summary>The process.</summary>
+        /// <param name="entity">The entity.</param>
+        public override void Process(Entity entity)
+        {
+            HealthComponent healthComponent = this.healthMapper.Get(entity);
+            healthComponent.AddDamage(10);
+
+            TimeWaster.Delay(1000);
+        }
+    }
+}

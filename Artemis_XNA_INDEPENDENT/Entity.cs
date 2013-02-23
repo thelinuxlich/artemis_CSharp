@@ -1,16 +1,51 @@
+#region File description
+
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Entity.cs" company="GAMADU.COM">
+//     Copyright © 2013 GAMADU.COM. All rights reserved.
+//
+//     Redistribution and use in source and binary forms, with or without modification, are
+//     permitted provided that the following conditions are met:
+//
+//        1. Redistributions of source code must retain the above copyright notice, this list of
+//           conditions and the following disclaimer.
+//
+//        2. Redistributions in binary form must reproduce the above copyright notice, this list
+//           of conditions and the following disclaimer in the documentation and/or other materials
+//           provided with the distribution.
+//
+//     THIS SOFTWARE IS PROVIDED BY GAMADU.COM 'AS IS' AND ANY EXPRESS OR IMPLIED
+//     WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+//     FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL GAMADU.COM OR
+//     CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+//     CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+//     SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+//     ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//     NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+//     ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+//     The views and conclusions contained in the software and documentation are those of the
+//     authors and should not be interpreted as representing official policies, either expressed
+//     or implied, of GAMADU.COM.
+// </copyright>
+// <summary>
+//   Basic unity of this entity system.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+#endregion File description
+
 namespace Artemis
 {
     #region Using statements
-
-    using Artemis.Interface;
-    using Artemis.Manager;
-    using Artemis.Utils;
 
     using global::System.Diagnostics;
 
 #if !XBOX && !WINDOWS_PHONE
     using global::System.Numerics;
 #endif
+    using Artemis.Interface;
+    using Artemis.Manager;
+    using Artemis.Utils;
 #if XBOX || WINDOWS_PHONE
     using BigInteger = global::System.Int32;
 #endif
@@ -34,8 +69,8 @@ namespace Artemis
         /// <param name="id">The id.</param>
         internal Entity(EntityWorld entityWorld, int id)
         {
-            SystemBits = 0;
-            TypeBits = 0;
+            this.SystemBits = 0;
+            this.TypeBits = 0;
             this.IsEnabled = true;
             this.entityWorld = entityWorld;
             this.entityManager = entityWorld.EntityManager;
@@ -73,6 +108,7 @@ namespace Artemis
             {
                 return this.entityWorld.GroupManager.GetGroupOf(this);
             }
+
             set
             {
                 this.entityWorld.GroupManager.Set(value, this);
@@ -100,6 +136,7 @@ namespace Artemis
             {
                 return this.entityWorld.TagManager.GetTagOfEntity(this);
             }
+
             set
             {
                 this.entityWorld.TagManager.Register(value, this);
@@ -114,9 +151,11 @@ namespace Artemis
             {
                 return this.uniqueId;
             }
+
             internal set
             {
-                Debug.Assert(this.uniqueId >= 0);
+                Debug.Assert(this.uniqueId >= 0, "UniqueId must be at least 0.");
+
                 this.uniqueId = value;
             }
         }
@@ -143,22 +182,24 @@ namespace Artemis
         /// <param name="component">The component.</param>
         public void AddComponent(IComponent component)
         {
-            Debug.Assert(component != null);
+            Debug.Assert(component != null, "Component must not be null.");
+
             this.entityManager.AddComponent(this, component);
         }
 
         /// <summary>Adds the component.</summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The <see langword="Type"/> T.</typeparam>
         /// <param name="component">The component.</param>
         public void AddComponent<T>(IComponent component) where T : IComponent
         {
-            Debug.Assert(component != null);
+            Debug.Assert(component != null, "Component must not be null.");
+
             this.entityManager.AddComponent<T>(this, component);
         }
 
         /// <summary>Adds the component from pool.</summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns>``0.</returns>
+        /// <typeparam name="T">The <see langword="Type"/> T.</typeparam>
+        /// <returns>The added component.</returns>
         public T AddComponentFromPool<T>() where T : ComponentPoolable
         {
             IComponent component = this.entityWorld.GetComponentFromPool(typeof(T));
@@ -173,6 +214,7 @@ namespace Artemis
             {
                 return;
             }
+
             this.entityWorld.DeleteEntity(this);
             this.DeletingState = true;
         }
@@ -206,11 +248,11 @@ namespace Artemis
         }
 
         /// <summary>Determines whether this instance has a specific component.</summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The <see langword="Type"/> T.</typeparam>
         /// <returns><see langword="true" /> if this instance has a specific component; otherwise, <see langword="false" />.</returns>
         public bool HasComponent<T>() where T : IComponent
         {
-            return !Equals((T)this.GetComponent(ComponentTypeManager.GetTypeFor<T>()), default(T));
+            return !object.Equals((T)this.GetComponent(ComponentTypeManager.GetTypeFor<T>()), default(T));
         }
 
         /// <summary>

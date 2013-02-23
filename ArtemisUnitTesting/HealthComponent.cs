@@ -1,7 +1,7 @@
 ﻿#region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="MostSimpleSystemEver.cs" company="GAMADU.COM">
+// <copyright file="HealthComponent.cs" company="GAMADU.COM">
 //     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
@@ -29,7 +29,7 @@
 //     or implied, of GAMADU.COM.
 // </copyright>
 // <summary>
-//   The most simple system ever.
+//   The health.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
@@ -38,25 +38,78 @@ namespace ArtemisUnitTesting
 {
     #region Using statements
 
-    using Artemis;
-    using Artemis.System;
+    using System;
+
+    using Artemis.Interface;
 
     #endregion Using statements
 
-    /// <summary>The most simple system ever.</summary>
-    public class MostSimpleSystemEver : EntityProcessingSystem
+    /// <summary>The health.</summary>
+    public class HealthComponent : IComponent
     {
-        /// <summary>Initializes a new instance of the <see cref="MostSimpleSystemEver" /> class.</summary>
-        public MostSimpleSystemEver()
-            : base(Aspect.Exclude(typeof(Power1Component)))
+        /// <summary>The health points.</summary>
+        private float points;
+
+        /// <summary>Initializes a new instance of the <see cref="HealthComponent" /> class.</summary>
+        public HealthComponent()
         {
         }
 
-        /// <summary>The process.</summary>
-        /// <param name="entity">The entity.</param>
-        public override void Process(Entity entity)
+        /// <summary>Initializes a new instance of the <see cref="HealthComponent" /> class.</summary>
+        /// <param name="points">The health points.</param>
+        public HealthComponent(float points)
         {
-            entity.GetComponent<HealthComponent>().AddDamage(10);
+            this.Points = this.MaximumLimit = points;
+        }
+
+        /// <summary>Gets or sets the health points.</summary>
+        /// <value>The health points.</value>
+        public float Points
+        {
+            get
+            {
+                return this.points;
+            }
+
+            set
+            {
+                this.points = value;
+                if (this.points < 0)
+                {
+                    this.points = 0;
+                }
+            }
+        }
+
+        /// <summary>Gets the health percentage.</summary>
+        /// <value>The health percentage.</value>
+        public double Percentage
+        {
+            get
+            {
+                return Math.Round(this.Points / this.MaximumLimit * 100f);
+            }
+        }
+
+        /// <summary>Gets a value indicating whether is alive.</summary>
+        /// <value><see langword="true" /> if this instance is alive; otherwise, <see langword="false" />.</value>
+        public bool IsAlive
+        {
+            get
+            {
+                return this.Points > 0;
+            }
+        }
+
+        /// <summary>Gets the maximum health.</summary>
+        /// <value>The maximum health.</value>
+        public float MaximumLimit { get; private set; }
+
+        /// <summary>The add damage.</summary>
+        /// <param name="damage">The damage.</param>
+        public void AddDamage(int damage)
+        {
+            this.Points -= damage;
         }
     }
 }
