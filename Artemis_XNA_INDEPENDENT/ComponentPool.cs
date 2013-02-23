@@ -1,11 +1,48 @@
-﻿namespace Artemis
+﻿#region File description
+
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ComponentPool.cs" company="GAMADU.COM">
+//     Copyright © 2013 GAMADU.COM. All rights reserved.
+//
+//     Redistribution and use in source and binary forms, with or without modification, are
+//     permitted provided that the following conditions are met:
+//
+//        1. Redistributions of source code must retain the above copyright notice, this list of
+//           conditions and the following disclaimer.
+//
+//        2. Redistributions in binary form must reproduce the above copyright notice, this list
+//           of conditions and the following disclaimer in the documentation and/or other materials
+//           provided with the distribution.
+//
+//     THIS SOFTWARE IS PROVIDED BY GAMADU.COM 'AS IS' AND ANY EXPRESS OR IMPLIED
+//     WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+//     FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL GAMADU.COM OR
+//     CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+//     CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+//     SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+//     ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//     NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+//     ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+//     The views and conclusions contained in the software and documentation are those of the
+//     authors and should not be interpreted as representing official policies, either expressed
+//     or implied, of GAMADU.COM.
+// </copyright>
+// <summary>
+//   A collection that maintains a set of class instances to allow for recycling instances and minimizing the effects
+//   of garbage collection.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+#endregion File description
+
+namespace Artemis
 {
     #region Using statements
 
-    using Artemis.Interface;
-
     using global::System;
     using global::System.Collections.Generic;
+
+    using Artemis.Interface;
 
     #endregion Using statements
 
@@ -33,12 +70,12 @@
         /// <summary>The actual items of the pool.</summary>
         private T[] items;
 
-        /// <summary>Creates a new pool with a specific starting size.</summary>
+        /// <summary>Initializes a new instance of the <see cref="ComponentPool{T}"/> class.</summary>
         /// <param name="initialSize">The initial size of the pool.</param>
         /// <param name="resizePool">The resize pool size.</param>
         /// <param name="resizes">Whether or not the pool is allowed to increase its size as needed.</param>
         /// <param name="allocateFunc">A function used to allocate an instance for the pool.</param>
-        /// <param name="innerType">Type ComponentPoolable.</param>
+        /// <param name="innerType">Type ComponentPool-able.</param>
         /// <exception cref="ArgumentOutOfRangeException">InitialSize must be at least 1.</exception>
         /// <exception cref="ArgumentOutOfRangeException">ResizePool must be at least 1.</exception>
         /// <exception cref="ArgumentNullException">AllocateFunc must not be null.</exception>
@@ -169,8 +206,10 @@
                     {
                         this.items[index].PoolId = index + this.ResizeAmount;
                     }
+
                     newItems[index + this.ResizeAmount] = this.items[index];
                 }
+
                 this.items = newItems;
 
                 // move the invalid count based on our resize amount
