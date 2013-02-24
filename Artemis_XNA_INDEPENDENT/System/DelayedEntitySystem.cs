@@ -120,7 +120,7 @@ namespace Artemis.System
         {
             if (this.isRunning)
             {
-                this.accumulatedDelta += this.EntityWorld.ElapsedTime;
+                this.accumulatedDelta += this.EntityWorld.Delta;
 
                 if (this.accumulatedDelta >= this.InitialTimeDelay)
                 {

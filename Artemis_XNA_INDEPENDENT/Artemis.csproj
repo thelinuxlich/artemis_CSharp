@@ -72,6 +72,7 @@
     <Compile Include="Manager\AddedComponentHandler.cs" />
     <Compile Include="Manager\AddedEntityHandler.cs" />
     <Compile Include="Manager\ComponentTypeManager.cs" />
+    <Compile Include="Manager\GameLoopType.cs" />
     <Compile Include="Manager\QueueManager.cs" />
     <Compile Include="ComponentPoolMultiThread.cs" />
     <Compile Include="Manager\ExecutionType.cs" />
@@ -101,6 +102,7 @@
     <Compile Include="Utils\Bag.cs" />
     <Compile Include="System\IntervalTagSystem.cs" />
     <Compile Include="Utils\BagEnumerator.cs" />
+    <Compile Include="Utils\FastDateTime.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

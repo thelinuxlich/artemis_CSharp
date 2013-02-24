@@ -41,7 +41,7 @@ namespace Artemis
     using global::System;
     using global::System.Collections.Generic;
     using global::System.Diagnostics;
-
+    using global::System.Linq;
     using Artemis.Interface;
     using Artemis.Manager;
     using Artemis.Utils;
@@ -65,6 +65,9 @@ namespace Artemis
 
         /// <summary>The refreshed.</summary>
         private readonly Bag<Entity> refreshed;
+
+        /// <summary>The fast date time.</summary>
+        private readonly FastDateTime fastDateTime;
 
         /// <summary>The pool cleanup delay counter.</summary>
         private int poolCleanupDelayCounter;
@@ -90,6 +93,7 @@ namespace Artemis
             this.TagManager = new TagManager();
             this.GroupManager = new GroupManager();
             this.PoolCleanupDelay = 10;
+            this.fastDateTime = new FastDateTime();
         }
 
         /// <summary>Gets the current state of the entity world.</summary>
@@ -100,7 +104,7 @@ namespace Artemis
             {
                 Bag<Entity> entities = this.EntityManager.ActiveEntities;
                 Dictionary<Entity, Bag<IComponent>> currentState = new Dictionary<Entity, Bag<IComponent>>();
-                for (int index = 0, j = entities.Size; index < j; ++index)
+                for (int index = 0, j = entities.Count; index < j; ++index)
                 {
                     Entity e = entities.Get(index);
                     Bag<IComponent> components = e.Components;
@@ -111,9 +115,9 @@ namespace Artemis
             }
         }
 
-        /// <summary>Gets the elapsed time.</summary>
-        /// <value>The elapsed time.</value>
-        public float ElapsedTime { get; private set; }
+        /// <summary>Gets the delta time since last game loop in milliseconds.</summary>
+        /// <value>The delta in milliseconds.</value>
+        public float Delta { get; private set; }
 
         /// <summary>Gets the entity manager.</summary>
         /// <value>The entity manager.</value>
@@ -138,6 +142,17 @@ namespace Artemis
         /// <summary>Gets a value indicating whether this instance is sorted entities.</summary>
         /// <value><see langword="true" /> if this instance is sorted entities; otherwise, <see langword="false" />.</value>
         internal bool IsSortedEntities { get; private set; }
+
+        /// <summary>Clears this instance.</summary>
+        public void Clear()
+        {
+            foreach (Entity activeEntity in this.EntityManager.ActiveEntities.Where(activeEntity => activeEntity != null))
+            {
+                activeEntity.Delete();
+            }
+
+            this.Update();
+        }
 
         /// <summary>Creates the entity.</summary>
         /// <returns>A new entity.</returns>
@@ -261,7 +276,7 @@ namespace Artemis
                 this.GroupManager.Set(groupName, entity);
             }
 
-            for (int index = 0, j = components.Size; index < j; ++index)
+            for (int index = 0, j = components.Count; index < j; ++index)
             {
                 entity.AddComponent(components.Get(index));
             }
@@ -286,12 +301,11 @@ namespace Artemis
             this.pools.Add(type, pool);
         }
 
-        /// <summary>Updates the EntityWorld</summary>
-        /// <param name="elapsedTime">The elapsed TIME in milliseconds.</param>
+        /// <summary>Updates the EntityWorld.</summary>
         /// <param name="executionType">Type of the execution.</param>
-        public void Update(float elapsedTime, ExecutionType executionType = ExecutionType.UpdateSynchronous)
+        public void Update(ExecutionType executionType = ExecutionType.Synchronous)
         {
-            this.ElapsedTime = elapsedTime;
+            this.Delta = this.fastDateTime.ElapsedDeltaMilliseconds();
 
             ++this.poolCleanupDelayCounter;
             if (this.poolCleanupDelayCounter > this.PoolCleanupDelay)
@@ -305,12 +319,13 @@ namespace Artemis
 
             if (!this.deleted.IsEmpty)
             {
-                for (int index = 0, j = this.deleted.Size; j > index; ++index)
+                for (int index = this.deleted.Count - 1; index >= 0; --index)
                 {
-                    Entity e = this.deleted.Get(index);
-                    this.EntityManager.Remove(e);
-                    this.GroupManager.Remove(e);
-                    e.DeletingState = false;
+                    Entity entity = this.deleted.Get(index);
+                    this.EntityManager.Remove(entity);
+                    this.GroupManager.Remove(entity);
+                    this.EntityManager.Remove(entity);
+                    entity.DeletingState = false;
                 }
 
                 this.deleted.Clear();
@@ -318,7 +333,7 @@ namespace Artemis
 
             if (!this.refreshed.IsEmpty)
             {
-                for (int index = 0, j = this.refreshed.Size; j > index; ++index)
+                for (int index = 0, j = this.refreshed.Count; j > index; ++index)
                 {
                     Entity entity = this.refreshed.Get(index);
                     this.EntityManager.Refresh(entity);
@@ -329,6 +344,19 @@ namespace Artemis
             }
 
             this.SystemManager.Update(executionType);
+        }
+
+        /// <summary>Draws the EntityWorld.</summary>
+        /// <param name="executionType">Type of the execution.</param>
+        public void Draw(ExecutionType executionType = ExecutionType.Synchronous)
+        {
+            this.SystemManager.Draw(executionType);
+        }
+
+        /// <summary>Unloads the content.</summary>
+        public void UnloadContent()
+        {
+            SystemManager.TerminateAll();
         }
 
         /// <summary>Refreshes the entity.</summary>

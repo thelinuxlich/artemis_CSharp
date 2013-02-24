@@ -51,13 +51,13 @@ namespace Artemis.Attributes
         /// <summary>Initializes a new instance of the <see cref="ArtemisEntitySystem"/> class.</summary>
         public ArtemisEntitySystem()
         {
-            this.ExecutionType = ExecutionType.UpdateSynchronous;
+            this.GameLoopType = GameLoopType.Update;
             this.Layer = 0;
         }
 
-        /// <summary>Gets or sets the type of the execution.</summary>
-        /// <value>The type of the execution.</value>
-        public ExecutionType ExecutionType { get; set; }
+        /// <summary>Gets or sets the type of the game loop.</summary>
+        /// <value>The type of the game loop.</value>
+        public GameLoopType GameLoopType { get; set; }
 
         /// <summary>Gets or sets the layer.</summary>
         /// <value>The layer.</value>

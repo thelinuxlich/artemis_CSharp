@@ -118,12 +118,12 @@ namespace Artemis.Manager
         }
 
         /// <summary>Sets the system.</summary>
-        /// <typeparam name="T">The <see langword="Type"/> T.</typeparam>
+        /// <typeparam name="T">The <see langword="Type" /> T.</typeparam>
         /// <param name="system">The system.</param>
-        /// <param name="execType">Type of the exec.</param>
+        /// <param name="gameLoopType">Type of the game loop.</param>
         /// <param name="layer">The layer.</param>
         /// <returns>The set system.</returns>
-        public T SetSystem<T>(T system, ExecutionType execType, int layer = 0) where T : EntitySystem
+        public T SetSystem<T>(T system, GameLoopType gameLoopType, int layer = 0) where T : EntitySystem
         {
             system.EntityWorld = this.entityWorld;
 
@@ -136,10 +136,9 @@ namespace Artemis.Manager
                 this.systems[typeof(T)] = new List<EntitySystem> { system };
             }
 
-            switch (execType)
+            switch (gameLoopType)
             {
-                case ExecutionType.DrawAsynchronous:
-                case ExecutionType.DrawSynchronous:
+                case GameLoopType.Draw:
                     {
                         if (!this.drawLayers.ContainsKey(layer))
                         {
@@ -164,8 +163,7 @@ namespace Artemis.Manager
                     }
 
                     break;
-                case ExecutionType.UpdateAsynchronous:
-                case ExecutionType.UpdateSynchronous:
+                case GameLoopType.Update:
                     {
                         if (!this.updateLayers.ContainsKey(layer))
                         {
@@ -228,7 +226,7 @@ namespace Artemis.Manager
                         Type type = item.Key;
                         ArtemisEntitySystem pee = (ArtemisEntitySystem)item.Value[0];
                         EntitySystem instance = (EntitySystem)Activator.CreateInstance(type);
-                        this.SetSystem(instance, pee.ExecutionType, pee.Layer);
+                        this.SetSystem(instance, pee.GameLoopType, pee.Layer);
                     }
                     else if (typeof(IEntityTemplate).IsAssignableFrom(item.Key))
                     {
@@ -286,10 +284,22 @@ namespace Artemis.Manager
                 }
             }
 
-            for (int index = 0, j = this.mergedBag.Size; index < j; ++index)
+            for (int index = 0, j = this.mergedBag.Count; index < j; ++index)
             {
-                this.mergedBag.Get(index).Initialize();
+                this.mergedBag.Get(index).LoadContent();
             }
+        }
+
+        /// <summary>Terminates all.</summary>
+        internal void TerminateAll()
+        {
+            for (int index = 0; index < this.Systems.Count; ++index)
+            {
+                EntitySystem entitySystem = this.Systems.Get(index);
+                entitySystem.UnloadContent();
+            }
+
+            this.Systems.Clear();
         }
 
         /// <summary>Updates the specified execution type.</summary>
@@ -298,31 +308,40 @@ namespace Artemis.Manager
         {
             switch (executionType)
             {
-                case ExecutionType.UpdateSynchronous:
+                case ExecutionType.Synchronous:
                     foreach (int item in this.updateLayers.Keys)
                     {
                         UpdateBagSynchronous(this.updateLayers[item]);
                     }
 
                     break;
-                case ExecutionType.DrawSynchronous:
+                case ExecutionType.Asynchronous:
+                    foreach (int item in this.updateLayers.Keys)
+                    {
+                        this.UpdateBagAsynchronous(this.updateLayers[item]);
+                    }
+
+                    break;
+            }
+        }
+
+        /// <summary>Updates the specified execution type.</summary>
+        /// <param name="executionType">Type of the execution.</param>
+        internal void Draw(ExecutionType executionType)
+        {
+            switch (executionType)
+            {
+                case ExecutionType.Synchronous:
                     foreach (int item in this.drawLayers.Keys)
                     {
                         UpdateBagSynchronous(this.drawLayers[item]);
                     }
 
                     break;
-                case ExecutionType.DrawAsynchronous:
+                case ExecutionType.Asynchronous:
                     foreach (int item in this.drawLayers.Keys)
                     {
                         this.UpdateBagAsynchronous(this.drawLayers[item]);
-                    }
-
-                    break;
-                case ExecutionType.UpdateAsynchronous:
-                    foreach (int item in this.updateLayers.Keys)
-                    {
-                        this.UpdateBagAsynchronous(this.updateLayers[item]);
                     }
 
                     break;
@@ -341,18 +360,27 @@ namespace Artemis.Manager
         /// <param name="temp">The temp.</param>
         private static void UpdateBagSynchronous(Bag<EntitySystem> temp)
         {
-            for (int index = 0, j = temp.Size; index < j; ++index)
+            for (int index = 0, j = temp.Count; index < j; ++index)
             {
                 temp.Get(index).Process();
             }
         }
+
+        /*
+        /// <summary>Updates the bag asynchronous.</summary>
+        /// <param name="entitySystems">The entity systems.</param>
+        private static void UpdateBagAsynchronous(IEnumerable<EntitySystem> entitySystems)
+        {
+            Parallel.ForEach(entitySystems, entitySystem => entitySystem.Process());
+        }
+        */
 
         /// <summary>Updates the bag asynchronous.</summary>
         /// <param name="entitySystems">The entity systems.</param>
         private void UpdateBagAsynchronous(Bag<EntitySystem> entitySystems)
         {
             this.tasks.Clear();
-            for (int index = 0, j = entitySystems.Size; index < j; ++index)
+            for (int index = 0, j = entitySystems.Count; index < j; ++index)
             {
                 EntitySystem entitySystem = entitySystems.Get(index);
 #if FULLDOTNET
