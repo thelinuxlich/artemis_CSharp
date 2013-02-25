@@ -53,9 +53,7 @@
     <Reference Include="Microsoft.Xna.Framework.Net" />
     <Reference Include="Microsoft.Xna.Framework.Storage" />
     <Reference Include="mscorlib" />
-    <Reference Include="ParallelTasks">
-      <HintPath>Dll\ParallelTasks.dll</HintPath>
-    </Reference>
+    <Reference Include="ParallelTasks, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86" />
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core">

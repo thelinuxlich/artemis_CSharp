@@ -66,12 +66,6 @@ namespace Artemis.Manager
 
         /// <summary>The merged bag.</summary>
         private readonly Bag<EntitySystem> mergedBag;
-#if FULLDOTNET
-        /// <summary>The factory.</summary>
-        private readonly TaskFactory factory;
-#endif
-        /// <summary>The tasks.</summary>
-        private readonly List<Task> tasks;
 
         /// <summary>The update layers.</summary>
         private IDictionary<int, Bag<EntitySystem>> updateLayers;
@@ -90,10 +84,8 @@ namespace Artemis.Manager
         internal SystemManager(EntityWorld entityWorld)
 #endif
         {
-            this.tasks = new List<Task>();
             this.mergedBag = new Bag<EntitySystem>();
 #if FULLDOTNET
-            this.factory = new TaskFactory(TaskScheduler.Default);
             if (keepEntitiesSorted)
             {
                 this.drawLayers = new SortedDictionary<int, Bag<EntitySystem>>();
@@ -318,7 +310,7 @@ namespace Artemis.Manager
                 case ExecutionType.Asynchronous:
                     foreach (int item in this.updateLayers.Keys)
                     {
-                        this.UpdateBagAsynchronous(this.updateLayers[item]);
+                        UpdateBagAsynchronous(this.updateLayers[item]);
                     }
 
                     break;
@@ -341,7 +333,7 @@ namespace Artemis.Manager
                 case ExecutionType.Asynchronous:
                     foreach (int item in this.drawLayers.Keys)
                     {
-                        this.UpdateBagAsynchronous(this.drawLayers[item]);
+                        UpdateBagAsynchronous(this.drawLayers[item]);
                     }
 
                     break;
@@ -357,46 +349,20 @@ namespace Artemis.Manager
         }
 
         /// <summary>Updates the bag synchronous.</summary>
-        /// <param name="temp">The temp.</param>
-        private static void UpdateBagSynchronous(Bag<EntitySystem> temp)
+        /// <param name="entitySystems">The entitySystems.</param>
+        private static void UpdateBagSynchronous(Bag<EntitySystem> entitySystems)
         {
-            for (int index = 0, j = temp.Count; index < j; ++index)
+            for (int index = 0, j = entitySystems.Count; index < j; ++index)
             {
-                temp.Get(index).Process();
+                entitySystems.Get(index).Process();
             }
         }
 
-        /*
         /// <summary>Updates the bag asynchronous.</summary>
         /// <param name="entitySystems">The entity systems.</param>
         private static void UpdateBagAsynchronous(IEnumerable<EntitySystem> entitySystems)
         {
             Parallel.ForEach(entitySystems, entitySystem => entitySystem.Process());
-        }
-        */
-
-        /// <summary>Updates the bag asynchronous.</summary>
-        /// <param name="entitySystems">The entity systems.</param>
-        private void UpdateBagAsynchronous(Bag<EntitySystem> entitySystems)
-        {
-            this.tasks.Clear();
-            for (int index = 0, j = entitySystems.Count; index < j; ++index)
-            {
-                EntitySystem entitySystem = entitySystems.Get(index);
-#if FULLDOTNET
-                this.tasks.Add(this.factory.StartNew(entitySystem.Process));
-#else
-                this.tasks.Add(Parallel.Start(entitySystem.Process));
-#endif
-            }
-#if FULLDOTNET
-            Task.WaitAll(this.tasks.ToArray());
-#else
-            foreach (var item in this.tasks)
-            {
-                item.Wait();
-            }
-#endif
         }
     }
 }
