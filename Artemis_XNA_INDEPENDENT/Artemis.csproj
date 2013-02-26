@@ -105,6 +105,7 @@
     <Compile Include="System\IntervalTagSystem.cs" />
     <Compile Include="Utils\BagEnumerator.cs" />
     <Compile Include="Utils\FastDateTime.cs" />
+    <Compile Include="Utils\Timer.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
