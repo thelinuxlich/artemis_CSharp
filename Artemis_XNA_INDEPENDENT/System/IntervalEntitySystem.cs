@@ -38,6 +38,8 @@ namespace Artemis.System
 {
     #region Using statements
 
+    using Artemis.Utils;
+
     using global::System;
 
     #endregion Using statements
@@ -45,38 +47,33 @@ namespace Artemis.System
     /// <summary>Class IntervalEntitySystem.</summary>
     public abstract class IntervalEntitySystem : EntitySystem
     {
-        /// <summary>The interval.</summary>
-        private readonly float interval;
-
-        /// <summary>The accumulated delta.</summary>
-        private float accumulatedDelta;
+        /// <summary>The timer.</summary>
+        private readonly Timer timer;
 
         /// <summary>Initializes a new instance of the <see cref="IntervalEntitySystem"/> class.</summary>
-        /// <param name="interval">The interval.</param>
+        /// <param name="timeSpan">The time span.</param>
         /// <param name="types">The types.</param>
-        protected IntervalEntitySystem(float interval, params Type[] types)
+        protected IntervalEntitySystem(TimeSpan timeSpan, params Type[] types)
             : base(types)
         {
-            this.interval = interval;
+            this.timer = new Timer(timeSpan);
         }
 
         /// <summary>Initializes a new instance of the <see cref="IntervalEntitySystem"/> class.</summary>
-        /// <param name="interval">The interval.</param>
+        /// <param name="timeSpan">The time span.</param>
         /// <param name="aspect">The aspect.</param>
-        protected IntervalEntitySystem(int interval, Aspect aspect)
+        protected IntervalEntitySystem(TimeSpan timeSpan, Aspect aspect)
             : base(aspect)
         {
-            this.interval = interval;
+            this.timer = new Timer(timeSpan);
         }
 
         /// <summary>Checks the processing.</summary>
         /// <returns><see langword="true" /> if this instance is enabled, <see langword="false" /> otherwise</returns>
         protected override bool CheckProcessing()
         {
-            this.accumulatedDelta += this.EntityWorld.Delta;
-            if (this.accumulatedDelta >= this.interval)
+            if (this.timer.IsReached(this.EntityWorld.Delta))
             {
-                this.accumulatedDelta -= this.interval;
                 return this.IsEnabled;
             }
 
