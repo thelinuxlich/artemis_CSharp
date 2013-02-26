@@ -66,8 +66,8 @@ namespace Artemis
         /// <summary>The refreshed.</summary>
         private readonly Bag<Entity> refreshed;
 
-        /// <summary>The fast date time.</summary>
-        private readonly FastDateTime fastDateTime;
+        /// <summary>The date time.</summary>
+        private DateTime dateTime;
 
         /// <summary>The pool cleanup delay counter.</summary>
         private int poolCleanupDelayCounter;
@@ -93,7 +93,7 @@ namespace Artemis
             this.TagManager = new TagManager();
             this.GroupManager = new GroupManager();
             this.PoolCleanupDelay = 10;
-            this.fastDateTime = new FastDateTime();
+            this.dateTime = FastDateTime.Now;
         }
 
         /// <summary>Gets the current state of the entity world.</summary>
@@ -115,9 +115,9 @@ namespace Artemis
             }
         }
 
-        /// <summary>Gets the delta time since last game loop in milliseconds.</summary>
-        /// <value>The delta in milliseconds.</value>
-        public float Delta { get; private set; }
+        /// <summary>Gets the delta time since last game loop in ticks.</summary>
+        /// <value>The delta in ticks.</value>
+        public long Delta { get; private set; }
 
         /// <summary>Gets the entity manager.</summary>
         /// <value>The entity manager.</value>
@@ -305,7 +305,8 @@ namespace Artemis
         /// <param name="executionType">Type of the execution.</param>
         public void Update(ExecutionType executionType = ExecutionType.Synchronous)
         {
-            this.Delta = this.fastDateTime.ElapsedDeltaMilliseconds();
+            this.Delta = (FastDateTime.Now - this.dateTime).Ticks;
+            this.dateTime = FastDateTime.Now;
 
             ++this.poolCleanupDelayCounter;
             if (this.poolCleanupDelayCounter > this.PoolCleanupDelay)
