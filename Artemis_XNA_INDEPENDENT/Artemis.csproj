@@ -33,24 +33,25 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
+    <OutputPath>bin\Debug\PC\</OutputPath>
     <DefineConstants>DEBUG;FULLDOTNET</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
     <ConsolePause>false</ConsolePause>
-    <DocumentationFile>bin\Debug\artemis.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\PC\artemis.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release</OutputPath>
+    <OutputPath>bin\Release\PC\</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
     <ConsolePause>false</ConsolePause>
-    <DocumentationFile>bin\Release\artemis.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\PC\artemis.xml</DocumentationFile>
     <DefineConstants>FULLDOTNET</DefineConstants>
+    <RegisterForComInterop>false</RegisterForComInterop>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -78,6 +79,7 @@
     <Compile Include="Manager\ExecutionType.cs" />
     <Compile Include="Manager\RemovedComponentHandler.cs" />
     <Compile Include="Manager\RemovedEntityHandler.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="System\DelayedEntityProcessingSystem.cs" />
     <Compile Include="System\DelayedEntitySystem.cs" />
     <Compile Include="Entity.cs" />
@@ -130,4 +132,17 @@
     <Reference Include="System" />
     <Reference Include="System.Numerics" />
   </ItemGroup>
+  <PropertyGroup>
+    <PostBuildEvent>echo POSTBUILDSTEP for $(ProjectName)
+xcopy "$(TargetDir)*.dll" "$(SolutionDir)$(OutDir)" /i /y
+if errorlevel 1 goto BuildEventFailed
+xcopy "$(TargetDir)*.xml" "$(SolutionDir)$(OutDir)" /i /y
+if errorlevel 1 goto BuildEventFailed
+goto BuildEventOK
+:BuildEventFailed
+echo POSTBUILDSTEP for $(ProjectName) FAILED
+exit 1
+:BuildEventOK
+echo POSTBUILDSTEP for $(ProjectName) COMPLETED OK</PostBuildEvent>
+  </PropertyGroup>
 </Project>
