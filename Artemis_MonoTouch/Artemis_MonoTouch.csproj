@@ -56,6 +56,7 @@
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\AddedComponentHandler.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\AddedEntityHandler.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\ComponentTypeManager.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\GameLoopType.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\QueueManager.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\ComponentPoolMultiThread.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\ExecutionType.cs" />
@@ -84,6 +85,8 @@
     <Compile Include="..\Artemis_XNA_INDEPENDENT\EntityWorld.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\Bag.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\System\IntervalTagSystem.cs" />
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\BagEnumerator.cs" />    
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\BagEnumerator.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\FastDateTime.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\Timer.cs" />
   </ItemGroup>
 </Project>
