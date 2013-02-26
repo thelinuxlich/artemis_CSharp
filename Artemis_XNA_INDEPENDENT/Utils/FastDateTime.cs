@@ -54,40 +54,15 @@ namespace Artemis.Utils
     /// <para>and is slower. For Windows NT 3.5 and later the timer</para>
     /// <para>resolution is approximately 10 milliseconds.</para>
     /// </summary>
-    public class FastDateTime
+    public static class FastDateTime
     {
-        /// <summary>The date time.</summary>
-        private DateTime dateTime;
-
-        /// <summary>Initializes a new instance of the <see cref="FastDateTime"/> class.</summary>
-        public FastDateTime()
-        {
-            this.LocalUtcOffset = TimeZoneInfo.Utc.GetUtcOffset(DateTime.Now);
-            this.ResetDelta();
-        }
-
-        /// <summary>Gets the local UTC offset.</summary>
-        public TimeSpan LocalUtcOffset { get; private set; }
+        /// <summary>The local UTC offset.</summary>
+        private static readonly TimeSpan LocalUtcOffset = TimeZoneInfo.Utc.GetUtcOffset(DateTime.Now);
 
         /// <summary>Gets the now.</summary>
-        public DateTime Now
+        public static DateTime Now
         {
-            get { return DateTime.UtcNow + this.LocalUtcOffset; }
-        }
-
-        /// <summary>Resets the delta.</summary>
-        public void ResetDelta()
-        {
-            this.dateTime = this.Now;
-        }
-
-        /// <summary>The elapsed delta in milliseconds.</summary>
-        /// <returns>The milliseconds delta.</returns>
-        public long ElapsedDeltaMilliseconds()
-        {
-            long result = (this.Now - this.dateTime).Ticks;
-            this.dateTime = this.Now;
-            return result;
+            get { return DateTime.UtcNow + LocalUtcOffset; }
         }
     }
 }
