@@ -38,6 +38,8 @@ namespace Artemis.System
 {
     #region Using statements
 
+    using Artemis.Utils;
+
     using global::System;
     using global::System.Collections.Generic;
 
@@ -46,8 +48,8 @@ namespace Artemis.System
     /// <summary>Class DelayedEntitySystem.</summary>
     public abstract class DelayedEntitySystem : EntitySystem
     {
-        /// <summary>The accumulated delta.</summary>
-        private float accumulatedDelta;
+        /// <summary>The timer.</summary>
+        private Timer timer;
 
         /// <summary>The is running.</summary>
         private bool isRunning;
@@ -68,18 +70,18 @@ namespace Artemis.System
 
         /// <summary>Gets the initial time delay.</summary>
         /// <value>The initial time delay.</value>
-        public float InitialTimeDelay { get; private set; }
+        public TimeSpan InitialTimeDelay { get; private set; }
 
         /// <summary>Gets the remaining time until processing.</summary>
-        /// <returns>The remaining time in milliseconds.</returns>
-        public float GetRemainingTimeUntilProcessing()
+        /// <returns>The remaining time in ticks.</returns>
+        public TimeSpan GetRemainingTimeUntilProcessing()
         {
             if (this.isRunning)
             {
-                return this.InitialTimeDelay - this.accumulatedDelta;
+                return TimeSpan.FromTicks(this.InitialTimeDelay.Ticks - this.timer.AccumulatedTicks);
             }
 
-            return 0.0f;
+            return TimeSpan.Zero;
         }
 
         /// <summary>Determines whether this instance is running.</summary>
@@ -92,14 +94,14 @@ namespace Artemis.System
         /// <summary>Processes the entities.</summary>
         /// <param name="entities">The entities.</param>
         /// <param name="accumulatedDelta">The accumulated delta.</param>
-        public abstract void ProcessEntities(IDictionary<int, Entity> entities, float accumulatedDelta);
+        public abstract void ProcessEntities(IDictionary<int, Entity> entities, long accumulatedDelta);
 
         /// <summary>Starts the delayed run.</summary>
-        /// <param name="milliseconds">The delay in milliseconds.</param>
-        public void StartDelayedRun(float milliseconds)
+        /// <param name="delay">The time span.</param>
+        public void StartDelayedRun(TimeSpan delay)
         {
-            this.InitialTimeDelay = milliseconds;
-            this.accumulatedDelta = 0.0f;
+            this.InitialTimeDelay = delay;
+            this.timer = new Timer(delay);
             this.isRunning = true;
         }
 
@@ -110,8 +112,13 @@ namespace Artemis.System
         /// </summary>
         public void Stop()
         {
+            if (this.timer == null)
+            {
+                throw new NullReferenceException("Call StartDelayRun before Stop.");
+            }
+
             this.isRunning = false;
-            this.accumulatedDelta = 0.0f;
+            this.timer.Reset();
         }
 
         /// <summary>Checks the processing.</summary>
@@ -120,9 +127,7 @@ namespace Artemis.System
         {
             if (this.isRunning)
             {
-                this.accumulatedDelta += this.EntityWorld.Delta;
-
-                if (this.accumulatedDelta >= this.InitialTimeDelay)
+                if (this.timer.IsReached(this.EntityWorld.Delta))
                 {
                     return this.IsEnabled;
                 }
@@ -135,7 +140,7 @@ namespace Artemis.System
         /// <param name="entities">The entities.</param>
         protected override void ProcessEntities(IDictionary<int, Entity> entities)
         {
-            this.ProcessEntities(entities, this.accumulatedDelta);
+            this.ProcessEntities(entities, this.timer.AccumulatedTicks);
             this.Stop();
         }
     }

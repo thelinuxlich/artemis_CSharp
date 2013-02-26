@@ -111,6 +111,7 @@
     <Compile Include="..\Artemis_XNA_INDEPENDENT\System\IntervalTagSystem.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\BagEnumerator.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\FastDateTime.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\Timer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

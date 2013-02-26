@@ -1,8 +1,8 @@
-#region File description
+﻿#region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="DelayedEntityProcessingSystem.cs" company="GAMADU.COM">
-//     Copyright � 2013 GAMADU.COM. All rights reserved.
+// <copyright file="Timer.cs" company="GAMADU.COM">
+//     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
 //     permitted provided that the following conditions are met:
@@ -29,52 +29,58 @@
 //     or implied, of GAMADU.COM.
 // </copyright>
 // <summary>
-//   Class DelayedEntityProcessingSystem.
+//   The class Timer.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
 
-namespace Artemis.System
+namespace Artemis.Utils
 {
     #region Using statements
 
     using global::System;
-    using global::System.Collections.Generic;
 
-    #endregion Using statements
+    using Artemis;
 
-    /// <summary>Class DelayedEntityProcessingSystem.</summary>
-    public abstract class DelayedEntityProcessingSystem : DelayedEntitySystem
+    #endregion
+
+    /// <summary>The class Timer.</summary>
+    public class Timer
     {
-        /// <summary>Initializes a new instance of the <see cref="DelayedEntityProcessingSystem"/> class.</summary>
-        /// <param name="requiredType">The required component type.</param>
-        /// <param name="otherTypes">Other component types.</param>
-        protected DelayedEntityProcessingSystem(Type requiredType, params Type[] otherTypes)
-            : base(EntitySystem.GetMergedTypes(requiredType, otherTypes))
+        /// <summary>The delay ticks.</summary>
+        private readonly long delayTicks;
+
+        /// <summary>Initializes a new instance of the <see cref="Timer" /> class.</summary>
+        /// <param name="delay">The delay.</param>
+        public Timer(TimeSpan delay)
         {
+            this.delayTicks = delay.Ticks;
+            this.Reset();
         }
 
-        /// <summary>Initializes a new instance of the <see cref="DelayedEntityProcessingSystem" /> class.</summary>
-        /// <param name="aspect">The aspect.</param>
-        protected DelayedEntityProcessingSystem(Aspect aspect)
-            : base(aspect)
-        {
-        }
+        /// <summary>Gets the accumulated ticks.</summary>
+        /// <value>The accumulated ticks.</value>
+        public long AccumulatedTicks { get; private set; }
 
-        /// <summary>Process an entity this system is interested in.</summary>
-        /// <param name="entity">The entity.</param>
-        /// <param name="accumulatedDelta">The entity to process.</param>
-        public abstract void Process(Entity entity, long accumulatedDelta);
-
-        /// <summary>Process all entities with the delayed Entity processing system</summary>
-        /// <param name="entities">Entities to process</param>
-        /// <param name="accumulatedDelta">Total Delay</param>
-        public override void ProcessEntities(IDictionary<int, Entity> entities, long accumulatedDelta)
+        /// <summary>Determines whether the specified delta is reached.</summary>
+        /// <param name="deltaTicks">The delta in ticks.</param>
+        /// <returns><see langword="true" /> if the specified delta is reached; otherwise, <see langword="false" />.</returns>
+        public bool IsReached(long deltaTicks)
         {
-            foreach (Entity item in entities.Values)
+            this.AccumulatedTicks += deltaTicks;
+            if (this.AccumulatedTicks >= this.delayTicks)
             {
-                this.Process(item, accumulatedDelta);
+                this.AccumulatedTicks -= this.delayTicks;
+                return true;
             }
+
+            return false;
+        }
+
+        /// <summary>Resets this instance.</summary>
+        public void Reset()
+        {
+            this.AccumulatedTicks = 0;
         }
     }
 }
