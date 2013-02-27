@@ -120,5 +120,16 @@ namespace Artemis.Manager
 
             this.entityByTag.Remove(tag);
         }
+
+        /// <summary>Unregisters the specified entity.</summary>
+        /// <param name="entity">The entity.</param>
+        internal void Unregister(Entity entity)
+        {
+            string tag = this.GetTagOfEntity(entity);
+            if (!string.IsNullOrEmpty(tag))
+            {
+                this.entityByTag.Remove(tag);
+            }
+        }
     }
 }

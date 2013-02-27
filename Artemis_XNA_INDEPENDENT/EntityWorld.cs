@@ -323,7 +323,7 @@ namespace Artemis
                 for (int index = this.deleted.Count - 1; index >= 0; --index)
                 {
                     Entity entity = this.deleted.Get(index);
-                    this.EntityManager.Remove(entity);
+                    this.TagManager.Unregister(entity);
                     this.GroupManager.Remove(entity);
                     this.EntityManager.Remove(entity);
                     entity.DeletingState = false;
@@ -334,7 +334,7 @@ namespace Artemis
 
             if (!this.refreshed.IsEmpty)
             {
-                for (int index = 0, j = this.refreshed.Count; j > index; ++index)
+                for (int index = this.refreshed.Count - 1; index >= 0; --index)
                 {
                     Entity entity = this.refreshed.Get(index);
                     this.EntityManager.Refresh(entity);
