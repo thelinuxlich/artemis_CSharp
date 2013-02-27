@@ -148,7 +148,7 @@ namespace Artemis.System
 
             Type[] types = new Type[1 + otherTypes.Length];
             types[0] = requiredType;
-            for (int index = 0, j = otherTypes.Length; j > index; ++index)
+            for (int index = otherTypes.Length - 1; index >= 0; --index)
             {
                 types[index + 1] = otherTypes[index];
             }
@@ -179,7 +179,7 @@ namespace Artemis.System
             Debug.Assert(entity != null, "Entity must not be null.");
 
             bool contains = (this.SystemBit & entity.SystemBits) == this.SystemBit;
-            ////bool interest = (typeFlags & entity.TypeBits) == typeFlags;
+            ////bool interest = (this.typeFlags & entity.TypeBits) == this.typeFlags;
             bool interest = this.Aspect.Interests(entity);
 
             if (interest && !contains)
@@ -190,12 +190,14 @@ namespace Artemis.System
             {
                 this.Remove(entity);
             }
-            else if (interest && entity.IsEnabled)
+            else if (interest && contains && entity.IsEnabled)
             {
+                // TODO: contains always true here. Need some investigation.
                 this.Enable(entity);
             }
-            else if (interest && entity.IsEnabled == false)
+            else if (interest && contains && !entity.IsEnabled)
             {
+                // TODO: contains always true here. Need some investigation.
                 this.Disable(entity);
             }
         }
@@ -242,6 +244,7 @@ namespace Artemis.System
         protected void Add(Entity entity)
         {
             Debug.Assert(entity != null, "Entity must not be null.");
+
             entity.AddSystemBit(this.SystemBit);
             if (entity.IsEnabled)
             {
@@ -287,6 +290,7 @@ namespace Artemis.System
         protected void Remove(Entity entity)
         {
             Debug.Assert(entity != null, "Entity must not be null.");
+
             entity.RemoveSystemBit(this.SystemBit);
             if (entity.IsEnabled)
             {

@@ -148,9 +148,9 @@ namespace Artemis.Manager
                             drawBag.Add(system);
                         }
 #if FULLDOTNET
-                    this.drawLayers = new SortedDictionary<int, Bag<EntitySystem>>((from d in this.drawLayers orderby d.Key ascending select d).ToDictionary(pair => pair.Key, pair => pair.Value));
+                        this.drawLayers = new SortedDictionary<int, Bag<EntitySystem>>((from d in this.drawLayers orderby d.Key ascending select d).ToDictionary(pair => pair.Key, pair => pair.Value));
 #else
-                    this.drawLayers = new Dictionary<int, Bag<EntitySystem>>((from d in this.drawLayers orderby d.Key ascending select d).ToDictionary(pair => pair.Key, pair => pair.Value));
+                        this.drawLayers = (from d in this.drawLayers orderby d.Key ascending select d).ToDictionary(pair => pair.Key, pair => pair.Value);
 #endif
                     }
 
@@ -173,9 +173,9 @@ namespace Artemis.Manager
                             updateBag.Add(system);
                         }
 #if FULLDOTNET
-                    this.updateLayers = new SortedDictionary<int, Bag<EntitySystem>>((from d in this.updateLayers orderby d.Key ascending select d).ToDictionary(pair => pair.Key, pair => pair.Value));
+                        this.updateLayers = new SortedDictionary<int, Bag<EntitySystem>>((from d in this.updateLayers orderby d.Key ascending select d).ToDictionary(pair => pair.Key, pair => pair.Value));
 #else
-                    this.updateLayers = new Dictionary<int, Bag<EntitySystem>>((from d in this.updateLayers orderby d.Key ascending select d).ToDictionary(pair => pair.Key, pair => pair.Value));
+                        this.updateLayers = (from d in this.updateLayers orderby d.Key ascending select d).ToDictionary(pair => pair.Key, pair => pair.Value);
 #endif
                     }
 
