@@ -305,8 +305,17 @@ namespace Artemis
         /// <param name="executionType">Type of the execution.</param>
         public void Update(ExecutionType executionType = ExecutionType.Synchronous)
         {
-            this.Delta = (FastDateTime.Now - this.dateTime).Ticks;
+            long deltaTicks = (FastDateTime.Now - this.dateTime).Ticks;
             this.dateTime = FastDateTime.Now;
+            this.Update(deltaTicks, executionType);
+        }
+
+        /// <summary>Updates the EntityWorld.</summary>
+        /// <param name="deltaTicks">The delta ticks.</param>
+        /// <param name="executionType">Type of the execution.</param>
+        public void Update(long deltaTicks, ExecutionType executionType = ExecutionType.Synchronous)
+        {
+            this.Delta = deltaTicks;
 
             ++this.poolCleanupDelayCounter;
             if (this.poolCleanupDelayCounter > this.PoolCleanupDelay)
