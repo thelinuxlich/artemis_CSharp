@@ -48,20 +48,15 @@ namespace Artemis.Utils
     /// <typeparam name="T">The <see langword="Type"/> T.</typeparam>
     public class Bag<T> : IEnumerable<T>
     {
-        /// <summary>The data.</summary>
-        private T[] data;
-
-        /// <summary>Initializes a new instance of the <see cref="Bag{T}"/> class.</summary>
-        public Bag()
-        {
-            this.data = new T[16];
-        }
+        /// <summary>The elements.</summary>
+        private T[] elements;
 
         /// <summary>Initializes a new instance of the <see cref="Bag{T}"/> class.</summary>
         /// <param name="capacity">The capacity.</param>
-        public Bag(int capacity)
+        public Bag(int capacity = 16)
         {
-            this.data = new T[capacity];
+            this.elements = new T[capacity];
+            this.Count = 0;
         }
 
         /// <summary>Gets the capacity.</summary>
@@ -70,7 +65,7 @@ namespace Artemis.Utils
         {
             get
             {
-                return this.data.Length;
+                return this.elements.Length;
             }
         }
 
@@ -95,12 +90,12 @@ namespace Artemis.Utils
         {
             get
             {
-                return this.data[index];
+                return this.elements[index];
             }
 
             set
             {
-                if (index >= this.data.Length)
+                if (index >= this.elements.Length)
                 {
                     this.Grow(index * 2);
                     this.Count = index + 1;
@@ -110,7 +105,7 @@ namespace Artemis.Utils
                     this.Count = index + 1;
                 }
 
-                this.data[index] = value;
+                this.elements[index] = value;
             }
         }
 
@@ -122,22 +117,22 @@ namespace Artemis.Utils
         public void Add(T element)
         {
             // is size greater than capacity increase capacity
-            if (this.Count == this.data.Length)
+            if (this.Count == this.elements.Length)
             {
                 this.Grow();
             }
 
-            this.data[this.Count] = element;
+            this.elements[this.Count] = element;
             ++this.Count;
         }
 
         /// <summary>Adds a range of elements into this bag.</summary>
-        /// <param name="elements">The elements to add.</param>
-        public void AddAll(Bag<T> elements)
+        /// <param name="rangeOfElements">The elements to add.</param>
+        public void AddRange(Bag<T> rangeOfElements)
         {
-            for (int index = 0, j = elements.Count; j > index; ++index)
+            for (int index = 0, j = rangeOfElements.Count; j > index; ++index)
             {
-                this.Add(elements.Get(index));
+                this.Add(rangeOfElements.Get(index));
             }
         }
 
@@ -150,7 +145,7 @@ namespace Artemis.Utils
             // Null all elements so garbage collector can clean up.
             for (int index = this.Count - 1; index >= 0; --index)
             {
-                this.data[index] = default(T);
+                this.elements[index] = default(T);
             }
 
             this.Count = 0;
@@ -163,7 +158,7 @@ namespace Artemis.Utils
         {
             for (int index = this.Count - 1; index >= 0; --index)
             {
-                if (element.Equals(this.data[index]))
+                if (element.Equals(this.elements[index]))
                 {
                     return true;
                 }
@@ -177,7 +172,7 @@ namespace Artemis.Utils
         /// <returns>The specified element.</returns>
         public T Get(int index)
         {
-            return this.data[index];
+            return this.elements[index];
         }
 
         /// <summary>Removes the specified index.</summary>
@@ -186,14 +181,14 @@ namespace Artemis.Utils
         public T Remove(int index)
         {
             // Make copy of element to remove so it can be returned.
-            T result = this.data[index];
+            T result = this.elements[index];
             --this.Count;
             
             // Overwrite item to remove with last element.
-            this.data[index] = this.data[this.Count];
+            this.elements[index] = this.elements[this.Count];
 
             // Null last element, so garbage collector can do its work.
-            this.data[this.Count] = default(T);
+            this.elements[this.Count] = default(T);
             return result;
         }
 
@@ -208,13 +203,13 @@ namespace Artemis.Utils
         {
             for (int index = this.Count - 1; index >= 0; --index)
             {
-                if (element.Equals(this.data[index]))
+                if (element.Equals(this.elements[index]))
                 {
                     --this.Count;
 
                     // Overwrite item to remove with last element.
-                    this.data[index] = this.data[this.Count];
-                    this.data[this.Count] = default(T);
+                    this.elements[index] = this.elements[this.Count];
+                    this.elements[this.Count] = default(T);
 
                     return true;
                 }
@@ -223,9 +218,9 @@ namespace Artemis.Utils
             return false;
         }
 
-        /// <summary>Removes all.</summary>
+        /// <summary>Removes all matching elements.</summary>
         /// <param name="bag">The bag.</param>
-        /// <returns><see langword="true" /> if XXXX, <see langword="false" /> otherwise</returns>
+        /// <returns><see langword="true" /> if found matching elements, <see langword="false" /> otherwise.</returns>
         public bool RemoveAll(Bag<T> bag)
         {
             bool isResult = false;
@@ -247,10 +242,10 @@ namespace Artemis.Utils
             if (this.Count > 0)
             {
                 --this.Count;
-                T result = this.data[this.Count];
+                T result = this.elements[this.Count];
 
                 // default(T) if class = null.
-                this.data[this.Count] = default(T);
+                this.elements[this.Count] = default(T);
                 return result;
             }
 
@@ -262,7 +257,7 @@ namespace Artemis.Utils
         /// <param name="element">The element.</param>
         public void Set(int index, T element)
         {
-            if (index >= this.data.Length)
+            if (index >= this.elements.Length)
             {
                 this.Grow(index * 2);
                 this.Count = index + 1;
@@ -272,7 +267,7 @@ namespace Artemis.Utils
                 this.Count = index + 1;
             }
 
-            this.data[index] = element;
+            this.elements[index] = element;
         }
 
         /// <summary>Returns an enumerator that iterates through a collection.</summary>
@@ -292,16 +287,16 @@ namespace Artemis.Utils
         /// <summary>Grows this instance.</summary>
         private void Grow()
         {
-            this.Grow(((this.data.Length * 3) / 2) + 1);
+            this.Grow((int)(this.elements.Length * 1.5) + 1);
         }
 
         /// <summary>Grows the specified new capacity.</summary>
         /// <param name="newCapacity">The new capacity.</param>
         private void Grow(int newCapacity)
         {
-            T[] oldData = this.data;
-            this.data = new T[newCapacity];
-            Array.Copy(oldData, 0, this.data, 0, oldData.Length);
+            T[] oldElements = this.elements;
+            this.elements = new T[newCapacity];
+            Array.Copy(oldElements, 0, this.elements, 0, oldElements.Length);
         }
     }
 }

@@ -60,28 +60,29 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Component\HealthComponent.cs" />
-    <Compile Include="Component\Power1Component.cs" />
-    <Compile Include="Component\Power2Component.cs" />
-    <Compile Include="GeneralTest.cs" />
-    <Compile Include="PerformanceTest.cs" />
+    <Compile Include="Component\TestHealthComponent.cs" />
+    <Compile Include="Component\TestPowerComponent.cs" />
+    <Compile Include="Component\TestPowerComponentPoolable.cs" />
+    <Compile Include="TestEntityFactory.cs" />
+    <Compile Include="TestGeneral.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="System\DummyCommunicationSystem.cs" />
-    <Compile Include="System\Dummy1System.cs" />
-    <Compile Include="System\Dummy2System.cs" />
-    <Compile Include="System\Dummy3System.cs" />
-    <Compile Include="System\HybridQueueSystem.cs" />
-    <Compile Include="System\Queue1System.cs" />
-    <Compile Include="System\Queue2System.cs" />
-    <Compile Include="System\RenderSingleHealthBarSystem.cs" />
-    <Compile Include="System\Simple2System.cs" />
-    <Compile Include="System\Simple1System.cs" />
-    <Compile Include="System\RenderMultiHealthBarSystem.cs" />
-    <Compile Include="System\RenderSingleHeavyHealthBarSystem.cs" />
-    <Compile Include="System\Simple3System.cs" />
-    <Compile Include="Template\EntityTestTemplate.cs" />
-    <Compile Include="TimeWaster.cs" />
+    <Compile Include="System\TestCommunicationSystem.cs" />
+    <Compile Include="System\Test1System.cs" />
+    <Compile Include="System\Test2System.cs" />
+    <Compile Include="System\Test3System.cs" />
+    <Compile Include="System\TestQueueHybridSystem.cs" />
+    <Compile Include="System\TestQueue1System.cs" />
+    <Compile Include="System\TestQueue2System.cs" />
+    <Compile Include="System\TestRenderHealthBarSingleSystem.cs" />
+    <Compile Include="System\TestSimple2System.cs" />
+    <Compile Include="System\TestSimple1System.cs" />
+    <Compile Include="System\TestRenderHealthBarMultiSystem.cs" />
+    <Compile Include="System\TestRenderHealthBarSingleHeavySystem.cs" />
+    <Compile Include="System\TestSimple3System.cs" />
+    <Compile Include="Template\TestEntityTemplate.cs" />
+    <Compile Include="TestBag.cs" />
+    <Compile Include="TestTimeWaster.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Artemis_XNA_INDEPENDENT\Artemis.csproj">

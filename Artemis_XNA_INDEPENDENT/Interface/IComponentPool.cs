@@ -41,15 +41,19 @@ namespace Artemis.Interface
     public interface IComponentPool<T>
         where T : ComponentPoolable
     {
-        /// <summary>Cleans up.</summary>
+        /// <summary>
+        /// <para>Cleans up the pool by checking each valid object</para>
+        /// <para>to ensure it is still actually valid.</para>
+        /// <para>Must be called regularly to free returned Objects.</para>
+        /// </summary>
         void CleanUp();
 
-        /// <summary>Get a new pool item.</summary>
-        /// <returns>A new pool item.</returns>
+        /// <summary>Gets a new object from the Pool.</summary>
+        /// <returns>The next object in the pool if available, null if all instances are valid.</returns>
         T New();
 
-        /// <summary>Returns the object.</summary>
-        /// <param name="item">The item.</param>
-        void ReturnObject(T item);
+        /// <summary>Returns the specified component.</summary>
+        /// <param name="component">The component.</param>
+        void ReturnObject(T component);
     }
 }

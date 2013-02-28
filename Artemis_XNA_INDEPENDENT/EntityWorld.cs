@@ -106,9 +106,9 @@ namespace Artemis
                 Dictionary<Entity, Bag<IComponent>> currentState = new Dictionary<Entity, Bag<IComponent>>();
                 for (int index = 0, j = entities.Count; index < j; ++index)
                 {
-                    Entity e = entities.Get(index);
-                    Bag<IComponent> components = e.Components;
-                    currentState.Add(e, components);
+                    Entity entity = entities.Get(index);
+                    Bag<IComponent> components = entity.Components;
+                    currentState.Add(entity, components);
                 }
 
                 return currentState;

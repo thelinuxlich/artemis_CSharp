@@ -1,8 +1,8 @@
-﻿#region File description
+#region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="TimeWaster.cs" company="GAMADU.COM">
-//     Copyright © 2013 GAMADU.COM. All rights reserved.
+// <copyright file="TestCommunicationSystem.cs" company="GAMADU.COM">
+//     Copyright � 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
 //     permitted provided that the following conditions are met:
@@ -28,47 +28,64 @@
 //     authors and should not be interpreted as representing official policies, either expressed
 //     or implied, of GAMADU.COM.
 // </copyright>
-// <author>Jens-Axel Grünewald</author>
-// <date>2/23/2013 10:05:38 AM</date>
 // <summary>
-//     This is a time waster class.
+//   The dummy communication system.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
 
-namespace UnitTests
+namespace UnitTests.System
 {
     #region Using statements
 
-    using global::System;
+    using Artemis;
+    using Artemis.Blackboard;
+    using Artemis.System;
+
+    using UnitTests.Component;
 
     #endregion Using statements
 
-    /// <summary>This is a class.</summary>
-    public class TimeWaster
+    /// <summary>The class test communication system.</summary>
+    public class TestCommunicationSystem : EntityProcessingSystem
     {
-        /// <summary>Initializes static members of the <see cref="TimeWaster"/> class.</summary>
-        static TimeWaster()
+        /// <summary>The damage.</summary>
+        private int damage;
+
+        /// <summary>The health mapper.</summary>
+        private ComponentMapper<TestHealthComponent> healthMapper;
+
+        /// <summary>Initializes a new instance of the <see cref="TestCommunicationSystem" /> class.</summary>
+        public TestCommunicationSystem()
+            : base(typeof(TestHealthComponent))
         {
-            Result = 0.0d;
+            this.damage = 10;
+            BlackBoard.AddTrigger(
+                new SimpleTrigger(
+                    "Damage", 
+                    (a, b) => true, 
+                    a =>
+                        {
+                            if (a == TriggerStateType.ValueChanged)
+                            {
+                                this.damage = BlackBoard.GetEntry<int>("Damage");
+                            }
+                        }));
+
+            this.damage = BlackBoard.GetEntry<int>("Damage");
         }
 
-        /// <summary>Gets the result.</summary>
-        /// <value>The result.</value>
-        public static double Result { get; private set; }
-
-        /// <summary>Delays the specified iterations.</summary>
-        /// <param name="iterations">The iterations.</param>
-        public static void Delay(int iterations = 10)
+        /// <summary>The initialize.</summary>
+        public override void LoadContent()
         {
-            double x = 0.1d;
-            for (double index = iterations - 1; index >= 0; --index)
-            {
-                x *= Math.Log(index);
-                x *= Math.Cos(index);
-            }
+            this.healthMapper = new ComponentMapper<TestHealthComponent>(this.EntityWorld);
+        }
 
-            Result = x;
+        /// <summary>The process.</summary>
+        /// <param name="entity">The entity.</param>
+        public override void Process(Entity entity)
+        {
+            this.healthMapper.Get(entity).AddDamage(this.damage);
         }
     }
 }

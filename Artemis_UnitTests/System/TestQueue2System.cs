@@ -1,7 +1,7 @@
 #region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="DummyCommunicationSystem.cs" company="GAMADU.COM">
+// <copyright file="TestQueue2System.cs" company="GAMADU.COM">
 //     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
@@ -29,7 +29,7 @@
 //     or implied, of GAMADU.COM.
 // </copyright>
 // <summary>
-//   The dummy communication system.
+//   The queue system test 2.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
@@ -39,53 +39,21 @@ namespace UnitTests.System
     #region Using statements
 
     using Artemis;
-    using Artemis.Blackboard;
     using Artemis.System;
 
     using UnitTests.Component;
 
     #endregion Using statements
 
-    /// <summary>The dummy communication system.</summary>
-    public class DummyCommunicationSystem : EntityProcessingSystem
+    /// <summary>The queue system test 2.</summary>
+    public class TestQueue2System : QueueSystemProcessingThreadSafe
     {
-        /// <summary>The damage.</summary>
-        private int damage;
-
-        /// <summary>The health mapper.</summary>
-        private ComponentMapper<HealthComponent> healthMapper;
-
-        /// <summary>Initializes a new instance of the <see cref="DummyCommunicationSystem" /> class.</summary>
-        public DummyCommunicationSystem()
-            : base(typeof(HealthComponent))
-        {
-            this.damage = 10;
-            BlackBoard.AddTrigger(
-                new SimpleTrigger(
-                    "Damage", 
-                    (a, b) => true, 
-                    a =>
-                        {
-                            if (a == TriggerStateType.ValueChanged)
-                            {
-                                this.damage = BlackBoard.GetEntry<int>("Damage");
-                            }
-                        }));
-
-            this.damage = BlackBoard.GetEntry<int>("Damage");
-        }
-
-        /// <summary>The initialize.</summary>
-        public override void LoadContent()
-        {
-            this.healthMapper = new ComponentMapper<HealthComponent>(this.EntityWorld);
-        }
-
         /// <summary>The process.</summary>
         /// <param name="entity">The entity.</param>
         public override void Process(Entity entity)
         {
-            this.healthMapper.Get(entity).AddDamage(this.damage);
+            TestHealthComponent testHealthComponent = entity.GetComponent<TestHealthComponent>();
+            testHealthComponent.AddDamage(20);
         }
     }
 }

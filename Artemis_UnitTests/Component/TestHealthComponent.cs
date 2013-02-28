@@ -1,7 +1,7 @@
 #region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="RenderSingleHealthBarSystem.cs" company="GAMADU.COM">
+// <copyright file="TestHealthComponent.cs" company="GAMADU.COM">
 //     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
@@ -29,53 +29,88 @@
 //     or implied, of GAMADU.COM.
 // </copyright>
 // <summary>
-//   The single health bar render system.
+//   The health.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
 
-namespace UnitTests.System
+namespace UnitTests.Component
 {
     #region Using statements
 
-    using Artemis;
-    using Artemis.System;
+    using global::System;
 
-    using UnitTests.Component;
+    using Artemis.Interface;
 
     #endregion Using statements
 
-    /// <summary>The single health bar render system.</summary>
-    public class RenderSingleHealthBarSystem : EntityProcessingSystem
+    /// <summary>The health.</summary>
+    public class TestHealthComponent : IComponent
     {
-        /// <summary>The health mapper.</summary>
-        private ComponentMapper<HealthComponent> healthMapper;
+        /// <summary>The health points.</summary>
+        private float points;
 
-        /// <summary>Initializes a new instance of the <see cref="RenderSingleHealthBarSystem" /> class.</summary>
-        public RenderSingleHealthBarSystem()
-            : base(typeof(HealthComponent))
+        /// <summary>Initializes a new instance of the <see cref="TestHealthComponent" /> class.</summary>
+        public TestHealthComponent() 
+            : this(100.0f)
         {
         }
 
-        /// <summary>Override to implement code that gets executed when systems are initialized.</summary>
-        public override void LoadContent()
+        /// <summary>Initializes a new instance of the <see cref="TestHealthComponent" /> class.</summary>
+        /// <param name="points">The health points.</param>
+        public TestHealthComponent(float points)
         {
-            this.healthMapper = new ComponentMapper<HealthComponent>(this.EntityWorld);
+            this.Points = this.MaximumLimit = points;
         }
 
-        /// <summary>Override to implement code that gets executed when systems are terminated.</summary>
-        public override void UnloadContent()
+        /// <summary>Gets or sets the health points.</summary>
+        /// <value>The health points.</value>
+        public float Points
         {
+            get
+            {
+                return this.points;
+            }
+
+            set
+            {
+                this.points = value;
+                if (this.points < 0)
+                {
+                    this.points = 0;
+                }
+            }
         }
 
-        /// <summary>The process.</summary>
-        /// <param name="entity">The entity.</param>
-        public override void Process(Entity entity)
+        /// <summary>Gets the health percentage.</summary>
+        /// <value>The health percentage.</value>
+        public double Percentage
         {
-            HealthComponent healthComponent = this.healthMapper.Get(entity);
-            healthComponent.AddDamage(10);
+            get
+            {
+                return Math.Round(this.Points / this.MaximumLimit * 100f);
+            }
+        }
 
-            TimeWaster.Delay();
+        /// <summary>Gets a value indicating whether is alive.</summary>
+        /// <value><see langword="true" /> if this instance is alive; otherwise, <see langword="false" />.</value>
+        public bool IsAlive
+        {
+            get
+            {
+                return this.Points > 0;
+            }
+        }
+
+        /// <summary>Gets the maximum health.</summary>
+        /// <value>The maximum health.</value>
+        public float MaximumLimit { get; private set; }
+
+        /// <summary>The add damage.</summary>
+        /// <param name="damage">The damage.</param>
+        public void AddDamage(int damage)
+        {
+            this.Points -= damage;
         }
     }
 }

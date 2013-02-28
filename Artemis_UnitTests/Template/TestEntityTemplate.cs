@@ -1,7 +1,7 @@
 #region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Dummy3System.cs" company="GAMADU.COM">
+// <copyright file="TestEntityTemplate.cs" company="GAMADU.COM">
 //     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
@@ -29,36 +29,40 @@
 //     or implied, of GAMADU.COM.
 // </copyright>
 // <summary>
-//   The dummy system 3.
+//   Class TestEntityTemplate.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
 
-namespace UnitTests.System
+namespace UnitTests.Template
 {
     #region Using statements
 
     using Artemis;
-    using Artemis.System;
+    using Artemis.Attributes;
+    using Artemis.Interface;
 
     using UnitTests.Component;
 
     #endregion Using statements
 
-    /// <summary>The dummy system 3.</summary>
-    public class Dummy3System : EntityProcessingSystem
+    /// <summary>Class TestEntityTemplate.</summary>
+    [ArtemisEntityTemplate("test")]
+    public class TestEntityTemplate : IEntityTemplate
     {
-        /// <summary>Initializes a new instance of the <see cref="Dummy3System" /> class.</summary>
-        public Dummy3System()
-            : base(typeof(HealthComponent))
-        {
-        }
-
-        /// <summary>The process.</summary>
+        /// <summary>The build entity.</summary>
         /// <param name="entity">The entity.</param>
-        public override void Process(Entity entity)
+        /// <param name="entityWorld">The entity world.</param>
+        /// <param name="args">The args.</param>
+        /// <returns>The built <see cref="Entity" />.</returns>
+        public Entity BuildEntity(Entity entity, EntityWorld entityWorld, params object[] args)
         {
-            TimeWaster.Delay();
+            entity.AddComponent(new TestPowerComponent());
+            entity.GetComponent<TestPowerComponent>().Power = 100;
+
+            entity.Refresh();
+
+            return entity;
         }
     }
 }

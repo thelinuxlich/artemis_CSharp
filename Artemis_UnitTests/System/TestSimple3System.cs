@@ -1,7 +1,7 @@
 #region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="RenderMultiHealthBarSystem.cs" company="GAMADU.COM">
+// <copyright file="TestSimple3System.cs" company="GAMADU.COM">
 //     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
@@ -29,7 +29,7 @@
 //     or implied, of GAMADU.COM.
 // </copyright>
 // <summary>
-//   The multi health bar render system.
+//   The third most simple system ever.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
@@ -39,32 +39,21 @@ namespace UnitTests.System
     #region Using statements
 
     using Artemis;
+    using Artemis.Attributes;
+    using Artemis.Manager;
     using Artemis.System;
 
     using UnitTests.Component;
 
     #endregion Using statements
 
-    /// <summary>The multi health bar render system.</summary>
-    public class RenderMultiHealthBarSystem : ParallelEntityProcessingSystem
+    /// <summary>The third most simple system ever.</summary>
+    [ArtemisEntitySystem(GameLoopType = GameLoopType.Update, Layer = 0)]
+    public class TestSimple3System : EntityProcessingSystem
     {
-        /// <summary>The health mapper.</summary>
-        private ComponentMapper<HealthComponent> healthMapper;
-
-        /// <summary>Initializes a new instance of the <see cref="RenderMultiHealthBarSystem" /> class.</summary>
-        public RenderMultiHealthBarSystem()
-            : base(typeof(HealthComponent))
-        {
-        }
-
-        /// <summary>Override to implement code that gets executed when systems are initialized.</summary>
-        public override void LoadContent()
-        {
-            this.healthMapper = new ComponentMapper<HealthComponent>(this.EntityWorld);
-        }
-
-        /// <summary>Override to implement code that gets executed when systems are terminated.</summary>
-        public override void UnloadContent()
+        /// <summary>Initializes a new instance of the <see cref="TestSimple3System" /> class.</summary>
+        public TestSimple3System()
+            : base(Aspect.One(typeof(TestPowerComponentPoolable), typeof(TestHealthComponent)))
         {
         }
 
@@ -72,10 +61,15 @@ namespace UnitTests.System
         /// <param name="entity">The entity.</param>
         public override void Process(Entity entity)
         {
-            HealthComponent healthComponent = this.healthMapper.Get(entity);
-            healthComponent.AddDamage(10);
+            if (entity.GetComponent<TestHealthComponent>() != null)
+            {
+                entity.GetComponent<TestHealthComponent>().AddDamage(10);
+            }
 
-            TimeWaster.Delay(1000);
+            if (entity.GetComponent<TestPowerComponentPoolable>() != null)
+            {
+                entity.GetComponent<TestPowerComponentPoolable>().Power -= 10;
+            }
         }
     }
 }

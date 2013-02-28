@@ -97,25 +97,26 @@ namespace Artemis.Manager
         /// <returns>Bag of active entities.</returns>
         public Bag<Entity> ActiveEntities { get; private set; }
 
-        /// <summary>Gets how many entities are currently active.</summary>
+#if DEBUG
+        /// <summary>Gets how many entities are currently active. Only available in debug mode.</summary>
         /// <value>The active entities count.</value>
         /// <returns>How many entities are currently active.</returns>
         public int ActiveEntitiesCount { get; private set; }
-
+#endif
         /// <summary>Gets or sets the removed entities retention.</summary>
         /// <value>The removed entities retention.</value>
         public int RemovedEntitiesRetention { get; set; }
-
-        /// <summary>Gets how many entities have been created since start.</summary>
+#if DEBUG
+        /// <summary>Gets how many entities have been created since start. Only available in debug mode.</summary>
         /// <value>The total created.</value>
         /// <returns>The total number of entities created.</returns>
         public long TotalCreated { get; private set; }
 
-        /// <summary>Gets how many entities have been removed since start.</summary>
+        /// <summary>Gets how many entities have been removed since start. Only available in debug mode.</summary>
         /// <value>The total removed.</value>
         /// <returns>The total number of removed entities.</returns>
         public long TotalRemoved { get; private set; }
-
+#endif
         /// <summary>Create a new, "blank" entity.</summary>
         /// <returns>New entity</returns>
         public Entity Create()
@@ -132,13 +133,14 @@ namespace Artemis.Manager
 
             result.UniqueId = BitConverter.ToInt64(Guid.NewGuid().ToByteArray(), 0);
             this.ActiveEntities.Set(result.Id, result);
-
-            // TODO: Prevent buffer overflows here!
+#if DEBUG
             ++this.ActiveEntitiesCount;
 
-            // TODO: Prevent buffer overflows here!
-            ++this.TotalCreated;
-
+            if (this.TotalCreated < long.MaxValue)
+            {
+                ++this.TotalCreated;
+            }
+#endif
             if (this.AddedEntityEvent != null)
             {
                 this.AddedEntityEvent(result);
@@ -221,12 +223,14 @@ namespace Artemis.Manager
             this.Refresh(entity);
 
             this.RemoveComponentsOfEntity(entity);
-
+#if DEBUG
             --this.ActiveEntitiesCount;
 
-            // TODO: Prevent buffer overflows here!
-            ++this.TotalRemoved;
-
+            if (this.TotalRemoved > long.MaxValue)
+            {
+                ++this.TotalRemoved;
+            }
+#endif
             if (this.removedAndAvailable.Count < this.RemovedEntitiesRetention)
             {
                 this.removedAndAvailable.Add(entity);
@@ -380,7 +384,7 @@ namespace Artemis.Manager
             Debug.Assert(entity != null, "Entity must not be null.");
 
             int entityId = entity.Id;
-            for (int index = 0, b = this.componentsByType.Count; b > index; ++index)
+            for (int index = this.componentsByType.Count - 1; index >= 0; --index)
             {
                 Bag<IComponent> components = this.componentsByType.Get(index);
                 if (components != null && entityId < components.Count)

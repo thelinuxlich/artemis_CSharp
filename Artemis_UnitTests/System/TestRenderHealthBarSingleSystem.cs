@@ -1,7 +1,7 @@
 #region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="HybridQueueSystem.cs" company="GAMADU.COM">
+// <copyright file="TestRenderHealthBarSingleSystem.cs" company="GAMADU.COM">
 //     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
@@ -29,7 +29,7 @@
 //     or implied, of GAMADU.COM.
 // </copyright>
 // <summary>
-//   The hybrid queue system test.
+//   The single health bar render system.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
@@ -45,12 +45,26 @@ namespace UnitTests.System
 
     #endregion Using statements
 
-    /// <summary>The hybrid queue system test.</summary>
-    public class HybridQueueSystem : HybridQueueSystemProcessing
+    /// <summary>The single health bar render system.</summary>
+    public class TestRenderHealthBarSingleSystem : EntityProcessingSystem
     {
-        /// <summary>Initializes a new instance of the <see cref="HybridQueueSystem" /> class.</summary>
-        public HybridQueueSystem()
-            : base(typeof(HealthComponent))
+        /// <summary>The health mapper.</summary>
+        private ComponentMapper<TestHealthComponent> healthMapper;
+
+        /// <summary>Initializes a new instance of the <see cref="TestRenderHealthBarSingleSystem" /> class.</summary>
+        public TestRenderHealthBarSingleSystem()
+            : base(typeof(TestHealthComponent))
+        {
+        }
+
+        /// <summary>Override to implement code that gets executed when systems are initialized.</summary>
+        public override void LoadContent()
+        {
+            this.healthMapper = new ComponentMapper<TestHealthComponent>(this.EntityWorld);
+        }
+
+        /// <summary>Override to implement code that gets executed when systems are terminated.</summary>
+        public override void UnloadContent()
         {
         }
 
@@ -58,8 +72,10 @@ namespace UnitTests.System
         /// <param name="entity">The entity.</param>
         public override void Process(Entity entity)
         {
-            HealthComponent healthComponent = entity.GetComponent<HealthComponent>();
-            healthComponent.AddDamage(10);
+            TestHealthComponent testHealthComponent = this.healthMapper.Get(entity);
+            testHealthComponent.AddDamage(10);
+
+            TestTimeWaster.Delay();
         }
     }
 }

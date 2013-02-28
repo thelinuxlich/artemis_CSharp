@@ -1,7 +1,7 @@
 #region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Simple1System.cs" company="GAMADU.COM">
+// <copyright file="Test1System.cs" company="GAMADU.COM">
 //     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
@@ -29,7 +29,7 @@
 //     or implied, of GAMADU.COM.
 // </copyright>
 // <summary>
-//   The most simple system ever.
+//   The dummy system 1.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
@@ -45,12 +45,12 @@ namespace UnitTests.System
 
     #endregion Using statements
 
-    /// <summary>The most simple system ever.</summary>
-    public class Simple1System : EntityProcessingSystem
+    /// <summary>The dummy system 1.</summary>
+    public class Test1System : EntityProcessingSystem
     {
-        /// <summary>Initializes a new instance of the <see cref="Simple1System" /> class.</summary>
-        public Simple1System()
-            : base(Aspect.Exclude(typeof(Power1Component)))
+        /// <summary>Initializes a new instance of the <see cref="Test1System" /> class.</summary>
+        public Test1System()
+            : base(typeof(TestHealthComponent))
         {
         }
 
@@ -58,7 +58,7 @@ namespace UnitTests.System
         /// <param name="entity">The entity.</param>
         public override void Process(Entity entity)
         {
-            entity.GetComponent<HealthComponent>().AddDamage(10);
+            TestTimeWaster.Delay();
         }
     }
 }

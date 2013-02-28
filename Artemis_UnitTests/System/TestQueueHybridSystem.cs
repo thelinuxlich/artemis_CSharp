@@ -1,7 +1,7 @@
 #region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Queue2System.cs" company="GAMADU.COM">
+// <copyright file="TestQueueHybridSystem.cs" company="GAMADU.COM">
 //     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
@@ -29,7 +29,7 @@
 //     or implied, of GAMADU.COM.
 // </copyright>
 // <summary>
-//   The queue system test 2.
+//   The hybrid queue system test.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
@@ -45,15 +45,31 @@ namespace UnitTests.System
 
     #endregion Using statements
 
-    /// <summary>The queue system test 2.</summary>
-    public class Queue2System : QueueSystemProcessingThreadSafe
+    /// <summary>The hybrid queue system test.</summary>
+    public class TestQueueHybridSystem : HybridQueueSystemProcessing
     {
+        /// <summary>The health mapper.</summary>
+        private ComponentMapper<TestHealthComponent> healthMapper;
+
+        /// <summary>Initializes a new instance of the <see cref="TestQueueHybridSystem" /> class.</summary>
+        public TestQueueHybridSystem()
+            : base(typeof(TestHealthComponent))
+        {
+        }
+
+        /// <summary>Override to implement code that gets executed when systems are initialized.</summary>
+        public override void LoadContent()
+        {
+            this.healthMapper = new ComponentMapper<TestHealthComponent>(this.EntityWorld);
+        }
+
         /// <summary>The process.</summary>
         /// <param name="entity">The entity.</param>
         public override void Process(Entity entity)
         {
-            HealthComponent healthComponent = entity.GetComponent<HealthComponent>();
-            healthComponent.AddDamage(20);
+            TestHealthComponent testHealthComponent = this.healthMapper.Get(entity);
+
+            testHealthComponent.AddDamage(10);
         }
     }
 }
