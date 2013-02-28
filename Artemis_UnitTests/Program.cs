@@ -49,14 +49,38 @@ namespace UnitTests
         public static void Main()
         {
             Console.WriteLine("General test begin...");
-            GeneralTest generalTest = new GeneralTest();
-            generalTest.QueueSystemTest();
+            TestGeneral testGeneral = new TestGeneral();
+            testGeneral.TestAttributes();
+            testGeneral.TestDummies();
+            testGeneral.TestHybridQueueSystem();
+            testGeneral.TestMultipleSystems();
+            testGeneral.TestQueueSystems();
+            testGeneral.TestRenderMultiHealthBarSystem();
+            testGeneral.TestSimple1System();
+            testGeneral.TestSystemCommunication();
             Console.WriteLine("General test end.");
 
-            Console.WriteLine("Performance test begin...");
-            PerformanceTest performanceTest = new PerformanceTest();
-            performanceTest.BagPerformanceTestA();
-            Console.WriteLine("Performance test end.");
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadKey(true);
+
+            Console.WriteLine("Bag test begin...");
+            TestBag testBag = new TestBag();
+            testBag.TestPerformance();
+            testBag.TestAdd();
+            testBag.TestAddRange();
+            testBag.TestBagConstructor();
+            testBag.TestCapacity();
+            testBag.TestClear();
+            testBag.TestContains();
+            testBag.TestGet();
+            testBag.TestGrow();
+            testBag.TestIsEmpty();
+            testBag.TestItem();
+            testBag.TestRemove();
+            testBag.TestRemoveAll();
+            testBag.TestRemoveLast();
+            testBag.TestSet();
+            Console.WriteLine("Bag test end.");
 
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey(true);

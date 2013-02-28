@@ -1,8 +1,8 @@
-﻿#region File description
+#region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="PerformanceTest.cs" company="GAMADU.COM">
-//     Copyright © 2013 GAMADU.COM. All rights reserved.
+// <copyright file="TestEntityProcessingSystem2.cs" company="GAMADU.COM">
+//     Copyright � 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
 //     permitted provided that the following conditions are met:
@@ -29,47 +29,36 @@
 //     or implied, of GAMADU.COM.
 // </copyright>
 // <summary>
-//   The performance tests.
+//   The dummy system 2.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
 
-namespace UnitTests
+namespace UnitTests.System
 {
     #region Using statements
 
-    using global::System;
-    using global::System.Diagnostics;
+    using Artemis;
+    using Artemis.System;
 
-    using Artemis.Utils;
-
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using UnitTests.Component;
 
     #endregion Using statements
 
-    /// <summary>The performance tests.</summary>
-    [TestClass]
-    public class PerformanceTest
+    /// <summary>The dummy system 2.</summary>
+    public class TestEntityProcessingSystem2 : EntityProcessingSystem
     {
-        /// <summary>The bag performance test a.</summary>
-        [TestMethod]
-        public void BagPerformanceTestA()
+        /// <summary>Initializes a new instance of the <see cref="TestEntityProcessingSystem2" /> class.</summary>
+        public TestEntityProcessingSystem2()
+            : base(typeof(TestHealthComponent))
         {
-            Bag<int> bigBag = new Bag<int>(16);
-            Stopwatch watch = Stopwatch.StartNew();
-            int x = 50;
-            for (int index = 0; index <= 1000000; ++index)
-            {
-                // Set it to a billion to get a OutOfMemoryException
-                // due to Bag Grow method generating too many items.
-                bigBag.Add(index + (x / 2) + 1);
-                ++x;
-            }
+        }
 
-            watch.Stop();
-
-            // It is fast.
-            Console.WriteLine(watch.Elapsed);
+        /// <summary>The process.</summary>
+        /// <param name="entity">The entity.</param>
+        public override void Process(Entity entity)
+        {
+            TestTimeWaster.Delay();
         }
     }
 }

@@ -94,9 +94,7 @@ namespace Artemis.System
             this.queue.Enqueue(entity);
         }
 
-        /// <summary>
-        /// Processes the entities.
-        /// </summary>
+        /// <summary>Processes the entities.</summary>
         /// <param name="entities">The entities.</param>
         protected override void ProcessEntities(IDictionary<int, Entity> entities)
         {

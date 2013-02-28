@@ -1,7 +1,7 @@
 #region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Simple3System.cs" company="GAMADU.COM">
+// <copyright file="TestQueueSystem1.cs" company="GAMADU.COM">
 //     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
@@ -29,7 +29,7 @@
 //     or implied, of GAMADU.COM.
 // </copyright>
 // <summary>
-//   The third most simple system ever.
+//   The queue system test 1.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
@@ -39,37 +39,21 @@ namespace UnitTests.System
     #region Using statements
 
     using Artemis;
-    using Artemis.Attributes;
-    using Artemis.Manager;
     using Artemis.System;
 
     using UnitTests.Component;
 
     #endregion Using statements
 
-    /// <summary>The third most simple system ever.</summary>
-    [ArtemisEntitySystem(GameLoopType = GameLoopType.Update, Layer = 0)]
-    public class Simple3System : EntityProcessingSystem
+    /// <summary>The queue system test 1.</summary>
+    public class TestQueueSystem1 : QueueSystemProcessingThreadSafe
     {
-        /// <summary>Initializes a new instance of the <see cref="Simple3System" /> class.</summary>
-        public Simple3System()
-            : base(Aspect.One(typeof(Power2Component), typeof(HealthComponent)))
-        {
-        }
-
         /// <summary>The process.</summary>
         /// <param name="entity">The entity.</param>
         public override void Process(Entity entity)
         {
-            if (entity.GetComponent<HealthComponent>() != null)
-            {
-                entity.GetComponent<HealthComponent>().AddDamage(10);
-            }
-
-            if (entity.GetComponent<Power2Component>() != null)
-            {
-                entity.GetComponent<Power2Component>().Power -= 10;
-            }
+            TestHealthComponent testHealthComponent = entity.GetComponent<TestHealthComponent>();
+            testHealthComponent.AddDamage(10);
         }
     }
 }

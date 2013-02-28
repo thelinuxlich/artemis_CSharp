@@ -1,7 +1,7 @@
 #region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Power2Component.cs" company="GAMADU.COM">
+// <copyright file="TestQueueSystem2.cs" company="GAMADU.COM">
 //     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
@@ -29,37 +29,31 @@
 //     or implied, of GAMADU.COM.
 // </copyright>
 // <summary>
-//   The power 2.
+//   The queue system test 2.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
 
-namespace UnitTests.Component
+namespace UnitTests.System
 {
     #region Using statements
 
-    using global::System;
-
     using Artemis;
-    using Artemis.Attributes;
+    using Artemis.System;
+
+    using UnitTests.Component;
 
     #endregion Using statements
 
-    /// <summary>The power 2.</summary>
-    [ArtemisComponentPool(InitialSize = 10, IsResizable = false)]
-    public class Power2Component : ComponentPoolable
+    /// <summary>The queue system test 2.</summary>
+    public class TestQueueSystem2 : QueueSystemProcessingThreadSafe
     {
-        /// <summary>Gets or sets the power.</summary>
-        /// <value>The power.</value>
-        public int Power { get; set; }
-
-        /// <summary>The create instance.</summary>
-        /// <param name="type">The type.</param>
-        /// <returns>The <see cref="Power2Component" />.</returns>
-        [ArtemisComponentCreate]
-        public static Power2Component CreateInstance(Type type)
+        /// <summary>The process.</summary>
+        /// <param name="entity">The entity.</param>
+        public override void Process(Entity entity)
         {
-            return new Power2Component();
+            TestHealthComponent testHealthComponent = entity.GetComponent<TestHealthComponent>();
+            testHealthComponent.AddDamage(20);
         }
     }
 }

@@ -121,7 +121,7 @@ namespace Artemis.System
                     this.actives = new Dictionary<int, Entity>();
                 }
 #else 
-            this.actives = new Dictionary<int, Entity>();
+                this.actives = new Dictionary<int, Entity>();
 #endif            
             }
         }
