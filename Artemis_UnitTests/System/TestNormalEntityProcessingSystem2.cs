@@ -1,7 +1,7 @@
 #region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="TestSimple2System.cs" company="GAMADU.COM">
+// <copyright file="TestNormalEntityProcessingSystem2.cs" company="GAMADU.COM">
 //     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
@@ -48,10 +48,10 @@ namespace UnitTests.System
 
     /// <summary>The second most simple system ever.</summary>
     [ArtemisEntitySystem]
-    public class TestSimple2System : EntityProcessingSystem
+    public class TestNormalEntityProcessingSystem2 : EntityProcessingSystem
     {
-        /// <summary>Initializes a new instance of the <see cref="TestSimple2System" /> class.</summary>
-        public TestSimple2System()
+        /// <summary>Initializes a new instance of the <see cref="TestNormalEntityProcessingSystem2" /> class.</summary>
+        public TestNormalEntityProcessingSystem2()
             : base(Aspect.One(typeof(TestPowerComponent), typeof(TestHealthComponent)))
         {
         }

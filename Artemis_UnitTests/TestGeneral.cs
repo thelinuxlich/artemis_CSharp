@@ -251,7 +251,7 @@ namespace UnitTests
         {
             Console.Write("Initialize EntityWorld: ");
             EntityWorld entityWorld = new EntityWorld();
-            entityWorld.SystemManager.SetSystem(new TestSimple1System(), GameLoopType.Update);
+            entityWorld.SystemManager.SetSystem(new TestNormalEntityProcessingSystem1(), GameLoopType.Update);
             entityWorld.InitializeAll(false);
             Console.WriteLine("OK");
 
@@ -284,9 +284,9 @@ namespace UnitTests
         {
             Console.Write("Initialize EntityWorld: ");
             EntityWorld entityWorld = new EntityWorld();
-            TestQueue1System test1System = entityWorld.SystemManager.SetSystem(new TestQueue1System(), GameLoopType.Update);
-            TestQueue1System test2System = entityWorld.SystemManager.SetSystem(new TestQueue1System(), GameLoopType.Update);
-            TestQueue2System test3System = entityWorld.SystemManager.SetSystem(new TestQueue2System(), GameLoopType.Update);
+            TestQueueSystem1 test1System = entityWorld.SystemManager.SetSystem(new TestQueueSystem1(), GameLoopType.Update);
+            TestQueueSystem1 test2System = entityWorld.SystemManager.SetSystem(new TestQueueSystem1(), GameLoopType.Update);
+            TestQueueSystem2 test3System = entityWorld.SystemManager.SetSystem(new TestQueueSystem2(), GameLoopType.Update);
             entityWorld.InitializeAll(false);
             Console.WriteLine("OK");
 
@@ -470,9 +470,9 @@ namespace UnitTests
             entityWorld.EntityManager.RemovedComponentEvent += RemovedComponent;
             entityWorld.EntityManager.RemovedEntityEvent += RemovedEntity;
             entityWorld.SystemManager.SetSystem(new TestRenderHealthBarSingleSystem(), GameLoopType.Update);
-            entityWorld.SystemManager.SetSystem(new Test1System(), GameLoopType.Update);
-            entityWorld.SystemManager.SetSystem(new Test2System(), GameLoopType.Update);
-            entityWorld.SystemManager.SetSystem(new Test3System(), GameLoopType.Update);
+            entityWorld.SystemManager.SetSystem(new TestEntityProcessingSystem1(), GameLoopType.Update);
+            entityWorld.SystemManager.SetSystem(new TestEntityProcessingSystem2(), GameLoopType.Update);
+            entityWorld.SystemManager.SetSystem(new TestEntityProcessingSystem3(), GameLoopType.Update);
             entityWorld.InitializeAll(false);
             Console.WriteLine("OK");
 

@@ -1,7 +1,7 @@
 #region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Test2System.cs" company="GAMADU.COM">
+// <copyright file="TestEntityProcessingSystem3.cs" company="GAMADU.COM">
 //     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
@@ -29,7 +29,7 @@
 //     or implied, of GAMADU.COM.
 // </copyright>
 // <summary>
-//   The dummy system 2.
+//   The dummy system 3.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
@@ -45,11 +45,11 @@ namespace UnitTests.System
 
     #endregion Using statements
 
-    /// <summary>The dummy system 2.</summary>
-    public class Test2System : EntityProcessingSystem
+    /// <summary>The dummy system 3.</summary>
+    public class TestEntityProcessingSystem3 : EntityProcessingSystem
     {
-        /// <summary>Initializes a new instance of the <see cref="Test2System" /> class.</summary>
-        public Test2System()
+        /// <summary>Initializes a new instance of the <see cref="TestEntityProcessingSystem3" /> class.</summary>
+        public TestEntityProcessingSystem3()
             : base(typeof(TestHealthComponent))
         {
         }

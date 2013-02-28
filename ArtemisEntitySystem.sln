@@ -1,19 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artemis", "Artemis_XNA_INDEPENDENT\Artemis.csproj", "{22C89AF2-E1CF-4976-91B9-7D33773DC6E7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtemisPC", "Artemis_XNA_INDEPENDENT\Artemis.csproj", "{22C89AF2-E1CF-4976-91B9-7D33773DC6E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artemis_Phone7", "Artemis_Phone7\Artemis_Phone7.csproj", "{9FEEB631-277E-404E-B95D-49B1F4F0A2F3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtemisPhone7", "Artemis_Phone7\Artemis_Phone7.csproj", "{9FEEB631-277E-404E-B95D-49B1F4F0A2F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artemis_Xbox360", "Artemis_Xbox360\Artemis_Xbox360.csproj", "{E890BAD4-64C6-442F-B466-7321A0BFA1A1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtemisXbox360", "Artemis_Xbox360\Artemis_Xbox360.csproj", "{E890BAD4-64C6-442F-B466-7321A0BFA1A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artemis_UnitTests", "Artemis_UnitTests\Artemis_UnitTests.csproj", "{7E590B36-02CD-415A-B920-69E6D96300C8}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AF44835C-046C-4A67-8E69-BADC8651D7D0}"
-	ProjectSection(SolutionItems) = preProject
-		Local.testsettings = Local.testsettings
-		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtemisUnitTests", "Artemis_UnitTests\Artemis_UnitTests.csproj", "{7E590B36-02CD-415A-B920-69E6D96300C8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

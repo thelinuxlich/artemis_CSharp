@@ -1,7 +1,7 @@
 #region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="TestQueue2System.cs" company="GAMADU.COM">
+// <copyright file="TestQueueSystem1.cs" company="GAMADU.COM">
 //     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
@@ -29,7 +29,7 @@
 //     or implied, of GAMADU.COM.
 // </copyright>
 // <summary>
-//   The queue system test 2.
+//   The queue system test 1.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
@@ -45,15 +45,15 @@ namespace UnitTests.System
 
     #endregion Using statements
 
-    /// <summary>The queue system test 2.</summary>
-    public class TestQueue2System : QueueSystemProcessingThreadSafe
+    /// <summary>The queue system test 1.</summary>
+    public class TestQueueSystem1 : QueueSystemProcessingThreadSafe
     {
         /// <summary>The process.</summary>
         /// <param name="entity">The entity.</param>
         public override void Process(Entity entity)
         {
             TestHealthComponent testHealthComponent = entity.GetComponent<TestHealthComponent>();
-            testHealthComponent.AddDamage(20);
+            testHealthComponent.AddDamage(10);
         }
     }
 }

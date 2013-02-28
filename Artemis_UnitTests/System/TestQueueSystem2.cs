@@ -1,7 +1,7 @@
 #region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Test3System.cs" company="GAMADU.COM">
+// <copyright file="TestQueueSystem2.cs" company="GAMADU.COM">
 //     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
@@ -29,7 +29,7 @@
 //     or implied, of GAMADU.COM.
 // </copyright>
 // <summary>
-//   The dummy system 3.
+//   The queue system test 2.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
@@ -45,20 +45,15 @@ namespace UnitTests.System
 
     #endregion Using statements
 
-    /// <summary>The dummy system 3.</summary>
-    public class Test3System : EntityProcessingSystem
+    /// <summary>The queue system test 2.</summary>
+    public class TestQueueSystem2 : QueueSystemProcessingThreadSafe
     {
-        /// <summary>Initializes a new instance of the <see cref="Test3System" /> class.</summary>
-        public Test3System()
-            : base(typeof(TestHealthComponent))
-        {
-        }
-
         /// <summary>The process.</summary>
         /// <param name="entity">The entity.</param>
         public override void Process(Entity entity)
         {
-            TestTimeWaster.Delay();
+            TestHealthComponent testHealthComponent = entity.GetComponent<TestHealthComponent>();
+            testHealthComponent.AddDamage(20);
         }
     }
 }
