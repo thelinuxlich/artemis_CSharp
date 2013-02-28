@@ -64,11 +64,11 @@ namespace Artemis
         /// <summary>The inner type.</summary>
         private readonly Type innerType;
 
-        /// <summary>The invalid objects.</summary>
-        private readonly List<T> invalidObjects;
+        /// <summary>The invalid components.</summary>
+        private readonly List<T> invalidComponents;
 
-        /// <summary>The actual items of the pool.</summary>
-        private T[] items;
+        /// <summary>The actual components of the pool.</summary>
+        private T[] components;
 
         /// <summary>Initializes a new instance of the <see cref="ComponentPool{T}"/> class.</summary>
         /// <param name="initialSize">The initial size of the pool.</param>
@@ -82,7 +82,7 @@ namespace Artemis
         /// <exception cref="ArgumentNullException">InnerType must not be null.</exception>
         public ComponentPool(int initialSize, int resizePool, bool resizes, Func<Type, T> allocateFunc, Type innerType)
         {
-            this.invalidObjects = new List<T>();
+            this.invalidComponents = new List<T>();
 
             // validate some parameters
             if (initialSize < 1)
@@ -109,9 +109,9 @@ namespace Artemis
             this.isResizeAllowed = resizes;
             this.ResizeAmount = resizePool;
 
-            // Create our items array.
-            this.items = new T[initialSize];
-            this.InvalidCount = this.items.Length;
+            // Create our components array.
+            this.components = new T[initialSize];
+            this.InvalidCount = this.components.Length;
 
             // Store our delegates.         
             this.allocate = allocateFunc;
@@ -131,7 +131,7 @@ namespace Artemis
         {
             get
             {
-                return this.items.Length - this.InvalidCount;
+                return this.components.Length - this.InvalidCount;
             }
         }
 
@@ -145,12 +145,12 @@ namespace Artemis
             {
                 index += this.InvalidCount;
 
-                if (index < this.InvalidCount || index >= this.items.Length)
+                if (index < this.InvalidCount || index >= this.components.Length)
                 {
                     throw new IndexOutOfRangeException("The index must be less than or equal to ValidCount");
                 }
 
-                return this.items[index];
+                return this.components[index];
             }
         }
 
@@ -162,29 +162,29 @@ namespace Artemis
         public void CleanUp()
         {
             ///////////30////////////50
-            foreach (T item in this.invalidObjects)
+            foreach (T component in this.invalidComponents)
             {
                 // otherwise if we're not at the start of the invalid objects, we have to move
                 // the object to the invalid object section of the array
-                if (item.PoolId != this.InvalidCount)
+                if (component.PoolId != this.InvalidCount)
                 {
-                    this.items[item.PoolId] = this.items[this.InvalidCount];
-                    this.items[this.InvalidCount].PoolId = item.PoolId;
-                    this.items[this.InvalidCount] = item;
-                    item.PoolId = -1;
+                    this.components[component.PoolId] = this.components[this.InvalidCount];
+                    this.components[this.InvalidCount].PoolId = component.PoolId;
+                    this.components[this.InvalidCount] = component;
+                    component.PoolId = -1;
                 }
 
                 // clean the object if desired
-                item.CleanUp();
+                component.CleanUp();
                 ++this.InvalidCount;
             }
 
-            this.invalidObjects.Clear();
+            this.invalidComponents.Clear();
         }
 
         /// <summary>Returns a new object from the Pool.</summary>
         /// <returns>The next object in the pool if available, null if all instances are valid.</returns>
-        /// <exception cref="Exception">Limit Exceeded items.Length and the pool was set to not resize.</exception>
+        /// <exception cref="Exception">Limit Exceeded components.Length and the pool was set to not resize.</exception>
         /// <exception cref="InvalidOperationException">The pool's allocate method returned a null object reference.</exception>
         public T New()
         {
@@ -194,23 +194,23 @@ namespace Artemis
                 // If we can't resize, then we can not give the user back any instance.
                 if (!this.isResizeAllowed)
                 {
-                    throw new Exception("Limit Exceeded " + this.items.Length + ", and the pool was set to not resize.");
+                    throw new Exception("Limit Exceeded " + this.components.Length + ", and the pool was set to not resize.");
                 }
 
-                // Create a new array with some more slots and copy over the existing items.
-                T[] newItems = new T[this.items.Length + this.ResizeAmount];
+                // Create a new array with some more slots and copy over the existing components.
+                T[] newComponents = new T[this.components.Length + this.ResizeAmount];
 
-                for (int index = this.items.Length - 1; index >= 0; --index)
+                for (int index = this.components.Length - 1; index >= 0; --index)
                 {
                     if (index >= this.InvalidCount)
                     {
-                        this.items[index].PoolId = index + this.ResizeAmount;
+                        this.components[index].PoolId = index + this.ResizeAmount;
                     }
 
-                    newItems[index + this.ResizeAmount] = this.items[index];
+                    newComponents[index + this.ResizeAmount] = this.components[index];
                 }
 
-                this.items = newItems;
+                this.components = newComponents;
 
                 // move the invalid count based on our resize amount
                 this.InvalidCount += this.ResizeAmount;
@@ -219,10 +219,10 @@ namespace Artemis
             // decrement the counter
             --this.InvalidCount;
 
-            // get the next item in the list
-            T result = this.items[this.InvalidCount];
+            // get the next component in the list
+            T result = this.components[this.InvalidCount];
 
-            // if the item is null, we need to allocate a new instance
+            // if the component is null, we need to allocate a new instance
             if (result == null)
             {
                 result = this.allocate(this.innerType);
@@ -232,7 +232,7 @@ namespace Artemis
                     throw new InvalidOperationException("The pool's allocate method returned a null object reference.");
                 }
 
-                this.items[this.InvalidCount] = result;
+                this.components[this.InvalidCount] = result;
             }
 
             result.PoolId = this.InvalidCount;
@@ -244,10 +244,10 @@ namespace Artemis
         }
 
         /// <summary>Returns the object.</summary>
-        /// <param name="item">The item.</param>
-        public void ReturnObject(T item)
+        /// <param name="component">The component.</param>
+        public void ReturnObject(T component)
         {
-            this.invalidObjects.Add(item);
+            this.invalidComponents.Add(component);
         }
     }
 }

@@ -1,7 +1,7 @@
 #region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="RenderSingleHealthBarSystem.cs" company="GAMADU.COM">
+// <copyright file="TestEntityProcessingSystem3.cs" company="GAMADU.COM">
 //     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
@@ -29,7 +29,7 @@
 //     or implied, of GAMADU.COM.
 // </copyright>
 // <summary>
-//   The single health bar render system.
+//   The dummy system 3.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
@@ -45,26 +45,12 @@ namespace UnitTests.System
 
     #endregion Using statements
 
-    /// <summary>The single health bar render system.</summary>
-    public class RenderSingleHealthBarSystem : EntityProcessingSystem
+    /// <summary>The dummy system 3.</summary>
+    public class TestEntityProcessingSystem3 : EntityProcessingSystem
     {
-        /// <summary>The health mapper.</summary>
-        private ComponentMapper<HealthComponent> healthMapper;
-
-        /// <summary>Initializes a new instance of the <see cref="RenderSingleHealthBarSystem" /> class.</summary>
-        public RenderSingleHealthBarSystem()
-            : base(typeof(HealthComponent))
-        {
-        }
-
-        /// <summary>Override to implement code that gets executed when systems are initialized.</summary>
-        public override void LoadContent()
-        {
-            this.healthMapper = new ComponentMapper<HealthComponent>(this.EntityWorld);
-        }
-
-        /// <summary>Override to implement code that gets executed when systems are terminated.</summary>
-        public override void UnloadContent()
+        /// <summary>Initializes a new instance of the <see cref="TestEntityProcessingSystem3" /> class.</summary>
+        public TestEntityProcessingSystem3()
+            : base(typeof(TestHealthComponent))
         {
         }
 
@@ -72,10 +58,7 @@ namespace UnitTests.System
         /// <param name="entity">The entity.</param>
         public override void Process(Entity entity)
         {
-            HealthComponent healthComponent = this.healthMapper.Get(entity);
-            healthComponent.AddDamage(10);
-
-            TimeWaster.Delay();
+            TestTimeWaster.Delay();
         }
     }
 }

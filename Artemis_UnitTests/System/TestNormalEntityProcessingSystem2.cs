@@ -1,7 +1,7 @@
 #region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Queue1System.cs" company="GAMADU.COM">
+// <copyright file="TestNormalEntityProcessingSystem2.cs" company="GAMADU.COM">
 //     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
@@ -29,7 +29,7 @@
 //     or implied, of GAMADU.COM.
 // </copyright>
 // <summary>
-//   The queue system test 1.
+//   The second most simple system ever.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
@@ -39,21 +39,36 @@ namespace UnitTests.System
     #region Using statements
 
     using Artemis;
+    using Artemis.Attributes;
     using Artemis.System;
 
     using UnitTests.Component;
 
     #endregion Using statements
 
-    /// <summary>The queue system test 1.</summary>
-    public class Queue1System : QueueSystemProcessingThreadSafe
+    /// <summary>The second most simple system ever.</summary>
+    [ArtemisEntitySystem]
+    public class TestNormalEntityProcessingSystem2 : EntityProcessingSystem
     {
+        /// <summary>Initializes a new instance of the <see cref="TestNormalEntityProcessingSystem2" /> class.</summary>
+        public TestNormalEntityProcessingSystem2()
+            : base(Aspect.One(typeof(TestPowerComponent), typeof(TestHealthComponent)))
+        {
+        }
+
         /// <summary>The process.</summary>
         /// <param name="entity">The entity.</param>
         public override void Process(Entity entity)
         {
-            HealthComponent healthComponent = entity.GetComponent<HealthComponent>();
-            healthComponent.AddDamage(10);
+            if (entity.GetComponent<TestHealthComponent>() != null)
+            {
+                entity.GetComponent<TestHealthComponent>().AddDamage(10);
+            }
+
+            if (entity.GetComponent<TestPowerComponent>() != null)
+            {
+                entity.GetComponent<TestPowerComponent>().Power -= 10;
+            }
         }
     }
 }

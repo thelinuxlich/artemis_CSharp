@@ -1,7 +1,7 @@
 #region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="RenderSingleHeavyHealthBarSystem.cs" company="GAMADU.COM">
+// <copyright file="TestRenderHealthBarSingleHeavySystem.cs" company="GAMADU.COM">
 //     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
@@ -46,21 +46,21 @@ namespace UnitTests.System
     #endregion Using statements
 
     /// <summary>The single heavy health bar render system.</summary>
-    public class RenderSingleHeavyHealthBarSystem : EntityProcessingSystem
+    public class TestRenderHealthBarSingleHeavySystem : EntityProcessingSystem
     {
         /// <summary>The health mapper.</summary>
-        private ComponentMapper<HealthComponent> healthMapper;
+        private ComponentMapper<TestHealthComponent> healthMapper;
 
-        /// <summary>Initializes a new instance of the <see cref="RenderSingleHeavyHealthBarSystem" /> class.</summary>
-        public RenderSingleHeavyHealthBarSystem()
-            : base(typeof(HealthComponent))
+        /// <summary>Initializes a new instance of the <see cref="TestRenderHealthBarSingleHeavySystem" /> class.</summary>
+        public TestRenderHealthBarSingleHeavySystem()
+            : base(typeof(TestHealthComponent))
         {
         }
 
         /// <summary>Override to implement code that gets executed when systems are initialized.</summary>
         public override void LoadContent()
         {
-            this.healthMapper = new ComponentMapper<HealthComponent>(this.EntityWorld);
+            this.healthMapper = new ComponentMapper<TestHealthComponent>(this.EntityWorld);
         }
 
         /// <summary>Override to implement code that gets executed when systems are terminated.</summary>
@@ -72,10 +72,10 @@ namespace UnitTests.System
         /// <param name="entity">The entity.</param>
         public override void Process(Entity entity)
         {
-            HealthComponent healthComponent = this.healthMapper.Get(entity);
-            healthComponent.AddDamage(10);
+            TestHealthComponent testHealthComponent = this.healthMapper.Get(entity);
+            testHealthComponent.AddDamage(10);
 
-            TimeWaster.Delay(1000);
+            TestTimeWaster.Delay(1000);
         }
     }
 }

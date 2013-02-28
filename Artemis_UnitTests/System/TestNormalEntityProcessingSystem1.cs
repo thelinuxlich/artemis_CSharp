@@ -1,7 +1,7 @@
 #region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="EntityTestTemplate.cs" company="GAMADU.COM">
+// <copyright file="TestNormalEntityProcessingSystem1.cs" company="GAMADU.COM">
 //     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
@@ -29,40 +29,46 @@
 //     or implied, of GAMADU.COM.
 // </copyright>
 // <summary>
-//   Class EntityTestTemplate.
+//   The most simple system ever.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
 
-namespace UnitTests.Template
+namespace UnitTests.System
 {
     #region Using statements
 
     using Artemis;
-    using Artemis.Attributes;
-    using Artemis.Interface;
+    using Artemis.System;
 
     using UnitTests.Component;
 
     #endregion Using statements
 
-    /// <summary>Class EntityTestTemplate.</summary>
-    [ArtemisEntityTemplate("test")]
-    public class EntityTestTemplate : IEntityTemplate
+    /// <summary>The most simple system ever.</summary>
+    public class TestNormalEntityProcessingSystem1 : EntityProcessingSystem
     {
-        /// <summary>The build entity.</summary>
-        /// <param name="entity">The entity.</param>
-        /// <param name="entityWorld">The entity world.</param>
-        /// <param name="args">The args.</param>
-        /// <returns>The built <see cref="Entity" />.</returns>
-        public Entity BuildEntity(Entity entity, EntityWorld entityWorld, params object[] args)
+        /// <summary>The test health mapper.</summary>
+        private ComponentMapper<TestHealthComponent> testHealthMapper;
+
+        /// <summary>Initializes a new instance of the <see cref="TestNormalEntityProcessingSystem1" /> class.</summary>
+        public TestNormalEntityProcessingSystem1()
+            : base(Aspect.Exclude(typeof(TestPowerComponent)))
         {
-            entity.AddComponent(new Power1Component());
-            entity.GetComponent<Power1Component>().Power = 100;
+        }
 
-            entity.Refresh();
+        /// <summary>Override to implement code that gets executed when systems are initialized.</summary>
+        public override void LoadContent()
+        {
+            this.testHealthMapper = new ComponentMapper<TestHealthComponent>(this.EntityWorld);
+        }
 
-            return entity;
+        /// <summary>The process.</summary>
+        /// <param name="entity">The entity.</param>
+        public override void Process(Entity entity)
+        {
+            TestHealthComponent testHealthComponent = this.testHealthMapper.Get(entity);
+            testHealthComponent.AddDamage(10);
         }
     }
 }

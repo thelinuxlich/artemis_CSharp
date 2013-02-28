@@ -1,7 +1,7 @@
 #region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Dummy1System.cs" company="GAMADU.COM">
+// <copyright file="TestPowerComponent.cs" company="GAMADU.COM">
 //     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
@@ -29,36 +29,24 @@
 //     or implied, of GAMADU.COM.
 // </copyright>
 // <summary>
-//   The dummy system 1.
+//   The power 1.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
 
-namespace UnitTests.System
+namespace UnitTests.Component
 {
     #region Using statements
 
-    using Artemis;
-    using Artemis.System;
-
-    using UnitTests.Component;
+    using Artemis.Interface;
 
     #endregion Using statements
 
-    /// <summary>The dummy system 1.</summary>
-    public class Dummy1System : EntityProcessingSystem
+    /// <summary>The power 1.</summary>
+    public class TestPowerComponent : IComponent
     {
-        /// <summary>Initializes a new instance of the <see cref="Dummy1System" /> class.</summary>
-        public Dummy1System()
-            : base(typeof(HealthComponent))
-        {
-        }
-
-        /// <summary>The process.</summary>
-        /// <param name="entity">The entity.</param>
-        public override void Process(Entity entity)
-        {
-            TimeWaster.Delay();
-        }
+        /// <summary>Gets or sets the power.</summary>
+        /// <value>The power.</value>
+        public float Power { get; set; }
     }
 }

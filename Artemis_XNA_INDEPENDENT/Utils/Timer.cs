@@ -40,8 +40,6 @@ namespace Artemis.Utils
 
     using global::System;
 
-    using Artemis;
-
     #endregion
 
     /// <summary>The class Timer.</summary>

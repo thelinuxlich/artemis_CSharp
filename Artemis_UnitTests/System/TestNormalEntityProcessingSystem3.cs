@@ -1,7 +1,7 @@
 #region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="HybridQueueSystem.cs" company="GAMADU.COM">
+// <copyright file="TestNormalEntityProcessingSystem3.cs" company="GAMADU.COM">
 //     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
@@ -29,7 +29,7 @@
 //     or implied, of GAMADU.COM.
 // </copyright>
 // <summary>
-//   The hybrid queue system test.
+//   The third most simple system ever.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
@@ -39,18 +39,21 @@ namespace UnitTests.System
     #region Using statements
 
     using Artemis;
+    using Artemis.Attributes;
+    using Artemis.Manager;
     using Artemis.System;
 
     using UnitTests.Component;
 
     #endregion Using statements
 
-    /// <summary>The hybrid queue system test.</summary>
-    public class HybridQueueSystem : HybridQueueSystemProcessing
+    /// <summary>The third most simple system ever.</summary>
+    [ArtemisEntitySystem(GameLoopType = GameLoopType.Update, Layer = 0)]
+    public class TestNormalEntityProcessingSystem3 : EntityProcessingSystem
     {
-        /// <summary>Initializes a new instance of the <see cref="HybridQueueSystem" /> class.</summary>
-        public HybridQueueSystem()
-            : base(typeof(HealthComponent))
+        /// <summary>Initializes a new instance of the <see cref="TestNormalEntityProcessingSystem3" /> class.</summary>
+        public TestNormalEntityProcessingSystem3()
+            : base(Aspect.One(typeof(TestPowerComponentPoolable), typeof(TestHealthComponent)))
         {
         }
 
@@ -58,8 +61,15 @@ namespace UnitTests.System
         /// <param name="entity">The entity.</param>
         public override void Process(Entity entity)
         {
-            HealthComponent healthComponent = entity.GetComponent<HealthComponent>();
-            healthComponent.AddDamage(10);
+            if (entity.GetComponent<TestHealthComponent>() != null)
+            {
+                entity.GetComponent<TestHealthComponent>().AddDamage(10);
+            }
+
+            if (entity.GetComponent<TestPowerComponentPoolable>() != null)
+            {
+                entity.GetComponent<TestPowerComponentPoolable>().Power -= 10;
+            }
         }
     }
 }

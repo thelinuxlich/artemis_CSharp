@@ -306,7 +306,7 @@ namespace Artemis
         /// <returns>A <see cref="string" /> that represents this instance.</returns>
         public override string ToString()
         {
-            return "Entity[" + this.Id + "]";
+            return string.Format("Entity{{{0}}}", this.Id);
         }
 
         /// <summary>Adds the system bit.</summary>

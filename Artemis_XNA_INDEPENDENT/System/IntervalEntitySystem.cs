@@ -38,9 +38,9 @@ namespace Artemis.System
 {
     #region Using statements
 
-    using Artemis.Utils;
-
     using global::System;
+
+    using Artemis.Utils;
 
     #endregion Using statements
 
