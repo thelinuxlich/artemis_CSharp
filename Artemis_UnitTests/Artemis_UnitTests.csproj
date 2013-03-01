@@ -14,6 +14,7 @@
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -26,7 +27,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -46,7 +46,8 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\Test\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>
+    </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\Test\UnitTests.xml</DocumentationFile>
@@ -63,6 +64,9 @@
     <Compile Include="Component\TestHealthComponent.cs" />
     <Compile Include="Component\TestPowerComponent.cs" />
     <Compile Include="Component\TestPowerComponentPoolable.cs" />
+    <Compile Include="System\TestNormalEntityProcessingSystem2.cs" />
+    <Compile Include="System\TestNormalEntityProcessingSystem3.cs" />
+    <Compile Include="System\TestQueueSystemCopy.cs" />
     <Compile Include="TestEntityFactory.cs" />
     <Compile Include="TestGeneral.cs" />
     <Compile Include="Program.cs" />
@@ -72,14 +76,11 @@
     <Compile Include="System\TestEntityProcessingSystem2.cs" />
     <Compile Include="System\TestEntityProcessingSystem3.cs" />
     <Compile Include="System\TestQueueHybridSystem.cs" />
-    <Compile Include="System\TestQueueSystem1.cs" />
-    <Compile Include="System\TestQueueSystem2.cs" />
+    <Compile Include="System\TestQueueSystem.cs" />
     <Compile Include="System\TestRenderHealthBarSingleSystem.cs" />
-    <Compile Include="System\TestNormalEntityProcessingSystem2.cs" />
     <Compile Include="System\TestNormalEntityProcessingSystem1.cs" />
     <Compile Include="System\TestRenderHealthBarMultiSystem.cs" />
     <Compile Include="System\TestRenderHealthBarSingleHeavySystem.cs" />
-    <Compile Include="System\TestNormalEntityProcessingSystem3.cs" />
     <Compile Include="Template\TestEntityTemplate.cs" />
     <Compile Include="TestBag.cs" />
     <Compile Include="TestTimeWaster.cs" />

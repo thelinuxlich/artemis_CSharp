@@ -63,17 +63,11 @@ namespace UnitTests.System
             this.healthMapper = new ComponentMapper<TestHealthComponent>(this.EntityWorld);
         }
 
-        /// <summary>Override to implement code that gets executed when systems are terminated.</summary>
-        public override void UnloadContent()
-        {
-        }
-
         /// <summary>The process.</summary>
         /// <param name="entity">The entity.</param>
         public override void Process(Entity entity)
         {
-            TestHealthComponent testHealthComponent = this.healthMapper.Get(entity);
-            testHealthComponent.AddDamage(10);
+            this.healthMapper.Get(entity).AddDamage(10);
 
             TestTimeWaster.Delay(1000);
         }
