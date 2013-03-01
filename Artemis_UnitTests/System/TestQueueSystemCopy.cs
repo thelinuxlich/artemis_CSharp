@@ -1,7 +1,7 @@
 #region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="TestQueueSystem2.cs" company="GAMADU.COM">
+// <copyright file="TestQueueSystemCopy.cs" company="GAMADU.COM">
 //     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
@@ -46,14 +46,33 @@ namespace UnitTests.System
     #endregion Using statements
 
     /// <summary>The queue system test 2.</summary>
-    public class TestQueueSystem2 : QueueSystemProcessingThreadSafe
+    public class TestQueueSystemCopy : QueueSystemProcessingThreadSafe
     {
+        /// <summary>The test health mapper.</summary>
+        private ComponentMapper<TestHealthComponent> testHealthMapper;
+
+        /// <summary>Initializes a new instance of the <see cref="TestQueueSystemCopy"/> class.</summary>
+        /// <param name="damage">The damage.</param>
+        public TestQueueSystemCopy(int damage)
+        {
+            this.Damage = damage;
+        }
+
+        /// <summary>Gets the damage.</summary>
+        /// <value>The damage.</value>
+        public int Damage { get; private set; }
+
+        /// <summary>Override to implement code that gets executed when systems are initialized.</summary>
+        public override void LoadContent()
+        {
+            this.testHealthMapper = new ComponentMapper<TestHealthComponent>(this.EntityWorld);
+        }
+
         /// <summary>The process.</summary>
         /// <param name="entity">The entity.</param>
         public override void Process(Entity entity)
         {
-            TestHealthComponent testHealthComponent = entity.GetComponent<TestHealthComponent>();
-            testHealthComponent.AddDamage(20);
+            this.testHealthMapper.Get(entity).AddDamage(this.Damage);
         }
     }
 }

@@ -78,9 +78,12 @@ namespace UnitTests
             Console.Write("Initialize EntityWorld: ");
             EntityWorld entityWorld = new EntityWorld { PoolCleanupDelay = 1 };
             entityWorld.InitializeAll();
-
-            Debug.Assert(entityWorld.SystemManager.Systems.Count == 2, "Number of Systems is not 2.");
             Console.WriteLine("OK");
+
+            const int ExpectedNumberOfSystems = 2;
+            int actualNumberOfSystems = entityWorld.SystemManager.Systems.Count;
+            Assert.AreEqual(ExpectedNumberOfSystems, actualNumberOfSystems, "Number of initial systems does not fit.");
+            Console.WriteLine("Number of Systems: {0} OK", actualNumberOfSystems);
 
             Console.Write("Build up entity with component from pool manually: ");
             Entity entityWithPooledComponent = TestEntityFactory.CreateTestPowerEntityWithPooledComponent(entityWorld);
@@ -220,6 +223,7 @@ namespace UnitTests
             float expectedPointsFirstChunk = 100.0f - (10 * numberOfQueues);
             if (expectedPointsFirstChunk < 0.0f)
             {
+                Console.Write("Results may be inaccurate. Please lower chunk size. ");
                 expectedPointsFirstChunk = 0.0f;
             }
 
@@ -234,6 +238,7 @@ namespace UnitTests
             float expectedPointsSecondChunk = 90.0f - (10 * numberOfQueues);
             if (expectedPointsSecondChunk < 0.0f)
             {
+                Console.Write("Results may be inaccurate. Please lower chunk size. ");
                 expectedPointsSecondChunk = 0.0f;
             }
 
@@ -245,9 +250,9 @@ namespace UnitTests
             Console.WriteLine("OK");
         }
 
-        /// <summary>Tests the simple systems.</summary>
+        /// <summary>Tests a simple system.</summary>
         [TestMethod]
-        public void TestSimple1System()
+        public void TestSimpleSystem()
         {
             Console.Write("Initialize EntityWorld: ");
             EntityWorld entityWorld = new EntityWorld();
@@ -284,20 +289,20 @@ namespace UnitTests
         {
             Console.Write("Initialize EntityWorld: ");
             EntityWorld entityWorld = new EntityWorld();
-            TestQueueSystem1 test1System = entityWorld.SystemManager.SetSystem(new TestQueueSystem1(), GameLoopType.Update);
-            TestQueueSystem1 test2System = entityWorld.SystemManager.SetSystem(new TestQueueSystem1(), GameLoopType.Update);
-            TestQueueSystem2 test3System = entityWorld.SystemManager.SetSystem(new TestQueueSystem2(), GameLoopType.Update);
+            TestQueueSystem testQueueSystem1 = entityWorld.SystemManager.SetSystem(new TestQueueSystem(10), GameLoopType.Update);
+            TestQueueSystem testQueueSystem2 = entityWorld.SystemManager.SetSystem(new TestQueueSystem(10), GameLoopType.Update);
+            TestQueueSystemCopy testQueueSystem3 = entityWorld.SystemManager.SetSystem(new TestQueueSystemCopy(20), GameLoopType.Update);
             entityWorld.InitializeAll(false);
             Console.WriteLine("OK");
 
-            QueueSystemProcessingThreadSafe.SetQueueProcessingLimit(20, test2System.Id);
+            QueueSystemProcessingThreadSafe.SetQueueProcessingLimit(20, testQueueSystem2.Id);
 
-            Assert.AreEqual(QueueSystemProcessingThreadSafe.GetQueueProcessingLimit(test1System.Id), QueueSystemProcessingThreadSafe.GetQueueProcessingLimit(test2System.Id));
+            int expectedLimit = QueueSystemProcessingThreadSafe.GetQueueProcessingLimit(testQueueSystem2.Id);
+            Assert.AreEqual(expectedLimit, QueueSystemProcessingThreadSafe.GetQueueProcessingLimit(testQueueSystem1.Id));
+            Assert.AreNotEqual(expectedLimit, QueueSystemProcessingThreadSafe.GetQueueProcessingLimit(testQueueSystem3.Id));
 
-            Assert.AreNotEqual(QueueSystemProcessingThreadSafe.GetQueueProcessingLimit(test3System.Id), QueueSystemProcessingThreadSafe.GetQueueProcessingLimit(test2System.Id));
-
-            QueueSystemProcessingThreadSafe.SetQueueProcessingLimit(1024, test1System.Id);
-            QueueSystemProcessingThreadSafe.SetQueueProcessingLimit(4096, test3System.Id);
+            QueueSystemProcessingThreadSafe.SetQueueProcessingLimit(1024, testQueueSystem1.Id);
+            QueueSystemProcessingThreadSafe.SetQueueProcessingLimit(4096, testQueueSystem3.Id);
 
             Console.Write("Fill EntityWorld with first  chunk of " + Load + " entities: ");
             List<Entity> entities1 = new List<Entity>();
@@ -305,7 +310,7 @@ namespace UnitTests
             {
                 Entity entity = TestEntityFactory.CreateTestHealthEntity(entityWorld);
 
-                QueueSystemProcessingThreadSafe.AddToQueue(entity, test1System.Id);
+                QueueSystemProcessingThreadSafe.AddToQueue(entity, testQueueSystem1.Id);
                 entities1.Add(entity);
             }
 
@@ -316,7 +321,7 @@ namespace UnitTests
             {
                 Entity entity = TestEntityFactory.CreateTestHealthEntity(entityWorld);
 
-                QueueSystemProcessingThreadSafe.AddToQueue(entity, test3System.Id);
+                QueueSystemProcessingThreadSafe.AddToQueue(entity, testQueueSystem3.Id);
                 entities2.Add(entity);
             }
 
@@ -324,13 +329,13 @@ namespace UnitTests
             Console.WriteLine("Begin down tearing of queues...");
             Stopwatch stopwatch = Stopwatch.StartNew();
             int loopCount = 0;
-            while (QueueSystemProcessingThreadSafe.QueueCount(test1System.Id) > 0 || QueueSystemProcessingThreadSafe.QueueCount(test3System.Id) > 0)
+            while (QueueSystemProcessingThreadSafe.QueueCount(testQueueSystem1.Id) > 0 || QueueSystemProcessingThreadSafe.QueueCount(testQueueSystem3.Id) > 0)
             {
                 entityWorld.Update(ExecutionType.Asynchronous);
                 entityWorld.Draw();
                 ++loopCount;
 #if DEBUG
-                Console.WriteLine("Queue size thread A: {0} B: {1}", QueueSystemProcessingThreadSafe.QueueCount(test1System.Id), QueueSystemProcessingThreadSafe.QueueCount(test3System.Id));
+                Console.WriteLine("Queue size thread A: {0} B: {1}", QueueSystemProcessingThreadSafe.QueueCount(testQueueSystem1.Id), QueueSystemProcessingThreadSafe.QueueCount(testQueueSystem3.Id));
 #endif
             }
 
@@ -339,17 +344,17 @@ namespace UnitTests
 
             Console.Write("Test entities 1: ");
             const float Expected1 = 90.0f;
-            foreach (Entity item in entities1)
+            foreach (Entity entity in entities1)
             {
-                Assert.AreEqual(Expected1, item.GetComponent<TestHealthComponent>().Points);
+                Assert.AreEqual(Expected1, entity.GetComponent<TestHealthComponent>().Points);
             }
 
             Console.WriteLine("OK");
             Console.Write("Test entities 2: ");
             const float Expected2 = 80.0f;
-            foreach (Entity item in entities2)
+            foreach (Entity entity in entities2)
             {
-                Assert.AreEqual(Expected2, item.GetComponent<TestHealthComponent>().Points);
+                Assert.AreEqual(Expected2, entity.GetComponent<TestHealthComponent>().Points);
             }
 
             Console.WriteLine("OK");
