@@ -56,7 +56,7 @@ namespace UnitTests
             testGeneral.TestMultipleSystems();
             testGeneral.TestQueueSystems();
             testGeneral.TestRenderMultiHealthBarSystem();
-            testGeneral.TestSimple1System();
+            testGeneral.TestSimpleSystem();
             testGeneral.TestSystemCommunication();
             Console.WriteLine("General test end.");
 

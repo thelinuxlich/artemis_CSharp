@@ -274,6 +274,9 @@ namespace UnitTests
 
             // Reset bag.
             bigBag = new Bag<int>(0);
+            
+            // This is need to secure that enough memory is left.
+            GC.Collect();
 
             // Start measurement.
             Stopwatch stopwatch = Stopwatch.StartNew();

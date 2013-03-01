@@ -72,8 +72,7 @@ namespace UnitTests.System
         /// <param name="entity">The entity.</param>
         public override void Process(Entity entity)
         {
-            TestHealthComponent testHealthComponent = this.healthMapper.Get(entity);
-            testHealthComponent.AddDamage(10);
+            this.healthMapper.Get(entity).AddDamage(10);
 
             TestTimeWaster.Delay(1000);
         }
