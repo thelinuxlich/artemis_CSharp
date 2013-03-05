@@ -213,21 +213,33 @@ namespace Artemis.Manager
                 IDictionary<Type, List<Attribute>> types = AttributesProcessor.Process(AttributesProcessor.SupportedAttributes);
                 foreach (KeyValuePair<Type, List<Attribute>> item in types)
                 {
+#if METRO                    
+                    if (typeof(EntitySystem).GetTypeInfo().IsAssignableFrom(item.Key.GetTypeInfo()))
+#else
                     if (typeof(EntitySystem).IsAssignableFrom(item.Key))
+#endif
                     {
                         Type type = item.Key;
                         ArtemisEntitySystem pee = (ArtemisEntitySystem)item.Value[0];
                         EntitySystem instance = (EntitySystem)Activator.CreateInstance(type);
                         this.SetSystem(instance, pee.GameLoopType, pee.Layer);
                     }
+#if METRO                    
+                    else if (typeof(IEntityTemplate).GetTypeInfo().IsAssignableFrom(item.Key.GetTypeInfo()))
+#else
                     else if (typeof(IEntityTemplate).IsAssignableFrom(item.Key))
+#endif
                     {
                         Type type = item.Key;
                         ArtemisEntityTemplate pee = (ArtemisEntityTemplate)item.Value[0];
                         IEntityTemplate instance = (IEntityTemplate)Activator.CreateInstance(type);
                         this.entityWorld.SetEntityTemplate(pee.Name, instance);
                     }
+#if METRO                    
+                    else if (typeof(ComponentPoolable).GetTypeInfo().IsAssignableFrom(item.Key.GetTypeInfo()))
+#else
                     else if (typeof(ComponentPoolable).IsAssignableFrom(item.Key))
+#endif
                     {
                         ArtemisComponentPool propertyComponentPool = null;
 
@@ -237,12 +249,21 @@ namespace Artemis.Manager
                         }
 
                         Type type = item.Key;
+#if METRO            
+                        IEnumerable<MethodInfo> methods = type.GetRuntimeMethods();
+#else
                         MethodInfo[] methods = type.GetMethods();
+#endif
+
 
                         Func<Type, ComponentPoolable> create = null;
                         foreach (MethodInfo methodInfo in from methodInfo in methods let attributes = methodInfo.GetCustomAttributes(false) from attribute in attributes.OfType<ArtemisComponentCreate>() select methodInfo)
                         {
+#if METRO                                                                   
+                            create = (Func<Type, ComponentPoolable>) methodInfo.CreateDelegate(typeof(Func<Type, ComponentPoolable>));                            
+#else
                             create = (Func<Type, ComponentPoolable>)Delegate.CreateDelegate(typeof(Func<Type, ComponentPoolable>), methodInfo);
+#endif
                         }
 
                         if (create == null)
