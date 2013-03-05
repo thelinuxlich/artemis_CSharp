@@ -41,11 +41,12 @@ namespace Artemis.System
     using global::System;
     using global::System.Collections.Generic;
     using global::System.Diagnostics;
-#if !XBOX && !WINDOWS_PHONE
+    using Artemis.Blackboard;
+
+#if !XBOX && !WINDOWS_PHONE  && !PORTABLE
     using global::System.Numerics;
 #endif
-    using Artemis.Blackboard;
-#if XBOX || WINDOWS_PHONE
+#if XBOX || WINDOWS_PHONE || PORTABLE
     using BigInteger = global::System.Int32;
 #endif
 
@@ -111,7 +112,7 @@ namespace Artemis.System
             protected internal set
             {
                 this.entityWorld = value;
-#if !XBOX && !WINDOWS_PHONE
+#if !XBOX && !WINDOWS_PHONE && !PORTABLE
                 if (EntityWorld.IsSortedEntities)
                 {
                     this.actives = new SortedDictionary<int, Entity>();

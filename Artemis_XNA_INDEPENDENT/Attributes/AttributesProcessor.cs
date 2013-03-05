@@ -133,7 +133,7 @@ namespace Artemis.Attributes
                 {
                     Assembly.GetCallingAssembly(),
                     Assembly.GetExecutingAssembly(),
-                }
+                };
 #endif
 
             foreach (Assembly item in loadedAssemblies)

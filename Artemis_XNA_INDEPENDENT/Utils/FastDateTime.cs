@@ -57,7 +57,11 @@ namespace Artemis.Utils
     public static class FastDateTime
     {
         /// <summary>The local UTC offset.</summary>
+#if !PORTABLE        
         private static readonly TimeSpan LocalUtcOffset = TimeZoneInfo.Utc.GetUtcOffset(DateTime.Now);
+#else
+        private static readonly TimeSpan LocalUtcOffset = DateTime.UtcNow - DateTime.Now;        
+#endif
 
         /// <summary>Gets the now.</summary>
         public static DateTime Now

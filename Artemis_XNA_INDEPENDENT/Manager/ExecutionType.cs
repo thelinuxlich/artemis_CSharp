@@ -42,7 +42,9 @@ namespace Artemis.Manager
         /// <summary>The synchronous.</summary>
         Synchronous,
 
+#if !PORTABLE
         /// <summary>The asynchronous.</summary>
         Asynchronous,
+#endif
     }
 }
