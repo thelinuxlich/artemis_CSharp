@@ -44,6 +44,43 @@ namespace Artemis.Attributes
 
     #endregion Using statements
 
+#if METRO
+
+    sealed class AppDomain
+    {
+        public static AppDomain CurrentDomain { get; private set; }
+
+        static AppDomain()
+        {
+            CurrentDomain = new AppDomain();
+        }
+
+        public IEnumerable<Assembly> GetAssemblies()
+        {
+            return GetAssemblyListAsync().Result;
+        }
+
+        private async global::System.Threading.Tasks.Task<IEnumerable<Assembly>> GetAssemblyListAsync()
+        {
+            var folder = Windows.ApplicationModel.Package.Current.InstalledLocation;
+
+            List<Assembly> assemblies = new List<Assembly>();
+            foreach (Windows.Storage.StorageFile file in await folder.GetFilesAsync())
+            {
+                if (file.FileType == ".dll" || file.FileType == ".exe")
+                {
+                    AssemblyName name = new AssemblyName() { Name = global::System.IO.Path.GetFileNameWithoutExtension(file.Name) };
+                    Assembly asm = Assembly.Load(name);
+                    assemblies.Add(asm);
+                }
+            }
+
+            return assemblies;
+        }
+    }
+
+#endif
+
     /// <summary>Class AttributesProcessor.</summary>
     public class AttributesProcessor
     {
@@ -89,18 +126,30 @@ namespace Artemis.Attributes
             return attributeTypes;
 #else
 
+#if METRO
+            IEnumerable<Assembly> loadedAssemblies  = AppDomain.CurrentDomain.GetAssemblies();
+#else
             List<Assembly> loadedAssemblies = new List<Assembly>
-                                                  {
-                                                      Assembly.GetCallingAssembly(),
-                                                      Assembly.GetExecutingAssembly(),
-                                                  };
+                {
+                    Assembly.GetCallingAssembly(),
+                    Assembly.GetExecutingAssembly(),
+                }
+#endif
 
             foreach (Assembly item in loadedAssemblies)
             {
+#if METRO      
+                IEnumerable<Type> types = item.ExportedTypes;
+#else
                 Type[] types = item.GetTypes();
+#endif          
                 foreach (Type type in types)
                 {
+#if METRO      
+                    var attributes = type.GetTypeInfo().GetCustomAttributes(false);
+#else
                     var attributes = type.GetCustomAttributes(false);
+#endif
                     foreach (object attribute in attributes)
                     {
                         if (supportedAttributes.Contains(attribute.GetType()))
