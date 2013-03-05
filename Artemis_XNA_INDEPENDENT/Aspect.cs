@@ -41,12 +41,12 @@ namespace Artemis
     using global::System;
     using global::System.Diagnostics;
     using global::System.Linq;
-    
-#if !XBOX && !WINDOWS_PHONE
+    using Artemis.Manager;
+
+#if !XBOX && !WINDOWS_PHONE  && !PORTABLE
     using global::System.Numerics;
 #endif
-    using Artemis.Manager;
-#if XBOX || WINDOWS_PHONE
+#if XBOX || WINDOWS_PHONE || PORTABLE
     using BigInteger = global::System.Int32;
 #endif
 

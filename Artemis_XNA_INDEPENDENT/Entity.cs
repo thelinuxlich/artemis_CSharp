@@ -40,15 +40,16 @@ namespace Artemis
 
     using global::System.Diagnostics;
 
-#if !XBOX && !WINDOWS_PHONE
+#if !XBOX && !WINDOWS_PHONE  && !PORTABLE
     using global::System.Numerics;
+#endif
+#if XBOX || WINDOWS_PHONE || PORTABLE
+    using BigInteger = global::System.Int32;
 #endif
     using Artemis.Interface;
     using Artemis.Manager;
     using Artemis.Utils;
-#if XBOX || WINDOWS_PHONE
-    using BigInteger = global::System.Int32;
-#endif
+
 
     #endregion
 

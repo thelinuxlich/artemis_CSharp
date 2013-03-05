@@ -49,7 +49,7 @@ namespace Artemis.Manager
     using Artemis.Interface;
     using Artemis.System;
     using Artemis.Utils;
-#if !FULLDOTNET
+#if !FULLDOTNET && !PORTABLE
     using ParallelTasks;
 #endif
 
@@ -328,6 +328,7 @@ namespace Artemis.Manager
                     }
 
                     break;
+#if !PORTABLE
                 case ExecutionType.Asynchronous:
                     foreach (int item in this.updateLayers.Keys)
                     {
@@ -335,6 +336,7 @@ namespace Artemis.Manager
                     }
 
                     break;
+#endif
             }
         }
 
@@ -351,6 +353,7 @@ namespace Artemis.Manager
                     }
 
                     break;
+#if !PORTABLE
                 case ExecutionType.Asynchronous:
                     foreach (int item in this.drawLayers.Keys)
                     {
@@ -358,6 +361,7 @@ namespace Artemis.Manager
                     }
 
                     break;
+#endif
             }
         }
 
@@ -379,11 +383,13 @@ namespace Artemis.Manager
             }
         }
 
+#if !PORTABLE     
         /// <summary>Updates the bag asynchronous.</summary>
         /// <param name="entitySystems">The entity systems.</param>
         private static void UpdateBagAsynchronous(IEnumerable<EntitySystem> entitySystems)
         {
             Parallel.ForEach(entitySystems, entitySystem => entitySystem.Process());
         }
+#endif
     }
 }

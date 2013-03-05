@@ -34,6 +34,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
 
+#if !PORTABLE
 namespace Artemis.System
 {
     #region Using statements
@@ -85,7 +86,11 @@ namespace Artemis.System
         /// <param name="entities">The entities.</param>
         protected override void ProcessEntities(IDictionary<int, Entity> entities)
         {
+#if !PORTABLE
             float simultaneous = Environment.ProcessorCount * 2;
+#else
+            float simultaneous = 2;
+#endif
             int perThread = (int)Math.Ceiling(entities.Values.Count / simultaneous);
             Entity[] threadEntities = new Entity[entities.Values.Count];
             entities.Values.CopyTo(threadEntities, 0);
@@ -98,7 +103,7 @@ namespace Artemis.System
 #if FULLDOTNET
                 tasks.Add(
                     this.factory.StartNew(
-#else
+#else                
                 tasks.Add(Parallel.Start(
 #endif
                         () =>
@@ -121,3 +126,4 @@ namespace Artemis.System
         }
     }
 }
+#endif

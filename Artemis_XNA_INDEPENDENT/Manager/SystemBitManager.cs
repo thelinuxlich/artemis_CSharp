@@ -39,11 +39,12 @@ namespace Artemis.Manager
     #region Using statements
 
     using global::System.Collections.Generic;
-#if !XBOX && !WINDOWS_PHONE
+    using Artemis.System;
+
+#if !XBOX && !WINDOWS_PHONE  && !PORTABLE
     using global::System.Numerics;
 #endif
-    using Artemis.System;
-#if XBOX || WINDOWS_PHONE
+#if XBOX || WINDOWS_PHONE || PORTABLE
     using BigInteger = global::System.Int32;
 #endif
 
@@ -66,7 +67,7 @@ namespace Artemis.Manager
             BigInteger bit;
             if (SystemBits.TryGetValue(entitySystem, out bit) == false)
             {
-#if WINDOWS_PHONE || XBOX
+#if WINDOWS_PHONE || XBOX || PORTABLE
                 bit = 1 << position;
 #else
                 bit = 1L << position;
