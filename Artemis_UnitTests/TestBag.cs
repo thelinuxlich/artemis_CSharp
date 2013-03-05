@@ -262,7 +262,7 @@ namespace UnitTests
             // Identify max mem size.
             Bag<int> bigBag = new Bag<int>();
             int maxMem = 0;
-            for (int index = 0; index < int.MaxValue; ++index)
+            for (int index = 0; index < 1000000; ++index)
             {
                 try
                 {
@@ -280,8 +280,8 @@ namespace UnitTests
             // Reset bag.
             bigBag = new Bag<int>(0);
             
-            // This is need to secure that enough memory is left.
-            GC.Collect();
+            // This is need to secure that enough memory is left. (not reliable in most platforms)
+            GC.Collect();            
 
             // Start measurement.
             Stopwatch stopwatch = Stopwatch.StartNew();

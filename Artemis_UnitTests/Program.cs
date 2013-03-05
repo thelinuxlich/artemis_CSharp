@@ -64,7 +64,7 @@ namespace UnitTests
 
 #if !METRO && !PORTABLE
             global::System.Diagnostics.Debug.WriteLine("Press any key to continue...");
-            global::System.Diagnostics.Debug.ReadKey(true);
+            Console.ReadKey(true);
 #endif
 
             global::System.Diagnostics.Debug.WriteLine("Bag test begin...");
@@ -88,7 +88,7 @@ namespace UnitTests
 
 #if !METRO && !PORTABLE
             global::System.Diagnostics.Debug.WriteLine("Press any key to continue...");
-            global::System.Diagnostics.Debug.ReadKey(true);
+            Console.ReadKey(true);
 #endif
         }
     }

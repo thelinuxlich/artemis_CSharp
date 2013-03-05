@@ -241,7 +241,7 @@ namespace Artemis
             return this.pools[type];
         }
 
-        
+
 #if !FULLDOTNET && !METRO
         /// <summary>Initialize the EntityWorld.</summary>        
         /// <param name="assembliesToScan">The assemblies to scan for data attributes.</param>
