@@ -48,22 +48,26 @@ namespace UnitTests
         /// <summary>Defines the entry point of the application.</summary>
         public static void Main()
         {
-            Console.WriteLine("General test begin...");
+            global::System.Diagnostics.Debug.WriteLine("General test begin...");
             TestGeneral testGeneral = new TestGeneral();
             testGeneral.TestAttributes();
             testGeneral.TestDummies();
             testGeneral.TestHybridQueueSystem();
             testGeneral.TestMultipleSystems();
             testGeneral.TestQueueSystems();
+#if !PORTABLE
             testGeneral.TestRenderMultiHealthBarSystem();
+#endif
             testGeneral.TestSimpleSystem();
             testGeneral.TestSystemCommunication();
-            Console.WriteLine("General test end.");
+            global::System.Diagnostics.Debug.WriteLine("General test end.");
 
-            Console.WriteLine("Press any key to continue...");
-            Console.ReadKey(true);
+#if !METRO && !PORTABLE
+            global::System.Diagnostics.Debug.WriteLine("Press any key to continue...");
+            global::System.Diagnostics.Debug.ReadKey(true);
+#endif
 
-            Console.WriteLine("Bag test begin...");
+            global::System.Diagnostics.Debug.WriteLine("Bag test begin...");
             TestBag testBag = new TestBag();
             testBag.TestPerformance();
             testBag.TestAdd();
@@ -80,10 +84,12 @@ namespace UnitTests
             testBag.TestRemoveAll();
             testBag.TestRemoveLast();
             testBag.TestSet();
-            Console.WriteLine("Bag test end.");
+            global::System.Diagnostics.Debug.WriteLine("Bag test end.");
 
-            Console.WriteLine("Press any key to continue...");
-            Console.ReadKey(true);
+#if !METRO && !PORTABLE
+            global::System.Diagnostics.Debug.WriteLine("Press any key to continue...");
+            global::System.Diagnostics.Debug.ReadKey(true);
+#endif
         }
     }
 }

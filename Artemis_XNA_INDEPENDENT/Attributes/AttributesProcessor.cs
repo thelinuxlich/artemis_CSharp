@@ -94,9 +94,17 @@ namespace Artemis.Attributes
                                                                     };
 
         /// <summary>Processes the specified supported attributes.</summary>
-        /// <param name="supportedAttributes">The supported attributes.</param>
+        /// <param name="supportedAttributes">The supported attributes.</param>        
+#if !FULLDOTNET && !METRO        
+        /// <param name="assembliesToScan">The assemblies to scan.</param>
+        /// <returns>
+        /// The Dictionary{TypeList{Attribute}}.
+        /// </returns>
+        public static IDictionary<Type, List<Attribute>> Process(List<Type> supportedAttributes, List<Assembly> assembliesToScan)
+#else
         /// <returns>The Dictionary{TypeList{Attribute}}.</returns>
         public static IDictionary<Type, List<Attribute>> Process(List<Type> supportedAttributes)
+#endif
         {
             IDictionary<Type, List<Attribute>> attributeTypes = new Dictionary<Type, List<Attribute>>();
 
@@ -128,14 +136,9 @@ namespace Artemis.Attributes
 
 #if METRO
             IEnumerable<Assembly> loadedAssemblies  = AppDomain.CurrentDomain.GetAssemblies();
-#else
-            List<Assembly> loadedAssemblies = new List<Assembly>
-                {
-                    Assembly.GetCallingAssembly(),
-                    Assembly.GetExecutingAssembly(),
-                };
+#else            
+            List<Assembly> loadedAssemblies = assembliesToScan;
 #endif
-
             foreach (Assembly item in loadedAssemblies)
             {
 #if METRO      

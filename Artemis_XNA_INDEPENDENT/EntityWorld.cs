@@ -241,16 +241,24 @@ namespace Artemis
             return this.pools[type];
         }
 
+        
+#if !FULLDOTNET && !METRO
+        /// <summary>Initialize the EntityWorld.</summary>        
+        /// <param name="assembliesToScan">The assemblies to scan for data attributes.</param>
+        public void InitializeAll(params global::System.Reflection.Assembly[] assembliesToScan)
+        {
+            var processAttributes = assembliesToScan != null && assembliesToScan.Length > 0 ? true : false;
+            this.SystemManager.InitializeAll(processAttributes, assembliesToScan.ToList());
+        }
+#else
         /// <summary>Initialize the EntityWorld.</summary>
         /// <param name="processAttributes">if set to <see langword="true" /> [process attributes].</param>
-#if FULLDOTNET
-        public void InitializeAll(bool processAttributes = true)
-#else
         public void InitializeAll(bool processAttributes = false)
-#endif
         {
             this.SystemManager.InitializeAll(processAttributes);
         }
+#endif
+
 
         /// <summary>Loads the state of the entity.</summary>
         /// <param name="templateTag">The template tag. Can be null.</param>

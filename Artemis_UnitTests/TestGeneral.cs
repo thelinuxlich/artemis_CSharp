@@ -49,7 +49,11 @@ namespace UnitTests
     using Artemis.System;
     using Artemis.Utils;
 
+#if METRO
+    using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+#else
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+#endif
 
     using UnitTests.Component;
     using UnitTests.System;
@@ -75,29 +79,37 @@ namespace UnitTests
         [TestMethod]
         public void TestAttributes()
         {
-            Console.Write("Initialize EntityWorld: ");
+            global::System.Diagnostics.Debug.WriteLine("Initialize EntityWorld: ");
             EntityWorld entityWorld = new EntityWorld { PoolCleanupDelay = 1 };
-            entityWorld.InitializeAll();
-            Console.WriteLine("OK");
+#if !FULLDOTNET && !METRO
+            entityWorld.InitializeAll(global::System.Reflection.Assembly.GetExecutingAssembly());
+#else 
+            entityWorld.InitializeAll(true);
+#endif
+            global::System.Diagnostics.Debug.WriteLine("OK");
 
             const int ExpectedNumberOfSystems = 2;
             int actualNumberOfSystems = entityWorld.SystemManager.Systems.Count;
             Assert.AreEqual(ExpectedNumberOfSystems, actualNumberOfSystems, "Number of initial systems does not fit.");
-            Console.WriteLine("Number of Systems: {0} OK", actualNumberOfSystems);
+            global::System.Diagnostics.Debug.WriteLine("Number of Systems: {0} OK", actualNumberOfSystems);
 
-            Console.Write("Build up entity with component from pool manually: ");
+            global::System.Diagnostics.Debug.WriteLine("Build up entity with component from pool manually: ");
             Entity entityWithPooledComponent = TestEntityFactory.CreateTestPowerEntityWithPooledComponent(entityWorld);
-            Console.WriteLine("OK");
+            global::System.Diagnostics.Debug.WriteLine("OK");
 
-            Console.Write("Build up entity from template: ");
+            global::System.Diagnostics.Debug.WriteLine("Build up entity from template: ");
             Entity entityFromTemplate = entityWorld.CreateEntityFromTemplate("test");
             Assert.IsNotNull(entityFromTemplate, "Entity from test template is null.");
-            Console.WriteLine("OK");
+            global::System.Diagnostics.Debug.WriteLine("OK");
 
+#if !PORTABLE
             entityWorld.Update(ExecutionType.Asynchronous);
+#else
+            entityWorld.Update(ExecutionType.Synchronous);
+#endif
             entityWorld.Draw();
 
-            Console.Write("Remove component from entity: ");
+            global::System.Diagnostics.Debug.WriteLine("Remove component from entity: ");
             entityWithPooledComponent.RemoveComponent<TestPowerComponentPoolable>();
             entityWithPooledComponent.Refresh();
 
@@ -105,73 +117,81 @@ namespace UnitTests
             entityWorld.Draw();
 
             Assert.IsFalse(entityWithPooledComponent.HasComponent<TestPowerComponentPoolable>(), "Entity has still deleted component.");
-            Console.WriteLine("OK");
+            global::System.Diagnostics.Debug.WriteLine("OK");
 
-            Console.Write("Add component to entity: ");
+            global::System.Diagnostics.Debug.WriteLine("Add component to entity: ");
             entityWithPooledComponent.AddComponentFromPool<TestPowerComponentPoolable>();
             entityWithPooledComponent.GetComponent<TestPowerComponentPoolable>().Power = 100;
             entityWithPooledComponent.Refresh();
 
+#if !PORTABLE
             entityWorld.Update(ExecutionType.Asynchronous);
+#else
+            entityWorld.Update(ExecutionType.Synchronous);
+#endif
             entityWorld.Draw();
 
             Assert.IsTrue(entityWithPooledComponent.HasComponent<TestPowerComponentPoolable>(), "Could not add component to entity.");
-            Console.WriteLine("OK");
+            global::System.Diagnostics.Debug.WriteLine("OK");
         }
 
         /// <summary>Tests the dummies.</summary>
         [TestMethod]
         public void TestDummies()
         {
-            Console.Write("Initialize EntityWorld: ");
+            global::System.Diagnostics.Debug.WriteLine("Initialize EntityWorld: ");
             EntityWorld entityWorld = new EntityWorld();
             entityWorld.SystemManager.SetSystem(new TestCommunicationSystem(), GameLoopType.Update);
+#if !FULLDOTNET && !METRO
+            entityWorld.InitializeAll();
+#else 
             entityWorld.InitializeAll(false);
-            Console.WriteLine("OK");
+#endif
+            global::System.Diagnostics.Debug.WriteLine("OK");
 
-            Console.Write("Fill EntityWorld with " + Load + " grouped entities: ");
+            global::System.Diagnostics.Debug.WriteLine("Fill EntityWorld with " + Load + " grouped entities: ");
             for (int index = Load - 1; index >= 0; --index)
             {
                 TestEntityFactory.CreateTestHealthEntity(entityWorld, "test");
             }
 
-            Console.WriteLine("OK");
+            global::System.Diagnostics.Debug.WriteLine("OK");
 
-            Console.Write("Add a tagged entity to EntityWorld: ");
+            global::System.Diagnostics.Debug.WriteLine("Add a tagged entity to EntityWorld: ");
             TestEntityFactory.CreateTestHealthEntity(entityWorld, null, "tag");
-            Console.WriteLine("OK");
+            global::System.Diagnostics.Debug.WriteLine("OK");
 
-            Console.Write("Update EntityWorld: ");
+            global::System.Diagnostics.Debug.WriteLine("Update EntityWorld: ");
             Stopwatch stopwatch = Stopwatch.StartNew();
             entityWorld.Update();
             entityWorld.Draw();
             stopwatch.Stop();
-            Console.Write("duration " + FastDateTime.ToString(stopwatch.Elapsed) + " ");
+            global::System.Diagnostics.Debug.WriteLine("duration " + FastDateTime.ToString(stopwatch.Elapsed) + " ");
 
-            Console.WriteLine("OK");
+            global::System.Diagnostics.Debug.WriteLine("OK");
 
             int actualNumberOfSystems = entityWorld.SystemManager.Systems.Count;
             const int ExpectedNumberOfSystems = 1;
-            Console.Write("Number of Systems: {0} ", actualNumberOfSystems);
+            global::System.Diagnostics.Debug.WriteLine("Number of Systems: {0} ", actualNumberOfSystems);
             Assert.AreEqual(ExpectedNumberOfSystems, actualNumberOfSystems);
-            Console.WriteLine("OK");
+            global::System.Diagnostics.Debug.WriteLine("OK");
 
             Entity actualTaggedEntity = entityWorld.TagManager.GetEntity("tag");
-            Console.Write("Is tagged entity present: {0} ", actualTaggedEntity != null);
+            global::System.Diagnostics.Debug.WriteLine("Is tagged entity present: {0} ", actualTaggedEntity != null);
             Assert.IsNotNull(actualTaggedEntity);
-            Console.WriteLine("OK");
+            global::System.Diagnostics.Debug.WriteLine("OK");
 
             int actualNumberOfGroupedEntities = entityWorld.GroupManager.GetEntities("test").Count;
             const int ExpectedNumberOfGroupedEntities = Load;
-            Console.Write("Number of grouped entities: {0} ", actualNumberOfGroupedEntities);
+            global::System.Diagnostics.Debug.WriteLine("Number of grouped entities: {0} ", actualNumberOfGroupedEntities);
             Assert.AreEqual(ExpectedNumberOfGroupedEntities, actualNumberOfGroupedEntities);
-            Console.WriteLine("OK");
+            global::System.Diagnostics.Debug.WriteLine("OK");
 #if DEBUG
             int actualNumberOfActiveEntities = entityWorld.EntityManager.ActiveEntitiesCount;
             const int ExpectedNumberOfActiveEntities = ExpectedNumberOfGroupedEntities + ExpectedNumberOfSystems;
-            Console.Write("Number of active entities: {0} ", actualNumberOfActiveEntities);
+            global::System.Diagnostics.Debug.WriteLine("Number of active entities: {0} ", actualNumberOfActiveEntities);
             Assert.AreEqual(ExpectedNumberOfActiveEntities, actualNumberOfActiveEntities);
-            Console.WriteLine("OK");
+            global::System.Diagnostics.Debug.WriteLine("OK");
 #endif
         }
 
@@ -179,23 +199,27 @@ namespace UnitTests
         [TestMethod]
         public void TestHybridQueueSystem()
         {
-            Console.Write("Initialize EntityWorld: ");
+            global::System.Diagnostics.Debug.WriteLine("Initialize EntityWorld: ");
             EntityWorld entityWorld = new EntityWorld();
             TestQueueHybridSystem testQueueHybridSystem = entityWorld.SystemManager.SetSystem(new TestQueueHybridSystem(), GameLoopType.Update);
+#if !FULLDOTNET && !METRO
+            entityWorld.InitializeAll();
+#else 
             entityWorld.InitializeAll(false);
-            Console.WriteLine("OK");
+#endif
+            global::System.Diagnostics.Debug.WriteLine("OK");
 
             const int Chunk = 500;
 
-            Console.Write("Fill EntityWorld with first  chunk of " + Chunk + " entities: ");
+            global::System.Diagnostics.Debug.WriteLine("Fill EntityWorld with first  chunk of " + Chunk + " entities: ");
             List<Entity> entities = new List<Entity>();
             for (int index = Chunk; index > 0; --index)
             {
                 entities.Add(TestEntityFactory.CreateTestHealthEntity(entityWorld));
             }
 
-            Console.WriteLine("OK");
-            Console.Write("Fill EntityWorld with second chunk of " + Chunk + " entities: ");
+            global::System.Diagnostics.Debug.WriteLine("OK");
+            global::System.Diagnostics.Debug.WriteLine("Fill EntityWorld with second chunk of " + Chunk + " entities: ");
 
             for (int index = Chunk; index > 0; --index)
             {
@@ -205,7 +229,7 @@ namespace UnitTests
                 entities.Add(entity);
             }
 
-            Console.WriteLine("OK");
+            global::System.Diagnostics.Debug.WriteLine("OK");
 
             Stopwatch stopwatch = Stopwatch.StartNew();
             int numberOfQueues = 0;
@@ -217,13 +241,13 @@ namespace UnitTests
             }
 
             stopwatch.Stop();
-            Console.WriteLine("Processed {0} hybrid queues with duration {1}", numberOfQueues,  FastDateTime.ToString(stopwatch.Elapsed));
+            global::System.Diagnostics.Debug.WriteLine("Processed {0} hybrid queues with duration {1}", numberOfQueues,  FastDateTime.ToString(stopwatch.Elapsed));
 
-            Console.Write("Test first  chunk: ");
+            global::System.Diagnostics.Debug.WriteLine("Test first  chunk: ");
             float expectedPointsFirstChunk = 100.0f - (10 * numberOfQueues);
             if (expectedPointsFirstChunk < 0.0f)
             {
-                Console.Write("Results may be inaccurate. Please lower chunk size. ");
+                global::System.Diagnostics.Debug.WriteLine("Results may be inaccurate. Please lower chunk size. ");
                 expectedPointsFirstChunk = 0.0f;
             }
 
@@ -232,13 +256,13 @@ namespace UnitTests
                 Assert.AreEqual(expectedPointsFirstChunk, entities[index].GetComponent<TestHealthComponent>().Points, "Index:<" + index + ">.");
             }
 
-            Console.WriteLine("OK");
+            global::System.Diagnostics.Debug.WriteLine("OK");
 
-            Console.Write("Test second chunk: ");
+            global::System.Diagnostics.Debug.WriteLine("Test second chunk: ");
             float expectedPointsSecondChunk = 90.0f - (10 * numberOfQueues);
             if (expectedPointsSecondChunk < 0.0f)
             {
-                Console.Write("Results may be inaccurate. Please lower chunk size. ");
+                global::System.Diagnostics.Debug.WriteLine("Results may be inaccurate. Please lower chunk size. ");
                 expectedPointsSecondChunk = 0.0f;
             }
 
@@ -247,18 +271,22 @@ namespace UnitTests
                 Assert.AreEqual(expectedPointsSecondChunk, entities[index].GetComponent<TestHealthComponent>().Points, "Index:<" + index + ">.");
             }
 
-            Console.WriteLine("OK");
+            global::System.Diagnostics.Debug.WriteLine("OK");
         }
 
         /// <summary>Tests a simple system.</summary>
         [TestMethod]
         public void TestSimpleSystem()
         {
-            Console.Write("Initialize EntityWorld: ");
+            global::System.Diagnostics.Debug.WriteLine("Initialize EntityWorld: ");
             EntityWorld entityWorld = new EntityWorld();
             entityWorld.SystemManager.SetSystem(new TestNormalEntityProcessingSystem1(), GameLoopType.Update);
+#if !FULLDOTNET && !METRO
+            entityWorld.InitializeAll();
+#else 
             entityWorld.InitializeAll(false);
-            Console.WriteLine("OK");
+#endif
+            global::System.Diagnostics.Debug.WriteLine("OK");
 
             Entity entity1 = TestEntityFactory.CreateTestHealthEntity(entityWorld);
             Assert.IsNotNull(entity1);
@@ -271,9 +299,9 @@ namespace UnitTests
             entityWorld.Draw();
             stopwatch.Stop();
 #if DEBUG
-            Console.WriteLine("Processed update and draw with duration {0} for {1} elements", FastDateTime.ToString(stopwatch.Elapsed), entityWorld.EntityManager.ActiveEntitiesCount);
+            global::System.Diagnostics.Debug.WriteLine("Processed update and draw with duration {0} for {1} elements", FastDateTime.ToString(stopwatch.Elapsed), entityWorld.EntityManager.ActiveEntitiesCount);
 #else
-            Console.WriteLine("Processed update and draw with duration {0} for {1} elements", FastDateTime.ToString(stopwatch.Elapsed), entityWorld.EntityManager.ActiveEntities.Count);
+            global::System.Diagnostics.Debug.WriteLine("Processed update and draw with duration {0} for {1} elements", FastDateTime.ToString(stopwatch.Elapsed), entityWorld.EntityManager.ActiveEntities.Count);
 #endif
             const float Expected1 = 90.0f;
             Assert.AreEqual(Expected1, entity1.GetComponent<TestHealthComponent>().Points);
@@ -287,13 +315,17 @@ namespace UnitTests
         [TestMethod]
         public void TestQueueSystems()
         {
-            Console.Write("Initialize EntityWorld: ");
+            global::System.Diagnostics.Debug.WriteLine("Initialize EntityWorld: ");
             EntityWorld entityWorld = new EntityWorld();
             TestQueueSystem testQueueSystem1 = entityWorld.SystemManager.SetSystem(new TestQueueSystem(10), GameLoopType.Update);
             TestQueueSystem testQueueSystem2 = entityWorld.SystemManager.SetSystem(new TestQueueSystem(10), GameLoopType.Update);
             TestQueueSystemCopy testQueueSystem3 = entityWorld.SystemManager.SetSystem(new TestQueueSystemCopy(20), GameLoopType.Update);
+#if !FULLDOTNET && !METRO
+            entityWorld.InitializeAll();
+#else 
             entityWorld.InitializeAll(false);
-            Console.WriteLine("OK");
+#endif
+            global::System.Diagnostics.Debug.WriteLine("OK");
 
             QueueSystemProcessingThreadSafe.SetQueueProcessingLimit(20, testQueueSystem2.Id);
 
@@ -304,7 +336,7 @@ namespace UnitTests
             QueueSystemProcessingThreadSafe.SetQueueProcessingLimit(1024, testQueueSystem1.Id);
             QueueSystemProcessingThreadSafe.SetQueueProcessingLimit(4096, testQueueSystem3.Id);
 
-            Console.Write("Fill EntityWorld with first  chunk of " + Load + " entities: ");
+            global::System.Diagnostics.Debug.WriteLine("Fill EntityWorld with first  chunk of " + Load + " entities: ");
             List<Entity> entities1 = new List<Entity>();
             for (int index = Load; index >= 0; --index)
             {
@@ -314,8 +346,8 @@ namespace UnitTests
                 entities1.Add(entity);
             }
 
-            Console.WriteLine("OK");
-            Console.Write("Fill EntityWorld with second chunk of " + Load + " entities: ");
+            global::System.Diagnostics.Debug.WriteLine("OK");
+            global::System.Diagnostics.Debug.WriteLine("Fill EntityWorld with second chunk of " + Load + " entities: ");
             List<Entity> entities2 = new List<Entity>();
             for (int index = Load; index >= 0; --index)
             {
@@ -325,53 +357,61 @@ namespace UnitTests
                 entities2.Add(entity);
             }
 
-            Console.WriteLine("OK");
-            Console.WriteLine("Begin down tearing of queues...");
+            global::System.Diagnostics.Debug.WriteLine("OK");
+            global::System.Diagnostics.Debug.WriteLine("Begin down tearing of queues...");
             Stopwatch stopwatch = Stopwatch.StartNew();
             int loopCount = 0;
             while (QueueSystemProcessingThreadSafe.QueueCount(testQueueSystem1.Id) > 0 || QueueSystemProcessingThreadSafe.QueueCount(testQueueSystem3.Id) > 0)
             {
-                entityWorld.Update(ExecutionType.Asynchronous);
+#if !PORTABLE
+            entityWorld.Update(ExecutionType.Asynchronous);
+#else
+            entityWorld.Update(ExecutionType.Synchronous);
+#endif
                 entityWorld.Draw();
                 ++loopCount;
 #if DEBUG
-                Console.WriteLine("Queue size thread A: {0} B: {1}", QueueSystemProcessingThreadSafe.QueueCount(testQueueSystem1.Id), QueueSystemProcessingThreadSafe.QueueCount(testQueueSystem3.Id));
+                global::System.Diagnostics.Debug.WriteLine("Queue size thread A: {0} B: {1}", QueueSystemProcessingThreadSafe.QueueCount(testQueueSystem1.Id), QueueSystemProcessingThreadSafe.QueueCount(testQueueSystem3.Id));
 #endif
             }
 
             stopwatch.Stop();
-            Console.WriteLine("End OK. Loops: {0} Time: {1}", loopCount, FastDateTime.ToString(stopwatch.Elapsed));
+            global::System.Diagnostics.Debug.WriteLine("End OK. Loops: {0} Time: {1}", loopCount, FastDateTime.ToString(stopwatch.Elapsed));
 
-            Console.Write("Test entities 1: ");
+            global::System.Diagnostics.Debug.WriteLine("Test entities 1: ");
             const float Expected1 = 90.0f;
             foreach (Entity entity in entities1)
             {
                 Assert.AreEqual(Expected1, entity.GetComponent<TestHealthComponent>().Points);
             }
 
-            Console.WriteLine("OK");
-            Console.Write("Test entities 2: ");
+            global::System.Diagnostics.Debug.WriteLine("OK");
+            global::System.Diagnostics.Debug.WriteLine("Test entities 2: ");
             const float Expected2 = 80.0f;
             foreach (Entity entity in entities2)
             {
                 Assert.AreEqual(Expected2, entity.GetComponent<TestHealthComponent>().Points);
             }
 
-            Console.WriteLine("OK");
+            global::System.Diagnostics.Debug.WriteLine("OK");
         }
 
         /// <summary>Systems the communication test.</summary>
         [TestMethod]
         public void TestSystemCommunication()
         {
-            Console.Write("Initialize EntityWorld: ");
+            global::System.Diagnostics.Debug.WriteLine("Initialize EntityWorld: ");
             EntitySystem.BlackBoard.SetEntry("Damage", 5);
             EntityWorld entityWorld = new EntityWorld();
             entityWorld.SystemManager.SetSystem(new TestCommunicationSystem(), GameLoopType.Update);
+#if !FULLDOTNET && !METRO
+            entityWorld.InitializeAll();
+#else 
             entityWorld.InitializeAll(false);
-            Console.WriteLine("OK");
+#endif
+            global::System.Diagnostics.Debug.WriteLine("OK");
 
-            Console.Write("Fill EntityWorld with " + Load + " entities: ");
+            global::System.Diagnostics.Debug.WriteLine("Fill EntityWorld with " + Load + " entities: ");
             List<Entity> entities = new List<Entity>();
             for (int index = Load; index >= 0; --index)
             {
@@ -379,13 +419,13 @@ namespace UnitTests
                 entities.Add(entity);
             }
 
-            Console.WriteLine("OK");
+            global::System.Diagnostics.Debug.WriteLine("OK");
 
             Stopwatch stopwatch = Stopwatch.StartNew();
             entityWorld.Update();
             entityWorld.Draw();
             stopwatch.Stop();
-            Console.WriteLine("Update 1 duration: {0}", FastDateTime.ToString(stopwatch.Elapsed));
+            global::System.Diagnostics.Debug.WriteLine("Update 1 duration: {0}", FastDateTime.ToString(stopwatch.Elapsed));
 
             EntitySystem.BlackBoard.SetEntry("Damage", 10);
 
@@ -393,24 +433,25 @@ namespace UnitTests
             entityWorld.Update();
             entityWorld.Draw();
             stopwatch.Stop();
-            Console.WriteLine("Update 2 duration: {0}", FastDateTime.ToString(stopwatch.Elapsed));
+            global::System.Diagnostics.Debug.WriteLine("Update 2 duration: {0}", FastDateTime.ToString(stopwatch.Elapsed));
 
-            Console.Write("Test entities: ");
+            global::System.Diagnostics.Debug.WriteLine("Test entities: ");
             const float Expected = 85.0f;
             foreach (Entity item in entities)
             {
                 Assert.AreEqual(Expected, item.GetComponent<TestHealthComponent>().Points);
             }
 
-            Console.WriteLine("OK");
+            global::System.Diagnostics.Debug.WriteLine("OK");
             EntitySystem.BlackBoard.RemoveEntry("Damage");
         }
 
+#if !PORTABLE
         /// <summary>Tests the render multi health bar system.</summary>
         [TestMethod]
         public void TestRenderMultiHealthBarSystem()
         {
-            Console.Write("Initialize EntityWorld: ");
+            global::System.Diagnostics.Debug.WriteLine("Initialize EntityWorld: ");
             HealthBag.Clear();
             ComponentPool.Clear();
 
@@ -423,9 +464,9 @@ namespace UnitTests
             entityWorld.EntityManager.RemovedEntityEvent += RemovedEntity;
             entityWorld.SystemManager.SetSystem(new TestRenderHealthBarMultiSystem(), GameLoopType.Update);
             entityWorld.InitializeAll(false);
-            Console.WriteLine("OK");
+            global::System.Diagnostics.Debug.WriteLine("OK");
 
-            Console.Write("Fill EntityWorld with " + Load + " entities: ");
+            global::System.Diagnostics.Debug.WriteLine("Fill EntityWorld with " + Load + " entities: ");
             List<Entity> entities = new List<Entity>();
             for (int index = Load - 1; index >= 0; --index)
             {
@@ -433,7 +474,7 @@ namespace UnitTests
                 entities.Add(entity);
             }
 
-            Console.WriteLine("OK");
+            global::System.Diagnostics.Debug.WriteLine("OK");
 
             const int Passes = 9;
             Stopwatch stopwatch = Stopwatch.StartNew();
@@ -444,7 +485,7 @@ namespace UnitTests
             }
 
             stopwatch.Stop();
-            Console.WriteLine("Update (" + Passes + " passes) duration: {0}", FastDateTime.ToString(stopwatch.Elapsed));
+            global::System.Diagnostics.Debug.WriteLine("Update (" + Passes + " passes) duration: {0}", FastDateTime.ToString(stopwatch.Elapsed));
 
             int expectedPoints = 100 - (Passes * 10);
             if (expectedPoints < 0)
@@ -456,14 +497,14 @@ namespace UnitTests
 
             Assert.AreEqual(Load, df);
 
-            Console.WriteLine("Found {0} entities with health of {1}.", df, expectedPoints);
+            global::System.Diagnostics.Debug.WriteLine("Found {0} entities with health of {1}.", df, expectedPoints);
         }
-
+#endif
         /// <summary>Tests multiple systems.</summary>
         [TestMethod]
         public void TestMultipleSystems()
         {
-            Console.Write("Initialize EntityWorld: ");
+            global::System.Diagnostics.Debug.WriteLine("Initialize EntityWorld: ");
             HealthBag.Clear();
             ComponentPool.Clear();
 
@@ -478,10 +519,14 @@ namespace UnitTests
             entityWorld.SystemManager.SetSystem(new TestEntityProcessingSystem1(), GameLoopType.Update);
             entityWorld.SystemManager.SetSystem(new TestEntityProcessingSystem2(), GameLoopType.Update);
             entityWorld.SystemManager.SetSystem(new TestEntityProcessingSystem3(), GameLoopType.Update);
+#if !FULLDOTNET && !METRO
+            entityWorld.InitializeAll();
+#else 
             entityWorld.InitializeAll(false);
-            Console.WriteLine("OK");
+#endif
+            global::System.Diagnostics.Debug.WriteLine("OK");
 
-            Console.Write("Fill EntityWorld with " + Load + " entities: ");
+            global::System.Diagnostics.Debug.WriteLine("Fill EntityWorld with " + Load + " entities: ");
             List<Entity> entities = new List<Entity>();
             for (int index = Load - 1; index >= 0; --index)
             {
@@ -489,7 +534,7 @@ namespace UnitTests
                 entities.Add(entity);
             }
 
-            Console.WriteLine("OK");
+            global::System.Diagnostics.Debug.WriteLine("OK");
 
             const int Passes = 3;
             Stopwatch stopwatch = Stopwatch.StartNew();
@@ -500,7 +545,7 @@ namespace UnitTests
             }
 
             stopwatch.Stop();
-            Console.WriteLine("Update (" + Passes + " passes) duration: {0}", FastDateTime.ToString(stopwatch.Elapsed));
+            global::System.Diagnostics.Debug.WriteLine("Update (" + Passes + " passes) duration: {0}", FastDateTime.ToString(stopwatch.Elapsed));
 
             /*
             int df = 0;
@@ -512,7 +557,7 @@ namespace UnitTests
                 }
                 else
                 {
-                    Console.WriteLine("Error " + df);
+                    global::System.Diagnostics.Debug.WriteLine("Error " + df);
                 }
             }
             */
@@ -523,17 +568,17 @@ namespace UnitTests
         /// <param name="component">The component.</param>
         private static void RemovedComponent(Entity entity, IComponent component)
         {
-            Console.WriteLine("This was the component removed: " + component.GetType());
+            global::System.Diagnostics.Debug.WriteLine("This was the component removed: " + component.GetType());
             Bag<IComponent> tempBag;
             if (ComponentPool.TryGetValue(component.GetType(), out tempBag))
             {
-                Console.WriteLine("Health Component Pool has " + tempBag.Count + " objects");
+                global::System.Diagnostics.Debug.WriteLine("Health Component Pool has " + tempBag.Count + " objects");
                 tempBag.Add(component);
             }
 
             if (ComponentPool.TryGetValue(component.GetType(), out tempBag))
             {
-                Console.WriteLine("Health Component Pool now has " + tempBag.Count + " objects");
+                global::System.Diagnostics.Debug.WriteLine("Health Component Pool now has " + tempBag.Count + " objects");
             }
         }
 
@@ -541,7 +586,7 @@ namespace UnitTests
         /// <param name="entity">The entity.</param>
         private static void RemovedEntity(Entity entity)
         {
-            Console.WriteLine("The entity {0} was removed successfully.", entity.UniqueId);
+            global::System.Diagnostics.Debug.WriteLine("The entity {0} was removed successfully.", entity.UniqueId);
         }
     }
 }
