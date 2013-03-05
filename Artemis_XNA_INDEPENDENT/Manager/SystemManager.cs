@@ -206,11 +206,22 @@ namespace Artemis.Manager
 
         /// <summary>Initializes all.</summary>
         /// <param name="processAttributes">if set to <see langword="true" /> [process attributes].</param>
+#if !FULLDOTNET && !METRO
+        /// <param name="assembliesToScan">The assemblies to scan.</param>
+        /// <exception cref="System.Exception">propertyComponentPool is null.</exception>
+        internal void InitializeAll(bool processAttributes ,List<Assembly> assembliesToScan)
+#else
+        /// <exception cref="System.Exception">propertyComponentPool is null.</exception>
         internal void InitializeAll(bool processAttributes)
+#endif
         {
             if (processAttributes)
             {
+#if !FULLDOTNET && !METRO        
+                IDictionary<Type, List<Attribute>> types = AttributesProcessor.Process(AttributesProcessor.SupportedAttributes, assembliesToScan);
+#else
                 IDictionary<Type, List<Attribute>> types = AttributesProcessor.Process(AttributesProcessor.SupportedAttributes);
+#endif
                 foreach (KeyValuePair<Type, List<Attribute>> item in types)
                 {
 #if METRO                    

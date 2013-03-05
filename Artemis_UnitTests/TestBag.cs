@@ -41,10 +41,13 @@ namespace UnitTests
     using global::System;
     using global::System.Diagnostics;
     using global::System.Globalization;
-
     using Artemis.Utils;
-
+    
+#if METRO    
+    using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+#else
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+#endif
 
     #endregion Usind statemnets
 
@@ -163,7 +166,9 @@ namespace UnitTests
 
         /// <summary>Tests the grow.</summary>
         [TestMethod]
+#if !METRO
         [DeploymentItem("artemis.dll")]
+#endif
         public void TestGrow()
         {
             Bag<string> target = new Bag<string>(0);
@@ -252,7 +257,7 @@ namespace UnitTests
         [TestMethod]
         public void TestPerformance()
         {
-            Console.Write("Maximum number of elements: ");
+            global::System.Diagnostics.Debug.WriteLine("Maximum number of elements: ");
 
             // Identify max mem size.
             Bag<int> bigBag = new Bag<int>();
@@ -269,8 +274,8 @@ namespace UnitTests
                     break;
                 }
             }
-
-            Console.WriteLine(maxMem.ToString(CultureInfo.InvariantCulture));
+            
+            global::System.Diagnostics.Debug.WriteLine(maxMem.ToString(CultureInfo.InvariantCulture));
 
             // Reset bag.
             bigBag = new Bag<int>(0);
@@ -288,12 +293,12 @@ namespace UnitTests
             }
 
             stopwatch.Stop();
-            Console.WriteLine("Load  duration: {0}", FastDateTime.ToString(stopwatch.Elapsed));
+            global::System.Diagnostics.Debug.WriteLine("Load  duration: {0}", FastDateTime.ToString(stopwatch.Elapsed));
 
             stopwatch.Restart();
             bigBag.Clear();
             stopwatch.Stop();
-            Console.WriteLine("Clear duration: {0}", FastDateTime.ToString(stopwatch.Elapsed));
+            global::System.Diagnostics.Debug.WriteLine("Clear duration: {0}", FastDateTime.ToString(stopwatch.Elapsed));
         }
     }
 }

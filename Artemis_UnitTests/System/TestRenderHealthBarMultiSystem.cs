@@ -34,6 +34,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
 
+#if !PORTABLE
 namespace UnitTests.System
 {
     #region Using statements
@@ -73,3 +74,4 @@ namespace UnitTests.System
         }
     }
 }
+#endif
