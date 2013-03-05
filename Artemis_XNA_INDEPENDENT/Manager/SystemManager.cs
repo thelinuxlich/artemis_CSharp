@@ -49,8 +49,12 @@ namespace Artemis.Manager
     using Artemis.Interface;
     using Artemis.System;
     using Artemis.Utils;
-#if !FULLDOTNET && !PORTABLE
+#if !FULLDOTNET && !PORTABLE && !METRO
     using ParallelTasks;
+#endif
+
+#if METRO
+    using Parallel =  global::System.Threading.Tasks.Parallel;
 #endif
 
     #endregion Using statements
@@ -386,7 +390,7 @@ namespace Artemis.Manager
 
         /// <summary>Updates the bag synchronous.</summary>
         /// <param name="entitySystems">The entitySystems.</param>
-        private static void UpdateBagSynchronous(Bag<EntitySystem> entitySystems)
+        private void UpdateBagSynchronous(Bag<EntitySystem> entitySystems)
         {
             for (int index = 0, j = entitySystems.Count; index < j; ++index)
             {
@@ -394,7 +398,7 @@ namespace Artemis.Manager
             }
         }
 
-#if !PORTABLE     
+#if !PORTABLE 
         /// <summary>Updates the bag asynchronous.</summary>
         /// <param name="entitySystems">The entity systems.</param>
         private static void UpdateBagAsynchronous(IEnumerable<EntitySystem> entitySystems)
