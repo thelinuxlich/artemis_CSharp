@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{22C89AF2-E1CF-4976-91B9-7D33773DC6E7}</ProjectGuid>
+    <ProjectGuid>{160F0A31-20A5-44C2-A677-4642AD84388C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Artemis</RootNamespace>
     <AssemblyName>artemis</AssemblyName>
@@ -29,32 +29,33 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\PC\</OutputPath>
-    <DefineConstants>DEBUG;FULLDOTNET</DefineConstants>
+    <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
     <ConsolePause>false</ConsolePause>
     <DocumentationFile>bin\Debug\PC\artemis.xml</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\PC\</OutputPath>
+    <OutputPath>bin\Release\PC_ClientProfile\</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
     <ConsolePause>false</ConsolePause>
-    <DocumentationFile>bin\Release\PC\artemis.xml</DocumentationFile>
-    <DefineConstants>FULLDOTNET</DefineConstants>
+    <DocumentationFile>bin\Release\PC_ClientProfile\artemis.xml</DocumentationFile>
+    <DefineConstants>CLIENTPROFILE</DefineConstants>
     <RegisterForComInterop>false</RegisterForComInterop>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

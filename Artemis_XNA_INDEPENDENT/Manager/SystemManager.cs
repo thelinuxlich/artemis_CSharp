@@ -42,14 +42,14 @@ namespace Artemis.Manager
     using global::System.Collections.Generic;
     using global::System.Linq;
     using global::System.Reflection;
-#if FULLDOTNET
+#if FULLDOTNET || CLIENTPROFILE
     using global::System.Threading.Tasks;
 #endif
     using Artemis.Attributes;
     using Artemis.Interface;
     using Artemis.System;
     using Artemis.Utils;
-#if !FULLDOTNET && !PORTABLE && !METRO
+#if (!FULLDOTNET && !PORTABLE && !METRO) && !CLIENTPROFILE
     using ParallelTasks;
 #endif
 

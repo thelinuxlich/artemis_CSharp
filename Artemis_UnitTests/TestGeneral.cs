@@ -463,7 +463,11 @@ namespace UnitTests
             entityWorld.EntityManager.RemovedComponentEvent += RemovedComponent;
             entityWorld.EntityManager.RemovedEntityEvent += RemovedEntity;
             entityWorld.SystemManager.SetSystem(new TestRenderHealthBarMultiSystem(), GameLoopType.Update);
+#if !FULLDOTNET && !METRO
+            entityWorld.InitializeAll();
+#else 
             entityWorld.InitializeAll(false);
+#endif
             global::System.Diagnostics.Debug.WriteLine("OK");
 
             global::System.Diagnostics.Debug.WriteLine("Fill EntityWorld with " + Load + " entities: ");

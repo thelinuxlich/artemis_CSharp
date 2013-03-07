@@ -41,7 +41,7 @@ namespace Artemis.System
 
     using global::System;
     using global::System.Collections.Generic;
-#if FULLDOTNET || METRO
+#if FULLDOTNET || METRO || CLIENTPROFILE
     using global::System.Threading.Tasks;
 #else
     using ParallelTasks;
@@ -52,7 +52,7 @@ namespace Artemis.System
     /// <summary>Class ParallelEntityProcessingSystem.</summary>
     public abstract class ParallelEntityProcessingSystem : EntitySystem
     {
-#if FULLDOTNET
+#if FULLDOTNET || CLIENTPROFILE
         /// <summary>The factory.</summary>
         private readonly TaskFactory factory;
 #endif
@@ -63,7 +63,7 @@ namespace Artemis.System
         protected ParallelEntityProcessingSystem(Type requiredType, params Type[] otherTypes)
             : base(EntitySystem.GetMergedTypes(requiredType, otherTypes))
         {
-#if FULLDOTNET
+#if FULLDOTNET || CLIENTPROFILE
             this.factory = new TaskFactory(TaskScheduler.Default);
 #endif
         }
@@ -73,7 +73,7 @@ namespace Artemis.System
         protected ParallelEntityProcessingSystem(Aspect aspect)
             : base(aspect)
         {
-#if FULLDOTNET
+#if FULLDOTNET || CLIENTPROFILE
             this.factory = new TaskFactory(TaskScheduler.Default);
 #endif
         }
@@ -100,7 +100,7 @@ namespace Artemis.System
             for (int processorIndex = 0; processorIndex < simultaneous; ++processorIndex)
             {
                 int initial = numberOfEntities;
-#if FULLDOTNET
+#if FULLDOTNET || CLIENTPROFILE
                 tasks.Add(
                     this.factory.StartNew(
 #elif METRO
