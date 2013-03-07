@@ -46,7 +46,7 @@ namespace UnitTests
 #if METRO    
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #else
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;    
 #endif
 
     #endregion Usind statemnets
@@ -262,7 +262,7 @@ namespace UnitTests
             // Identify max mem size.
             Bag<int> bigBag = new Bag<int>();
             int maxMem = 0;
-            for (int index = 0; index < 1000000; ++index)
+            for (int index = 0; index < int.MaxValue; ++index)
             {
                 try
                 {
@@ -280,7 +280,12 @@ namespace UnitTests
             // Reset bag.
             bigBag = new Bag<int>(0);
             
-            // This is need to secure that enough memory is left. (not reliable in most platforms)
+            // This is need to secure that enough memory is left.
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+#if !METRO
+            GC.WaitForFullGCComplete();
+#endif
             GC.Collect();            
 
             // Start measurement.

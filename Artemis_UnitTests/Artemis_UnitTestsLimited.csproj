@@ -45,12 +45,12 @@
     <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\Test\</OutputPath>
+    <OutputPath>bin\Release\LimitedTest\</OutputPath>
     <DefineConstants>
     </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\Test\UnitTests.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\LimitedTest\UnitTests.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>UnitTests.Program</StartupObject>
@@ -86,12 +86,6 @@
     <Compile Include="TestTimeWaster.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Artemis_XNA_INDEPENDENT\Artemis.csproj">
-      <Project>{22C89AF2-E1CF-4976-91B9-7D33773DC6E7}</Project>
-      <Name>Artemis</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
@@ -115,6 +109,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Artemis_XNA_INDEPENDENT\ArtemisClientProfile.csproj">
+      <Project>{160f0a31-20a5-44c2-a677-4642ad84388c}</Project>
+      <Name>ArtemisClientProfile</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
