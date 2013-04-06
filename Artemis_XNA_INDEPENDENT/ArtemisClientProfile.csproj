@@ -59,6 +59,8 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
+	<Compile Include="Manager\FQueueManager.cs" />
+	<Compile Include="System\FQueueSystemProcessingThreadSafe.cs" />
     <Compile Include="Aspect.cs" />
     <Compile Include="Attributes\AttributesProcessor.cs" />
     <Compile Include="Attributes\ArtemisComponentCreate.cs" />

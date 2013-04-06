@@ -1,7 +1,7 @@
 #region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="QueueManager.cs" company="GAMADU.COM">
+// <copyright file="TestQueueSystemCopy.cs" company="GAMADU.COM">
 //     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
@@ -29,60 +29,45 @@
 //     or implied, of GAMADU.COM.
 // </copyright>
 // <summary>
-//   Class QueueManager.
+//   The queue system test 2.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
 
-namespace Artemis.Manager
+namespace UnitTests.System
 {
     #region Using statements
 
-    using global::System.Collections.Generic;
-    using global::System.Threading;
+    using Artemis;
+    using Artemis.System;
+
+    using UnitTests.Component;
+    using UnitTests.Extra;
 
     #endregion Using statements
 
-    /// <summary>Class QueueManager.</summary>
-    internal class QueueManager
+    /// <summary>The queue system test 3.</summary>
+    public class TestQueueSystemCopy2 : FQueueSystemProcessingThreadSafe<DummyPlaceHolder>
     {
-        /// <summary>The lock object.</summary>
-        private readonly object LockObject = new object();
-
-        /// <summary>Initializes a new instance of the <see cref="QueueManager"/> class.</summary>
-        public QueueManager()
+        /// <summary>Initializes a new instance of the <see cref="TestQueueSystemCopy"/> class.</summary>
+        /// <param name="damage">The damage.</param>
+        public TestQueueSystemCopy2(int damage)
         {
-            this.EntitiesToProcessEachFrame = 50;
-            this.Queue = new Queue<Entity>();
-            this.RefCount = 0;
-
-            this.AcquireLock();
-            ++this.RefCount;
-            this.ReleaseLock();
+            this.damage = damage;
         }
 
-        /// <summary>Gets or sets the entities to process each frame.</summary>
-        /// <value>The entities to process each frame.</value>
-        public int EntitiesToProcessEachFrame { get; set; }
+        int damage;
 
-        /// <summary>Gets or sets the queue.</summary>
-        /// <value>The queue.</value>
-        public Queue<Entity> Queue { get; set; }
-
-        /// <summary>Gets or sets the ref count.</summary>
-        /// <value>The ref count.</value>
-        public int RefCount { get; set; }
-
-        /// <summary>Acquires the lock.</summary>
-        public void AcquireLock()
+        /// <summary>Override to implement code that gets executed when systems are initialized.</summary>
+        public override void LoadContent()
         {
-            Monitor.Enter(LockObject);
         }
 
-        /// <summary>Releases the lock.</summary>
-        public void ReleaseLock()
+        /// <summary>The process.</summary>        
+        public override void Process(DummyPlaceHolder entity)
         {
-            Monitor.Exit(LockObject);
+            TestHealthComponent TestHealthComponent = entity.Component as TestHealthComponent;
+            TestHealthComponent.AddDamage(damage);       
         }
     }
 }

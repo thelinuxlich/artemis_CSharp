@@ -57,6 +57,7 @@ namespace UnitTests
 
     using UnitTests.Component;
     using UnitTests.System;
+    using UnitTests.Extra;
 
     #endregion Using statements
 
@@ -81,7 +82,7 @@ namespace UnitTests
         {
             global::System.Diagnostics.Debug.WriteLine("Initialize EntityWorld: ");
             EntityWorld entityWorld = new EntityWorld { PoolCleanupDelay = 1 };
-#if !FULLDOTNET && !METRO && !LIMITED
+#if (!FULLDOTNET && !METRO) || CLIENTPROFILE
             entityWorld.InitializeAll(global::System.Reflection.Assembly.GetExecutingAssembly());
 #else
             entityWorld.InitializeAll(true);            
@@ -393,6 +394,66 @@ namespace UnitTests
                 Assert.AreEqual(Expected2, entity.GetComponent<TestHealthComponent>().Points);
             }
 
+            global::System.Diagnostics.Debug.WriteLine("OK");
+        }
+
+
+        /// <summary>Tests the queue systems.</summary>
+        [TestMethod]
+        public void FTestQueueSystems()
+        {
+            global::System.Diagnostics.Debug.WriteLine("Initialize EntityWorld: ");
+            EntityWorld entityWorld = new EntityWorld();
+            TestQueueSystemCopy2 testQueueSystem1 = entityWorld.SystemManager.SetSystem(new TestQueueSystemCopy2(10), GameLoopType.Update);            
+#if !FULLDOTNET && !METRO
+            entityWorld.InitializeAll();
+#else 
+            entityWorld.InitializeAll(false);
+#endif
+            global::System.Diagnostics.Debug.WriteLine("OK");
+
+            FQueueSystemProcessingThreadSafe<DummyPlaceHolder>.SetQueueProcessingLimit(20, testQueueSystem1.Id);                                    
+            
+            global::System.Diagnostics.Debug.WriteLine("Fill EntityWorld with first  chunk of " + Load + " entities: ");
+            List<DummyPlaceHolder> entities1 = new List<DummyPlaceHolder>();
+            for (int index = Load; index >= 0; --index)
+            {
+                DummyPlaceHolder dph = new DummyPlaceHolder()
+                {
+                    Component = new TestHealthComponent(100)                  
+                }
+                ;
+                FQueueSystemProcessingThreadSafe<DummyPlaceHolder>.AddToQueue(dph, testQueueSystem1.Id);
+                entities1.Add(dph);
+            }
+            
+            global::System.Diagnostics.Debug.WriteLine("OK");
+            global::System.Diagnostics.Debug.WriteLine("Begin down tearing of queues...");
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            int loopCount = 0;
+            while (FQueueSystemProcessingThreadSafe<DummyPlaceHolder>.QueueCount(testQueueSystem1.Id) > 0 || FQueueSystemProcessingThreadSafe<DummyPlaceHolder>.QueueCount(testQueueSystem1.Id) > 0)
+            {
+#if !PORTABLE
+            entityWorld.Update(ExecutionType.Asynchronous);
+#else
+            entityWorld.Update(ExecutionType.Synchronous);
+#endif
+                entityWorld.Draw();
+                ++loopCount;
+#if DEBUG
+                global::System.Diagnostics.Debug.WriteLine("Queue size thread A: {0} ", FQueueSystemProcessingThreadSafe<DummyPlaceHolder>.QueueCount(testQueueSystem1.Id));
+#endif
+            }
+
+            stopwatch.Stop();
+            global::System.Diagnostics.Debug.WriteLine("End OK. Loops: {0} Time: {1}", loopCount, FastDateTime.ToString(stopwatch.Elapsed));
+
+            global::System.Diagnostics.Debug.WriteLine("Test entities 1: ");
+            const float Expected1 = 90.0f;
+            foreach (DummyPlaceHolder entity in entities1)
+            {
+                Assert.AreEqual(Expected1, (entity.Component as TestHealthComponent).Points);
+            }                        
             global::System.Diagnostics.Debug.WriteLine("OK");
         }
 

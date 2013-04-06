@@ -38,6 +38,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
+  <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\FQueueManager.cs" />
+	<Compile Include="..\Artemis_XNA_INDEPENDENT\System\FQueueSystemProcessingThreadSafe.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Aspect.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\AttributesProcessor.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\ArtemisComponentCreate.cs" />

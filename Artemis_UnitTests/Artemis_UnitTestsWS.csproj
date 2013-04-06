@@ -110,6 +110,8 @@
     <SDKReference Include="TestPlatform, Version=11.0" />
   </ItemGroup>
   <ItemGroup>
+  <Compile Include="Extra\DummyPlaceHolder.cs" />
+    <Compile Include="System\TestQueueSystemCopy2.cs" />
     <Compile Include="Component\TestHealthComponent.cs" />
     <Compile Include="Component\TestPowerComponent.cs" />
     <Compile Include="Component\TestPowerComponentPoolable.cs" />
