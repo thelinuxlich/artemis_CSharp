@@ -43,17 +43,17 @@ namespace Artemis.Manager
 
     #endregion Using statements
 
-    /// <summary>Class QueueManager.</summary>
-    internal class QueueManager
+    /// <summary>Class QueueManager that is independent of the entity concept</summary>
+    internal class FQueueManager<T>
     {
         /// <summary>The lock object.</summary>
         private readonly object LockObject = new object();
 
         /// <summary>Initializes a new instance of the <see cref="QueueManager"/> class.</summary>
-        public QueueManager()
+        public FQueueManager()
         {
             this.EntitiesToProcessEachFrame = 50;
-            this.Queue = new Queue<Entity>();
+            this.Queue = new Queue<T>();
             this.RefCount = 0;
 
             this.AcquireLock();
@@ -67,7 +67,7 @@ namespace Artemis.Manager
 
         /// <summary>Gets or sets the queue.</summary>
         /// <value>The queue.</value>
-        public Queue<Entity> Queue { get; set; }
+        public Queue<T> Queue { get; set; }
 
         /// <summary>Gets or sets the ref count.</summary>
         /// <value>The ref count.</value>
