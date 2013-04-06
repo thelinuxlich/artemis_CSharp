@@ -81,7 +81,7 @@ namespace UnitTests
         {
             global::System.Diagnostics.Debug.WriteLine("Initialize EntityWorld: ");
             EntityWorld entityWorld = new EntityWorld { PoolCleanupDelay = 1 };
-#if !FULLDOTNET && !METRO
+#if !FULLDOTNET && !METRO && !LIMITED
             entityWorld.InitializeAll(global::System.Reflection.Assembly.GetExecutingAssembly());
 #else
             entityWorld.InitializeAll(true);            
