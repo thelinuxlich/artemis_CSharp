@@ -83,6 +83,7 @@ namespace Artemis.System
         protected EntitySystem(params Type[] types) 
             : this()
         {
+            Debug.Assert(types != null || types.Length == 0, "Types must not be null / zero lengthed.");
             this.Aspect = Aspect.All(types);
         }
 
@@ -275,7 +276,7 @@ namespace Artemis.System
         /// <summary>Interests in the specified entity.</summary>
         /// <param name="entity">The entity.</param>
         /// <returns><see langword="true" /> if any interests in entity, <see langword="false" /> otherwise</returns>
-        protected bool Interests(Entity entity)
+        protected virtual bool Interests(Entity entity)
         {
             return this.Aspect.Interests(entity);
         }

@@ -64,6 +64,7 @@
     <Compile Include="Component\TestPowerComponent.cs" />
     <Compile Include="Component\TestPowerComponentPoolable.cs" />
     <Compile Include="Extra\DummyPlaceHolder.cs" />
+    <Compile Include="System\TestProcessingSystem.cs" />
     <Compile Include="System\TestQueueSystemCopy2.cs" />
     <Compile Include="System\TestNormalEntityProcessingSystem2.cs" />
     <Compile Include="System\TestNormalEntityProcessingSystem3.cs" />
