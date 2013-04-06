@@ -46,8 +46,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\LimitedTest\</OutputPath>
-    <DefineConstants>
-    </DefineConstants>
+    <DefineConstants>LIMITED</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\LimitedTest\UnitTests.xml</DocumentationFile>
