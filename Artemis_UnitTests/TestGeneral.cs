@@ -312,6 +312,38 @@ namespace UnitTests
             Assert.AreEqual(Expected2, entity2.GetComponent<TestPowerComponent>().Power);
         }
 
+
+        [TestMethod]
+        public void TestSimpleSystem2()
+        {
+            global::System.Diagnostics.Debug.WriteLine("Initialize EntityWorld: ");
+            EntityWorld entityWorld = new EntityWorld();
+            var TestProcessingSystem = entityWorld.SystemManager.SetSystem(new TestProcessingSystem(), GameLoopType.Update);
+#if !FULLDOTNET && !METRO
+            entityWorld.InitializeAll();
+#else
+            entityWorld.InitializeAll(false);
+#endif
+            global::System.Diagnostics.Debug.WriteLine("OK");
+
+            const float Expected = 0;
+            Assert.AreEqual(Expected, TestProcessingSystem.Counter);
+            
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            entityWorld.Update();
+            entityWorld.Draw();
+            stopwatch.Stop();
+#if DEBUG
+            global::System.Diagnostics.Debug.WriteLine("Processed update and draw with duration {0} for {1} elements", FastDateTime.ToString(stopwatch.Elapsed), entityWorld.EntityManager.ActiveEntitiesCount);
+#else
+            global::System.Diagnostics.Debug.WriteLine("Processed update and draw with duration {0} for {1} elements", FastDateTime.ToString(stopwatch.Elapsed), entityWorld.EntityManager.ActiveEntities.Count);
+#endif
+            const float Expected1 = 1;
+            Assert.AreEqual(Expected1, TestProcessingSystem.Counter);
+            global::System.Diagnostics.Debug.WriteLine("OK");
+        }
+
+
         /// <summary>Tests the queue systems.</summary>
         [TestMethod]
         public void TestQueueSystems()

@@ -34,6 +34,7 @@
     <DocumentationFile>bin\Artemis_W8Portable\Release\Artemis_W8Portable.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+  <Compile Include="..\Artemis_XNA_INDEPENDENT\System\ProcessingSystem.cs" />
 	<Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\FQueueManager.cs" />
 	<Compile Include="..\Artemis_XNA_INDEPENDENT\System\FQueueSystemProcessingThreadSafe.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Aspect.cs" />

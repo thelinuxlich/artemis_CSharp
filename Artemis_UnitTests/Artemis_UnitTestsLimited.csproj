@@ -60,6 +60,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+  <Compile Include="System\TestProcessingSystem.cs" />
     <Compile Include="Extra\DummyPlaceHolder.cs" />
     <Compile Include="System\TestQueueSystemCopy2.cs" />
     <Compile Include="Component\TestHealthComponent.cs" />
