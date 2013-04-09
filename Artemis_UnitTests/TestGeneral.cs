@@ -103,11 +103,7 @@ namespace UnitTests
             Assert.IsNotNull(entityFromTemplate, "Entity from test template is null.");
             global::System.Diagnostics.Debug.WriteLine("OK");
 
-#if !PORTABLE
-            entityWorld.Update(ExecutionType.Asynchronous);
-#else
-            entityWorld.Update(ExecutionType.Synchronous);
-#endif
+            entityWorld.Update();
             entityWorld.Draw();
 
             global::System.Diagnostics.Debug.WriteLine("Remove component from entity: ");
@@ -125,11 +121,7 @@ namespace UnitTests
             entityWithPooledComponent.GetComponent<TestPowerComponentPoolable>().Power = 100;
             entityWithPooledComponent.Refresh();
 
-#if !PORTABLE
-            entityWorld.Update(ExecutionType.Asynchronous);
-#else
-            entityWorld.Update(ExecutionType.Synchronous);
-#endif
+            entityWorld.Update();
             entityWorld.Draw();
 
             Assert.IsTrue(entityWithPooledComponent.HasComponent<TestPowerComponentPoolable>(), "Could not add component to entity.");
@@ -313,6 +305,9 @@ namespace UnitTests
         }
 
 
+        /// <summary>
+        /// Tests the simple system2.
+        /// </summary>
         [TestMethod]
         public void TestSimpleSystem2()
         {
@@ -402,11 +397,7 @@ namespace UnitTests
             int loopCount = 0;
             while (QueueSystemProcessingThreadSafe.QueueCount(testQueueSystem1.Id) > 0 || QueueSystemProcessingThreadSafe.QueueCount(testQueueSystem3.Id) > 0)
             {
-#if !PORTABLE
-            entityWorld.Update(ExecutionType.Asynchronous);
-#else
-            entityWorld.Update(ExecutionType.Synchronous);
-#endif
+                entityWorld.Update();
                 entityWorld.Draw();
                 ++loopCount;
 #if DEBUG
@@ -477,11 +468,7 @@ namespace UnitTests
             int loopCount = 0;
             while (FQueueSystemProcessingThreadSafe<DummyPlaceHolder>.QueueCount(testQueueSystem1.Id) > 0 || FQueueSystemProcessingThreadSafe<DummyPlaceHolder>.QueueCount(testQueueSystem1.Id) > 0)
             {
-#if !PORTABLE
-            entityWorld.Update(ExecutionType.Asynchronous);
-#else
-            entityWorld.Update(ExecutionType.Synchronous);
-#endif
+                entityWorld.Update();
                 entityWorld.Draw();
                 ++loopCount;
 #if DEBUG
