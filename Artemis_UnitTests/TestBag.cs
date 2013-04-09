@@ -257,7 +257,7 @@ namespace UnitTests
         [TestMethod]
         public void TestPerformance()
         {
-            global::System.Diagnostics.Debug.WriteLine("Maximum number of elements: ");
+            global::System.Diagnostics.Debug.WriteLine("Number of elements: ");
 
             // Identify max mem size.
             Bag<int> bigBag = new Bag<int>();
@@ -270,23 +270,25 @@ namespace UnitTests
                 }
                 catch (Exception)
                 {
-                    maxMem = index - 1;
+                    maxMem = index - 500; //some extra to be sure (there are some memory allocs we cant control in other threads)
                     break;
                 }
             }
-            
-            global::System.Diagnostics.Debug.WriteLine(maxMem.ToString(CultureInfo.InvariantCulture));
 
-            // Reset bag.
-            bigBag = new Bag<int>(0);
-            
+            bigBag = null;
+
             // This is need to secure that enough memory is left.
             GC.Collect();
             GC.WaitForPendingFinalizers();
 #if !METRO
             GC.WaitForFullGCComplete();
 #endif
-            GC.Collect();            
+            GC.Collect();
+
+            global::System.Diagnostics.Debug.WriteLine(maxMem.ToString(CultureInfo.InvariantCulture));
+
+            // Reset bag.
+            bigBag = new Bag<int>(0);
 
             // Start measurement.
             Stopwatch stopwatch = Stopwatch.StartNew();

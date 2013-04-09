@@ -72,32 +72,50 @@ namespace Artemis.Manager
         private readonly Bag<EntitySystem> mergedBag;
 
         /// <summary>The update layers.</summary>
-        private IDictionary<int, Bag<EntitySystem>> updateLayers;
+        private IDictionary<int, Bag<EntitySystem>> updateLayersSync;
 
         /// <summary>The draw layers.</summary>
-        private IDictionary<int, Bag<EntitySystem>> drawLayers;
+        private IDictionary<int, Bag<EntitySystem>> drawLayersSync;
 
-#if FULLDOTNET
+        /// <summary>The draw layers.</summary>
+        private IDictionary<int, Bag<EntitySystem>> drawLayersASync;
+
+        /// <summary>The update layers.</summary>
+        private IDictionary<int, Bag<EntitySystem>> updateLayersASync;
+
+        /// <summary>
+        /// if needs to keep entities sorted by id
+        /// </summary>
+        private bool keepEntitiesSorted;
+
         /// <summary>Initializes a new instance of the <see cref="SystemManager" /> class.</summary>
         /// <param name="entityWorld">The entity world.</param>
         /// <param name="keepEntitiesSorted">if set to <c>true</c> [keep entities sorted].</param>
         internal SystemManager(EntityWorld entityWorld, bool keepEntitiesSorted = true)
-#else
-        /// <summary>Initializes a new instance of the <see cref="SystemManager" /> class.</summary>
-        /// <param name="entityWorld">The entity world.</param>
-        internal SystemManager(EntityWorld entityWorld)
-#endif
         {
             this.mergedBag = new Bag<EntitySystem>();
+            this.keepEntitiesSorted = keepEntitiesSorted;
 #if FULLDOTNET
             if (keepEntitiesSorted)
             {
-                this.drawLayers = new SortedDictionary<int, Bag<EntitySystem>>();
-                this.updateLayers = new SortedDictionary<int, Bag<EntitySystem>>();
+
+                this.drawLayersSync = new SortedDictionary<int, Bag<EntitySystem>>();
+                this.drawLayersASync = new SortedDictionary<int, Bag<EntitySystem>>();
+                this.updateLayersSync = new SortedDictionary<int, Bag<EntitySystem>>();
+                this.updateLayersASync = new SortedDictionary<int, Bag<EntitySystem>>();
+            }
+            else
+            {
+                this.drawLayersSync = new Dictionary<int, Bag<EntitySystem>>();
+                this.drawLayersASync = new Dictionary<int, Bag<EntitySystem>>();
+                this.updateLayersSync = new Dictionary<int, Bag<EntitySystem>>();
+                this.updateLayersASync = new Dictionary<int, Bag<EntitySystem>>();
             }
 #else
-            this.drawLayers = new Dictionary<int, Bag<EntitySystem>>();
-            this.updateLayers = new Dictionary<int, Bag<EntitySystem>>();     
+                this.drawLayersSync = new Dictionary<int, Bag<EntitySystem>>();
+                this.drawLayersASync = new Dictionary<int, Bag<EntitySystem>>();
+                this.updateLayersSync = new Dictionary<int, Bag<EntitySystem>>();
+                this.updateLayersASync = new Dictionary<int, Bag<EntitySystem>>();            
 #endif
             this.systems = new Dictionary<Type, List<EntitySystem>>();
             this.entityWorld = entityWorld;
@@ -113,13 +131,18 @@ namespace Artemis.Manager
             }
         }
 
-        /// <summary>Sets the system.</summary>
+        /// <summary>
+        /// Sets the system.
+        /// </summary>
         /// <typeparam name="T">The <see langword="Type" /> T.</typeparam>
         /// <param name="system">The system.</param>
         /// <param name="gameLoopType">Type of the game loop.</param>
         /// <param name="layer">The layer.</param>
-        /// <returns>The set system.</returns>
-        public T SetSystem<T>(T system, GameLoopType gameLoopType, int layer = 0) where T : EntitySystem
+        /// <param name="executionType">Type of the execution.</param>
+        /// <returns>
+        /// The set system.
+        /// </returns>
+        public T SetSystem<T>(T system, GameLoopType gameLoopType, int layer = 0, ExecutionType executionType = ExecutionType.Synchronous) where T : EntitySystem
         {
             system.EntityWorld = this.entityWorld;
 
@@ -136,51 +159,117 @@ namespace Artemis.Manager
             {
                 case GameLoopType.Draw:
                     {
-                        if (!this.drawLayers.ContainsKey(layer))
+                        if (executionType == ExecutionType.Synchronous)
                         {
-                            this.drawLayers[layer] = new Bag<EntitySystem>();
-                        }
+                            if (!this.drawLayersSync.ContainsKey(layer))
+                            {
+                                this.drawLayersSync[layer] = new Bag<EntitySystem>();
+                            }
 
-                        Bag<EntitySystem> drawBag = this.drawLayers[layer];
-                        if (drawBag == null)
-                        {
-                            drawBag = this.drawLayers[layer] = new Bag<EntitySystem>();
-                        }
+                            Bag<EntitySystem> drawBag = this.drawLayersSync[layer];
+                            if (drawBag == null)
+                            {
+                                drawBag = this.drawLayersSync[layer] = new Bag<EntitySystem>();
+                            }
 
-                        if (!drawBag.Contains(system))
-                        {
-                            drawBag.Add(system);
-                        }
+                            if (!drawBag.Contains(system))
+                            {
+                                drawBag.Add(system);
+                            }
+                            if (keepEntitiesSorted)
+                            {
 #if FULLDOTNET
-                        this.drawLayers = new SortedDictionary<int, Bag<EntitySystem>>((from d in this.drawLayers orderby d.Key ascending select d).ToDictionary(pair => pair.Key, pair => pair.Value));
+                                this.drawLayersSync = new SortedDictionary<int, Bag<EntitySystem>>((from d in this.drawLayersSync orderby d.Key ascending select d).ToDictionary(pair => pair.Key, pair => pair.Value));
 #else
-                        this.drawLayers = (from d in this.drawLayers orderby d.Key ascending select d).ToDictionary(pair => pair.Key, pair => pair.Value);
+                        this.drawLayersSync= (from d in this.drawLayersSync orderby d.Key ascending select d).ToDictionary(pair => pair.Key, pair => pair.Value);
 #endif
+                            }
+                        }
+                        else
+                        {
+                            if (!this.drawLayersASync.ContainsKey(layer))
+                            {
+                                this.drawLayersASync[layer] = new Bag<EntitySystem>();
+                            }
+
+                            Bag<EntitySystem> drawBag = this.drawLayersASync[layer];
+                            if (drawBag == null)
+                            {
+                                drawBag = this.drawLayersASync[layer] = new Bag<EntitySystem>();
+                            }
+
+                            if (!drawBag.Contains(system))
+                            {
+                                drawBag.Add(system);
+                            }
+                            if (keepEntitiesSorted)
+                            {
+#if FULLDOTNET
+                                this.drawLayersASync = new SortedDictionary<int, Bag<EntitySystem>>((from d in this.drawLayersSync orderby d.Key ascending select d).ToDictionary(pair => pair.Key, pair => pair.Value));
+#else
+                            this.drawLayersASync= (from d in this.drawLayersASync orderby d.Key ascending select d).ToDictionary(pair => pair.Key, pair => pair.Value);
+#endif
+                            }
+                        }
                     }
 
                     break;
                 case GameLoopType.Update:
                     {
-                        if (!this.updateLayers.ContainsKey(layer))
+                        if (executionType == ExecutionType.Synchronous)
                         {
-                            this.updateLayers[layer] = new Bag<EntitySystem>();
-                        }
 
-                        Bag<EntitySystem> updateBag = this.updateLayers[layer];
-                        if (updateBag == null)
-                        {
-                            updateBag = this.updateLayers[layer] = new Bag<EntitySystem>();
-                        }
+                            if (!this.updateLayersSync.ContainsKey(layer))
+                            {
+                                this.updateLayersSync[layer] = new Bag<EntitySystem>();
+                            }
 
-                        if (!updateBag.Contains(system))
-                        {
-                            updateBag.Add(system);
-                        }
+                            Bag<EntitySystem> updateBag = this.updateLayersSync[layer];
+                            if (updateBag == null)
+                            {
+                                updateBag = this.updateLayersSync[layer] = new Bag<EntitySystem>();
+                            }
+
+                            if (!updateBag.Contains(system))
+                            {
+                                updateBag.Add(system);
+                            }
+                            if (keepEntitiesSorted)
+                            {
 #if FULLDOTNET
-                        this.updateLayers = new SortedDictionary<int, Bag<EntitySystem>>((from d in this.updateLayers orderby d.Key ascending select d).ToDictionary(pair => pair.Key, pair => pair.Value));
+                                this.updateLayersSync = new SortedDictionary<int, Bag<EntitySystem>>((from d in this.updateLayersSync orderby d.Key ascending select d).ToDictionary(pair => pair.Key, pair => pair.Value));
 #else
-                        this.updateLayers = (from d in this.updateLayers orderby d.Key ascending select d).ToDictionary(pair => pair.Key, pair => pair.Value);
+                            this.updateLayersSync  = (from d in this.updateLayersSync orderby d.Key ascending select d).ToDictionary(pair => pair.Key, pair => pair.Value);
 #endif
+                            }
+                        }
+                        else
+                        {
+
+                            if (!this.updateLayersASync.ContainsKey(layer))
+                            {
+                                this.updateLayersASync[layer] = new Bag<EntitySystem>();
+                            }
+
+                            Bag<EntitySystem> updateBag = this.updateLayersASync[layer];
+                            if (updateBag == null)
+                            {
+                                updateBag = this.updateLayersASync[layer] = new Bag<EntitySystem>();
+                            }
+
+                            if (!updateBag.Contains(system))
+                            {
+                                updateBag.Add(system);
+                            }
+                            if (keepEntitiesSorted)
+                            {
+#if FULLDOTNET
+                                this.updateLayersASync = new SortedDictionary<int, Bag<EntitySystem>>((from d in this.updateLayersASync orderby d.Key ascending select d).ToDictionary(pair => pair.Key, pair => pair.Value));
+#else
+                            this.updateLayersASync  = (from d in this.updateLayersASync orderby d.Key ascending select d).ToDictionary(pair => pair.Key, pair => pair.Value);
+#endif
+                            }
+                        }
                     }
 
                     break;
@@ -237,7 +326,7 @@ namespace Artemis.Manager
                         Type type = item.Key;
                         ArtemisEntitySystem pee = (ArtemisEntitySystem)item.Value[0];
                         EntitySystem instance = (EntitySystem)Activator.CreateInstance(type);
-                        this.SetSystem(instance, pee.GameLoopType, pee.Layer);
+                        this.SetSystem(instance, pee.GameLoopType, pee.Layer, pee.ExecutionType);
                     }
 #if METRO                    
                     else if (typeof(IEntityTemplate).GetTypeInfo().IsAssignableFrom(item.Key.GetTypeInfo()))
@@ -337,17 +426,17 @@ namespace Artemis.Manager
             switch (executionType)
             {
                 case ExecutionType.Synchronous:
-                    foreach (int item in this.updateLayers.Keys)
+                    foreach (int item in this.updateLayersSync.Keys)
                     {
-                        UpdateBagSynchronous(this.updateLayers[item]);
+                        UpdateBagSynchronous(this.updateLayersSync[item]);
                     }
 
                     break;
 #if !PORTABLE
                 case ExecutionType.Asynchronous:
-                    foreach (int item in this.updateLayers.Keys)
+                    foreach (int item in this.updateLayersASync.Keys)
                     {
-                        UpdateBagAsynchronous(this.updateLayers[item]);
+                        UpdateBagAsynchronous(this.updateLayersASync[item]);
                     }
 
                     break;
@@ -362,17 +451,17 @@ namespace Artemis.Manager
             switch (executionType)
             {
                 case ExecutionType.Synchronous:
-                    foreach (int item in this.drawLayers.Keys)
+                    foreach (int item in this.drawLayersSync.Keys)
                     {
-                        UpdateBagSynchronous(this.drawLayers[item]);
+                        UpdateBagSynchronous(this.drawLayersSync[item]);
                     }
 
                     break;
 #if !PORTABLE
                 case ExecutionType.Asynchronous:
-                    foreach (int item in this.drawLayers.Keys)
+                    foreach (int item in this.drawLayersASync.Keys)
                     {
-                        UpdateBagAsynchronous(this.drawLayers[item]);
+                        UpdateBagAsynchronous(this.drawLayersASync[item]);
                     }
 
                     break;
@@ -398,7 +487,7 @@ namespace Artemis.Manager
             }
         }
 
-#if !PORTABLE 
+#if !PORTABLE
         /// <summary>Updates the bag asynchronous.</summary>
         /// <param name="entitySystems">The entity systems.</param>
         private static void UpdateBagAsynchronous(IEnumerable<EntitySystem> entitySystems)

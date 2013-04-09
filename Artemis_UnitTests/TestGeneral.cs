@@ -350,12 +350,18 @@ namespace UnitTests
         {
             global::System.Diagnostics.Debug.WriteLine("Initialize EntityWorld: ");
             EntityWorld entityWorld = new EntityWorld();
+#if !PORTABLE
+            TestQueueSystem testQueueSystem1 = entityWorld.SystemManager.SetSystem(new TestQueueSystem(10), GameLoopType.Update,0, ExecutionType.Asynchronous);
+            TestQueueSystem testQueueSystem2 = entityWorld.SystemManager.SetSystem(new TestQueueSystem(10), GameLoopType.Update, 0, ExecutionType.Asynchronous);
+            TestQueueSystemCopy testQueueSystem3 = entityWorld.SystemManager.SetSystem(new TestQueueSystemCopy(20), GameLoopType.Update, 0, ExecutionType.Asynchronous);
+#else
             TestQueueSystem testQueueSystem1 = entityWorld.SystemManager.SetSystem(new TestQueueSystem(10), GameLoopType.Update);
             TestQueueSystem testQueueSystem2 = entityWorld.SystemManager.SetSystem(new TestQueueSystem(10), GameLoopType.Update);
             TestQueueSystemCopy testQueueSystem3 = entityWorld.SystemManager.SetSystem(new TestQueueSystemCopy(20), GameLoopType.Update);
+#endif
 #if !FULLDOTNET && !METRO
             entityWorld.InitializeAll();
-#else 
+#else
             entityWorld.InitializeAll(false);
 #endif
             global::System.Diagnostics.Debug.WriteLine("OK");
@@ -436,10 +442,16 @@ namespace UnitTests
         {
             global::System.Diagnostics.Debug.WriteLine("Initialize EntityWorld: ");
             EntityWorld entityWorld = new EntityWorld();
+#if !PORTABLE
+            TestQueueSystemCopy2 testQueueSystem1 = entityWorld.SystemManager.SetSystem(new TestQueueSystemCopy2(10), GameLoopType.Update,0,ExecutionType.Asynchronous);            
+#else
             TestQueueSystemCopy2 testQueueSystem1 = entityWorld.SystemManager.SetSystem(new TestQueueSystemCopy2(10), GameLoopType.Update);            
+#endif
+
+
 #if !FULLDOTNET && !METRO
             entityWorld.InitializeAll();
-#else 
+#else
             entityWorld.InitializeAll(false);
 #endif
             global::System.Diagnostics.Debug.WriteLine("OK");

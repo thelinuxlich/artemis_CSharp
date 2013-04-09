@@ -48,7 +48,11 @@ namespace UnitTests.System
     #endregion Using statements
 
     /// <summary>The third most simple system ever.</summary>
+#if !PORTABLE
+    [ArtemisEntitySystem(GameLoopType = GameLoopType.Update, Layer = 0, ExecutionType = ExecutionType.Asynchronous)]
+#else
     [ArtemisEntitySystem(GameLoopType = GameLoopType.Update, Layer = 0)]
+#endif
     public class TestNormalEntityProcessingSystem3 : EntityProcessingSystem
     {
         /// <summary>The test health mapper.</summary>
