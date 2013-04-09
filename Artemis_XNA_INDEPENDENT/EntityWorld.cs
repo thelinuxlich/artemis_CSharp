@@ -309,19 +309,21 @@ namespace Artemis
             this.pools.Add(type, pool);
         }
 
-        /// <summary>Updates the EntityWorld.</summary>
-        /// <param name="executionType">Type of the execution.</param>
-        public void Update(ExecutionType executionType = ExecutionType.Synchronous)
+        /// <summary>
+        /// Updates the EntityWorld.
+        /// </summary>
+        public void Update()
         {
             long deltaTicks = (FastDateTime.Now - this.dateTime).Ticks;
             this.dateTime = FastDateTime.Now;
-            this.Update(deltaTicks, executionType);
+            this.Update(deltaTicks);
         }
 
-        /// <summary>Updates the EntityWorld.</summary>
+        /// <summary>
+        /// Updates the EntityWorld.
+        /// </summary>
         /// <param name="deltaTicks">The delta ticks.</param>
-        /// <param name="executionType">Type of the execution.</param>
-        public void Update(long deltaTicks, ExecutionType executionType = ExecutionType.Synchronous)
+        public void Update(long deltaTicks)
         {
             this.Delta = deltaTicks;
 
@@ -361,14 +363,15 @@ namespace Artemis
                 this.refreshed.Clear();
             }
 
-            this.SystemManager.Update(executionType);
+            this.SystemManager.Update();
         }
 
-        /// <summary>Draws the EntityWorld.</summary>
-        /// <param name="executionType">Type of the execution.</param>
-        public void Draw(ExecutionType executionType = ExecutionType.Synchronous)
+        /// <summary>
+        /// Draws the EntityWorld.
+        /// </summary>
+        public void Draw()
         {
-            this.SystemManager.Draw(executionType);
+            this.SystemManager.Draw();
         }
 
         /// <summary>Unloads the content.</summary>

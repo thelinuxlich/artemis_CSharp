@@ -45,9 +45,17 @@ namespace UnitTests.System
 
     #endregion Using statements
 
-    /// <summary>The dummy system .</summary>
+    /// <summary>
+    /// The dummy system .
+    /// </summary>
     public class TestProcessingSystem : ProcessingSystem
     {
+        /// <summary>
+        /// Gets or sets the counter.
+        /// </summary>
+        /// <value>
+        /// The counter.
+        /// </value>
         public int Counter
         {
             get;
@@ -61,6 +69,10 @@ namespace UnitTests.System
         }
 
 
+        /// <summary>
+        /// Processes the System
+        /// Users should extend this method
+        /// </summary>
         public override void ProcessSystem()
         {
             Counter++;
