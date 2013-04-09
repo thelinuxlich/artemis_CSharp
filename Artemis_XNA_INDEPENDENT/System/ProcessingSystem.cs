@@ -48,22 +48,34 @@ namespace Artemis.System
     /// </summary>
     public abstract class ProcessingSystem : EntitySystem
     {
-        /// <summary>Initializes a new instance of the <see cref="EntityProcessingSystem"/> class.</summary>
-        /// <param name="requiredType">Type of the required.</param>
-        /// <param name="otherTypes">The other types.</param>
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EntityProcessingSystem" /> class.
+        /// </summary>
         public ProcessingSystem()
             : base()
         {
         }
 
+        /// <summary>
+        /// Called when [change].
+        /// </summary>
+        /// <param name="entity">The entity.</param>
         public override void OnChange(Entity entity)
         {            
         }
 
+        /// <summary>
+        /// Called when [removed].
+        /// </summary>
+        /// <param name="entity">The entity.</param>
         public override void OnRemoved(Entity entity)
         {            
         }
 
+        /// <summary>
+        /// Processes this instance.
+        /// [Internal]
+        /// </summary>
         public override void Process()
         {
             if (this.CheckProcessing())
@@ -76,6 +88,7 @@ namespace Artemis.System
 
         /// <summary>
         /// Processes the System
+        /// Users should extend this method
         /// </summary>
         public abstract void ProcessSystem();
 

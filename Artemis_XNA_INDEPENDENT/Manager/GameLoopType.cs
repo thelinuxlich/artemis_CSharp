@@ -44,5 +44,5 @@ namespace Artemis.Manager
 
         /// <summary>The draw.</summary>
         Draw
-    }
+    }    
 }

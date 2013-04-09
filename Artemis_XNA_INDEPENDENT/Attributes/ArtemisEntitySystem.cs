@@ -53,6 +53,7 @@ namespace Artemis.Attributes
         {
             this.GameLoopType = GameLoopType.Update;
             this.Layer = 0;
+            this.ExecutionType = ExecutionType.Synchronous;
         }
 
         /// <summary>Gets or sets the type of the game loop.</summary>
@@ -62,5 +63,13 @@ namespace Artemis.Attributes
         /// <summary>Gets or sets the layer.</summary>
         /// <value>The layer.</value>
         public int Layer { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type of the execution.
+        /// </summary>
+        /// <value>
+        /// The type of the execution.
+        /// </value>
+        public ExecutionType ExecutionType { get; set; }
     }
 }

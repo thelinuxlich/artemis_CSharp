@@ -198,6 +198,10 @@ namespace Artemis.System
                 this.Process(item);
             }
         }
+        /// <summary>
+        /// Processes the specified entity.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
         public virtual void Process(T entity)
         {
         }
