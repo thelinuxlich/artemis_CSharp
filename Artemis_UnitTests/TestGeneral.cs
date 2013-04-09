@@ -180,7 +180,7 @@ namespace UnitTests
             Assert.AreEqual(ExpectedNumberOfGroupedEntities, actualNumberOfGroupedEntities);
             global::System.Diagnostics.Debug.WriteLine("OK");
 #if DEBUG
-            int actualNumberOfActiveEntities = entityWorld.EntityManager.ActiveEntitiesCount;
+            int actualNumberOfActiveEntities = entityWorld.EntityManager.EntitiesRequestedCount;
             const int ExpectedNumberOfActiveEntities = ExpectedNumberOfGroupedEntities + ExpectedNumberOfSystems;
             global::System.Diagnostics.Debug.WriteLine("Number of active entities: {0} ", actualNumberOfActiveEntities);
             Assert.AreEqual(ExpectedNumberOfActiveEntities, actualNumberOfActiveEntities);
@@ -292,7 +292,7 @@ namespace UnitTests
             entityWorld.Draw();
             stopwatch.Stop();
 #if DEBUG
-            global::System.Diagnostics.Debug.WriteLine("Processed update and draw with duration {0} for {1} elements", FastDateTime.ToString(stopwatch.Elapsed), entityWorld.EntityManager.ActiveEntitiesCount);
+            global::System.Diagnostics.Debug.WriteLine("Processed update and draw with duration {0} for {1} elements", FastDateTime.ToString(stopwatch.Elapsed), entityWorld.EntityManager.EntitiesRequestedCount);
 #else
             global::System.Diagnostics.Debug.WriteLine("Processed update and draw with duration {0} for {1} elements", FastDateTime.ToString(stopwatch.Elapsed), entityWorld.EntityManager.ActiveEntities.Count);
 #endif
@@ -329,7 +329,7 @@ namespace UnitTests
             entityWorld.Draw();
             stopwatch.Stop();
 #if DEBUG
-            global::System.Diagnostics.Debug.WriteLine("Processed update and draw with duration {0} for {1} elements", FastDateTime.ToString(stopwatch.Elapsed), entityWorld.EntityManager.ActiveEntitiesCount);
+            global::System.Diagnostics.Debug.WriteLine("Processed update and draw with duration {0} for {1} elements", FastDateTime.ToString(stopwatch.Elapsed), entityWorld.EntityManager.EntitiesRequestedCount);
 #else
             global::System.Diagnostics.Debug.WriteLine("Processed update and draw with duration {0} for {1} elements", FastDateTime.ToString(stopwatch.Elapsed), entityWorld.EntityManager.ActiveEntities.Count);
 #endif

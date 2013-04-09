@@ -52,10 +52,7 @@ namespace Artemis.Manager
     {
         /// <summary>The components by type.</summary>
         private readonly Bag<Bag<IComponent>> componentsByType;
-
-        /// <summary>The entity components. Added for debug support.</summary>
-        private readonly Bag<IComponent> entityComponents;
-
+        
         /// <summary>The removed and available.</summary>
         private readonly Bag<Entity> removedAndAvailable;
 
@@ -72,7 +69,6 @@ namespace Artemis.Manager
             Debug.Assert(entityWorld != null, "EntityWorld must not be null.");
 
             this.removedAndAvailable = new Bag<Entity>();
-            this.entityComponents = new Bag<IComponent>();
             this.componentsByType = new Bag<Bag<IComponent>>();
             this.ActiveEntities = new Bag<Entity>();
             this.RemovedEntitiesRetention = 100;
@@ -101,7 +97,7 @@ namespace Artemis.Manager
         /// <summary>Gets how many entities are currently active. Only available in debug mode.</summary>
         /// <value>The active entities count.</value>
         /// <returns>How many entities are currently active.</returns>
-        public int ActiveEntitiesCount { get; private set; }
+        public int EntitiesRequestedCount { get; private set; }
 #endif
         /// <summary>Gets or sets the removed entities retention.</summary>
         /// <value>The removed entities retention.</value>
@@ -134,7 +130,7 @@ namespace Artemis.Manager
             result.UniqueId = BitConverter.ToInt64(Guid.NewGuid().ToByteArray(), 0);
             this.ActiveEntities.Set(result.Id, result);
 #if DEBUG
-            ++this.ActiveEntitiesCount;
+            ++this.EntitiesRequestedCount;
 
             if (this.TotalCreated < long.MaxValue)
             {
@@ -156,7 +152,7 @@ namespace Artemis.Manager
         {
             Debug.Assert(entity != null, "Entity must not be null.");
 
-            this.entityComponents.Clear();
+            Bag<IComponent> entityComponents = new Bag<IComponent>();            
             int entityId = entity.Id;
             for (int index = 0, b = this.componentsByType.Count; b > index; ++index)
             {
@@ -166,12 +162,11 @@ namespace Artemis.Manager
                     IComponent component = components.Get(entityId);
                     if (component != null)
                     {
-                        this.entityComponents.Add(component);
+                        entityComponents.Add(component);
                     }
                 }
             }
-
-            return this.entityComponents;
+            return entityComponents;
         }
 
         /// <summary>Gets the entities.</summary>
@@ -224,7 +219,7 @@ namespace Artemis.Manager
 
             this.RemoveComponentsOfEntity(entity);
 #if DEBUG
-            --this.ActiveEntitiesCount;
+            --this.EntitiesRequestedCount;
 
             if (this.TotalRemoved > long.MaxValue)
             {
