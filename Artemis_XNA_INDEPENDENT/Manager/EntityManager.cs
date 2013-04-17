@@ -56,6 +56,11 @@ namespace Artemis.Manager
         /// <summary>The removed and available.</summary>
         private readonly Bag<Entity> removedAndAvailable;
 
+        /// <summary>
+        /// Map uniqueid to entities
+        /// </summary>
+        private readonly global::System.Collections.Generic.Dictionary<long, Entity> uniqueIdToEntities = new global::System.Collections.Generic.Dictionary<long, Entity>();
+
         /// <summary>The entity world.</summary>
         private readonly EntityWorld entityWorld;
 
@@ -113,10 +118,16 @@ namespace Artemis.Manager
         /// <returns>The total number of removed entities.</returns>
         public long TotalRemoved { get; private set; }
 #endif
-        /// <summary>Create a new, "blank" entity.</summary>
-        /// <returns>New entity</returns>
-        public Entity Create()
+        /// <summary>
+        /// Create a new, "blank" entity.
+        /// </summary>
+        /// <param name="uniqueid">The uniqueid.</param>
+        /// <returns>
+        /// New entity
+        /// </returns>
+        public Entity Create(long? uniqueid = null)
         {
+            long id = uniqueid.HasValue ? uniqueid.Value : BitConverter.ToInt64(Guid.NewGuid().ToByteArray(), 0);
             Entity result = this.removedAndAvailable.RemoveLast();
             if (result == null)
             {
@@ -127,7 +138,8 @@ namespace Artemis.Manager
                 result.Reset();
             }
 
-            result.UniqueId = BitConverter.ToInt64(Guid.NewGuid().ToByteArray(), 0);
+            result.UniqueId = id;
+            uniqueIdToEntities[result.UniqueId] = result;
             this.ActiveEntities.Set(result.Id, result);
 #if DEBUG
             ++this.EntitiesRequestedCount;
@@ -197,6 +209,19 @@ namespace Artemis.Manager
             return this.ActiveEntities.Get(entityId);
         }
 
+        /// <summary>
+        /// Gets the entity by unique ID. (note that UniqueID is different from ID)
+        /// </summary>
+        /// <param name="entityUniqueId">The entity unique id.</param>
+        /// <returns></returns>
+        public Entity GetEntityByUniqueID(int entityUniqueId)
+        {
+            Debug.Assert(entityUniqueId != -1, "Id must != -1");
+            Entity entity = null;
+            this.uniqueIdToEntities.TryGetValue(entityUniqueId, out entity);
+            return entity;
+        }
+
         /// <summary>Check if this entity is active, or has been deleted, within the framework.</summary>
         /// <param name="entityId">The entity id.</param>
         /// <returns><see langword="true" /> if the specified entity is active; otherwise, <see langword="false" />.</returns>
@@ -235,6 +260,8 @@ namespace Artemis.Manager
             {
                 this.RemovedEntityEvent(entity);
             }
+
+            uniqueIdToEntities.Remove(entity.UniqueId);
         }
 
         /// <summary>Add the given component to the given entity.</summary>

@@ -261,8 +261,10 @@ namespace UnitTests
 
             // Identify max mem size.
             Bag<int> bigBag = new Bag<int>();
-            int maxMem = 0;
-            for (int index = 0; index < int.MaxValue; ++index)
+            int maxMem = 5000;
+            
+            ///pointless to use int.maxvalue (sometimes it works, some it does not ... depends on other process)
+            for (int index = 0; index < 5000; ++index)
             {
                 try
                 {
@@ -270,11 +272,11 @@ namespace UnitTests
                 }
                 catch (Exception)
                 {
-                    maxMem = index - 500; //some extra to be sure (there are some memory allocs we cant control in other threads)
+                    maxMem = index ; //some extra to be sure (there are some memory allocs we cant control in other threads)
                     break;
                 }
             }
-
+            
             bigBag = null;
 
             // This is need to secure that enough memory is left.

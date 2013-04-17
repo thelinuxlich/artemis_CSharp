@@ -62,7 +62,11 @@ namespace Artemis
         /// <summary>The entity world.</summary>
         private readonly EntityWorld entityWorld;
 
-        /// <summary>The unique id.</summary>
+        /// <summary>
+        /// The unique id.
+        /// This ID is unique in Artemis (even if the Entity is reused)
+        /// This value can be SET when building the Entity (passed as a parameter to EntityWorld.CreateEntity)
+        /// </summary>
         private long uniqueId;
 
         /// <summary>Initializes a new instance of the <see cref="Entity"/> class.</summary>
