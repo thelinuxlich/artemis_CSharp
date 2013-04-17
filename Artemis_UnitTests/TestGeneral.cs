@@ -188,6 +188,39 @@ namespace UnitTests
 #endif
         }
 
+
+        /// <summary>Tests uniq id.</summary>
+        [TestMethod]
+        public void TestUniqId()
+        {
+            global::System.Diagnostics.Debug.WriteLine("Initialize EntityWorld: ");
+            EntityWorld entityWorld = new EntityWorld();
+            entityWorld.SystemManager.SetSystem(new TestCommunicationSystem(), GameLoopType.Update);
+#if !FULLDOTNET && !METRO
+            entityWorld.InitializeAll();
+#else
+            entityWorld.InitializeAll(false);
+#endif
+            global::System.Diagnostics.Debug.WriteLine("OK");            
+            var ent1 = TestEntityFactory.CreateTestHealthEntityWithID(entityWorld, -5);
+            global::System.Diagnostics.Debug.WriteLine("ID1 " + ent1.UniqueId );
+            Debug.Assert(ent1.UniqueId == -5, "Ids dont match");                        
+            var ent2 = TestEntityFactory.CreateTestHealthEntity(entityWorld);
+            global::System.Diagnostics.Debug.WriteLine("ID2 " + ent2.UniqueId);
+            Debug.Assert(ent2.UniqueId != -5 && ent2.UniqueId > 0, "Ids cant match");
+            var entrec = entityWorld.EntityManager.GetEntityByUniqueID(-5);
+            Debug.Assert(ent1 == entrec, "Entities must match");
+            entrec = entityWorld.EntityManager.GetEntity(ent1.Id);
+            Debug.Assert(ent1 == entrec, "Entities must match");            
+            entityWorld.DeleteEntity(ent1);
+            entityWorld.Update();
+            entrec = entityWorld.EntityManager.GetEntityByUniqueID(-5);
+            Debug.Assert(entrec==null, "Entity must be null");
+            entrec = entityWorld.EntityManager.GetEntity(ent1.Id);
+            Debug.Assert(entrec == null, "Entity must be null");
+            global::System.Diagnostics.Debug.WriteLine("OK");
+        }
+
         /// <summary>Tests the hybrid queue system.</summary>
         [TestMethod]
         public void TestHybridQueueSystem()

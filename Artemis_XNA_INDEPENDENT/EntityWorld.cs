@@ -154,23 +154,36 @@ namespace Artemis
             this.Update();
         }
 
-        /// <summary>Creates the entity.</summary>
-        /// <returns>A new entity.</returns>
-        public Entity CreateEntity()
+        /// <summary>
+        /// Creates the entity.
+        /// </summary>
+        /// <param name="id">The desired unique id of this Entity. if null, artemis will create an unique ID.
+        /// This value can be accessed by using the property uniqueID of the Entity
+        /// </param>
+        /// <returns>
+        /// A new entity.
+        /// </returns>
+        public Entity CreateEntity(long? entityUniqueId = null)
         {
-            return this.EntityManager.Create();
+            return this.EntityManager.Create(entityUniqueId);
         }
 
-        /// <summary>Creates a entity from template.</summary>
+        /// <summary>
+        /// Creates a entity from template.
+        /// </summary>
         /// <param name="entityTemplateTag">The entity template tag.</param>
+        /// <param name="entityUniqueId">The entity unique id. (artemis can provide this value)</param>
         /// <param name="templateArgs">The template args.</param>
-        /// <returns>The created entity.</returns>
+        /// <returns>
+        /// The created entity.
+        /// </returns>
+        /// <exception cref="System.Exception">EntityTemplate for the tag  + entityTemplateTag +  was not registered.</exception>
         /// <exception cref="Exception">EntityTemplate for the tag "entityTemplateTag" was not registered.</exception>
-        public Entity CreateEntityFromTemplate(string entityTemplateTag, params object[] templateArgs)
+        public Entity CreateEntityFromTemplate(string entityTemplateTag,long? entityUniqueId = null , params object[] templateArgs)
         {
             Debug.Assert(!string.IsNullOrEmpty(entityTemplateTag), "Entity template tag must not be null or empty.");
 
-            Entity entity = this.EntityManager.Create();
+            Entity entity = this.EntityManager.Create(entityUniqueId);
             IEntityTemplate entityTemplate;
             this.entityTemplates.TryGetValue(entityTemplateTag, out entityTemplate);
             if (entityTemplate == null)
@@ -272,7 +285,7 @@ namespace Artemis
             Entity entity;
             if (!string.IsNullOrEmpty(templateTag))
             {
-                entity = this.CreateEntityFromTemplate(templateTag, templateArgs);
+                entity = this.CreateEntityFromTemplate(templateTag, -1 ,templateArgs);
             }
             else
             {
