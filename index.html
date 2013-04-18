@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
     <script src="javascripts/scale.fix.js"></script>
+    <link rel="stylesheet" href="stylesheets/default.css">
+    <script src="javascripts/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
     <!--[if lt IE 9]>
@@ -114,10 +117,10 @@ class Velocity : ComponentPoolable
 }</code></pre>
         </div>
         A sample for entity assembling:
-        <pre>Entity e = world.CreateEntity(); // you can pass an unique ID as first parameter.
+        <pre><code>Entity e = world.CreateEntity(); // you can pass an unique ID as first parameter.
 e.AddComponent(new Transform(200,400));
 e.AddComponentFromPool(new Velocity(2.4f,0.9f)); // use AddComponentFromPool if the Component extend from ComponentPoolable
-e.Refresh();// always call Refresh() when adding/removing components!<code>
+e.Refresh();// always call Refresh() when adding/removing components!
         </code></pre>
         Your systems should inherit from one of the following templates:
         <ul>
