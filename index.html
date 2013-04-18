@@ -114,7 +114,7 @@ class Velocity : ComponentPoolable
 }</code></pre>
         </div>
         A sample for entity assembling:
-        <pre>Entity e = world.CreateEntity();
+        <pre>Entity e = world.CreateEntity(); // you can pass an unique ID as first parameter.
 e.AddComponent(new Transform(200,400));
 e.AddComponentFromPool(new Velocity(2.4f,0.9f)); // use AddComponentFromPool if the Component extend from ComponentPoolable
 e.Refresh();// always call Refresh() when adding/removing components!<code>
@@ -126,9 +126,11 @@ e.Refresh();// always call Refresh() when adding/removing components!<code>
             <li>IntervalEntitySystem - a simple system template, not tied to components, process periodically, based on world delta.</li>
             <li>IntervalEntityProcessingSystem - a template that process entities periodically, based on world delta, tied to components.</li>
             <li>ParallelEntityProcessingSystem - a template to leverage your multicore CPU for processing many entities, tied to components</li>
+            <li>ProcessingSystem - a template that process whichever logic you desire, without being tied to components</li>
             <li>QueueProcessingSystem</li>
             <li>HybridQueueProcessingSystem</li>
             <li>QueueProcessingSystemThreadSafe</li>
+            <li>FQueueSystemProcessingThreadSafe</li>
             <li>TagSystem - a simple system template, not tied to components, process a tagged entity</li>
             <li>IntervalTagSystem - a simple system template, not tied to components, process a tagged entity periodically, based on world delta.</li>
             <li>DelayedEntitySystem - a simple system template that starts process after a given time, based on world delta.</li>
@@ -164,10 +166,11 @@ public class MovementSystem : EntityProcessingSystem {
 }</code></pre>
         On your game initialization, create a new EntityWorld and initialize it:
         <pre><code>var world = new EntityWorld();
-world.InitializeAll();
+world.InitializeAll(true); // pass true/false to enable/disable DataAttributes on Systems
         </code></pre>
-        On your game update loop, update the world passing the elapsed time and telling which type of system execution(update or draw) it should do:
-        <pre><code>world.Update(elapsed.Milliseconds,ExecutionType.UpdateSynchronous);
+        Update or Draw the World:
+        <pre><code>world.Update();
+          world.Draw(); // do this on a different loop, e.g: every 60 frames.
         </code></pre>
         And you are good to go. The Entity object has some intuitive methods like Delete(), GetComponent(), RemoveComponent(), which
         you can see in action on the <a href="https://github.com/thelinuxlich/starwarrior_CSharp">example game.</a>
