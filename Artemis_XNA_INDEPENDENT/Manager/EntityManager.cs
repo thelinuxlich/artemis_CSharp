@@ -244,9 +244,9 @@ namespace Artemis.Manager
 
             this.RemoveComponentsOfEntity(entity);
 #if DEBUG
-            --this.EntitiesRequestedCount;
+            --this.ActiveEntitiesCount;
 
-            if (this.TotalRemoved > long.MaxValue)
+            if (this.TotalRemoved < long.MaxValue)
             {
                 ++this.TotalRemoved;
             }
@@ -260,8 +260,6 @@ namespace Artemis.Manager
             {
                 this.RemovedEntityEvent(entity);
             }
-
-            uniqueIdToEntities.Remove(entity.UniqueId);
         }
 
         /// <summary>Add the given component to the given entity.</summary>
@@ -274,25 +272,7 @@ namespace Artemis.Manager
 
             ComponentType type = ComponentTypeManager.GetTypeFor(component.GetType());
 
-            if (type.Id >= this.componentsByType.Capacity)
-            {
-                this.componentsByType.Set(type.Id, null);
-            }
-
-            Bag<IComponent> components = this.componentsByType.Get(type.Id);
-            if (components == null)
-            {
-                components = new Bag<IComponent>();
-                this.componentsByType.Set(type.Id, components);
-            }
-
-            components.Set(entity.Id, component);
-
-            entity.AddTypeBit(type.Bit);
-            if (this.AddedComponentEvent != null)
-            {
-                this.AddedComponentEvent(entity, component);
-            }
+            AddComponent(entity, component, type);
         }
 
         /// <summary>
@@ -310,6 +290,11 @@ namespace Artemis.Manager
 
             ComponentType type = ComponentTypeManager.GetTypeFor<T>();
 
+            AddComponent(entity, component, type);
+        }
+
+        internal void AddComponent(Entity entity, IComponent component, ComponentType type)
+        {
             if (type.Id >= this.componentsByType.Capacity)
             {
                 this.componentsByType.Set(type.Id, null);
@@ -331,18 +316,18 @@ namespace Artemis.Manager
             }
         }
 
-        /// <summary>Get the component instance of the given component type for the given entity.</summary>
-        /// <param name="entity">The entity for which you want to get the component</param>
-        /// <param name="componentType">The desired component type</param>
-        /// <returns>Component instance</returns>
-        internal IComponent GetComponent(Entity entity, ComponentType componentType)
+        internal T GetComponent<T>(Entity entity) where T : IComponent
+        {
+            return (T)GetComponent(entity, ComponentType<T>.Id);
+        }
+
+        internal IComponent GetComponent(Entity entity, int id)
         {
             Debug.Assert(entity != null, "Entity must not be null.");
-            Debug.Assert(componentType != null, "Component type must not be null.");
 
             int entityId = entity.Id;
-            Bag<IComponent> bag = this.componentsByType.Get(componentType.Id);
-            if (componentType.Id >= this.componentsByType.Capacity)
+            Bag<IComponent> bag = this.componentsByType.Get(id);
+            if (id >= this.componentsByType.Capacity)
             {
                 return null;
             }
@@ -376,27 +361,25 @@ namespace Artemis.Manager
             Debug.Assert(entity != null, "Entity must not be null.");
             Debug.Assert(component != null, "Component must not be null.");
 
-            ComponentType type = ComponentTypeManager.GetTypeFor<T>();
-            this.RemoveComponent(entity, type);
+            throw new NotImplementedException();
         }
 
         /// <summary>Removes the given component type from the given entity.</summary>
         /// <param name="entity">The entity for which you want to remove the component.</param>
         /// <param name="componentType">The component type you want to remove.</param>
-        internal void RemoveComponent(Entity entity, ComponentType componentType)
+        internal void RemoveComponent<T>(Entity entity) where T : IComponent
         {
             Debug.Assert(entity != null, "Entity must not be null.");
-            Debug.Assert(componentType != null, "Component type must not be null.");
 
             int entityId = entity.Id;
-            Bag<IComponent> components = this.componentsByType.Get(componentType.Id);
+            Bag<IComponent> components = this.componentsByType.Get(ComponentType<T>.Id);
             if (this.RemovedComponentEvent != null)
             {
                 this.RemovedComponentEvent(entity, components.Get(entityId));
             }
 
             components.Set(entityId, null);
-            entity.RemoveTypeBit(componentType.Bit);
+            entity.RemoveTypeBit(ComponentType<T>.Bit);
         }
 
         /// <summary>Strips all components from the given entity.</summary>
@@ -404,16 +387,17 @@ namespace Artemis.Manager
         internal void RemoveComponentsOfEntity(Entity entity)
         {
             Debug.Assert(entity != null, "Entity must not be null.");
-
+            
             int entityId = entity.Id;
             for (int index = this.componentsByType.Count - 1; index >= 0; --index)
             {
                 Bag<IComponent> components = this.componentsByType.Get(index);
                 if (components != null && entityId < components.Count)
                 {
-                    if (this.RemovedComponentEvent != null)
+                    IComponent componentToBeRemoved = components.Get(entityId);
+                    if (this.RemovedComponentEvent != null && componentToBeRemoved != null)
                     {
-                        this.RemovedComponentEvent(entity, components.Get(entityId));
+                        this.RemovedComponentEvent(entity, componentToBeRemoved);
                     }
 
                     components.Set(entityId, null);
@@ -426,9 +410,9 @@ namespace Artemis.Manager
         /// <param name="component">The component.</param>
         private void EntityManagerRemovedComponentEvent(Entity entity, IComponent component)
         {
-            if (component is ComponentPoolable)
+            ComponentPoolable componentPoolable = component as ComponentPoolable;
+            if (componentPoolable != null)
             {
-                ComponentPoolable componentPoolable = component as ComponentPoolable;
                 if (componentPoolable.PoolId < 0)
                 {
                     return;
