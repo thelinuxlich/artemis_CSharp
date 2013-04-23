@@ -69,6 +69,7 @@
     <Compile Include="Blackboard\Trigger.cs" />
     <Compile Include="Blackboard\TriggerMultiCondition.cs" />
     <Compile Include="Blackboard\TriggerStateType.cs" />
+    <Compile Include="Exceptions\MissingEntityTemplateException.cs" />
     <Compile Include="Interface\IComponent.cs" />
     <Compile Include="ComponentMapper.cs" />
     <Compile Include="ComponentPoolable.cs" />
