@@ -45,6 +45,7 @@ namespace Artemis
     using Artemis.Interface;
     using Artemis.Manager;
     using Artemis.Utils;
+    using Artemis.Exceptions;
 
     #endregion Using statements
 
@@ -203,7 +204,7 @@ namespace Artemis
             this.entityTemplates.TryGetValue(entityTemplateTag, out entityTemplate);
             if (entityTemplate == null)
             {
-                throw new Exception("EntityTemplate for the tag " + entityTemplateTag + " was not registered.");
+                throw new MissingEntityTemplateException(entityTemplateTag);
             }
 
             return entityTemplate.BuildEntity(entity, this, templateArgs);
@@ -238,15 +239,9 @@ namespace Artemis
         /// <typeparam name="T">Type of the component</typeparam>
         /// <returns>The found component.</returns>
         /// <exception cref="Exception">There is no pool for the type  + type</exception>
-        public IComponent GetComponentFromPool<T>() where T : ComponentPoolable
+        public T GetComponentFromPool<T>() where T : ComponentPoolable
         {
-            Type type = typeof(T);
-            if (!this.pools.ContainsKey(type))
-            {
-                throw new Exception("There is no pool for the specified type " + type);
-            }
-
-            return this.pools[type].New();
+            return (T)GetComponentFromPool(typeof(T));
         }
 
         /// <summary>Gets the entity.</summary>
