@@ -62,6 +62,12 @@ namespace Artemis.Manager
     /// <summary>Class SystemManager.</summary>
     public sealed class SystemManager
     {
+        private class SystemLayer : Bag<EntitySystem>
+        {
+            public readonly Bag<EntitySystem> Synchronous = new Bag<EntitySystem>();
+            public readonly Bag<EntitySystem> Asynchronous = new Bag<EntitySystem>();
+        }
+
         /// <summary>The entity world.</summary>
         private readonly EntityWorld entityWorld;
 
@@ -72,10 +78,10 @@ namespace Artemis.Manager
         private readonly Bag<EntitySystem> mergedBag;
 
         /// <summary>The update layers.</summary>
-        private IDictionary<int, Bag<EntitySystem>[]> updateLayers;
+        private IDictionary<int, SystemLayer> updateLayers;
 
         /// <summary>The draw layers.</summary>
-        private IDictionary<int, Bag<EntitySystem>[]> drawLayers;
+        private IDictionary<int, SystemLayer> drawLayers;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SystemManager" /> class.
@@ -85,11 +91,11 @@ namespace Artemis.Manager
         {
             this.mergedBag = new Bag<EntitySystem>();
 #if FULLDOTNET
-                this.drawLayers = new SortedDictionary<int, Bag<EntitySystem>[]>();
-                this.updateLayers = new SortedDictionary<int, Bag<EntitySystem>[]>();                
+            this.drawLayers = new SortedDictionary<int, SystemLayer>();
+            this.updateLayers = new SortedDictionary<int, SystemLayer>();                
 #else
-                this.drawLayers = new Dictionary<int, Bag<EntitySystem>[]>();
-                this.updateLayers = new Dictionary<int, Bag<EntitySystem>[]>();                
+                this.drawLayers = new Dictionary<int, SystemLayer>();
+                this.updateLayers = new Dictionary<int, SystemLayer>();                
 #endif
             this.systems = new Dictionary<Type, List<EntitySystem>>();
             this.entityWorld = entityWorld;
@@ -136,16 +142,14 @@ namespace Artemis.Manager
                         
                             if (!this.drawLayers.ContainsKey(layer))
                             {
-                                this.drawLayers[layer] = new Bag<EntitySystem>[2];
-                                this.drawLayers[layer][0] = new Bag<EntitySystem>();
-                                this.drawLayers[layer][1] = new Bag<EntitySystem>();
+                                this.drawLayers[layer] = new SystemLayer();
                             }
 
                             Bag<EntitySystem> drawBag  = null;
                             if(executionType == ExecutionType.Synchronous)
-                                drawBag = this.drawLayers[layer][0];
+                                drawBag = this.drawLayers[layer].Synchronous;
                             else
-                                drawBag = this.drawLayers[layer][1];
+                                drawBag = this.drawLayers[layer].Asynchronous;
                             
                             if (!drawBag.Contains(system))
                             {
@@ -164,17 +168,15 @@ namespace Artemis.Manager
                         
                             if (!this.updateLayers.ContainsKey(layer))
                             {
-                                this.updateLayers[layer] = new Bag<EntitySystem>[2];
-                                this.updateLayers[layer][0] = new Bag<EntitySystem>();
-                                this.updateLayers[layer][1] = new Bag<EntitySystem>();
+                                this.updateLayers[layer] = new SystemLayer();
                             }
 
 
                             Bag<EntitySystem> updateBag = null;
                             if (executionType == ExecutionType.Synchronous)
-                                updateBag = this.updateLayers[layer][0];
+                                updateBag = this.updateLayers[layer].Synchronous;
                             else
-                                updateBag = this.updateLayers[layer][1];
+                                updateBag = this.updateLayers[layer].Synchronous;
                             
                             if (!updateBag.Contains(system))
                             {
@@ -322,14 +324,14 @@ namespace Artemis.Manager
         {
                 foreach (int item in this.updateLayers.Keys)
                     {
-                        if (this.updateLayers[item][0].Count > 0)
+                        if (this.updateLayers[item].Synchronous.Count > 0)
                         {
-                            ProcessBagSynchronous(this.updateLayers[item][0]);
+                            ProcessBagSynchronous(this.updateLayers[item].Synchronous);
                         }
 #if !PORTABLE
-                        if (this.updateLayers[item][1].Count > 0)
+                        if (this.updateLayers[item].Asynchronous.Count > 0)
                         {
-                            ProcessBagAsynchronous(this.updateLayers[item][1]);
+                            ProcessBagAsynchronous(this.updateLayers[item].Asynchronous);
                         }      
 #endif
                     }            
@@ -344,14 +346,14 @@ namespace Artemis.Manager
 
                 foreach (int item in this.drawLayers.Keys)
                 {
-                    if (this.drawLayers[item][0].Count > 0)
+                    if (this.drawLayers[item].Synchronous.Count > 0)
                     {
-                        ProcessBagSynchronous(this.drawLayers[item][0]);
+                        ProcessBagSynchronous(this.drawLayers[item].Synchronous);
                     }
 #if !PORTABLE
-                    if (this.drawLayers[item][1].Count > 0)
+                    if (this.drawLayers[item].Asynchronous.Count > 0)
                     {
-                        ProcessBagAsynchronous(this.drawLayers[item][1]);
+                        ProcessBagAsynchronous(this.drawLayers[item].Asynchronous);
                     }
 #endif
                 }                       
