@@ -68,7 +68,7 @@ namespace Artemis.Utils
         {
             get
             {
-                return this.bag.Get(this.index);
+                return this.bag[this.index];
             }
         }
 
@@ -79,7 +79,7 @@ namespace Artemis.Utils
         {
             get
             {
-                return this.bag.Get(this.index);
+                return this.bag[this.index];
             }
         }
 
