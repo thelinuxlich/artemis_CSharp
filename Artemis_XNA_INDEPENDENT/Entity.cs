@@ -206,7 +206,9 @@ namespace Artemis
         /// <returns>The added component.</returns>
         public T AddComponentFromPool<T>() where T : ComponentPoolable
         {
-            return component;
+            IComponent component = this.entityWorld.GetComponentFromPool(typeof(T));
+            this.entityManager.AddComponent(this, component);
+            return (T)component;
         }
 
         /// <summary>Deletes this instance.</summary>
@@ -254,7 +256,7 @@ namespace Artemis
         /// <returns><see langword="true" /> if this instance has a specific component; otherwise, <see langword="false" />.</returns>
         public bool HasComponent<T>() where T : IComponent
         {
-            return !object.Equals((T)this.GetComponent(ComponentTypeManager.GetTypeFor<T>()), default(T));
+            return !object.Equals((T)this.entityManager.GetComponent(this, ComponentType<T>.CType), default(T));
         }
 
         /// <summary>

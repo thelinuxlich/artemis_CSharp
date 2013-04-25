@@ -244,7 +244,7 @@ namespace Artemis.Manager
 
             this.RemoveComponentsOfEntity(entity);
 #if DEBUG
-            --this.ActiveEntitiesCount;
+            --this.EntitiesRequestedCount;
 
             if (this.TotalRemoved < long.MaxValue)
             {
@@ -260,7 +260,8 @@ namespace Artemis.Manager
             {
                 this.RemovedEntityEvent(entity);
             }
-        }
+
+            uniqueIdToEntities.Remove(entity.UniqueId);        }
 
         /// <summary>Add the given component to the given entity.</summary>
         /// <param name="entity">Entity for which you want to add the component.</param>
@@ -316,18 +317,19 @@ namespace Artemis.Manager
             }
         }
 
-        internal T GetComponent<T>(Entity entity) where T : IComponent
-        {
-            return (T)GetComponent(entity, ComponentType<T>.Id);
-        }
 
-        internal IComponent GetComponent(Entity entity, int id)
+        /// <summary>Get the component instance of the given component type for the given entity.</summary>
+        /// <param name="entity">The entity for which you want to get the component</param>
+        /// <param name="componentType">The desired component type</param>
+        /// <returns>Component instance</returns>
+        internal IComponent GetComponent(Entity entity, ComponentType componentType)
         {
             Debug.Assert(entity != null, "Entity must not be null.");
+            Debug.Assert(componentType != null, "Component type must not be null.");
 
             int entityId = entity.Id;
-            Bag<IComponent> bag = this.componentsByType.Get(id);
-            if (id >= this.componentsByType.Capacity)
+            Bag<IComponent> bag = this.componentsByType.Get(componentType.Id);
+            if (componentType.Id >= this.componentsByType.Capacity)
             {
                 return null;
             }
@@ -355,31 +357,28 @@ namespace Artemis.Manager
         /// <summary>Removes the given component from the given entity.</summary>
         /// <typeparam name="T">The type of the component you want to remove.</typeparam>
         /// <param name="entity">The entity for which you are removing the component.</param>
-        /// <param name="component">The specific component instance you want removed.</param>
-        internal void RemoveComponent<T>(Entity entity, IComponent component) where T : IComponent
+        internal void RemoveComponent<T>(Entity entity) where T : IComponent
         {
-            Debug.Assert(entity != null, "Entity must not be null.");
-            Debug.Assert(component != null, "Component must not be null.");
-
-            throw new NotImplementedException();
+            RemoveComponent(entity, ComponentType<T>.CType);
         }
 
         /// <summary>Removes the given component type from the given entity.</summary>
         /// <param name="entity">The entity for which you want to remove the component.</param>
         /// <param name="componentType">The component type you want to remove.</param>
-        internal void RemoveComponent<T>(Entity entity) where T : IComponent
+        internal void RemoveComponent(Entity entity, ComponentType componentType)
         {
             Debug.Assert(entity != null, "Entity must not be null.");
+            Debug.Assert(componentType != null, "Component type must not be null.");
 
             int entityId = entity.Id;
-            Bag<IComponent> components = this.componentsByType.Get(ComponentType<T>.Id);
+            Bag<IComponent> components = this.componentsByType.Get(componentType.Id);
             if (this.RemovedComponentEvent != null)
             {
                 this.RemovedComponentEvent(entity, components.Get(entityId));
             }
 
             components.Set(entityId, null);
-            entity.RemoveTypeBit(ComponentType<T>.Bit);
+            entity.RemoveTypeBit(componentType.Bit);
         }
 
         /// <summary>Strips all components from the given entity.</summary>
