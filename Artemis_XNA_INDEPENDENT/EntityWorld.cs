@@ -172,6 +172,21 @@ namespace Artemis
         /// Creates a entity from template.
         /// </summary>
         /// <param name="entityTemplateTag">The entity template tag.</param>
+        /// <param name="templateArgs">The template args.</param>
+        /// <returns>
+        /// The created entity.
+        /// </returns>
+        /// <exception cref="System.Exception">EntityTemplate for the tag  + entityTemplateTag +  was not registered.</exception>
+        /// <exception cref="Exception">EntityTemplate for the tag "entityTemplateTag" was not registered.</exception>
+        public Entity CreateEntityFromTemplate(string entityTemplateTag, params object[] templateArgs)
+        {
+            return CreateEntityWithIdFromTemplate(entityTemplateTag, null, templateArgs);
+        }
+
+        /// <summary>
+        /// Creates a entity from template.
+        /// </summary>
+        /// <param name="entityTemplateTag">The entity template tag.</param>
         /// <param name="entityUniqueId">The entity unique id. (artemis can provide this value)</param>
         /// <param name="templateArgs">The template args.</param>
         /// <returns>
@@ -179,7 +194,7 @@ namespace Artemis
         /// </returns>
         /// <exception cref="System.Exception">EntityTemplate for the tag  + entityTemplateTag +  was not registered.</exception>
         /// <exception cref="Exception">EntityTemplate for the tag "entityTemplateTag" was not registered.</exception>
-        public Entity CreateEntityFromTemplate(string entityTemplateTag,long? entityUniqueId = null , params object[] templateArgs)
+        public Entity CreateEntityWithIdFromTemplate(string entityTemplateTag, long? entityUniqueId, params object[] templateArgs)
         {
             Debug.Assert(!string.IsNullOrEmpty(entityTemplateTag), "Entity template tag must not be null or empty.");
 
@@ -276,7 +291,7 @@ namespace Artemis
         /// <param name="groupName">Name of the group. Can be null.</param>
         /// <param name="components">The components.</param>
         /// <param name="templateArgs">Parameters for entity template.</param>
-        public void LoadEntityState(string templateTag, string groupName, Bag<IComponent> components, params object[] templateArgs)
+        public Entity LoadEntityState(string templateTag, string groupName, IEnumerable<IComponent> components, params object[] templateArgs)
         {
             Debug.Assert(components != null, "Components must not be null.");
 
@@ -295,10 +310,11 @@ namespace Artemis
                 this.GroupManager.Set(groupName, entity);
             }
 
-            for (int index = 0, j = components.Count; index < j; ++index)
+            foreach (IComponent comp in components)
             {
-                entity.AddComponent(components.Get(index));
+                entity.AddComponent(comp);
             }
+            return entity;
         }
 
         /// <summary>Sets the entity template.</summary>
