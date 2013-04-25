@@ -57,7 +57,7 @@ namespace Artemis
     public class Aspect
     {
         /// <summary>Initializes a new instance of the <see cref="Aspect"/> class.</summary>
-        protected Aspect()
+        public Aspect()
         {
             this.OneTypesMap = 0;
             this.ExcludeTypesMap = 0;
