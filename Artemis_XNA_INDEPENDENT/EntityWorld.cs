@@ -107,7 +107,7 @@ namespace Artemis
                 Dictionary<Entity, Bag<IComponent>> currentState = new Dictionary<Entity, Bag<IComponent>>();
                 for (int index = 0, j = entities.Count; index < j; ++index)
                 {
-                    Entity entity = entities.Get(index);
+                    Entity entity = entities[index];
                     Bag<IComponent> components = entity.Components;
                     currentState.Add(entity, components);
                 }
@@ -363,7 +363,7 @@ namespace Artemis
             {
                 for (int index = this.deleted.Count - 1; index >= 0; --index)
                 {
-                    Entity entity = this.deleted.Get(index);
+                    Entity entity = this.deleted[index];
                     this.TagManager.Unregister(entity);
                     this.GroupManager.Remove(entity);
                     this.EntityManager.Remove(entity);
@@ -377,7 +377,7 @@ namespace Artemis
             {
                 for (int index = this.refreshed.Count - 1; index >= 0; --index)
                 {
-                    Entity entity = this.refreshed.Get(index);
+                    Entity entity = this.refreshed[index];
                     this.EntityManager.Refresh(entity);
                     entity.RefreshingState = false;
                 }

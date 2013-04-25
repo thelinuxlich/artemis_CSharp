@@ -40,6 +40,7 @@ namespace Artemis.Manager
 
     using global::System;
     using global::System.Diagnostics;
+    using global::System.Collections.Generic;
 
     using Artemis.Interface;
     using Artemis.System;
@@ -140,7 +141,7 @@ namespace Artemis.Manager
 
             result.UniqueId = id;
             uniqueIdToEntities[result.UniqueId] = result;
-            this.ActiveEntities.Set(result.Id, result);
+            this.ActiveEntities[result.Id] = result;
 #if DEBUG
             ++this.EntitiesRequestedCount;
 
@@ -171,7 +172,7 @@ namespace Artemis.Manager
                 Bag<IComponent> components = this.componentsByType.Get(index);
                 if (components != null && entityId < components.Count)
                 {
-                    IComponent component = components.Get(entityId);
+                    IComponent component = components[entityId];
                     if (component != null)
                     {
                         entityComponents.Add(component);
@@ -189,7 +190,7 @@ namespace Artemis.Manager
             Bag<Entity> entitiesBag = new Bag<Entity>();
             for (int index = 0; index < this.ActiveEntities.Count; ++index)
             {
-                Entity entity = this.ActiveEntities.Get(index);
+                Entity entity = this.ActiveEntities[index];
                 if (aspect.Interests(entity))
                 {
                     entitiesBag.Add(entity);
@@ -206,7 +207,7 @@ namespace Artemis.Manager
         {
             Debug.Assert(entityId >= 0, "Id must be at least 0.");
 
-            return this.ActiveEntities.Get(entityId);
+            return this.ActiveEntities[entityId];
         }
 
         /// <summary>
@@ -227,7 +228,7 @@ namespace Artemis.Manager
         /// <returns><see langword="true" /> if the specified entity is active; otherwise, <see langword="false" />.</returns>
         public bool IsActive(int entityId)
         {
-            return this.ActiveEntities.Get(entityId) != null;
+            return this.ActiveEntities[entityId] != null;
         }
 
         /// <summary>Remove an entity from the entityWorld.</summary>
@@ -236,7 +237,7 @@ namespace Artemis.Manager
         {
             Debug.Assert(entity != null, "Entity must not be null.");
 
-            this.ActiveEntities.Set(entity.Id, null);
+            this.ActiveEntities[entity.Id] = null;
 
             entity.TypeBits = 0;
 
@@ -298,17 +299,17 @@ namespace Artemis.Manager
         {
             if (type.Id >= this.componentsByType.Capacity)
             {
-                this.componentsByType.Set(type.Id, null);
+                this.componentsByType[type.Id] = null;
             }
 
             Bag<IComponent> components = this.componentsByType.Get(type.Id);
             if (components == null)
             {
                 components = new Bag<IComponent>();
-                this.componentsByType.Set(type.Id, components);
+                this.componentsByType[type.Id] = components;
             }
 
-            components.Set(entity.Id, component);
+            components[entity.Id] = component;
 
             entity.AddTypeBit(type.Bit);
             if (this.AddedComponentEvent != null)
@@ -336,7 +337,7 @@ namespace Artemis.Manager
 
             if (bag != null && entityId < bag.Capacity)
             {
-                return bag.Get(entityId);
+                return bag[entityId];
             }
 
             return null;
@@ -350,7 +351,7 @@ namespace Artemis.Manager
             Bag<EntitySystem> systems = systemManager.Systems;
             for (int index = 0, s = systems.Count; s > index; ++index)
             {
-                systems.Get(index).OnChange(entity);
+                systems[index].OnChange(entity);
             }
         }
 
@@ -374,10 +375,10 @@ namespace Artemis.Manager
             Bag<IComponent> components = this.componentsByType.Get(componentType.Id);
             if (this.RemovedComponentEvent != null)
             {
-                this.RemovedComponentEvent(entity, components.Get(entityId));
+                this.RemovedComponentEvent(entity, components[entityId]);
             }
 
-            components.Set(entityId, null);
+            components[entityId] = null;
             entity.RemoveTypeBit(componentType.Bit);
         }
 
@@ -393,13 +394,13 @@ namespace Artemis.Manager
                 Bag<IComponent> components = this.componentsByType.Get(index);
                 if (components != null && entityId < components.Count)
                 {
-                    IComponent componentToBeRemoved = components.Get(entityId);
+                    IComponent componentToBeRemoved = components[entityId];
                     if (this.RemovedComponentEvent != null && componentToBeRemoved != null)
                     {
                         this.RemovedComponentEvent(entity, componentToBeRemoved);
                     }
 
-                    components.Set(entityId, null);
+                    components[entityId] = null;
                 }
             }
         }

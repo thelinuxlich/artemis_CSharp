@@ -275,7 +275,7 @@ namespace Artemis.Manager
 
             for (int index = 0, j = this.mergedBag.Count; index < j; ++index)
             {
-                this.mergedBag.Get(index).LoadContent();
+                this.mergedBag[index].LoadContent();
             }
         }
 
@@ -339,7 +339,7 @@ namespace Artemis.Manager
         {
             for (int index = 0; index < this.Systems.Count; ++index)
             {
-                EntitySystem entitySystem = this.Systems.Get(index);
+                EntitySystem entitySystem = this.Systems[index];
                 entitySystem.UnloadContent();
             }
 
@@ -393,7 +393,7 @@ namespace Artemis.Manager
         {
             for (int index = 0, j = entitySystems.Count; index < j; ++index)
             {
-                entitySystems.Get(index).Process();
+                entitySystems[index].Process();
             }
         }
 
