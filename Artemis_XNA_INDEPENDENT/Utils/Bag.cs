@@ -132,7 +132,7 @@ namespace Artemis.Utils
         {
             for (int index = 0, j = rangeOfElements.Count; j > index; ++index)
             {
-                this.Add(rangeOfElements.Get(index));
+                this.Add(rangeOfElements[index]);
             }
         }
 
@@ -167,14 +167,6 @@ namespace Artemis.Utils
             return false;
         }
 
-        /// <summary>Gets the specified index.</summary>
-        /// <param name="index">The index.</param>
-        /// <returns>The specified element.</returns>
-        public T Get(int index)
-        {
-            return this.elements[index];
-        }
-
         /// <summary>Removes the specified index.</summary>
         /// <param name="index">The index.</param>
         /// <returns>The removed element.</returns>
@@ -190,6 +182,14 @@ namespace Artemis.Utils
             // Null last element, so garbage collector can do its work.
             this.elements[this.Count] = default(T);
             return result;
+        }
+
+        /// <summary>Gets the specified index.</summary>
+        /// <param name="index">The index.</param>
+        /// <returns>The specified element.</returns>
+        public T Get(int index)
+        {
+            return this.elements[index];
         }
 
         /// <summary>
@@ -257,16 +257,6 @@ namespace Artemis.Utils
         /// <param name="element">The element.</param>
         public void Set(int index, T element)
         {
-            if (index >= this.elements.Length)
-            {
-                this.Grow(index * 2);
-                this.Count = index + 1;
-            }
-            else if (index >= this.Count)
-            {
-                this.Count = index + 1;
-            }
-
             this.elements[index] = element;
         }
 

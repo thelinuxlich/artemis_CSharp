@@ -169,7 +169,7 @@ namespace Artemis.Manager
             int entityId = entity.Id;
             for (int index = 0, b = this.componentsByType.Count; b > index; ++index)
             {
-                Bag<IComponent> components = this.componentsByType.Get(index);
+                Bag<IComponent> components = this.componentsByType[index];
                 if (components != null && entityId < components.Count)
                 {
                     IComponent component = components[entityId];
@@ -302,7 +302,7 @@ namespace Artemis.Manager
                 this.componentsByType[type.Id] = null;
             }
 
-            Bag<IComponent> components = this.componentsByType.Get(type.Id);
+            Bag<IComponent> components = this.componentsByType[type.Id];
             if (components == null)
             {
                 components = new Bag<IComponent>();
@@ -329,7 +329,7 @@ namespace Artemis.Manager
             Debug.Assert(componentType != null, "Component type must not be null.");
 
             int entityId = entity.Id;
-            Bag<IComponent> bag = this.componentsByType.Get(componentType.Id);
+            Bag<IComponent> bag = this.componentsByType[componentType.Id];
             if (componentType.Id >= this.componentsByType.Capacity)
             {
                 return null;
@@ -372,7 +372,7 @@ namespace Artemis.Manager
             Debug.Assert(componentType != null, "Component type must not be null.");
 
             int entityId = entity.Id;
-            Bag<IComponent> components = this.componentsByType.Get(componentType.Id);
+            Bag<IComponent> components = this.componentsByType[componentType.Id];
             if (this.RemovedComponentEvent != null)
             {
                 this.RemovedComponentEvent(entity, components[entityId]);
@@ -391,7 +391,7 @@ namespace Artemis.Manager
             int entityId = entity.Id;
             for (int index = this.componentsByType.Count - 1; index >= 0; --index)
             {
-                Bag<IComponent> components = this.componentsByType.Get(index);
+                Bag<IComponent> components = this.componentsByType[index];
                 if (components != null && entityId < components.Count)
                 {
                     IComponent componentToBeRemoved = components[entityId];
