@@ -212,51 +212,38 @@ namespace Artemis.Manager
 
         /// <summary>Initializes all.</summary>
         /// <param name="processAttributes">if set to <see langword="true" /> [process attributes].</param>
-#if !FULLDOTNET && !METRO
         /// <param name="assembliesToScan">The assemblies to scan.</param>
         /// <exception cref="System.Exception">propertyComponentPool is null.</exception>
-        internal void InitializeAll(bool processAttributes ,List<Assembly> assembliesToScan)
-#else
-        /// <exception cref="System.Exception">propertyComponentPool is null.</exception>
-        internal void InitializeAll(bool processAttributes)
-#endif
+        internal void InitializeAll(bool processAttributes, IEnumerable<Assembly> assembliesToScan = null)
         {
             if (processAttributes)
             {
-#if !FULLDOTNET && !METRO        
-                IDictionary<Type, List<Attribute>> types = AttributesProcessor.Process(AttributesProcessor.SupportedAttributes, assembliesToScan);
-#else
-                IDictionary<Type, List<Attribute>> types = AttributesProcessor.Process(AttributesProcessor.SupportedAttributes);
-#endif
+                IDictionary<Type, List<Attribute>> types;
+                if (assembliesToScan == null)
+                {
+                    types = AttributesProcessor.Process(AttributesProcessor.SupportedAttributes);
+                }
+                else
+                {
+                    types = AttributesProcessor.Process(AttributesProcessor.SupportedAttributes, assembliesToScan);
+                }
                 foreach (KeyValuePair<Type, List<Attribute>> item in types)
                 {
-#if METRO                    
                     if (typeof(EntitySystem).GetTypeInfo().IsAssignableFrom(item.Key.GetTypeInfo()))
-#else
-                    if (typeof(EntitySystem).IsAssignableFrom(item.Key))
-#endif
                     {
                         Type type = item.Key;
                         ArtemisEntitySystem pee = (ArtemisEntitySystem)item.Value[0];
                         EntitySystem instance = (EntitySystem)Activator.CreateInstance(type);
                         this.SetSystem(instance, pee.GameLoopType, pee.Layer, pee.ExecutionType);
                     }
-#if METRO                    
                     else if (typeof(IEntityTemplate).GetTypeInfo().IsAssignableFrom(item.Key.GetTypeInfo()))
-#else
-                    else if (typeof(IEntityTemplate).IsAssignableFrom(item.Key))
-#endif
                     {
                         Type type = item.Key;
                         ArtemisEntityTemplate pee = (ArtemisEntityTemplate)item.Value[0];
                         IEntityTemplate instance = (IEntityTemplate)Activator.CreateInstance(type);
                         this.entityWorld.SetEntityTemplate(pee.Name, instance);
                     }
-#if METRO                    
                     else if (typeof(ComponentPoolable).GetTypeInfo().IsAssignableFrom(item.Key.GetTypeInfo()))
-#else
-                    else if (typeof(ComponentPoolable).IsAssignableFrom(item.Key))
-#endif
                     {
                         ArtemisComponentPool propertyComponentPool = null;
 
@@ -276,11 +263,7 @@ namespace Artemis.Manager
                         Func<Type, ComponentPoolable> create = null;
                         foreach (MethodInfo methodInfo in from methodInfo in methods let attributes = methodInfo.GetCustomAttributes(false) from attribute in attributes.OfType<ArtemisComponentCreate>() select methodInfo)
                         {
-#if METRO                                                                   
-                            create = (Func<Type, ComponentPoolable>) methodInfo.CreateDelegate(typeof(Func<Type, ComponentPoolable>));                            
-#else
-                            create = (Func<Type, ComponentPoolable>)Delegate.CreateDelegate(typeof(Func<Type, ComponentPoolable>), methodInfo);
-#endif
+                            create = (Func<Type, ComponentPoolable>) methodInfo.CreateDelegate(typeof(Func<Type, ComponentPoolable>));
                         }
 
                         if (create == null)

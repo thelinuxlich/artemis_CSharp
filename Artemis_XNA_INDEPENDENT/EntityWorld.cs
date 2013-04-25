@@ -255,22 +255,20 @@ namespace Artemis
         }
 
 
-#if !FULLDOTNET && !METRO
         /// <summary>Initialize the EntityWorld.</summary>        
         /// <param name="assembliesToScan">The assemblies to scan for data attributes.</param>
         public void InitializeAll(params global::System.Reflection.Assembly[] assembliesToScan)
         {
             var processAttributes = assembliesToScan != null && assembliesToScan.Length > 0 ? true : false;
-            this.SystemManager.InitializeAll(processAttributes, assembliesToScan.ToList());
+            this.SystemManager.InitializeAll(processAttributes, assembliesToScan);
         }
-#else
+
         /// <summary>Initialize the EntityWorld.</summary>
         /// <param name="processAttributes">if set to <see langword="true" /> [process attributes].</param>
         public void InitializeAll(bool processAttributes = false)
         {
             this.SystemManager.InitializeAll(processAttributes);
         }
-#endif
 
 
         /// <summary>Loads the state of the entity.</summary>

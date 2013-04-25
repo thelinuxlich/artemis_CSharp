@@ -41,8 +41,10 @@ namespace Artemis.Attributes
     using global::System;
     using global::System.Collections.Generic;
     using global::System.Reflection;
+    using Utils;
 
     #endregion Using statements
+
 
 #if METRO
 
@@ -93,66 +95,39 @@ namespace Artemis.Attributes
                                                                         typeof(ArtemisComponentCreate)
                                                                     };
 
+#if FULLDOTNET || METRO
         /// <summary>Processes the specified supported attributes.</summary>
-        /// <param name="supportedAttributes">The supported attributes.</param>        
-#if !FULLDOTNET && !METRO        
+        /// <param name="supportedAttributes">The supported attributes.</param>
+        /// <returns>
+        /// The Dictionary{TypeList{Attribute}}.
+        /// </returns>
+        public static IDictionary<Type, List<Attribute>> Process(List<Type> supportedAttributes)
+        {
+            return Process(supportedAttributes, AppDomain.CurrentDomain.GetAssemblies());
+        }
+#endif
+
+        /// <summary>Processes the specified supported attributes.</summary>
+        /// <param name="supportedAttributes">The supported attributes.</param>
         /// <param name="assembliesToScan">The assemblies to scan.</param>
         /// <returns>
         /// The Dictionary{TypeList{Attribute}}.
         /// </returns>
-        public static IDictionary<Type, List<Attribute>> Process(List<Type> supportedAttributes, List<Assembly> assembliesToScan)
-#else
-        /// <returns>The Dictionary{TypeList{Attribute}}.</returns>
-        public static IDictionary<Type, List<Attribute>> Process(List<Type> supportedAttributes)
-#endif
+        public static IDictionary<Type, List<Attribute>> Process(List<Type> supportedAttributes, IEnumerable<Assembly> assembliesToScan = null)
         {
             IDictionary<Type, List<Attribute>> attributeTypes = new Dictionary<Type, List<Attribute>>();
 
-#if FULLDOTNET
-            Assembly[] loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-            foreach (Assembly item in loadedAssemblies)
-            {
-                Type[] types = item.GetTypes();
-                foreach (Type type in types)
-                {
-                    object[] attributes = type.GetCustomAttributes(false);
-                    foreach (object attribute in attributes)
-                    {
-                        if (supportedAttributes.Contains(attribute.GetType()))
-                        {
-                            if (!attributeTypes.ContainsKey(type))
-                            {
-                                attributeTypes[type] = new List<Attribute>();
-                            }
-
-                            attributeTypes[type].Add((Attribute)attribute);
-                        }
-                    }
-                }
-            }
-
-            return attributeTypes;
-#else
-
-#if METRO
-            IEnumerable<Assembly> loadedAssemblies  = AppDomain.CurrentDomain.GetAssemblies();
-#else            
-            List<Assembly> loadedAssemblies = assembliesToScan;
-#endif
-            foreach (Assembly item in loadedAssemblies)
+            foreach (Assembly item in assembliesToScan)
             {
 #if METRO      
                 IEnumerable<Type> types = item.ExportedTypes;
 #else
-                Type[] types = item.GetTypes();
+                IEnumerable<Type> types = item.GetTypes();
 #endif          
+
                 foreach (Type type in types)
                 {
-#if METRO      
                     var attributes = type.GetTypeInfo().GetCustomAttributes(false);
-#else
-                    var attributes = type.GetCustomAttributes(false);
-#endif
                     foreach (object attribute in attributes)
                     {
                         if (supportedAttributes.Contains(attribute.GetType()))
@@ -169,8 +144,6 @@ namespace Artemis.Attributes
             }
 
             return attributeTypes;
-
-#endif
         }
     }
 }

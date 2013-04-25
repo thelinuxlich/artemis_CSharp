@@ -110,6 +110,7 @@
     <Compile Include="Utils\Bag.cs" />
     <Compile Include="System\IntervalTagSystem.cs" />
     <Compile Include="Utils\BagEnumerator.cs" />
+    <Compile Include="Utils\Extensions.cs" />
     <Compile Include="Utils\FastDateTime.cs" />
     <Compile Include="Utils\Timer.cs" />
   </ItemGroup>
