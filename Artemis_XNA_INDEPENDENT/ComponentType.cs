@@ -38,11 +38,10 @@ namespace Artemis
 {
     #region Using statements
 
-#if !XBOX && !WINDOWS_PHONE
-    using global::System.Numerics;
-#endif
-#if XBOX || WINDOWS_PHONE
+#if XBOX || WINDOWS_PHONE || PORTABLE
     using BigInteger = global::System.Int32;
+#else
+    using global::System.Numerics;
 #endif
     using Artemis.Manager;
 
