@@ -39,6 +39,7 @@ namespace Artemis.Manager
     #region Using statements
 
     using global::System;
+    using global::System.Collections;
     using global::System.Collections.Generic;
     using global::System.Linq;
     using global::System.Reflection;
@@ -88,7 +89,7 @@ namespace Artemis.Manager
         private readonly EntityWorld entityWorld;
 
         /// <summary>The systems.</summary>
-        private readonly IDictionary<Type, List<EntitySystem>> systems;
+        private readonly IDictionary<Type, IList> systems;
 
         /// <summary>The merged bag.</summary>
         private readonly Bag<EntitySystem> mergedBag;
@@ -113,7 +114,7 @@ namespace Artemis.Manager
             this.drawLayers = new Dictionary<int, SystemLayer>();
             this.updateLayers = new Dictionary<int, SystemLayer>();                
 #endif
-            this.systems = new Dictionary<Type, List<EntitySystem>>();
+            this.systems = new Dictionary<Type, IList>();
             this.entityWorld = entityWorld;
         }
 
@@ -148,7 +149,7 @@ namespace Artemis.Manager
             }
             else
             {
-                this.systems[typeof(T)] = new List<EntitySystem> { system };
+                this.systems[typeof(T)] = new List<T> { system };
             }
 
             switch (gameLoopType)
@@ -196,13 +197,13 @@ namespace Artemis.Manager
         /// <summary>Gets the system.</summary>
         /// <typeparam name="T">The <see langword="Type"/> T.</typeparam>
         /// <returns>The List{EntitySystem} of systems.</returns>
-        public List<EntitySystem> GetSystem<T>() where T : EntitySystem
+        public List<T> GetSystem<T>() where T : EntitySystem
         {
-            List<EntitySystem> system;
+            IList system;
 
             this.systems.TryGetValue(typeof(T), out system);
 
-            return system;
+            return (List<T>)system;
         }
 
         /// <summary>Initializes all.</summary>
