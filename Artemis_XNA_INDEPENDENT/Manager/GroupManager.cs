@@ -119,7 +119,7 @@ namespace Artemis.Manager
                 string group = this.groupByEntity[entityId];
                 if (group != null)
                 {
-                    this.groupByEntity.Set(entityId, null);
+                    this.groupByEntity[entityId] = null;
 
                     Bag<Entity> entities;
                     if (this.entitiesByGroup.TryGetValue(group, out entities))
