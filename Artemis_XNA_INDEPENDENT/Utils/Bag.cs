@@ -46,7 +46,7 @@ namespace Artemis.Utils
 
     /// <summary>Class Bag.</summary>
     /// <typeparam name="T">The <see langword="Type"/> T.</typeparam>
-    public class Bag<T> : IEnumerable<T>
+    public class Bag<T> : IEnumerable<T>, IList<T>
     {
         /// <summary>The elements.</summary>
         private T[] elements;
@@ -128,11 +128,21 @@ namespace Artemis.Utils
 
         /// <summary>Adds a range of elements into this bag.</summary>
         /// <param name="rangeOfElements">The elements to add.</param>
-        public void AddRange(Bag<T> rangeOfElements)
+        public void AddRange(IList<T> rangeOfElements)
         {
             for (int index = 0, j = rangeOfElements.Count; j > index; ++index)
             {
                 this.Add(rangeOfElements[index]);
+            }
+        }
+
+        /// <summary>Adds a range of elements into this bag.</summary>
+        /// <param name="rangeOfElements">The elements to add.</param>
+        public void AddRange(IEnumerable<T> rangeOfElements)
+        {
+            foreach (T value in rangeOfElements)
+            {
+                this.Add(value);
             }
         }
 
@@ -156,15 +166,7 @@ namespace Artemis.Utils
         /// <returns><see langword="true"/> if bag contains the specified element; otherwise, <see langword="false"/>.</returns>
         public bool Contains(T element)
         {
-            for (int index = this.Count - 1; index >= 0; --index)
-            {
-                if (element.Equals(this.elements[index]))
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return IndexOf(element) != -1;
         }
 
         /// <summary>Removes the specified index.</summary>
@@ -219,14 +221,14 @@ namespace Artemis.Utils
         }
 
         /// <summary>Removes all matching elements.</summary>
-        /// <param name="bag">The bag.</param>
+        /// <param name="list">The bag.</param>
         /// <returns><see langword="true" /> if found matching elements, <see langword="false" /> otherwise.</returns>
-        public bool RemoveAll(Bag<T> bag)
+        public bool RemoveAll(IList<T> list)
         {
             bool isResult = false;
-            for (int index = bag.Count - 1; index >= 0; --index)
+            for (int index = list.Count - 1; index >= 0; --index)
             {
-                if (this.Remove(bag.Get(index)))
+                if (this.Remove(list[index]))
                 {
                     isResult = true;
                 }
@@ -262,6 +264,13 @@ namespace Artemis.Utils
 
         /// <summary>Returns an enumerator that iterates through a collection.</summary>
         /// <returns>An <see cref="T:System.Collections.Generic.IEnumerator`1" /> object that can be used to iterate through the collection.</returns>
+        public BagEnumerator<T> GetEnumerator()
+        {
+            return new BagEnumerator<T>(this);
+        }
+
+        /// <summary>Returns an enumerator that iterates through a collection.</summary>
+        /// <returns>An <see cref="T:System.Collections.Generic.IEnumerator`1" /> object that can be used to iterate through the collection.</returns>
         IEnumerator<T> IEnumerable<T>.GetEnumerator()
         {
             return new BagEnumerator<T>(this);
@@ -287,6 +296,62 @@ namespace Artemis.Utils
             T[] oldElements = this.elements;
             this.elements = new T[newCapacity];
             Array.Copy(oldElements, 0, this.elements, 0, oldElements.Length);
+        }
+        /// <summary>
+        /// Returns the index of the item if it exists in the bag.
+        /// </summary>
+        /// <param name="item"> The item which is searched for. </param>
+        /// <returns> The index of the item or -1 if it does not exist in the bag. </returns>
+        public int IndexOf(T item)
+        {
+            for (int index = this.Count - 1; index >= 0; --index)
+            {
+                if (item.Equals(this[index]))
+                {
+                    return index;
+                }
+            }
+            return -1;
+        }
+
+        /// <summary>
+        /// Inserts the item at the specified index.
+        /// The element at index are replaced since the index of a element in the bag is important
+        /// and should not be changed haphazardly.
+        /// </summary>
+        /// <param name="index"> The index where the item is placed at. </param>
+        /// <param name="item"> The item that is inserted. </param>
+        public void Insert(int index, T item)
+        {
+            this[index] = item;
+        }
+
+        /// <summary>
+        /// Removes the element at index.
+        /// The new value at this index is default(T).
+        /// </summary>
+        /// <param name="index"> The element at this index gets removed. </param>
+        public void RemoveAt(int index)
+        {
+            Remove(index);
+        }
+
+        /// <summary>
+        /// Copies the entire Bag to the array, starting at the arrayIndex.
+        /// </summary>
+        /// <param name="array"> The array which the elements gets copied to. </param>
+        /// <param name="arrayIndex"> The index in the array where the copying starts at. </param>
+        public void CopyTo(T[] array, int arrayIndex)
+        {
+            for (int index = 0; index < this.Count; ++index)
+            {
+                array[arrayIndex + index] = this[index];
+            }
+        }
+
+        public bool IsReadOnly
+        {
+            get { return false; }
         }
     }
 }
