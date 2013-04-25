@@ -248,7 +248,7 @@ namespace Artemis
         /// <returns>component that matches, or null if none is found.</returns>
         public T GetComponent<T>() where T : IComponent
         {
-            return (T)this.GetComponent(ComponentTypeManager.GetTypeFor<T>());
+            return (T)this.entityManager.GetComponent(this, ComponentType<T>.CType);
         }
 
         /// <summary>Determines whether this instance has a specific component.</summary>
