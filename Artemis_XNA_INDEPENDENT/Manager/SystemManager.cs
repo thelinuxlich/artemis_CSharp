@@ -73,8 +73,12 @@ namespace Artemis.Manager
                     {
                         case ExecutionType.Synchronous:
                             return Synchronous;
+                            
+#if !XBOX && !WINDOWS_PHONE && !PORTABLE
                         case ExecutionType.Asynchronous:
                             return Asynchronous;
+#endif
+
                         default:
                             throw new KeyNotFoundException("The ExecutionType must be Synchronous or Asynchronous.");
                     }

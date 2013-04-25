@@ -139,6 +139,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="ParallelTasks">
+      <HintPath>..\Artemis_W8Portable\ParallelTasks.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Numerics" />
   </ItemGroup>
