@@ -131,6 +131,21 @@ namespace Artemis.Manager
         /// <summary>
         /// Sets the system.
         /// </summary>
+        /// <param name="system">The system.</param>
+        /// <param name="gameLoopType">Type of the game loop.</param>
+        /// <param name="layer">The layer.</param>
+        /// <param name="executionType">Type of the execution.</param>
+        /// <returns>
+        /// The set system.
+        /// </returns>
+        public EntitySystem SetSystem(EntitySystem system, GameLoopType gameLoopType, int layer = 0, ExecutionType executionType = ExecutionType.Synchronous)
+        {
+            return SetSystem(system.GetType(), system, gameLoopType, layer, executionType);
+        }
+
+        /// <summary>
+        /// Sets the system.
+        /// </summary>
         /// <typeparam name="T">The <see langword="Type" /> T.</typeparam>
         /// <param name="system">The system.</param>
         /// <param name="gameLoopType">Type of the game loop.</param>
@@ -141,15 +156,23 @@ namespace Artemis.Manager
         /// </returns>
         public T SetSystem<T>(T system, GameLoopType gameLoopType, int layer = 0, ExecutionType executionType = ExecutionType.Synchronous) where T : EntitySystem
         {
+            return (T)SetSystem(typeof(T), system, gameLoopType, layer, executionType);
+        }
+
+        private EntitySystem SetSystem(Type systemType, EntitySystem system, GameLoopType gameLoopType, int layer = 0, ExecutionType executionType = ExecutionType.Synchronous)
+        {
             system.EntityWorld = this.entityWorld;
 
-            if (this.systems.ContainsKey(typeof(T)))
+            if (this.systems.ContainsKey(systemType))
             {
-                this.systems[typeof(T)].Add(system);
+                this.systems[systemType].Add(system);
             }
             else
             {
-                this.systems[typeof(T)] = new List<T> { system };
+                Type genericType = typeof(List<>);
+                Type listType = genericType.MakeGenericType(systemType);
+                this.systems[systemType] = (IList)Activator.CreateInstance(listType);
+                this.systems[systemType].Add(system);
             }
 
             switch (gameLoopType)
