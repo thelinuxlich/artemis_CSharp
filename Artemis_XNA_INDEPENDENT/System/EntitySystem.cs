@@ -64,6 +64,12 @@ namespace Artemis.System
         /// <summary>The actives.</summary>
         private IDictionary<int, Entity> actives;
 
+        /// <summary> Enumerates all active Entities for this system. </summary>
+        public IEnumerable<Entity> ActiveEntities
+        {
+            get { return this.actives.Values; }
+        }
+
         /// <summary>Initializes static members of the <see cref="EntitySystem"/> class.</summary>
         static EntitySystem()
         {
