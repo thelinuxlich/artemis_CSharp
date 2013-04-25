@@ -158,7 +158,7 @@ namespace Artemis
         /// <summary>
         /// Creates the entity.
         /// </summary>
-        /// <param name="id">The desired unique id of this Entity. if null, artemis will create an unique ID.
+        /// <param name="entityUniqueId">The desired unique id of this Entity. if null, artemis will create an unique ID.
         /// This value can be accessed by using the property uniqueID of the Entity
         /// </param>
         /// <returns>
@@ -177,8 +177,7 @@ namespace Artemis
         /// <returns>
         /// The created entity.
         /// </returns>
-        /// <exception cref="System.Exception">EntityTemplate for the tag  + entityTemplateTag +  was not registered.</exception>
-        /// <exception cref="Exception">EntityTemplate for the tag "entityTemplateTag" was not registered.</exception>
+        /// <exception cref="MissingEntityTemplateException">EntityTemplate for the tag "entityTemplateTag" was not registered.</exception>
         public Entity CreateEntityFromTemplate(string entityTemplateTag, params object[] templateArgs)
         {
             return CreateEntityWithIdFromTemplate(entityTemplateTag, null, templateArgs);
@@ -193,8 +192,7 @@ namespace Artemis
         /// <returns>
         /// The created entity.
         /// </returns>
-        /// <exception cref="System.Exception">EntityTemplate for the tag  + entityTemplateTag +  was not registered.</exception>
-        /// <exception cref="Exception">EntityTemplate for the tag "entityTemplateTag" was not registered.</exception>
+        /// <exception cref="MissingEntityTemplateException">EntityTemplate for the tag "entityTemplateTag" was not registered.</exception>
         public Entity CreateEntityWithIdFromTemplate(string entityTemplateTag, long? entityUniqueId, params object[] templateArgs)
         {
             Debug.Assert(!string.IsNullOrEmpty(entityTemplateTag), "Entity template tag must not be null or empty.");

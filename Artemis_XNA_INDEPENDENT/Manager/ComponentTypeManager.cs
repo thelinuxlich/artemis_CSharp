@@ -104,7 +104,7 @@ namespace Artemis.Manager
         }
 
         /// <summary>
-        /// Creates a IEnumerable<Type> from a BigIntger which holds typebits
+        /// Creates an enumerable from a BigIntger which holds typebits
         /// </summary>
         /// <param name="bits"> The BigInteger which holds the type bits. </param>
         /// <returns> An Enumerable of each type the bits has. </returns>
