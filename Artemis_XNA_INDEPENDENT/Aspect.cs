@@ -176,7 +176,7 @@ namespace Artemis
                 builder.AppendLine(headerMessage);
                 foreach (var type in ComponentTypeManager.GetTypesFromBits(typeBits))
                 {
-                    builder.Append("  ");
+                    builder.Append(", ");
                     builder.AppendLine(type.Name);
                 }
             }
