@@ -236,7 +236,7 @@ namespace Artemis.Manager
         /// <summary>Initializes all.</summary>
         /// <param name="processAttributes">if set to <see langword="true" /> [process attributes].</param>
         /// <param name="assembliesToScan">The assemblies to scan.</param>
-        /// <exception cref="System.Exception">propertyComponentPool is null.</exception>
+        /// <exception cref="global::System.Exception">propertyComponentPool is null.</exception>
         internal void InitializeAll(bool processAttributes, IEnumerable<Assembly> assembliesToScan = null)
         {
             if (processAttributes)
