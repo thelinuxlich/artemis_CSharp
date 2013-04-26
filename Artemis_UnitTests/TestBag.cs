@@ -160,7 +160,7 @@ namespace UnitTests
             Bag<string> target = new Bag<string>(Capacity) { TestElement1, TestElement2, TestElement3 };
             const int Index = 1;
             const string Expected = TestElement2;
-            string actual = target.Get(Index);
+            string actual = target[Index];
             Assert.AreEqual(Expected, actual);
         }
 
@@ -219,7 +219,7 @@ namespace UnitTests
             Bag<string> target = new Bag<string>(Capacity) { TestElement1, TestElement2, TestElement3 };
             const int Index = Capacity - 1;
             const string Element = "TestSetElement";
-            target.Set(Index, Element);
+            target[Index] = Element;
             const string Expected = Element;
             string actual = target.RemoveLast();
             Assert.AreEqual(Expected, actual);
@@ -263,7 +263,7 @@ namespace UnitTests
             Bag<int> bigBag = new Bag<int>();
             int maxMem = 5000;
             
-            ///pointless to use int.maxvalue (sometimes it works, some it does not ... depends on other process)
+            //pointless to use int.maxvalue (sometimes it works, some it does not ... depends on other process)
             for (int index = 0; index < 5000; ++index)
             {
                 try

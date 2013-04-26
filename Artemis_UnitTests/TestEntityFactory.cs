@@ -47,7 +47,7 @@ namespace UnitTests
     #endregion
 
     /// <summary>The class TestEntityFactory.</summary>
-    public class TestEntityFactory
+    internal class TestEntityFactory
     {
         /// <summary>Creates the test health entity.</summary>
         /// <param name="entityWorld">The entity world.</param>

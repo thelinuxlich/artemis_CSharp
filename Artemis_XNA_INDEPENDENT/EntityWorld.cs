@@ -107,7 +107,7 @@ namespace Artemis
                 Dictionary<Entity, Bag<IComponent>> currentState = new Dictionary<Entity, Bag<IComponent>>();
                 for (int index = 0, j = entities.Count; index < j; ++index)
                 {
-                    Entity entity = entities.Get(index);
+                    Entity entity = entities[index];
                     Bag<IComponent> components = entity.Components;
                     currentState.Add(entity, components);
                 }
@@ -158,7 +158,7 @@ namespace Artemis
         /// <summary>
         /// Creates the entity.
         /// </summary>
-        /// <param name="id">The desired unique id of this Entity. if null, artemis will create an unique ID.
+        /// <param name="entityUniqueId">The desired unique id of this Entity. if null, artemis will create an unique ID.
         /// This value can be accessed by using the property uniqueID of the Entity
         /// </param>
         /// <returns>
@@ -177,8 +177,7 @@ namespace Artemis
         /// <returns>
         /// The created entity.
         /// </returns>
-        /// <exception cref="System.Exception">EntityTemplate for the tag  + entityTemplateTag +  was not registered.</exception>
-        /// <exception cref="Exception">EntityTemplate for the tag "entityTemplateTag" was not registered.</exception>
+        /// <exception cref="MissingEntityTemplateException">EntityTemplate for the tag "entityTemplateTag" was not registered.</exception>
         public Entity CreateEntityFromTemplate(string entityTemplateTag, params object[] templateArgs)
         {
             return CreateEntityWithIdFromTemplate(entityTemplateTag, null, templateArgs);
@@ -193,8 +192,7 @@ namespace Artemis
         /// <returns>
         /// The created entity.
         /// </returns>
-        /// <exception cref="System.Exception">EntityTemplate for the tag  + entityTemplateTag +  was not registered.</exception>
-        /// <exception cref="Exception">EntityTemplate for the tag "entityTemplateTag" was not registered.</exception>
+        /// <exception cref="MissingEntityTemplateException">EntityTemplate for the tag "entityTemplateTag" was not registered.</exception>
         public Entity CreateEntityWithIdFromTemplate(string entityTemplateTag, long? entityUniqueId, params object[] templateArgs)
         {
             Debug.Assert(!string.IsNullOrEmpty(entityTemplateTag), "Entity template tag must not be null or empty.");
@@ -363,7 +361,7 @@ namespace Artemis
             {
                 for (int index = this.deleted.Count - 1; index >= 0; --index)
                 {
-                    Entity entity = this.deleted.Get(index);
+                    Entity entity = this.deleted[index];
                     this.TagManager.Unregister(entity);
                     this.GroupManager.Remove(entity);
                     this.EntityManager.Remove(entity);
@@ -377,7 +375,7 @@ namespace Artemis
             {
                 for (int index = this.refreshed.Count - 1; index >= 0; --index)
                 {
-                    Entity entity = this.refreshed.Get(index);
+                    Entity entity = this.refreshed[index];
                     this.EntityManager.Refresh(entity);
                     entity.RefreshingState = false;
                 }

@@ -91,7 +91,7 @@ namespace Artemis.Manager
             int entityId = entity.Id;
             if (entityId < this.groupByEntity.Capacity)
             {
-                return this.groupByEntity.Get(entityId);
+                return this.groupByEntity[entityId];
             }
 
             return null;
@@ -116,10 +116,10 @@ namespace Artemis.Manager
             int entityId = entity.Id;
             if (entityId < this.groupByEntity.Capacity)
             {
-                string group = this.groupByEntity.Get(entityId);
+                string group = this.groupByEntity[entityId];
                 if (group != null)
                 {
-                    this.groupByEntity.Set(entityId, null);
+                    this.groupByEntity[entityId] = null;
 
                     Bag<Entity> entities;
                     if (this.entitiesByGroup.TryGetValue(group, out entities))
@@ -150,7 +150,7 @@ namespace Artemis.Manager
 
             entities.Add(entity);
 
-            this.groupByEntity.Set(entity.Id, group);
+            this.groupByEntity[entity.Id] = group;
         }
     }
 }
