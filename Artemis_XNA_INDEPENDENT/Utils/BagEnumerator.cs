@@ -38,7 +38,6 @@ namespace Artemis.Utils
 {
     #region Using statements
 
-    using global::System;
     using global::System.Collections;
     using global::System.Collections.Generic;
 
@@ -46,7 +45,7 @@ namespace Artemis.Utils
 
     /// <summary>Class BagEnumerator.</summary>
     /// <typeparam name="T">The <see langword="Type"/> T.</typeparam>
-    public struct BagEnumerator<T> : IEnumerator<T>, IDisposable
+    internal class BagEnumerator<T> : IEnumerator<T>
     {
         /// <summary>The bag.</summary>
         private volatile Bag<T> bag;
@@ -59,7 +58,6 @@ namespace Artemis.Utils
         public BagEnumerator(Bag<T> bag)
         {
             this.bag = bag;
-            this.index = -1;
             this.Reset();
         }
 
@@ -70,7 +68,7 @@ namespace Artemis.Utils
         {
             get
             {
-                return this.bag[this.index];
+                return this.bag.Get(this.index);
             }
         }
 
@@ -81,7 +79,7 @@ namespace Artemis.Utils
         {
             get
             {
-                return this.bag[this.index];
+                return this.bag.Get(this.index);
             }
         }
 
