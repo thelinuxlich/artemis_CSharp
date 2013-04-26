@@ -60,6 +60,8 @@ namespace UnitTests
 #endif
             testGeneral.TestSimpleSystem();
             testGeneral.TestSystemCommunication();
+            testGeneral.TestEntityComponentSystem();
+            testGeneral.TestDerivedComponents();
             global::System.Diagnostics.Debug.WriteLine("General test end.");
 
 #if !METRO && !PORTABLE
