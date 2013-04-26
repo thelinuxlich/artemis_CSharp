@@ -40,16 +40,15 @@ namespace Artemis
 
     using global::System.Diagnostics;
 
-#if !XBOX && !WINDOWS_PHONE  && !PORTABLE
+#if !XBOX && !WINDOWS_PHONE
     using global::System.Numerics;
-#endif
-#if XBOX || WINDOWS_PHONE || PORTABLE
-    using BigInteger = global::System.Int32;
 #endif
     using Artemis.Interface;
     using Artemis.Manager;
     using Artemis.Utils;
-
+#if XBOX || WINDOWS_PHONE
+    using BigInteger = global::System.Int32;
+#endif
 
     #endregion
 
@@ -62,11 +61,7 @@ namespace Artemis
         /// <summary>The entity world.</summary>
         private readonly EntityWorld entityWorld;
 
-        /// <summary>
-        /// The unique id.
-        /// This ID is unique in Artemis (even if the Entity is reused)
-        /// This value can be SET when building the Entity (passed as a parameter to EntityWorld.CreateEntity)
-        /// </summary>
+        /// <summary>The unique id.</summary>
         private long uniqueId;
 
         /// <summary>Initializes a new instance of the <see cref="Entity"/> class.</summary>
@@ -99,11 +94,11 @@ namespace Artemis
 
         /// <summary>Gets or sets a value indicating whether [deleting state].</summary>
         /// <value><see langword="true" /> if [deleting state]; otherwise, <see langword="false" />.</value>
-        public bool DeletingState { get; set; }
+        public bool DeletingState { get; internal set; }
 
         /// <summary>Gets or sets a value indicating whether this <see cref="Entity" /> is enabled.</summary>
         /// <value><see langword="true" /> if enabled; otherwise, <see langword="false" />.</value>
-        public bool IsEnabled { get; set; }
+        public bool IsEnabled { get; internal set; }
 
         /// <summary>Gets or sets the group.</summary>
         /// <value>The group.</value>
@@ -131,7 +126,7 @@ namespace Artemis
 
         /// <summary>Gets or sets a value indicating whether [refreshing state].</summary>
         /// <value><see langword="true" /> if [refreshing state]; otherwise, <see langword="false" />.</value>
-        public bool RefreshingState { get; set; }
+        public bool RefreshingState { get; internal set; }
 
         /// <summary>Gets or sets the tag.</summary>
         /// <value>The tag.</value>
@@ -201,10 +196,7 @@ namespace Artemis
 
             this.entityManager.AddComponent<T>(this, component);
         }
-        
-        /// <summary>Adds the component.</summary>
-        /// <typeparam name="T">The <see langword="Type"/> T.</typeparam>
-        /// <param name="component">The component.</param>
+
         public void AddComponent<T>(IComponent<T> component) where T : IComponent
         {
             Debug.Assert(component != null, "Component must not be null.");
@@ -212,15 +204,14 @@ namespace Artemis
             this.entityManager.AddComponent<T>(this, component);
         }
 
-
         /// <summary>Adds the component from pool.</summary>
         /// <typeparam name="T">The <see langword="Type"/> T.</typeparam>
         /// <returns>The added component.</returns>
         public T AddComponentFromPool<T>() where T : ComponentPoolable
         {
-            IComponent component = this.entityWorld.GetComponentFromPool(typeof(T));
-            this.entityManager.AddComponent(this, component);
-            return (T)component;
+            T component = this.entityWorld.GetComponentFromPool<T>();
+            this.entityManager.AddComponent<T>(this, component);
+            return component;
         }
 
         /// <summary>Deletes this instance.</summary>
@@ -247,7 +238,7 @@ namespace Artemis
         {
             Debug.Assert(componentType != null, "Component type must not be null.");
 
-            return this.entityManager.GetComponent(this, componentType);
+            return this.entityManager.GetComponent(this, componentType.Id);
         }
 
         /// <summary>
@@ -260,7 +251,7 @@ namespace Artemis
         /// <returns>component that matches, or null if none is found.</returns>
         public T GetComponent<T>() where T : IComponent
         {
-            return (T)this.entityManager.GetComponent(this, ComponentType<T>.CType);
+            return this.entityManager.GetComponent<T>(this);
         }
 
         /// <summary>Determines whether this instance has a specific component.</summary>
@@ -268,7 +259,7 @@ namespace Artemis
         /// <returns><see langword="true" /> if this instance has a specific component; otherwise, <see langword="false" />.</returns>
         public bool HasComponent<T>() where T : IComponent
         {
-            return !object.Equals((T)this.entityManager.GetComponent(this, ComponentType<T>.CType), default(T));
+            return !object.Equals((T)this.entityManager.GetComponent(this, ComponentType<T>.Id), default(T));
         }
 
         /// <summary>
@@ -295,19 +286,7 @@ namespace Artemis
         /// <typeparam name="T">Component Type.</typeparam>
         public void RemoveComponent<T>() where T : IComponent
         {
-            this.entityManager.RemoveComponent(this, ComponentTypeManager.GetTypeFor<T>());
-        }
-
-        /// <summary>
-        /// <para>Removes the component.</para>
-        /// <para>Faster removal of components from a entity.</para>
-        /// </summary>
-        /// <param name="componentType">The type.</param>
-        public void RemoveComponent(ComponentType componentType)
-        {
-            Debug.Assert(componentType != null, "Component type must not be null.");
-
-            this.entityManager.RemoveComponent(this, componentType);
+            this.entityManager.RemoveComponent<T>(this);
         }
 
         /// <summary>Resets this instance.</summary>

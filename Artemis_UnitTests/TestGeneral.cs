@@ -692,6 +692,37 @@ namespace UnitTests
             */
         }
 
+        /// <summary> Test EntiyComponentSystem{...}. </summary>
+        [TestMethod]
+        public void TestEntityComponentSystem()
+        {
+            EntityWorld entityWorld = new EntityWorld();
+            entityWorld.SystemManager.SetSystem(new System.TestEntityComponentSystem1(), GameLoopType.Update);
+            entityWorld.SystemManager.SetSystem(new System.TestEntityComponentSystem2(), GameLoopType.Update);
+
+            entityWorld.Update();
+        }
+
+        /// <summary> Test IComponent{T} </summary>
+        [TestMethod]
+        public void TestDerivedComponents()
+        {
+            EntityWorld entityWorld = new EntityWorld();
+            TestDerivedComponent derived = new TestDerivedComponent();
+            Entity entity = entityWorld.CreateEntity();
+
+            entity.AddComponent(derived);
+            Assert.IsNull(entity.GetComponent<TestDerivedComponent>(), "Should be null because the component should be added as if it was a base component");
+            Assert.IsNotNull(entity.GetComponent<TestBaseComponent>());
+            Assert.IsTrue(entity.GetComponent<TestBaseComponent>().IsDerived());
+
+            var baseMapper = new ComponentMapper<TestBaseComponent>(entityWorld);
+            var derivedMapper = new ComponentMapper<TestDerivedComponent>(entityWorld);
+            Assert.IsNull(derivedMapper.Get(entity));
+            Assert.IsNotNull(baseMapper.Get(entity));
+            Assert.AreEqual(baseMapper.Get(entity), entity.GetComponent<TestBaseComponent>());
+        }
+
         /// <summary>The removed component.</summary>
         /// <param name="entity">The entity.</param>
         /// <param name="component">The component.</param>

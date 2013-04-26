@@ -45,6 +45,7 @@ namespace Artemis
     using Artemis.Interface;
     using Artemis.Manager;
     using Artemis.Utils;
+    using Artemis.Exceptions;
 
     #endregion Using statements
 
@@ -157,7 +158,7 @@ namespace Artemis
         /// <summary>
         /// Creates the entity.
         /// </summary>
-        /// <param name="id">The desired unique id of this Entity. if null, artemis will create an unique ID.
+        /// <param name="entityUniqueId">The desired unique id of this Entity. if null, artemis will create an unique ID.
         /// This value can be accessed by using the property uniqueID of the Entity
         /// </param>
         /// <returns>
@@ -172,14 +173,27 @@ namespace Artemis
         /// Creates a entity from template.
         /// </summary>
         /// <param name="entityTemplateTag">The entity template tag.</param>
+        /// <param name="templateArgs">The template args.</param>
+        /// <returns>
+        /// The created entity.
+        /// </returns>
+        /// <exception cref="MissingEntityTemplateException">EntityTemplate for the tag "entityTemplateTag" was not registered.</exception>
+        public Entity CreateEntityFromTemplate(string entityTemplateTag, params object[] templateArgs)
+        {
+            return CreateEntityWithIdFromTemplate(entityTemplateTag, null, templateArgs);
+        }
+
+        /// <summary>
+        /// Creates a entity from template.
+        /// </summary>
+        /// <param name="entityTemplateTag">The entity template tag.</param>
         /// <param name="entityUniqueId">The entity unique id. (artemis can provide this value)</param>
         /// <param name="templateArgs">The template args.</param>
         /// <returns>
         /// The created entity.
         /// </returns>
-        /// <exception cref="System.Exception">EntityTemplate for the tag  + entityTemplateTag +  was not registered.</exception>
-        /// <exception cref="Exception">EntityTemplate for the tag "entityTemplateTag" was not registered.</exception>
-        public Entity CreateEntityFromTemplate(string entityTemplateTag,long? entityUniqueId = null , params object[] templateArgs)
+        /// <exception cref="MissingEntityTemplateException">EntityTemplate for the tag "entityTemplateTag" was not registered.</exception>
+        public Entity CreateEntityWithIdFromTemplate(string entityTemplateTag, long? entityUniqueId, params object[] templateArgs)
         {
             Debug.Assert(!string.IsNullOrEmpty(entityTemplateTag), "Entity template tag must not be null or empty.");
 
@@ -188,7 +202,7 @@ namespace Artemis
             this.entityTemplates.TryGetValue(entityTemplateTag, out entityTemplate);
             if (entityTemplate == null)
             {
-                throw new Exception("EntityTemplate for the tag " + entityTemplateTag + " was not registered.");
+                throw new MissingEntityTemplateException(entityTemplateTag);
             }
 
             return entityTemplate.BuildEntity(entity, this, templateArgs);
@@ -223,15 +237,9 @@ namespace Artemis
         /// <typeparam name="T">Type of the component</typeparam>
         /// <returns>The found component.</returns>
         /// <exception cref="Exception">There is no pool for the type  + type</exception>
-        public IComponent GetComponentFromPool<T>() where T : ComponentPoolable
+        public T GetComponentFromPool<T>() where T : ComponentPoolable
         {
-            Type type = typeof(T);
-            if (!this.pools.ContainsKey(type))
-            {
-                throw new Exception("There is no pool for the specified type " + type);
-            }
-
-            return this.pools[type].New();
+            return (T)GetComponentFromPool(typeof(T));
         }
 
         /// <summary>Gets the entity.</summary>
@@ -255,22 +263,20 @@ namespace Artemis
         }
 
 
-#if !FULLDOTNET && !METRO
         /// <summary>Initialize the EntityWorld.</summary>        
         /// <param name="assembliesToScan">The assemblies to scan for data attributes.</param>
         public void InitializeAll(params global::System.Reflection.Assembly[] assembliesToScan)
         {
             var processAttributes = assembliesToScan != null && assembliesToScan.Length > 0 ? true : false;
-            this.SystemManager.InitializeAll(processAttributes, assembliesToScan.ToList());
+            this.SystemManager.InitializeAll(processAttributes, assembliesToScan);
         }
-#else
+
         /// <summary>Initialize the EntityWorld.</summary>
         /// <param name="processAttributes">if set to <see langword="true" /> [process attributes].</param>
         public void InitializeAll(bool processAttributes = false)
         {
             this.SystemManager.InitializeAll(processAttributes);
         }
-#endif
 
 
         /// <summary>Loads the state of the entity.</summary>
@@ -278,7 +284,7 @@ namespace Artemis
         /// <param name="groupName">Name of the group. Can be null.</param>
         /// <param name="components">The components.</param>
         /// <param name="templateArgs">Parameters for entity template.</param>
-        public void LoadEntityState(string templateTag, string groupName, Bag<IComponent> components, params object[] templateArgs)
+        public Entity LoadEntityState(string templateTag, string groupName, IEnumerable<IComponent> components, params object[] templateArgs)
         {
             Debug.Assert(components != null, "Components must not be null.");
 
@@ -297,10 +303,11 @@ namespace Artemis
                 this.GroupManager.Set(groupName, entity);
             }
 
-            for (int index = 0, j = components.Count; index < j; ++index)
+            foreach (IComponent comp in components)
             {
-                entity.AddComponent(components.Get(index));
+                entity.AddComponent(comp);
             }
+            return entity;
         }
 
         /// <summary>Sets the entity template.</summary>

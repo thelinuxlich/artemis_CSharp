@@ -113,12 +113,8 @@ namespace Artemis.Blackboard
         /// <returns>The specified element.</returns>
         public T GetEntry<T>(string name)
         {
-            if (this.intelligence.ContainsKey(name))
-            {
-                return (T)this.intelligence[name];
-            }
-
-            return default(T);
+            object ret = GetEntry(name);
+            return ret == null ? default(T) : (T)ret;
         }
 
         /// <summary>Gets the entry.</summary>
@@ -126,12 +122,9 @@ namespace Artemis.Blackboard
         /// <returns>The specified element.</returns>
         public object GetEntry(string name)
         {
-            if (this.intelligence.ContainsKey(name))
-            {
-                return this.intelligence[name];
-            }
-
-            return null;
+            object ret = null;
+            this.intelligence.TryGetValue(name, out ret);
+            return ret;
         }
 
         /// <summary>Removes the entry.</summary>

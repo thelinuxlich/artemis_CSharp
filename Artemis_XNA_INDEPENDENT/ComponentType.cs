@@ -38,39 +38,66 @@ namespace Artemis
 {
     #region Using statements
 
-#if !XBOX && !WINDOWS_PHONE  && !PORTABLE
-    using global::System.Numerics;
-#endif
 #if XBOX || WINDOWS_PHONE || PORTABLE
     using BigInteger = global::System.Int32;
+#else
+    using global::System.Numerics;
 #endif
+    using Artemis.Manager;
 
     #endregion Using statements
 
     /// <summary>Represents a Component Type.</summary>
-    public sealed class ComponentType
+    public sealed class ComponentType 
     {
-        /// <summary>The next bit.</summary>
-        private static BigInteger nextBit = 1;
-
-        /// <summary>The next id.</summary>
-        private static int nextId;
-
-        /// <summary>Initializes a new instance of the <see cref="ComponentType"/> class.</summary>
-        public ComponentType()
+        private static BigInteger bit = 1;
+        internal static BigInteger nextBit
         {
-            this.Bit = nextBit;
-            nextBit <<= 1;
-            this.Id = nextId;
-            ++nextId;
+            get { BigInteger value = bit; bit <<= 1; return value; }
+        }
+        private static int id = 0;
+        internal static int nextId
+        {
+            get { return id++; }
         }
 
-        /// <summary>Gets the unique bit representation of a type.</summary>
-        /// <value>The bit.</value>
-        public BigInteger Bit { get; private set; }
+        internal ComponentType()
+        {
+            Id = nextId;
+            Bit = nextBit;
+        }
 
-        /// <summary>Gets the unique integer representing a type.</summary>
-        /// <value>The id.</value>
-        public int Id { get; private set; }
+        /// <summary>
+        /// The bitindex that represents this type of component.
+        /// </summary>
+        public int Id
+        {
+            get;
+            private set;
+        }
+        /// <summary>
+        /// The bit that represents this type of component.
+        /// </summary>
+        public BigInteger Bit
+        {
+            get;
+            private set;
+        }
+    }
+
+
+    internal static class ComponentType<T>
+        where T : Artemis.Interface.IComponent
+    {
+        static ComponentType()
+        {
+            CType = ComponentTypeManager.GetTypeFor<T>();
+            if (CType == null)
+            {
+                CType = new ComponentType();
+                ComponentTypeManager.SetTypeFor<T>(CType);
+            }
+        }
+        public static readonly ComponentType CType;
     }
 }
