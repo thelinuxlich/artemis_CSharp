@@ -45,8 +45,9 @@ namespace Artemis
 
     #endregion Using statements
 
-    /// <summary>Fastest way to get components from entities.</summary>
+    /// <summary>Another way to get components from entities, prefer using the GetComponent method of the Entity object</summary>
     /// <typeparam name="T">The <see langword="Type"/> T.</typeparam>
+    [global::System.Obsolete("This ComponetMapper and the GetComponent method of the Entity have the same performance cost now, prefer using the GetComponent method", false)]
     public sealed class ComponentMapper<T>
         where T : IComponent
     {
