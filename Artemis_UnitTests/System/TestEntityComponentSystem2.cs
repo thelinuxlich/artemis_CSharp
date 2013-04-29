@@ -1,6 +1,11 @@
 ﻿using Artemis;
 using Artemis.System;
+#if METRO
+    using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+#else
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+#endif
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
