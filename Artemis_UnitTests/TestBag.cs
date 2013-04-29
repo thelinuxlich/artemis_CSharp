@@ -263,7 +263,7 @@ namespace UnitTests
             Bag<int> bigBag = new Bag<int>();
             int maxMem = 5000;
             
-            ///pointless to use int.maxvalue (sometimes it works, some it does not ... depends on other process)
+            //pointless to use int.maxvalue (sometimes it works, some it does not ... depends on other process)
             for (int index = 0; index < 5000; ++index)
             {
                 try

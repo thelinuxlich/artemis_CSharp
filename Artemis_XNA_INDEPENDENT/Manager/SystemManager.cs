@@ -39,6 +39,7 @@ namespace Artemis.Manager
     #region Using statements
 
     using global::System;
+    using global::System.Collections;
     using global::System.Collections.Generic;
     using global::System.Linq;
     using global::System.Reflection;
@@ -62,20 +63,46 @@ namespace Artemis.Manager
     /// <summary>Class SystemManager.</summary>
     public sealed class SystemManager
     {
+        private class SystemLayer
+        {
+            public Bag<EntitySystem> this[ExecutionType executionType]
+            {
+                get
+                {
+                    switch (executionType)
+                    {
+                        case ExecutionType.Synchronous:
+                            return Synchronous;
+                            
+#if !XBOX && !WINDOWS_PHONE && !PORTABLE
+                        case ExecutionType.Asynchronous:
+                            return Asynchronous;
+#endif
+
+                        default:
+                            throw new KeyNotFoundException("The ExecutionType must be Synchronous or Asynchronous.");
+                    }
+                }
+            }
+
+            public readonly Bag<EntitySystem> Synchronous = new Bag<EntitySystem>();
+            public readonly Bag<EntitySystem> Asynchronous = new Bag<EntitySystem>();
+        }
+
         /// <summary>The entity world.</summary>
         private readonly EntityWorld entityWorld;
 
         /// <summary>The systems.</summary>
-        private readonly IDictionary<Type, List<EntitySystem>> systems;
+        private readonly IDictionary<Type, IList> systems;
 
         /// <summary>The merged bag.</summary>
         private readonly Bag<EntitySystem> mergedBag;
 
         /// <summary>The update layers.</summary>
-        private IDictionary<int, Bag<EntitySystem>[]> updateLayers;
+        private IDictionary<int, SystemLayer> updateLayers;
 
         /// <summary>The draw layers.</summary>
-        private IDictionary<int, Bag<EntitySystem>[]> drawLayers;
+        private IDictionary<int, SystemLayer> drawLayers;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SystemManager" /> class.
@@ -85,13 +112,13 @@ namespace Artemis.Manager
         {
             this.mergedBag = new Bag<EntitySystem>();
 #if FULLDOTNET
-                this.drawLayers = new SortedDictionary<int, Bag<EntitySystem>[]>();
-                this.updateLayers = new SortedDictionary<int, Bag<EntitySystem>[]>();                
+            this.drawLayers = new SortedDictionary<int, SystemLayer>();
+            this.updateLayers = new SortedDictionary<int, SystemLayer>();                
 #else
-                this.drawLayers = new Dictionary<int, Bag<EntitySystem>[]>();
-                this.updateLayers = new Dictionary<int, Bag<EntitySystem>[]>();                
+            this.drawLayers = new Dictionary<int, SystemLayer>();
+            this.updateLayers = new Dictionary<int, SystemLayer>();                
 #endif
-            this.systems = new Dictionary<Type, List<EntitySystem>>();
+            this.systems = new Dictionary<Type, IList>();
             this.entityWorld = entityWorld;
         }
 
@@ -108,6 +135,21 @@ namespace Artemis.Manager
         /// <summary>
         /// Sets the system.
         /// </summary>
+        /// <param name="system">The system.</param>
+        /// <param name="gameLoopType">Type of the game loop.</param>
+        /// <param name="layer">The layer.</param>
+        /// <param name="executionType">Type of the execution.</param>
+        /// <returns>
+        /// The set system.
+        /// </returns>
+        public EntitySystem SetSystem(EntitySystem system, GameLoopType gameLoopType, int layer = 0, ExecutionType executionType = ExecutionType.Synchronous)
+        {
+            return SetSystem(system.GetType(), system, gameLoopType, layer, executionType);
+        }
+
+        /// <summary>
+        /// Sets the system.
+        /// </summary>
         /// <typeparam name="T">The <see langword="Type" /> T.</typeparam>
         /// <param name="system">The system.</param>
         /// <param name="gameLoopType">Type of the game loop.</param>
@@ -118,72 +160,35 @@ namespace Artemis.Manager
         /// </returns>
         public T SetSystem<T>(T system, GameLoopType gameLoopType, int layer = 0, ExecutionType executionType = ExecutionType.Synchronous) where T : EntitySystem
         {
+            return (T)SetSystem(typeof(T), system, gameLoopType, layer, executionType);
+        }
+
+        private EntitySystem SetSystem(Type systemType, EntitySystem system, GameLoopType gameLoopType, int layer = 0, ExecutionType executionType = ExecutionType.Synchronous)
+        {
             system.EntityWorld = this.entityWorld;
 
-            if (this.systems.ContainsKey(typeof(T)))
+            if (this.systems.ContainsKey(systemType))
             {
-                this.systems[typeof(T)].Add(system);
+                this.systems[systemType].Add(system);
             }
             else
             {
-                this.systems[typeof(T)] = new List<EntitySystem> { system };
+                Type genericType = typeof(List<>);
+                Type listType = genericType.MakeGenericType(systemType);
+                this.systems[systemType] = (IList)Activator.CreateInstance(listType);
+                this.systems[systemType].Add(system);
             }
 
             switch (gameLoopType)
             {
                 case GameLoopType.Draw:
                     {
-                        
-                            if (!this.drawLayers.ContainsKey(layer))
-                            {
-                                this.drawLayers[layer] = new Bag<EntitySystem>[2];
-                                this.drawLayers[layer][0] = new Bag<EntitySystem>();
-                                this.drawLayers[layer][1] = new Bag<EntitySystem>();
-                            }
-
-                            Bag<EntitySystem> drawBag  = null;
-                            if(executionType == ExecutionType.Synchronous)
-                                drawBag = this.drawLayers[layer][0];
-                            else
-                                drawBag = this.drawLayers[layer][1];
-                            
-                            if (!drawBag.Contains(system))
-                            {
-                                drawBag.Add(system);
-                            }
-                                                        
-#if !FULLDOTNET                            
-                        this.drawLayers = (from d in this.drawLayers orderby d.Key ascending select d).ToDictionary(pair => pair.Key, pair => pair.Value);                            
-#endif
-                        
+                        SetSystem(ref this.drawLayers, system, gameLoopType, layer, executionType);
                     }
-
                     break;
                 case GameLoopType.Update:
                     {
-                        
-                            if (!this.updateLayers.ContainsKey(layer))
-                            {
-                                this.updateLayers[layer] = new Bag<EntitySystem>[2];
-                                this.updateLayers[layer][0] = new Bag<EntitySystem>();
-                                this.updateLayers[layer][1] = new Bag<EntitySystem>();
-                            }
-
-
-                            Bag<EntitySystem> updateBag = null;
-                            if (executionType == ExecutionType.Synchronous)
-                                updateBag = this.updateLayers[layer][0];
-                            else
-                                updateBag = this.updateLayers[layer][1];
-                            
-                            if (!updateBag.Contains(system))
-                            {
-                                updateBag.Add(system);
-                            }                            
-#if !FULLDOTNET
-                            this.updateLayers = (from d in this.updateLayers orderby d.Key ascending select d).ToDictionary(pair => pair.Key, pair => pair.Value);
-#endif
-                    
+                        SetSystem(ref this.updateLayers, system, gameLoopType, layer, executionType);
                     }
                     break;
             }
@@ -198,118 +203,72 @@ namespace Artemis.Manager
             return system;
         }
 
+        private void SetSystem(ref IDictionary<int, SystemLayer> layers, EntitySystem system, GameLoopType gameLoopType, int layer, ExecutionType executionType)
+        {
+            if (!layers.ContainsKey(layer))
+            {
+                layers[layer] = new SystemLayer();
+            }
+
+            Bag<EntitySystem> updateBag = layers[layer][executionType];
+
+            if (!updateBag.Contains(system))
+            {
+                updateBag.Add(system);
+            }
+#if !FULLDOTNET
+            layers = (from d in layers orderby d.Key ascending select d).ToDictionary(pair => pair.Key, pair => pair.Value);
+#endif
+        }
+
         /// <summary>Gets the system.</summary>
         /// <typeparam name="T">The <see langword="Type"/> T.</typeparam>
         /// <returns>The List{EntitySystem} of systems.</returns>
-        public List<EntitySystem> GetSystem<T>() where T : EntitySystem
+        public List<T> GetSystem<T>() where T : EntitySystem
         {
-            List<EntitySystem> system;
+            IList system;
 
             this.systems.TryGetValue(typeof(T), out system);
 
-            return system;
+            return (List<T>)system;
         }
 
         /// <summary>Initializes all.</summary>
         /// <param name="processAttributes">if set to <see langword="true" /> [process attributes].</param>
-#if !FULLDOTNET && !METRO
         /// <param name="assembliesToScan">The assemblies to scan.</param>
-        /// <exception cref="System.Exception">propertyComponentPool is null.</exception>
-        internal void InitializeAll(bool processAttributes ,List<Assembly> assembliesToScan)
-#else
-        /// <exception cref="System.Exception">propertyComponentPool is null.</exception>
-        internal void InitializeAll(bool processAttributes)
-#endif
+        /// <exception cref="global::System.Exception">propertyComponentPool is null.</exception>
+        internal void InitializeAll(bool processAttributes, IEnumerable<Assembly> assembliesToScan = null)
         {
             if (processAttributes)
             {
-#if !FULLDOTNET && !METRO        
-                IDictionary<Type, List<Attribute>> types = AttributesProcessor.Process(AttributesProcessor.SupportedAttributes, assembliesToScan);
-#else
-                IDictionary<Type, List<Attribute>> types = AttributesProcessor.Process(AttributesProcessor.SupportedAttributes);
-#endif
+                IDictionary<Type, List<Attribute>> types;
+                if (assembliesToScan == null)
+                {
+                    types = AttributesProcessor.Process(AttributesProcessor.SupportedAttributes);
+                }
+                else
+                {
+                    types = AttributesProcessor.Process(AttributesProcessor.SupportedAttributes, assembliesToScan);
+                }
                 foreach (KeyValuePair<Type, List<Attribute>> item in types)
                 {
-#if METRO                    
                     if (typeof(EntitySystem).GetTypeInfo().IsAssignableFrom(item.Key.GetTypeInfo()))
-#else
-                    if (typeof(EntitySystem).IsAssignableFrom(item.Key))
-#endif
                     {
                         Type type = item.Key;
                         ArtemisEntitySystem pee = (ArtemisEntitySystem)item.Value[0];
                         EntitySystem instance = (EntitySystem)Activator.CreateInstance(type);
                         this.SetSystem(instance, pee.GameLoopType, pee.Layer, pee.ExecutionType);
                     }
-#if METRO                    
                     else if (typeof(IEntityTemplate).GetTypeInfo().IsAssignableFrom(item.Key.GetTypeInfo()))
-#else
-                    else if (typeof(IEntityTemplate).IsAssignableFrom(item.Key))
-#endif
                     {
                         Type type = item.Key;
                         ArtemisEntityTemplate pee = (ArtemisEntityTemplate)item.Value[0];
                         IEntityTemplate instance = (IEntityTemplate)Activator.CreateInstance(type);
                         this.entityWorld.SetEntityTemplate(pee.Name, instance);
                     }
-#if METRO                    
                     else if (typeof(ComponentPoolable).GetTypeInfo().IsAssignableFrom(item.Key.GetTypeInfo()))
-#else
-                    else if (typeof(ComponentPoolable).IsAssignableFrom(item.Key))
-#endif
                     {
-                        ArtemisComponentPool propertyComponentPool = null;
-
-                        foreach (ArtemisComponentPool artemisComponentPool in item.Value.OfType<ArtemisComponentPool>())
-                        {
-                            propertyComponentPool = artemisComponentPool;
-                        }
-
-                        Type type = item.Key;
-#if METRO            
-                        IEnumerable<MethodInfo> methods = type.GetRuntimeMethods();
-#else
-                        MethodInfo[] methods = type.GetMethods();
-#endif
-
-
-                        Func<Type, ComponentPoolable> create = null;
-                        foreach (MethodInfo methodInfo in from methodInfo in methods let attributes = methodInfo.GetCustomAttributes(false) from attribute in attributes.OfType<ArtemisComponentCreate>() select methodInfo)
-                        {
-#if METRO                                                                   
-                            create = (Func<Type, ComponentPoolable>) methodInfo.CreateDelegate(typeof(Func<Type, ComponentPoolable>));                            
-#else
-                            create = (Func<Type, ComponentPoolable>)Delegate.CreateDelegate(typeof(Func<Type, ComponentPoolable>), methodInfo);
-#endif
-                        }
-
-                        if (create == null)
-                        {
-                            create = CreateInstance;
-                        }
-
-                        IComponentPool<ComponentPoolable> pool;
-
-                        ////Type[] typeArgs = { type };
-                        ////Type d1 = typeof(ComponentPool<>);
-                        ////var typeGen = d1.MakeGenericType(typeArgs);
-                        ////Activator.CreateInstance(typeGen, new object[] {PropertyComponentPool.InitialSize, PropertyComponentPool.IsResizable, create}
-
-                        if (propertyComponentPool == null)
-                        {
-                            throw new NullReferenceException("propertyComponentPool is null.");
-                        }
-
-                        if (!propertyComponentPool.IsSupportMultiThread)
-                        {
-                            pool = new ComponentPool<ComponentPoolable>(propertyComponentPool.InitialSize, propertyComponentPool.ResizeSize, propertyComponentPool.IsResizable, create, type);
-                        }
-                        else
-                        {
-                            pool = new ComponentPoolMultiThread<ComponentPoolable>(propertyComponentPool.InitialSize, propertyComponentPool.ResizeSize, propertyComponentPool.IsResizable, create, type);
-                        }
-
-                        this.entityWorld.SetPool(type, pool);
+                        CreatePool(item.Key, item.Value);
                     }
                 }
             }
@@ -318,6 +277,61 @@ namespace Artemis.Manager
             {
                 this.mergedBag.Get(index).LoadContent();
             }
+        }
+
+        private void CreatePool(Type type, List<Attribute> attributes)
+        {
+            ArtemisComponentPool propertyComponentPool = null;
+
+            foreach (ArtemisComponentPool artemisComponentPool in attributes.OfType<ArtemisComponentPool>())
+            {
+                propertyComponentPool = artemisComponentPool;
+            }
+#if METRO            
+                        IEnumerable<MethodInfo> methods = type.GetRuntimeMethods();
+#else
+            MethodInfo[] methods = type.GetMethods();
+#endif
+
+            IEnumerable<MethodInfo> methodInfos = from methodInfo in methods
+                                                  let methodAttributes = methodInfo.GetCustomAttributes(false)
+                                                  from attribute in methodAttributes.OfType<ArtemisComponentCreate>()
+                                                  select methodInfo;
+
+            Func<Type, ComponentPoolable> create = null;
+            foreach (MethodInfo methodInfo in methodInfos)
+            {
+                create = (Func<Type, ComponentPoolable>)methodInfo.CreateDelegate(typeof(Func<Type, ComponentPoolable>));
+            }
+
+            if (create == null)
+            {
+                create = CreateInstance;
+            }
+
+            IComponentPool<ComponentPoolable> pool;
+
+            ////Type[] typeArgs = { type };
+            ////Type d1 = typeof(ComponentPool<>);
+            ////var typeGen = d1.MakeGenericType(typeArgs);
+            ////Activator.CreateInstance(typeGen, new object[] {PropertyComponentPool.InitialSize, PropertyComponentPool.IsResizable, create}
+
+            if (propertyComponentPool == null)
+            {
+                throw new NullReferenceException("propertyComponentPool is null.");
+            }
+
+            if (!propertyComponentPool.IsSupportMultiThread)
+            {
+                pool = new ComponentPool<ComponentPoolable>(propertyComponentPool.InitialSize, propertyComponentPool.ResizeSize, propertyComponentPool.IsResizable, create, type);
+            }
+            else
+            {
+                pool = new ComponentPoolMultiThread<ComponentPoolable>(propertyComponentPool.InitialSize, propertyComponentPool.ResizeSize, propertyComponentPool.IsResizable, create, type);
+            }
+
+            this.entityWorld.SetPool(type, pool);
+
         }
 
         /// <summary>Terminates all.</summary>
@@ -337,41 +351,32 @@ namespace Artemis.Manager
         /// </summary>
         internal void Update()
         {
-                foreach (int item in this.updateLayers.Keys)
-                    {
-                        if (this.updateLayers[item][0].Count > 0)
-                        {
-                            ProcessBagSynchronous(this.updateLayers[item][0]);
-                        }
-#if !PORTABLE
-                        if (this.updateLayers[item][1].Count > 0)
-                        {
-                            ProcessBagAsynchronous(this.updateLayers[item][1]);
-                        }      
-#endif
-                    }            
-
-}
+            Process(this.updateLayers);
+        }
 
         /// <summary>
         /// Updates the specified execution type.
         /// </summary>
         internal void Draw()
         {
+            Process(this.drawLayers);                 
+        }
 
-                foreach (int item in this.drawLayers.Keys)
+        private void Process(IDictionary<int, SystemLayer> systemsToProcess)
+        {
+            foreach (int item in systemsToProcess.Keys)
+            {
+                if (systemsToProcess[item].Synchronous.Count > 0)
                 {
-                    if (this.drawLayers[item][0].Count > 0)
-                    {
-                        ProcessBagSynchronous(this.drawLayers[item][0]);
-                    }
+                    ProcessBagSynchronous(systemsToProcess[item].Synchronous);
+                }
 #if !PORTABLE
-                    if (this.drawLayers[item][1].Count > 0)
-                    {
-                        ProcessBagAsynchronous(this.drawLayers[item][1]);
-                    }
+                if (systemsToProcess[item].Asynchronous.Count > 0)
+                {
+                    ProcessBagAsynchronous(systemsToProcess[item].Asynchronous);
+                }
 #endif
-                }                       
+            }
         }
 
         /// <summary>Creates the instance.</summary>

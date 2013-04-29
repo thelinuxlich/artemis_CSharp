@@ -246,7 +246,7 @@ namespace Artemis.Manager
 #if DEBUG
             --this.EntitiesRequestedCount;
 
-            if (this.TotalRemoved > long.MaxValue)
+            if (this.TotalRemoved < long.MaxValue)
             {
                 ++this.TotalRemoved;
             }
@@ -261,8 +261,7 @@ namespace Artemis.Manager
                 this.RemovedEntityEvent(entity);
             }
 
-            uniqueIdToEntities.Remove(entity.UniqueId);
-        }
+            uniqueIdToEntities.Remove(entity.UniqueId);        }
 
         /// <summary>Add the given component to the given entity.</summary>
         /// <param name="entity">Entity for which you want to add the component.</param>
@@ -274,25 +273,7 @@ namespace Artemis.Manager
 
             ComponentType type = ComponentTypeManager.GetTypeFor(component.GetType());
 
-            if (type.Id >= this.componentsByType.Capacity)
-            {
-                this.componentsByType.Set(type.Id, null);
-            }
-
-            Bag<IComponent> components = this.componentsByType.Get(type.Id);
-            if (components == null)
-            {
-                components = new Bag<IComponent>();
-                this.componentsByType.Set(type.Id, components);
-            }
-
-            components.Set(entity.Id, component);
-
-            entity.AddTypeBit(type.Bit);
-            if (this.AddedComponentEvent != null)
-            {
-                this.AddedComponentEvent(entity, component);
-            }
+            AddComponent(entity, component, type);
         }
 
         /// <summary>
@@ -310,6 +291,11 @@ namespace Artemis.Manager
 
             ComponentType type = ComponentTypeManager.GetTypeFor<T>();
 
+            AddComponent(entity, component, type);
+        }
+
+        internal void AddComponent(Entity entity, IComponent component, ComponentType type)
+        {
             if (type.Id >= this.componentsByType.Capacity)
             {
                 this.componentsByType.Set(type.Id, null);
@@ -330,6 +316,7 @@ namespace Artemis.Manager
                 this.AddedComponentEvent(entity, component);
             }
         }
+
 
         /// <summary>Get the component instance of the given component type for the given entity.</summary>
         /// <param name="entity">The entity for which you want to get the component</param>
@@ -370,14 +357,9 @@ namespace Artemis.Manager
         /// <summary>Removes the given component from the given entity.</summary>
         /// <typeparam name="T">The type of the component you want to remove.</typeparam>
         /// <param name="entity">The entity for which you are removing the component.</param>
-        /// <param name="component">The specific component instance you want removed.</param>
-        internal void RemoveComponent<T>(Entity entity, IComponent component) where T : IComponent
+        internal void RemoveComponent<T>(Entity entity) where T : IComponent
         {
-            Debug.Assert(entity != null, "Entity must not be null.");
-            Debug.Assert(component != null, "Component must not be null.");
-
-            ComponentType type = ComponentTypeManager.GetTypeFor<T>();
-            this.RemoveComponent(entity, type);
+            RemoveComponent(entity, ComponentType<T>.CType);
         }
 
         /// <summary>Removes the given component type from the given entity.</summary>
@@ -404,16 +386,17 @@ namespace Artemis.Manager
         internal void RemoveComponentsOfEntity(Entity entity)
         {
             Debug.Assert(entity != null, "Entity must not be null.");
-
+            
             int entityId = entity.Id;
             for (int index = this.componentsByType.Count - 1; index >= 0; --index)
             {
                 Bag<IComponent> components = this.componentsByType.Get(index);
                 if (components != null && entityId < components.Count)
                 {
-                    if (this.RemovedComponentEvent != null)
+                    IComponent componentToBeRemoved = components.Get(entityId);
+                    if (this.RemovedComponentEvent != null && componentToBeRemoved != null)
                     {
-                        this.RemovedComponentEvent(entity, components.Get(entityId));
+                        this.RemovedComponentEvent(entity, componentToBeRemoved);
                     }
 
                     components.Set(entityId, null);
@@ -426,9 +409,9 @@ namespace Artemis.Manager
         /// <param name="component">The component.</param>
         private void EntityManagerRemovedComponentEvent(Entity entity, IComponent component)
         {
-            if (component is ComponentPoolable)
+            ComponentPoolable componentPoolable = component as ComponentPoolable;
+            if (componentPoolable != null)
             {
-                ComponentPoolable componentPoolable = component as ComponentPoolable;
                 if (componentPoolable.PoolId < 0)
                 {
                     return;

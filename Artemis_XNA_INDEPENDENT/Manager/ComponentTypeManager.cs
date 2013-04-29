@@ -79,15 +79,7 @@ namespace Artemis.Manager
         /// <returns>Component Type.</returns>
         public static ComponentType GetTypeFor<T>() where T : IComponent
         {
-            ComponentType result;
-            Type receivedType = typeof(T);
-            if (!ComponentTypes.TryGetValue(receivedType, out result))
-            {
-                result = new ComponentType();
-                ComponentTypes.Add(receivedType, result);
-            }
-
-            return result;
+            return GetTypeFor(typeof(T));
         }
 
         /// <summary><para>Ensure the given component type [tag] is an "official"</para>
@@ -109,6 +101,27 @@ namespace Artemis.Manager
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Creates an enumerable from a BigIntger which holds typebits
+        /// </summary>
+        /// <param name="bits"> The BigInteger which holds the type bits. </param>
+        /// <returns> An Enumerable of each type the bits has. </returns>
+        internal static IEnumerable<Type> GetTypesFromBits(BigInteger bits)
+        {
+            foreach (var item in ComponentTypes)
+            {
+                if ((item.Value.Bit & bits) != 0)
+                {
+                    yield return item.Key;
+                }
+            }
+        }
+
+        internal static void SetTypeFor<T>(ComponentType type)
+        {
+            ComponentTypes.Add(typeof(T), type);
         }
     }
 }

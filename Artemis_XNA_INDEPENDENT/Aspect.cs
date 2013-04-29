@@ -41,6 +41,7 @@ namespace Artemis
     using global::System;
     using global::System.Diagnostics;
     using global::System.Linq;
+    using global::System.Text;
     using Artemis.Manager;
 
 #if !XBOX && !WINDOWS_PHONE  && !PORTABLE
@@ -56,7 +57,7 @@ namespace Artemis
     public class Aspect
     {
         /// <summary>Initializes a new instance of the <see cref="Aspect"/> class.</summary>
-        protected Aspect()
+        public Aspect()
         {
             this.OneTypesMap = 0;
             this.ExcludeTypesMap = 0;
@@ -166,6 +167,35 @@ namespace Artemis
             }
 
             return this;
+        }
+
+        private static void AppendTypes(StringBuilder builder, string headerMessage, BigInteger typeBits)
+        {
+            if (typeBits != 0)
+            {
+                builder.AppendLine(headerMessage);
+                foreach (var type in ComponentTypeManager.GetTypesFromBits(typeBits))
+                {
+                    builder.Append(", ");
+                    builder.AppendLine(type.Name);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Creates a string that displays all the typenames of the components that interests this Aspect.
+        /// </summary>
+        /// <returns> A string displaying all the typenames that interests this Aspect. </returns>
+        public override string ToString()
+        {
+            StringBuilder builder = new StringBuilder(1024);
+
+            builder.AppendLine("Aspect :");
+            AppendTypes(builder, " Requires the components : ", this.ContainsTypesMap);
+            AppendTypes(builder, " Has none of the components : ", this.ExcludeTypesMap);
+            AppendTypes(builder, " Has atleast one of the components : ", this.OneTypesMap);
+
+            return builder.ToString();
         }
     }
 }

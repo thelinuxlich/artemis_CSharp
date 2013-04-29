@@ -34,9 +34,15 @@
     <DocumentationFile>bin\Artemis_W8Portable\Release\Artemis_W8Portable.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-  <Compile Include="..\Artemis_XNA_INDEPENDENT\System\ProcessingSystem.cs" />
-	<Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\FQueueManager.cs" />
-	<Compile Include="..\Artemis_XNA_INDEPENDENT\System\FQueueSystemProcessingThreadSafe.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Exceptions\MissingEntityTemplateException.cs">
+      <Link>MissingEntityTemplateException.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\System\EntityComponentProcessingSystem.cs">
+      <Link>EntityComponentProcessingSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\System\ProcessingSystem.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\FQueueManager.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\System\FQueueSystemProcessingThreadSafe.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Aspect.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\AttributesProcessor.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\ArtemisComponentCreate.cs" />
@@ -85,6 +91,9 @@
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\Bag.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\System\IntervalTagSystem.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\BagEnumerator.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\Extensions.cs">
+      <Link>Extensions.cs</Link>
+    </Compile>
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\FastDateTime.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\Timer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
