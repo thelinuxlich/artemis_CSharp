@@ -57,7 +57,7 @@ namespace Artemis
     public class Aspect
     {
         /// <summary>Initializes a new instance of the <see cref="Aspect"/> class.</summary>
-        public Aspect()
+        protected Aspect()
         {
             this.OneTypesMap = 0;
             this.ExcludeTypesMap = 0;
@@ -84,6 +84,15 @@ namespace Artemis
             return new Aspect().GetAll(types);
         }
 
+        /// <summary>
+        /// Return an Empty Aspect (does not filter anything).
+        /// </summary>
+        /// <returns></returns>
+        public static Aspect Empty()
+        {
+            return new Aspect();
+        }
+        
         /// <summary>Excludes the specified types.</summary>
         /// <param name="types">The types.</param>
         /// <returns>The specified Aspect.</returns>
