@@ -26,7 +26,7 @@
           <ul>
               <li><a href="https://github.com/thelinuxlich/starwarrior_CSharp/archive/master.zip">Download <strong>Example</strong></a></li>
               <li><a href="https://github.com/thelinuxlich/artemis_CSharp/zipball/master">Download <strong>ZIP File</strong></a></li>
-              <li><a href="https://github.com/thelinuxlich/artemis_CSharp/tarball/master">Download <strong>TAR Ball</strong></a></li>
+              <li><a href="http://nuget.org/packages/Artemis/">Nuget <strong>Link</strong></a></li>
               <li><a href="https://github.com/thelinuxlich/artemis_CSharp">View On <strong>GitHub</strong></a></li>
           </ul>
       </header>
@@ -143,21 +143,16 @@ e.Refresh();// always call Refresh() when adding/removing components!
         <pre><code>//Add this attribute so the EntityWorld knows the systems it should execute, use the Layer to determine execution order
 [Artemis.Attributes.ArtemisEntitySystem(ExecutionType = ExecutionType.UpdateSynchronous, Layer = 1)]
 public class MovementSystem : EntityProcessingSystem {
-    ComponentMapper<Velocity> velocityMapper;
-    ComponentMapper<Transform> transformMapper;
 
     public MovementSystem() : base(Aspect.All(typeof(Transform), typeof(Velocity))) { }
 
-    public override void Initialize() {
-        velocityMapper = new ComponentMapper<Velocity>(world);
-        transformMapper = new ComponentMapper<Transform>(world);
-    }
+    public override void Initialize() {}
 
     public override void Process(Entity e) {
-        Velocity velocity = velocityMapper.Get(e);
+        Velocity velocity = e.getComponent<Velocity>();
         float v = velocity.Speed;
 
-        Transform transform = transformMapper.Get(e);
+        Transform transform = e.getComponent<Transform>();
 
         float r = velocity.AngleAsRadians;
 
@@ -190,18 +185,36 @@ world.Draw(); // do this on a different loop, e.g: every 60 frames.
 		You can also compose your Aspect utilizing these methods together, example:
 		<pre><code>public LogEnemySystem() : base(Aspect.All(typeof(Health)).One(typeof(Koopa),typeof(Goomba),typeof(Magikoopa)).exclude(typeof(Ghost))) {}</code></pre>
 	</section>
+  <section id="extending_systems">
+    <h3>Extending Systems</h3>
+    It's quite simple to extend the EntitySystem with your own logic, an example can be found <a href="https://github.com/thelinuxlich/artemis_CSharp/blob/master/Artemis_XNA_INDEPENDENT/System/EntityComponentProcessingSystem.cs">here</a>, which gives us less setup on systems which only uses Aspect.All(), example:
+    <pre>
+      <code>[Artemis.Attributes.ArtemisEntitySystem(ExecutionType = ExecutionType.UpdateSynchronous, Layer = 1)]
+public class MovementSystem : EntityComponentProcessingSystem<Transform,Velocity> {
+    public override void Process(Entity e,Transform transform, Velocity velocity) {
+        float v = velocity.Speed;
+        float r = velocity.AngleAsRadians;
+
+        float xn = transform.X + (TrigLUT.Cos(r) * v * world.Delta);
+        float yn = transform.Y + (TrigLUT.Sin(r) * v * world.Delta);
+
+        transform.SetLocation(xn, yn);
+    }
+}</code>
+    </pre>
+  </section>
 	<section id="templates">
 		<h3>Templates</h3>
 		Create your entity templates to avoid manually creating and configuring entities:
 		<pre><code>[Artemis.Attributes.ArtemisEntityTemplate("BulletExplosion")]
 public EnemyTemplate : Artemis.IEntityTemplate {
-	public Entity BuildEntity(Entity e) {
+	public Entity BuildEntity(Entity e,EntityWorld entityWorld, params object[] args) {
 		e.AddComponent(new Transform(200,400));
 		e.AddComponent(new Velocity(2.4f,0.9f));
 	}
 }</code></pre>
 		Create your entities with the template applied:
-		<pre><code>var enemy = world.CreateEntityFromTemplate("BulletExplosion");
+		<pre><code>var enemy = world.CreateEntityFromTemplate("BulletExplosion",array_of_parameters); // you can also use an alternative signature passing a custom unique id as the first parameter.
 enemy.Refresh();</code></pre>
 	</section>
 	<section id="blackboard">
