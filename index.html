@@ -119,7 +119,7 @@ class Velocity : ComponentPoolable
         A sample for entity assembling:
         <pre><code>Entity e = world.CreateEntity(); // you can pass an unique ID as first parameter.
 e.AddComponent(new Transform(200,400));
-e.AddComponentFromPool<Velocity>(); // use AddComponentFromPool if the Component extend from ComponentPoolable
+e.AddComponentFromPool&lt;Velocity&gt;(); // use AddComponentFromPool if the Component extend from ComponentPoolable
 e.Refresh();// always call Refresh() when adding/removing components!
         </code></pre>
         Your systems should inherit from one of the following templates:
@@ -149,10 +149,10 @@ public class MovementSystem : EntityProcessingSystem {
     public override void Initialize() {}
 
     public override void Process(Entity e) {
-        Velocity velocity = e.getComponent<Velocity>();
+        Velocity velocity = e.getComponent&lt;Velocity&gt;();
         float v = velocity.Speed;
 
-        Transform transform = e.getComponent<Transform>();
+        Transform transform = e.getComponent&lt;Transform&gt;();
 
         float r = velocity.AngleAsRadians;
 
@@ -190,7 +190,7 @@ world.Draw(); // do this on a different loop, e.g: every 60 frames.
     It's quite simple to extend the EntitySystem with your own logic, an example can be found <a href="https://github.com/thelinuxlich/artemis_CSharp/blob/master/Artemis_XNA_INDEPENDENT/System/EntityComponentProcessingSystem.cs">here</a>, which gives us less setup on systems which only uses Aspect.All(), example:
     <pre>
       <code>[Artemis.Attributes.ArtemisEntitySystem(ExecutionType = ExecutionType.UpdateSynchronous, Layer = 1)]
-public class MovementSystem : EntityComponentProcessingSystem<Transform,Velocity> {
+public class MovementSystem : EntityComponentProcessingSystem&lt;Transform,Velocity&gt; {
     public override void Process(Entity e,Transform transform, Velocity velocity) {
         float v = velocity.Speed;
         float r = velocity.AngleAsRadians;
@@ -220,13 +220,13 @@ enemy.Refresh();</code></pre>
 	<section id="blackboard">
 	    <h3>Blackboard</h3>
 	    You can easily share common objects between systems using the blackboard, here is a XNA example, on the game initialization:
-	    <pre><code>EntitySystem.BlackBoard.SetEntry<ContentManager>("ContentManager", Content);
-EntitySystem.BlackBoard.SetEntry<GraphicsDevice>("GraphicsDevice", GraphicsDevice);
-EntitySystem.BlackBoard.SetEntry<SpriteBatch>("SpriteBatch", spriteBatch);</code></pre>
+	    <pre><code>EntitySystem.BlackBoard.SetEntry&lt;ContentManager&gt;("ContentManager", Content);
+EntitySystem.BlackBoard.SetEntry&lt;GraphicsDevice&gt;("GraphicsDevice", GraphicsDevice);
+EntitySystem.BlackBoard.SetEntry&lt;SpriteBatch&gt;("SpriteBatch", spriteBatch);</code></pre>
         Then you can retrieve the objects inside systems like this:
-        <pre><code>this.device = EntitySystem.BlackBoard.GetEntry<GraphicsDevice>("GraphicsDevice");
-this.spriteBatch = EntitySystem.BlackBoard.GetEntry<SpriteBatch>("SpriteBatch");
-this.contentManager = EntitySystem.BlackBoard.GetEntry<ContentManager>("ContentManager");</code></pre>
+        <pre><code>this.device = EntitySystem.BlackBoard.GetEntry&lt;GraphicsDevice&gt;("GraphicsDevice");
+this.spriteBatch = EntitySystem.BlackBoard.GetEntry&lt;SpriteBatch&gt;("SpriteBatch");
+this.contentManager = EntitySystem.BlackBoard.GetEntry&lt;ContentManager&gt;("ContentManager");</code></pre>
 	</section>
   <section id="games">
     <h3>Games created with Artemis C#</h3>
