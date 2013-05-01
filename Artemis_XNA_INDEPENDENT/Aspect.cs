@@ -85,7 +85,7 @@ namespace Artemis
         }
 
         /// <summary>
-        /// Return an Empty Aspect (does not filter anything).
+        /// Returns an Empty Aspect (does not filter anything).
         /// </summary>
         /// <returns></returns>
         public static Aspect Empty()

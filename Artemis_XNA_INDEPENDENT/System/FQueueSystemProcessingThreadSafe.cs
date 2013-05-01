@@ -47,7 +47,7 @@ namespace Artemis.System
 
     /// <summary>
     /// <para>System Not based On ENTITIES AND COMPONENTS.</para>
-    /// <para>It Process ONCE everything you explicitly add to it</para>
+    /// <para>It Process ONCE everything you explicitly add to it (use the static method AddToQueue (second parameter is the type of your specialization of this class) )</para>
     /// <para>using the method static AddToQueue.</para>
     /// </summary>
     public abstract class FQueueSystemProcessingThreadSafe<T> : EntitySystem
