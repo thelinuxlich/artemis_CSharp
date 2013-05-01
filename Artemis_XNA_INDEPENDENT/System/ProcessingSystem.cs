@@ -44,7 +44,8 @@ namespace Artemis.System
     #endregion Using statements
 
     /// <summary>Class ProcessingSystem.
-    /// Special type of System that has NO entity associated 
+    /// Special type of System that has NO entity associated (called once each frame)
+    /// Extend it and override the ProcessSystem function
     /// </summary>
     public abstract class ProcessingSystem : EntitySystem
     {
