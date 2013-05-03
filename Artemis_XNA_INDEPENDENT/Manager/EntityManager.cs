@@ -153,7 +153,6 @@ namespace Artemis.Manager
             {
                 this.AddedEntityEvent(result);
             }
-
             return result;
         }
 
@@ -315,6 +314,7 @@ namespace Artemis.Manager
             {
                 this.AddedComponentEvent(entity, component);
             }
+			Refresh(entity);
         }
 
 
@@ -379,6 +379,7 @@ namespace Artemis.Manager
 
             components.Set(entityId, null);
             entity.RemoveTypeBit(componentType.Bit);
+			Refresh(entity);
         }
 
         /// <summary>Strips all components from the given entity.</summary>
@@ -402,6 +403,7 @@ namespace Artemis.Manager
                     components.Set(entityId, null);
                 }
             }
+			Refresh(entity);
         }
 
         /// <summary>Entities the manager removed component event.</summary>
