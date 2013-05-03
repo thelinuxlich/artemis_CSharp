@@ -119,8 +119,7 @@ class Velocity : ComponentPoolable
         A sample for entity assembling:
         <pre><code>Entity e = world.CreateEntity(); // you can pass an unique ID as first parameter.
 e.AddComponent(new Transform(200,400));
-e.AddComponentFromPool&lt;Velocity&gt;(); // use AddComponentFromPool if the Component extend from ComponentPoolable
-        </code></pre>
+e.AddComponentFromPool&lt;Velocity&gt;(); // use AddComponentFromPool if the Component extend from ComponentPoolable</code></pre>
         Your systems should inherit from one of the following templates:
         <ul>
             <li>EntitySystem - the simplest system template, not tied to components, good for stuff like collision</li>
@@ -163,12 +162,10 @@ public class MovementSystem : EntityProcessingSystem {
 }</code></pre>
         On your game initialization, create a new EntityWorld and initialize it:
         <pre><code>var world = new EntityWorld();
-world.InitializeAll(true); // pass true/false to enable/disable DataAttributes on Systems
-        </code></pre>
+world.InitializeAll(true); // pass true/false to enable/disable DataAttributes on Systems</code></pre>
         Update or Draw the World:
         <pre><code>world.Update();
-world.Draw(); // do this on a different loop, e.g: every 60 frames.
-        </code></pre>
+world.Draw(); // do this on a different loop, e.g: every 60 frames.</code></pre>
         And you are good to go. The Entity object has some intuitive methods like Delete(), GetComponent(), RemoveComponent(), which
         you can see in action on the <a href="https://github.com/thelinuxlich/starwarrior_CSharp">example game.</a>
     </section>
@@ -213,8 +210,7 @@ public EnemyTemplate : Artemis.IEntityTemplate {
 	}
 }</code></pre>
 		Create your entities with the template applied:
-		<pre><code>var enemy = world.CreateEntityFromTemplate("BulletExplosion",array_of_parameters); // you can also use an alternative signature passing a custom unique id as the first parameter.
-</code></pre>
+		<pre><code>var enemy = world.CreateEntityFromTemplate("BulletExplosion",array_of_parameters); // you can also use an alternative signature passing a custom unique id as the first parameter.</code></pre>
 	</section>
 	<section id="blackboard">
 	    <h3>Blackboard</h3>
