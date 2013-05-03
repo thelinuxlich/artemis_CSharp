@@ -65,7 +65,13 @@ namespace Artemis
         private readonly Dictionary<Type, IComponentPool<ComponentPoolable>> pools;
 
         /// <summary>The refreshed.</summary>
-        private readonly Bag<Entity> refreshed;
+		/// 
+		#if XBOX || WINDOWS_PHONE || PORTABLE
+    		private readonly Bag<Entity> refreshed;
+		#else
+    		private readonly HashSet<Entity> refreshed;
+		#endif
+        
 
         /// <summary>The date time.</summary>
         private DateTime dateTime;
@@ -167,6 +173,7 @@ namespace Artemis
         public Entity CreateEntity(long? entityUniqueId = null)
         {
             return this.EntityManager.Create(entityUniqueId);
+
         }
 
         /// <summary>
@@ -217,8 +224,9 @@ namespace Artemis
             {
                 throw new MissingEntityTemplateException(entityTemplateTag);
             }
-
-            return entityTemplate.BuildEntity(entity, this, templateArgs);
+			EntityManager e = entityTemplate.BuildEntity(entity, this, templateArgs);
+			RefreshEntity(e);
+            return e;
         }
 
         /// <summary>Deletes the entity.</summary>
@@ -384,11 +392,20 @@ namespace Artemis
                 this.deleted.Clear();
             }
 
-            if (!this.refreshed.IsEmpty)
+			#if XBOX || WINDOWS_PHONE || PORTABLE
+				var isRefreshing = !this.refreshed.IsEmpty;
+			#else
+				var isRefreshing = this.refreshed.Count > 0;
+			#endif
+            if (isRefreshing)
             {
                 for (int index = this.refreshed.Count - 1; index >= 0; --index)
                 {
-                    Entity entity = this.refreshed.Get(index);
+					#if XBOX || WINDOWS_PHONE || PORTABLE
+			    		Entity entity = this.refreshed.Get(index);
+					#else
+			    		Entity entity = this.refreshed[index];
+					#endif
                     this.EntityManager.Refresh(entity);
                     entity.RefreshingState = false;
                 }
@@ -418,8 +435,13 @@ namespace Artemis
         internal void RefreshEntity(Entity entity)
         {
             Debug.Assert(entity != null, "Entity must not be null.");
-
-            this.refreshed.Add(entity);
+			#if XBOX || WINDOWS_PHONE || PORTABLE
+				if(!this.refreshed.Contains(entity)) {
+					this.refreshed.Add(entity);
+				}
+			#else
+            	this.refreshed.Add(entity);
+			#endif
         }
     }
 }
