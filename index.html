@@ -120,7 +120,6 @@ class Velocity : ComponentPoolable
         <pre><code>Entity e = world.CreateEntity(); // you can pass an unique ID as first parameter.
 e.AddComponent(new Transform(200,400));
 e.AddComponentFromPool&lt;Velocity&gt;(); // use AddComponentFromPool if the Component extend from ComponentPoolable
-e.Refresh();// always call Refresh() when adding/removing components!
         </code></pre>
         Your systems should inherit from one of the following templates:
         <ul>
@@ -215,7 +214,7 @@ public EnemyTemplate : Artemis.IEntityTemplate {
 }</code></pre>
 		Create your entities with the template applied:
 		<pre><code>var enemy = world.CreateEntityFromTemplate("BulletExplosion",array_of_parameters); // you can also use an alternative signature passing a custom unique id as the first parameter.
-enemy.Refresh();</code></pre>
+</code></pre>
 	</section>
 	<section id="blackboard">
 	    <h3>Blackboard</h3>
