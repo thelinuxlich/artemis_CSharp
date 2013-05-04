@@ -71,8 +71,6 @@ namespace UnitTests
                 entity.Tag = tag;
             }
 
-            entity.Refresh();
-
             return entity;
         }
 
@@ -81,7 +79,6 @@ namespace UnitTests
             Entity entity = entityWorld.CreateEntity(id);
             entity.AddComponent(new TestHealthComponent());
             entity.GetComponent<TestHealthComponent>().Points = 100;            
-            entity.Refresh();
             return entity;
         }
 
@@ -98,8 +95,7 @@ namespace UnitTests
             entity.GetComponent<TestHealthComponent>().Points = 100.0f;
             entity.GetComponent<TestPowerComponent>().Power = 100;
 
-            entity.Refresh();
-
+            
             return entity;
         }
 
@@ -113,8 +109,6 @@ namespace UnitTests
             TestPowerComponentPoolable testPower = entity.AddComponentFromPool<TestPowerComponentPoolable>();
 
             testPower.Power = 100;
-
-            entity.Refresh();
 
             return entity;
         }
@@ -131,8 +125,6 @@ namespace UnitTests
 
             entity.GetComponent<TestHealthComponent>().Points = 100.0f;
             entity.GetComponent<TestPowerComponentPoolable>().Power = 100;
-
-            entity.Refresh();
 
             return entity;
         }

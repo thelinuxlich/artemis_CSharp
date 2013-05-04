@@ -91,7 +91,7 @@ namespace Artemis
         {
             this.IsSortedEntities = false;
 #endif
-            this.refreshed = new Bag<Entity>();
+            this.refreshed = new HashSet<Entity>();
             this.pools = new Dictionary<Type, IComponentPool<ComponentPoolable>>();
             this.entityTemplates = new Dictionary<string, IEntityTemplate>();
             this.deleted = new Bag<Entity>();
@@ -224,7 +224,7 @@ namespace Artemis
             {
                 throw new MissingEntityTemplateException(entityTemplateTag);
             }
-			EntityManager e = entityTemplate.BuildEntity(entity, this, templateArgs);
+			Entity e = entityTemplate.BuildEntity(entity, this, templateArgs);
 			RefreshEntity(e);
             return e;
         }
@@ -399,17 +399,20 @@ namespace Artemis
 			#endif
             if (isRefreshing)
             {
-                for (int index = this.refreshed.Count - 1; index >= 0; --index)
-                {
-					#if XBOX || WINDOWS_PHONE || PORTABLE
+                #if XBOX || WINDOWS_PHONE || PORTABLE
+                    for (int index = this.refreshed.Count - 1; index >= 0; --index)
+                    {
 			    		Entity entity = this.refreshed.Get(index);
-					#else
-			    		Entity entity = this.refreshed[index];
-					#endif
-                    this.EntityManager.Refresh(entity);
-                    entity.RefreshingState = false;
-                }
-
+                        this.EntityManager.Refresh(entity);
+                        entity.RefreshingState = false;
+                    }
+                #else
+                    foreach(Entity entity in refreshed)
+                    {
+                        this.EntityManager.Refresh(entity);
+                        entity.RefreshingState = false;
+                    }
+                #endif
                 this.refreshed.Clear();
             }
 

@@ -108,8 +108,7 @@ namespace UnitTests
 
             global::System.Diagnostics.Debug.WriteLine("Remove component from entity: ");
             entityWithPooledComponent.RemoveComponent<TestPowerComponentPoolable>();
-            entityWithPooledComponent.Refresh();
-
+       
             entityWorld.Update();
             entityWorld.Draw();
 
@@ -119,7 +118,6 @@ namespace UnitTests
             global::System.Diagnostics.Debug.WriteLine("Add component to entity: ");
             entityWithPooledComponent.AddComponentFromPool<TestPowerComponentPoolable>();
             entityWithPooledComponent.GetComponent<TestPowerComponentPoolable>().Power = 100;
-            entityWithPooledComponent.Refresh();
 
             entityWorld.Update();
             entityWorld.Draw();
