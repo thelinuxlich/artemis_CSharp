@@ -47,7 +47,7 @@ namespace Artemis.System
         /// </summary>
         /// <param name="e"> The entity that is processed </param>
         /// <param name="t1"> The first component. </param>
-        protected abstract void Process(Entity e, T1 t1);
+        public abstract void Process(Entity e, T1 t1);
     }
 
     /// <summary>
@@ -94,7 +94,7 @@ namespace Artemis.System
         /// <param name="e"> The entity that is processed </param>
         /// <param name="t1"> The first component. </param>
         /// <param name="t2"> The second component. </param>
-        protected abstract void Process(Entity e, T1 t1, T2 t2);
+        public abstract void Process(Entity e, T1 t1, T2 t2);
     }
 
     /// <summary>
@@ -144,7 +144,7 @@ namespace Artemis.System
         /// <param name="t1"> The first component. </param>
         /// <param name="t2"> The second component. </param>
         /// <param name="t3"> The third component. </param>
-        protected abstract void Process(Entity e, T1 t1, T2 t2, T3 t3);
+        public abstract void Process(Entity e, T1 t1, T2 t2, T3 t3);
     }
 
     /// <summary>
@@ -197,7 +197,7 @@ namespace Artemis.System
         /// <param name="t2"> The second component. </param>
         /// <param name="t3"> The third component. </param>
         /// <param name="t4"> The fourth component. </param>
-        protected abstract void Process(Entity e, T1 t1, T2 t2, T3 t3, T4 t4);
+        public abstract void Process(Entity e, T1 t1, T2 t2, T3 t3, T4 t4);
     }
 
     /// <summary>
@@ -253,6 +253,6 @@ namespace Artemis.System
         /// <param name="t3"> The third component. </param>
         /// <param name="t4"> The fourth component. </param>
         /// <param name="t5"> The fifth component. </param>
-        protected abstract void Process(Entity e, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5);
+        public abstract void Process(Entity e, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5);
     }
 }
