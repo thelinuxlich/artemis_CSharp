@@ -1,0 +1,10 @@
+D:\opensource\artemis_CSharp\Artemis_UnitTests\bin\Debug\Test\UnitTests.exe.config
+D:\opensource\artemis_CSharp\Artemis_UnitTests\bin\Debug\Test\UnitTests.xml
+D:\opensource\artemis_CSharp\Artemis_UnitTests\bin\Debug\Test\UnitTests.exe
+D:\opensource\artemis_CSharp\Artemis_UnitTests\bin\Debug\Test\UnitTests.pdb
+D:\opensource\artemis_CSharp\Artemis_UnitTests\bin\Debug\Test\artemis.dll
+D:\opensource\artemis_CSharp\Artemis_UnitTests\bin\Debug\Test\artemis.pdb
+D:\opensource\artemis_CSharp\Artemis_UnitTests\bin\Debug\Test\artemis.xml
+D:\opensource\artemis_CSharp\Artemis_UnitTests\obj\x86\Debug\Artemis_UnitTests.csprojResolveAssemblyReference.cache
+D:\opensource\artemis_CSharp\Artemis_UnitTests\obj\x86\Debug\UnitTests.exe
+D:\opensource\artemis_CSharp\Artemis_UnitTests\obj\x86\Debug\UnitTests.pdb

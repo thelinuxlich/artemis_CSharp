@@ -139,7 +139,7 @@ e.AddComponentFromPool&lt;Velocity&gt;(); // use AddComponentFromPool if the Com
         </ul>
         And here is a system example, using Velocity and Transform components to create the Movement behavior:
         <pre><code>//Add this attribute so the EntityWorld knows the systems it should execute, use the Layer to determine execution order
-[Artemis.Attributes.ArtemisEntitySystem(ExecutionType = ExecutionType.UpdateSynchronous, Layer = 1)]
+[Artemis.Attributes.ArtemisEntitySystem(ExecutionType = ExecutionType.Synchronous,GameLoopType = GameLoopType.Update, Layer = 1)]
 public class MovementSystem : EntityProcessingSystem {
 
     public MovementSystem() : base(Aspect.All(typeof(Transform), typeof(Velocity))) { }
@@ -185,8 +185,8 @@ world.Draw(); // do this on a different loop, e.g: every 60 frames.</code></pre>
     <h3>Extending Systems</h3>
     It's quite simple to extend the EntitySystem with your own logic, an example can be found <a href="https://github.com/thelinuxlich/artemis_CSharp/blob/master/Artemis_XNA_INDEPENDENT/System/EntityComponentProcessingSystem.cs">here</a>, which gives us less setup on systems which only uses Aspect.All(), example:
     <pre>
-      <code>[Artemis.Attributes.ArtemisEntitySystem(ExecutionType = ExecutionType.UpdateSynchronous, Layer = 1)]
-public class MovementSystem : EntityComponentProcessingSystem&lt;Transform,Velocity&gt; {
+      <code>[Artemis.Attributes.ArtemisEntitySystem(ExecutionType = ExecutionType.Synchronous,GameLoopType = GameLoopType.Update, Layer = 1)]
+public class MovementSystem : EntityProcessingSystem&lt;Transform,Velocity&gt; {
     public override void Process(Entity e,Transform transform, Velocity velocity) {
         float v = velocity.Speed;
         float r = velocity.AngleAsRadians;
