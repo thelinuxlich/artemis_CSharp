@@ -144,8 +144,6 @@ public class MovementSystem : EntityProcessingSystem {
 
     public MovementSystem() : base(Aspect.All(typeof(Transform), typeof(Velocity))) { }
 
-    public override void Initialize() {}
-
     public override void Process(Entity e) {
         Velocity velocity = e.getComponent&lt;Velocity&gt;();
         float v = velocity.Speed;
