@@ -39,6 +39,7 @@ namespace Artemis.Manager
     #region Using statements
 
     using global::System;
+    using global::System.Collections.Generic;
     using global::System.Diagnostics;
 
     using Artemis.Interface;
@@ -56,10 +57,8 @@ namespace Artemis.Manager
         /// <summary>The removed and available.</summary>
         private readonly Bag<Entity> removedAndAvailable;
 
-        /// <summary>
-        /// Map uniqueid to entities
-        /// </summary>
-        private readonly global::System.Collections.Generic.Dictionary<long, Entity> uniqueIdToEntities = new global::System.Collections.Generic.Dictionary<long, Entity>();
+        /// <summary>Map unique id to entities</summary>
+        private readonly Dictionary<long, Entity> uniqueIdToEntities;
 
         /// <summary>The entity world.</summary>
         private readonly EntityWorld entityWorld;
@@ -73,6 +72,7 @@ namespace Artemis.Manager
         {
             Debug.Assert(entityWorld != null, "EntityWorld must not be null.");
 
+            this.uniqueIdToEntities = new Dictionary<long, Entity>();
             this.removedAndAvailable = new Bag<Entity>();
             this.componentsByType = new Bag<Bag<IComponent>>();
             this.ActiveEntities = new Bag<Entity>();
@@ -118,13 +118,9 @@ namespace Artemis.Manager
         /// <returns>The total number of removed entities.</returns>
         public long TotalRemoved { get; private set; }
 #endif
-        /// <summary>
-        /// Create a new, "blank" entity.
-        /// </summary>
-        /// <param name="uniqueid">The uniqueid.</param>
-        /// <returns>
-        /// New entity
-        /// </returns>
+        /// <summary>Create a new, "blank" entity.</summary>
+        /// <param name="uniqueid">The unique id.</param>
+        /// <returns>New entity.</returns>
         public Entity Create(long? uniqueid = null)
         {
             long id = uniqueid.HasValue ? uniqueid.Value : BitConverter.ToInt64(Guid.NewGuid().ToByteArray(), 0);
@@ -139,7 +135,7 @@ namespace Artemis.Manager
             }
 
             result.UniqueId = id;
-            uniqueIdToEntities[result.UniqueId] = result;
+            this.uniqueIdToEntities[result.UniqueId] = result;
             this.ActiveEntities.Set(result.Id, result);
 #if DEBUG
             ++this.EntitiesRequestedCount;
@@ -153,6 +149,7 @@ namespace Artemis.Manager
             {
                 this.AddedEntityEvent(result);
             }
+
             return result;
         }
 
@@ -177,6 +174,7 @@ namespace Artemis.Manager
                     }
                 }
             }
+
             return entityComponents;
         }
 
@@ -208,15 +206,13 @@ namespace Artemis.Manager
             return this.ActiveEntities.Get(entityId);
         }
 
-        /// <summary>
-        /// Gets the entity by unique ID. (note that UniqueID is different from ID)
-        /// </summary>
+        /// <summary>Gets the entity by unique ID. Note: that UniqueId is different from Id.</summary>
         /// <param name="entityUniqueId">The entity unique id.</param>
-        /// <returns></returns>
-        public Entity GetEntityByUniqueID(int entityUniqueId)
+        /// <returns>The Entity.</returns>
+        public Entity GetEntityByUniqueId(int entityUniqueId)
         {
             Debug.Assert(entityUniqueId != -1, "Id must != -1");
-            Entity entity = null;
+            Entity entity;
             this.uniqueIdToEntities.TryGetValue(entityUniqueId, out entity);
             return entity;
         }
@@ -260,7 +256,8 @@ namespace Artemis.Manager
                 this.RemovedEntityEvent(entity);
             }
 
-            uniqueIdToEntities.Remove(entity.UniqueId);        }
+            this.uniqueIdToEntities.Remove(entity.UniqueId);
+        }
 
         /// <summary>Add the given component to the given entity.</summary>
         /// <param name="entity">Entity for which you want to add the component.</param>
@@ -272,7 +269,7 @@ namespace Artemis.Manager
 
             ComponentType type = ComponentTypeManager.GetTypeFor(component.GetType());
 
-            AddComponent(entity, component, type);
+            this.AddComponent(entity, component, type);
         }
 
         /// <summary>
@@ -290,9 +287,13 @@ namespace Artemis.Manager
 
             ComponentType type = ComponentTypeManager.GetTypeFor<T>();
 
-            AddComponent(entity, component, type);
+            this.AddComponent(entity, component, type);
         }
 
+        /// <summary>Adds the component.</summary>
+        /// <param name="entity">The entity.</param>
+        /// <param name="component">The component.</param>
+        /// <param name="type">The type.</param>
         internal void AddComponent(Entity entity, IComponent component, ComponentType type)
         {
             if (type.Id >= this.componentsByType.Capacity)
@@ -314,9 +315,9 @@ namespace Artemis.Manager
             {
                 this.AddedComponentEvent(entity, component);
             }
-			Refresh(entity);
-        }
 
+            this.Refresh(entity);
+        }
 
         /// <summary>Get the component instance of the given component type for the given entity.</summary>
         /// <param name="entity">The entity for which you want to get the component</param>
@@ -359,7 +360,7 @@ namespace Artemis.Manager
         /// <param name="entity">The entity for which you are removing the component.</param>
         internal void RemoveComponent<T>(Entity entity) where T : IComponent
         {
-            RemoveComponent(entity, ComponentType<T>.CType);
+            this.RemoveComponent(entity, ComponentType<T>.CType);
         }
 
         /// <summary>Removes the given component type from the given entity.</summary>
@@ -379,7 +380,7 @@ namespace Artemis.Manager
 
             components.Set(entityId, null);
             entity.RemoveTypeBit(componentType.Bit);
-			Refresh(entity);
+            this.Refresh(entity);
         }
 
         /// <summary>Strips all components from the given entity.</summary>
@@ -403,7 +404,8 @@ namespace Artemis.Manager
                     components.Set(entityId, null);
                 }
             }
-			Refresh(entity);
+
+			this.Refresh(entity);
         }
 
         /// <summary>Entities the manager removed component event.</summary>

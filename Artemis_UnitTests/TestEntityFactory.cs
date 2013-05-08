@@ -74,7 +74,11 @@ namespace UnitTests
             return entity;
         }
 
-        public static Entity CreateTestHealthEntityWithID(EntityWorld entityWorld, long id)
+        /// <summary>Creates the test health entity with ID.</summary>
+        /// <param name="entityWorld">The entity world.</param>
+        /// <param name="id">The id.</param>
+        /// <returns>The Entity.</returns>
+        public static Entity CreateTestHealthEntityWithId(EntityWorld entityWorld, long id)
         {
             Entity entity = entityWorld.CreateEntity(id);
             entity.AddComponent(new TestHealthComponent());
@@ -95,7 +99,6 @@ namespace UnitTests
             entity.GetComponent<TestHealthComponent>().Points = 100.0f;
             entity.GetComponent<TestPowerComponent>().Power = 100;
 
-            
             return entity;
         }
 

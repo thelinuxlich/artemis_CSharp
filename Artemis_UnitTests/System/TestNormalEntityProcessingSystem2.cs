@@ -54,36 +54,23 @@ namespace UnitTests.System
 #endif
     public class TestNormalEntityProcessingSystem2 : EntityProcessingSystem
     {
-        /// <summary>The test health mapper.</summary>
-        private ComponentMapper<TestHealthComponent> testHealthMapper;
-
-        /// <summary>The test power mapper.</summary>
-        private ComponentMapper<TestPowerComponent> testPowerMapper;
-
         /// <summary>Initializes a new instance of the <see cref="TestNormalEntityProcessingSystem2" /> class.</summary>
         public TestNormalEntityProcessingSystem2()
             : base(Aspect.One(typeof(TestPowerComponent), typeof(TestHealthComponent)))
         {
         }
 
-        /// <summary>Override to implement code that gets executed when systems are initialized.</summary>
-        public override void LoadContent()
-        {
-            this.testHealthMapper = new ComponentMapper<TestHealthComponent>(this.EntityWorld);
-            this.testPowerMapper = new ComponentMapper<TestPowerComponent>(this.EntityWorld);
-        }
-
         /// <summary>The process.</summary>
         /// <param name="entity">The entity.</param>
         public override void Process(Entity entity)
         {
-            TestHealthComponent testHealth = this.testHealthMapper.Get(entity);
+            TestHealthComponent testHealth = entity.GetComponent<TestHealthComponent>();
             if (testHealth != null)
             {
                 testHealth.AddDamage(10);
             }
 
-            TestPowerComponent testPower = this.testPowerMapper.Get(entity);
+            TestPowerComponent testPower = entity.GetComponent<TestPowerComponent>();
             if (testPower != null)
             {
                 testPower.Power -= 10;

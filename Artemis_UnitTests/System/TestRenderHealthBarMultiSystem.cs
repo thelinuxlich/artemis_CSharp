@@ -49,27 +49,17 @@ namespace UnitTests.System
     /// <summary>The multi health bar render system.</summary>
     public class TestRenderHealthBarMultiSystem : ParallelEntityProcessingSystem
     {
-        /// <summary>The health mapper.</summary>
-        private ComponentMapper<TestHealthComponent> healthMapper;
-
         /// <summary>Initializes a new instance of the <see cref="TestRenderHealthBarMultiSystem" /> class.</summary>
         public TestRenderHealthBarMultiSystem()
             : base(typeof(TestHealthComponent))
         {
         }
 
-        /// <summary>Override to implement code that gets executed when systems are initialized.</summary>
-        public override void LoadContent()
-        {
-            this.healthMapper = new ComponentMapper<TestHealthComponent>(this.EntityWorld);
-        }
-
         /// <summary>The process.</summary>
         /// <param name="entity">The entity.</param>
         public override void Process(Entity entity)
         {
-            this.healthMapper.Get(entity).AddDamage(10);
-
+            entity.GetComponent<TestHealthComponent>().AddDamage(10);
             TestTimeWaster.Delay(1000);
         }
     }

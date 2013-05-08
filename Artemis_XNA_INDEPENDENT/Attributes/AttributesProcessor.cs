@@ -40,29 +40,41 @@ namespace Artemis.Attributes
 
     using global::System;
     using global::System.Collections.Generic;
+#if METRO
+    using global::System.Linq;
+#endif
     using global::System.Reflection;
+#if METRO
+    using global::System.Threading.Tasks;
     using Utils;
+#endif
 
     #endregion Using statements
 
-
 #if METRO
-
-    sealed class AppDomain
+    /// <summary>The application domain class.</summary>
+    public sealed class AppDomain
     {
-        public static AppDomain CurrentDomain { get; private set; }
-
+        /// <summary>Initializes static members of the <see cref="AppDomain"/> class.</summary>
         static AppDomain()
         {
             CurrentDomain = new AppDomain();
         }
 
+        /// <summary>Gets the current domain.</summary>
+        /// <value>The current domain.</value>
+        public static AppDomain CurrentDomain { get; private set; }
+
+        /// <summary>Gets the assemblies.</summary>
+        /// <returns>The IEnumerable{Assembly}.</returns>
         public IEnumerable<Assembly> GetAssemblies()
         {
-            return GetAssemblyListAsync().Result;
+            return this.GetAssemblyListAsync().Result;
         }
 
-        private async global::System.Threading.Tasks.Task<IEnumerable<Assembly>> GetAssemblyListAsync()
+        /// <summary>Gets the assembly list async.</summary>
+        /// <returns>System.Threading.Tasks.Task{IEnumerable{Assembly}}.</returns>
+        private async Task<IEnumerable<Assembly>> GetAssemblyListAsync()
         {
             var folder = Windows.ApplicationModel.Package.Current.InstalledLocation;
 
@@ -80,7 +92,6 @@ namespace Artemis.Attributes
             return assemblies;
         }
     }
-
 #endif
 
     /// <summary>Class AttributesProcessor.</summary>
@@ -98,9 +109,7 @@ namespace Artemis.Attributes
 #if FULLDOTNET || METRO
         /// <summary>Processes the specified supported attributes.</summary>
         /// <param name="supportedAttributes">The supported attributes.</param>
-        /// <returns>
-        /// The Dictionary{TypeList{Attribute}}.
-        /// </returns>
+        /// <returns>The Dictionary{TypeList{Attribute}}.</returns>
         public static IDictionary<Type, List<Attribute>> Process(List<Type> supportedAttributes)
         {
             return Process(supportedAttributes, AppDomain.CurrentDomain.GetAssemblies());
@@ -110,34 +119,39 @@ namespace Artemis.Attributes
         /// <summary>Processes the specified supported attributes.</summary>
         /// <param name="supportedAttributes">The supported attributes.</param>
         /// <param name="assembliesToScan">The assemblies to scan.</param>
-        /// <returns>
-        /// The Dictionary{TypeList{Attribute}}.
-        /// </returns>
-        public static IDictionary<Type, List<Attribute>> Process(List<Type> supportedAttributes, IEnumerable<Assembly> assembliesToScan = null)
+        /// <returns>The Dictionary{TypeList{Attribute}}.</returns>
+        public static IDictionary<Type, List<Attribute>> Process(List<Type> supportedAttributes, IEnumerable<Assembly> assembliesToScan) // Do not double overload "= null)"
         {
             IDictionary<Type, List<Attribute>> attributeTypes = new Dictionary<Type, List<Attribute>>();
 
-            foreach (Assembly item in assembliesToScan)
+            if (assembliesToScan != null)
             {
+                foreach (Assembly item in assembliesToScan)
+                {
 #if METRO      
-                IEnumerable<Type> types = item.ExportedTypes;
+                    IEnumerable<Type> types = item.ExportedTypes;
 #else
-                IEnumerable<Type> types = item.GetTypes();
+                    IEnumerable<Type> types = item.GetTypes();
 #endif          
 
-                foreach (Type type in types)
-                {
-                    var attributes = type.GetTypeInfo().GetCustomAttributes(false);
-                    foreach (object attribute in attributes)
+                    foreach (Type type in types)
                     {
-                        if (supportedAttributes.Contains(attribute.GetType()))
+#if METRO      
+                        object[] attributes = type.GetTypeInfo().GetCustomAttributes(false);
+#else
+                        object[] attributes = type.GetCustomAttributes(false);
+#endif
+                        foreach (object attribute in attributes)
                         {
-                            if (!attributeTypes.ContainsKey(type))
+                            if (supportedAttributes.Contains(attribute.GetType()))
                             {
-                                attributeTypes[type] = new List<Attribute>();
-                            }
+                                if (!attributeTypes.ContainsKey(type))
+                                {
+                                    attributeTypes[type] = new List<Attribute>();
+                                }
 
-                            attributeTypes[type].Add((Attribute)attribute);
+                                attributeTypes[type].Add((Attribute)attribute);
+                            }
                         }
                     }
                 }

@@ -113,7 +113,7 @@ namespace Artemis.Blackboard
         /// <returns>The specified element.</returns>
         public T GetEntry<T>(string name)
         {
-            object ret = GetEntry(name);
+            object ret = this.GetEntry(name);
             return ret == null ? default(T) : (T)ret;
         }
 
@@ -122,7 +122,7 @@ namespace Artemis.Blackboard
         /// <returns>The specified element.</returns>
         public object GetEntry(string name)
         {
-            object ret = null;
+            object ret;
             this.intelligence.TryGetValue(name, out ret);
             return ret;
         }

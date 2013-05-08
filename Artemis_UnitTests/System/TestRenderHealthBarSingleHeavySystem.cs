@@ -48,23 +48,9 @@ namespace UnitTests.System
     /// <summary>The single heavy health bar render system.</summary>
     public class TestRenderHealthBarSingleHeavySystem : EntityProcessingSystem
     {
-        /// <summary>The health mapper.</summary>
-        private ComponentMapper<TestHealthComponent> healthMapper;
-
         /// <summary>Initializes a new instance of the <see cref="TestRenderHealthBarSingleHeavySystem" /> class.</summary>
         public TestRenderHealthBarSingleHeavySystem()
             : base(typeof(TestHealthComponent))
-        {
-        }
-
-        /// <summary>Override to implement code that gets executed when systems are initialized.</summary>
-        public override void LoadContent()
-        {
-            this.healthMapper = new ComponentMapper<TestHealthComponent>(this.EntityWorld);
-        }
-
-        /// <summary>Override to implement code that gets executed when systems are terminated.</summary>
-        public override void UnloadContent()
         {
         }
 
@@ -72,7 +58,7 @@ namespace UnitTests.System
         /// <param name="entity">The entity.</param>
         public override void Process(Entity entity)
         {
-            this.healthMapper.Get(entity).AddDamage(10);
+            entity.GetComponent<TestHealthComponent>().AddDamage(10);
 
             TestTimeWaster.Delay(1000);
         }

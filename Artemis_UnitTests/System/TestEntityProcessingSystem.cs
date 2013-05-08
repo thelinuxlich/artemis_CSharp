@@ -1,7 +1,7 @@
 #region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="TestQueueHybridSystem.cs" company="GAMADU.COM">
+// <copyright file="TestEntityProcessingSystem1.cs" company="GAMADU.COM">
 //     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
@@ -29,7 +29,7 @@
 //     or implied, of GAMADU.COM.
 // </copyright>
 // <summary>
-//   The hybrid queue system test.
+//   The dummy system 1.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
@@ -38,27 +38,28 @@ namespace UnitTests.System
 {
     #region Using statements
 
-    using Artemis;
     using Artemis.System;
-
-    using UnitTests.Component;
 
     #endregion Using statements
 
-    /// <summary>The hybrid queue system test.</summary>
-    public class TestQueueHybridSystem : HybridQueueSystemProcessing
+    /// <summary>The test entity processing system class.</summary>
+    public class TestEntityProcessingSystem : EntityProcessingSystem
     {
-        /// <summary>Initializes a new instance of the <see cref="TestQueueHybridSystem" /> class.</summary>
-        public TestQueueHybridSystem()
-            : base(typeof(TestHealthComponent))
+        /// <summary>Initializes a new instance of the <see cref="TestEntityProcessingSystem" /> class.</summary>
+        public TestEntityProcessingSystem()
         {
+            this.Counter = 0;
         }
 
-        /// <summary>The process.</summary>
-        /// <param name="entity">The entity.</param>
-        public override void Process(Entity entity)
+        /// <summary>Gets or sets the counter.</summary>
+        /// <value>The counter.</value>
+        public int Counter { get; set; }
+
+        /// <summary>Processes the System
+        /// Users should extend this method</summary>
+        public override void ProcessSystem()
         {
-            entity.GetComponent<TestHealthComponent>().AddDamage(10);
+            ++this.Counter;
         }
     }
 }

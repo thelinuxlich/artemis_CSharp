@@ -52,9 +52,6 @@ namespace UnitTests.System
         /// <summary>The damage.</summary>
         private int damage;
 
-        /// <summary>The health mapper.</summary>
-        private ComponentMapper<TestHealthComponent> healthMapper;
-
         /// <summary>Initializes a new instance of the <see cref="TestCommunicationSystem" /> class.</summary>
         public TestCommunicationSystem()
             : base(typeof(TestHealthComponent))
@@ -75,17 +72,11 @@ namespace UnitTests.System
             this.damage = BlackBoard.GetEntry<int>("Damage");
         }
 
-        /// <summary>The initialize.</summary>
-        public override void LoadContent()
-        {
-            this.healthMapper = new ComponentMapper<TestHealthComponent>(this.EntityWorld);
-        }
-
         /// <summary>The process.</summary>
         /// <param name="entity">The entity.</param>
         public override void Process(Entity entity)
         {
-            this.healthMapper.Get(entity).AddDamage(this.damage);
+            entity.GetComponent<TestHealthComponent>().AddDamage(this.damage);
         }
     }
 }

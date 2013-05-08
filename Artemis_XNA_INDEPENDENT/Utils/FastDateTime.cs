@@ -71,7 +71,7 @@ namespace Artemis.Utils
 
         /// <summary>Gets the micro seconds from ticks.</summary>
         /// <param name="ticks">The ticks.</param>
-        /// <returns>The µs as System.Double.</returns>
+        /// <returns>The <c>µs</c> as System.Double.</returns>
         public static double GetMicroSeconds(long ticks)
         {
             return ticks * 0.1;
@@ -79,7 +79,7 @@ namespace Artemis.Utils
 
         /// <summary>Gets the nano seconds.</summary>
         /// <param name="ticks">The ticks.</param>
-        /// <returns>The ns as System.Double.</returns>
+        /// <returns>The <c>ns</c> as System.Double.</returns>
         public static double GetNanoSeconds(long ticks)
         {
             return ticks * 100.0;

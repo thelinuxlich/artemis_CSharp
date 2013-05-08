@@ -1,7 +1,7 @@
 ﻿#region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="QueueSystemProcessingThreadSafe.cs" company="GAMADU.COM">
+// <copyright file="FQueueSystemProcessingThreadSafe.cs" company="GAMADU.COM">
 //     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
@@ -45,26 +45,25 @@ namespace Artemis.System
 
     #endregion Using statements
 
-    /// <summary>
-    /// <para>System Not based On ENTITIES AND COMPONENTS.</para>
-    /// <para>It Process ONCE everything you explicitly add to it (use the static method AddToQueue (second parameter is the type of your specialization of this class) )</para>
-    /// <para>using the method static AddToQueue.</para>
-    /// </summary>
+    /// <summary><para>System Not based On ENTITIES AND COMPONENTS.</para>
+    ///   <para>It Process ONCE everything you explicitly add to it (use the static method AddToQueue (second parameter is the type of your specialization of this class) )</para>
+    ///   <para>using the method static AddToQueue.</para></summary>
+    /// <typeparam name="T">The Type T.</typeparam>
     public abstract class FQueueSystemProcessingThreadSafe<T> : EntitySystem
     {
         /// <summary>The id.</summary>
         public readonly Type Id;
 
         /// <summary>The queues manager.</summary>
-        private static readonly Dictionary<Type, FQueueManager<T>> QueuesManager = new Dictionary<Type, FQueueManager<T>>();
+        private static readonly Dictionary<Type, QueueManager<T>> QueuesManager = new Dictionary<Type, QueueManager<T>>();
 
-        /// <summary>Initializes a new instance of the <see cref="QueueSystemProcessingThreadSafe"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="FQueueSystemProcessingThreadSafe{T}"/> class.</summary>
         protected FQueueSystemProcessingThreadSafe()
         {
             this.Id = this.GetType();
             if (!QueuesManager.ContainsKey(this.Id))
             {
-                QueuesManager[this.Id] = new FQueueManager<T>();
+                QueuesManager[this.Id] = new QueueManager<T>();
             }
             else
             {
@@ -74,10 +73,10 @@ namespace Artemis.System
             }
         }
 
-        /// <summary>Finalizes an instance of the <see cref="QueueSystemProcessingThreadSafe"/> class.</summary>
+        /// <summary>Finalizes an instance of the <see cref="FQueueSystemProcessingThreadSafe{T}"/> class.</summary>
         ~FQueueSystemProcessingThreadSafe()
         {
-            FQueueManager<T> queueManager = QueuesManager[this.Id];
+            QueueManager<T> queueManager = QueuesManager[this.Id];
             queueManager.AcquireLock();
             --queueManager.RefCount;
             if (queueManager.RefCount == 0)
@@ -93,7 +92,7 @@ namespace Artemis.System
         /// <param name="entitySystemType">Type of the entity system.</param>
         public static void AddToQueue(T ent, Type entitySystemType)
         {
-            FQueueManager<T> queueManager = QueuesManager[entitySystemType];
+            QueueManager<T> queueManager = QueuesManager[entitySystemType];
             queueManager.AcquireLock();
             queueManager.Queue.Enqueue(ent);
             queueManager.ReleaseLock();
@@ -104,7 +103,7 @@ namespace Artemis.System
         /// <returns>The limit.</returns>
         public static int GetQueueProcessingLimit(Type entitySystemType)
         {            
-            FQueueManager<T> queueManager = QueuesManager[entitySystemType];
+            QueueManager<T> queueManager = QueuesManager[entitySystemType];
             queueManager.AcquireLock();
             int result = queueManager.EntitiesToProcessEachFrame;
             queueManager.ReleaseLock();
@@ -116,7 +115,7 @@ namespace Artemis.System
         /// <returns>The number of queues.</returns>
         public static int QueueCount(Type entitySystemType)
         {
-            FQueueManager<T> queueManager = QueuesManager[entitySystemType];
+            QueueManager<T> queueManager = QueuesManager[entitySystemType];
             queueManager.AcquireLock();
             int result = queueManager.Queue.Count;
             queueManager.ReleaseLock();
@@ -128,7 +127,7 @@ namespace Artemis.System
         /// <param name="entitySystemType">Type of the entity system.</param>
         public static void SetQueueProcessingLimit(int limit, Type entitySystemType)
         {
-            FQueueManager<T> queueManager = QueuesManager[entitySystemType];
+            QueueManager<T> queueManager = QueuesManager[entitySystemType];
             queueManager.AcquireLock();
             queueManager.EntitiesToProcessEachFrame = limit;
             queueManager.ReleaseLock();
@@ -172,7 +171,7 @@ namespace Artemis.System
         public override void Process()
         {
             T[] entities;
-            FQueueManager<T> queueManager = QueuesManager[this.Id];
+            QueueManager<T> queueManager = QueuesManager[this.Id];
             queueManager.AcquireLock();
             {
                 int count = queueManager.Queue.Count;
@@ -198,9 +197,8 @@ namespace Artemis.System
                 this.Process(item);
             }
         }
-        /// <summary>
-        /// Processes the specified entity.
-        /// </summary>
+
+        /// <summary>Processes the specified entity.</summary>
         /// <param name="entity">The entity.</param>
         public virtual void Process(T entity)
         {

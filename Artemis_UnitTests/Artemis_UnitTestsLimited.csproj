@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
   <Compile Include="Component\TestBaseComponent.cs" />
+    <Compile Include="Component\TestBaseComponent.cs" />
     <Compile Include="Component\TestDerivedComponent.cs" />
     <Compile Include="Component\TestHealthComponent.cs" />
     <Compile Include="Component\TestPowerComponent.cs" />
@@ -69,6 +70,9 @@
     <Compile Include="System\TestEntityComponentSystem1.cs" />
     <Compile Include="System\TestEntityComponentSystem2.cs" />
     <Compile Include="System\TestProcessingSystem.cs" />
+    <Compile Include="System\TestEntityComponentProcessingSystem1.cs" />
+    <Compile Include="System\TestEntityComponentProcessingSystem2.cs" />
+    <Compile Include="System\TestEntityProcessingSystem.cs" />
     <Compile Include="System\TestQueueSystemCopy2.cs" />
     <Compile Include="System\TestNormalEntityProcessingSystem2.cs" />
     <Compile Include="System\TestNormalEntityProcessingSystem3.cs" />
@@ -120,6 +124,9 @@
     <ProjectReference Include="..\Artemis_XNA_INDEPENDENT\ArtemisClientProfile.csproj">
       <Project>{160f0a31-20a5-44c2-a677-4642ad84388c}</Project>
       <Name>ArtemisClientProfile</Name>
+    <ProjectReference Include="..\Artemis_XNA_INDEPENDENT\Artemis.csproj">
+      <Project>{22C89AF2-E1CF-4976-91B9-7D33773DC6E7}</Project>
+      <Name>Artemis</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

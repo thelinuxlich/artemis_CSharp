@@ -90,18 +90,14 @@ namespace Artemis.System
         {
         }
 
-        /// <summary>Called when [added].</summary>
-        /// <param name="entity">The entity.</param>
-        /// Called if the system has received a entity it is interested in, e.g. created or a component was added to it.
-        /// @param entity the entity that was added to this system.
+        /// <summary>Called when the system has received a entity it is interested in, e.g. created or a component was added to it.</summary>
+        /// <param name="entity">The entity that was added to this system.</param>
         public override void OnAdded(Entity entity)
         {
         }
 
-        /// <summary>Called when [change].</summary>
-        /// <param name="entity">The entity.</param>
-        /// Called if a entity was removed from this system, e.g. deleted or had one of it's components removed.
-        /// @param entity the entity that was removed from this system.
+        /// <summary>Called when an entity was removed from this system, e.g. deleted or had one of it's components removed.</summary>
+        /// <param name="entity">The entity that was removed from this system.</param>
         public override void OnChange(Entity entity)
         {
         }
