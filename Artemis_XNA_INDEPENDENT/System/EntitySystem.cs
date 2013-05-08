@@ -56,7 +56,7 @@ namespace Artemis.System
     public abstract class EntitySystem
     {
         /// <summary>The entity world.</summary>
-        private EntityWorld entityWorld;
+        public EntityWorld entityWorld;
 
         /// <summary>The actives.</summary>
         private IDictionary<int, Entity> actives;
