@@ -38,6 +38,7 @@ namespace Artemis
 {
     #region Using statements
 
+    using global::System;
     using global::System.Diagnostics;
 
     using Artemis.Interface;
@@ -45,11 +46,10 @@ namespace Artemis
 
     #endregion Using statements
 
-    /// <summary>Another way to get components from entities, prefer using the GetComponent method of the Entity object</summary>
+    /// <summary>Another way to get components from entities, prefer using the GetComponent method of the Entity object now. Note: this class is deprecated and will be removed in future releases!</summary>
     /// <typeparam name="T">The <see langword="Type"/> T.</typeparam>
-    [global::System.Obsolete("This ComponetMapper and the GetComponent method of the Entity have the same performance cost now, prefer using the GetComponent method", false)]
-    public sealed class ComponentMapper<T>
-        where T : IComponent
+    [Obsolete("This ComponetMapper and the GetComponent method of the Entity have the same performance cost now, prefer using the GetComponent<> method from Entity", false)]
+    public sealed class ComponentMapper<T> where T : IComponent
     {
         /// <summary>The entity manager.</summary>
         private readonly EntityManager entityManager;

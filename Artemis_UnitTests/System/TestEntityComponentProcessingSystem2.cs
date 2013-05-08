@@ -1,8 +1,8 @@
-#region File description
+﻿#region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="QueueManager.cs" company="GAMADU.COM">
-//     Copyright � 2013 GAMADU.COM. All rights reserved.
+// <copyright file="TestEntityComponentProcessingSystem2.cs" company="GAMADU.COM">
+//     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
 //     permitted provided that the following conditions are met:
@@ -29,60 +29,42 @@
 //     or implied, of GAMADU.COM.
 // </copyright>
 // <summary>
-//   Class QueueManager.
+//   The test entity component system2 class.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
 
-namespace Artemis.Manager
+namespace UnitTests.System
 {
     #region Using statements
 
-    using global::System.Collections.Generic;
-    using global::System.Threading;
+    using Artemis;
+    using Artemis.System;
+#if METRO
+    using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+#else
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+#endif
 
-    #endregion Using statements
+    using UnitTests.Component;
 
-    /// <summary>Class QueueManager that is independent of the entity concept</summary>
-    internal class FQueueManager<T>
+    #endregion
+
+    /// <summary>The test entity component system2 class.</summary>
+    public class TestEntityComponentProcessingSystem2 : EntityComponentProcessingSystem<TestHealthComponent, TestPowerComponent>
     {
-        /// <summary>The lock object.</summary>
-        private readonly object LockObject = new object();
-
-        /// <summary>Initializes a new instance of the <see cref="QueueManager"/> class.</summary>
-        public FQueueManager()
+        /// <summary>Processes the specified entity.</summary>
+        /// <param name="entity">The entity.</param>
+        /// <param name="health">The health.</param>
+        /// <param name="power">The power.</param>
+        public override void Process(Entity entity, TestHealthComponent health, TestPowerComponent power)
         {
-            this.EntitiesToProcessEachFrame = 50;
-            this.Queue = new Queue<T>();
-            this.RefCount = 0;
+            Assert.IsTrue(this.Aspect.Interests(entity));
 
-            this.AcquireLock();
-            ++this.RefCount;
-            this.ReleaseLock();
-        }
-
-        /// <summary>Gets or sets the entities to process each frame.</summary>
-        /// <value>The entities to process each frame.</value>
-        public int EntitiesToProcessEachFrame { get; set; }
-
-        /// <summary>Gets or sets the queue.</summary>
-        /// <value>The queue.</value>
-        public Queue<T> Queue { get; set; }
-
-        /// <summary>Gets or sets the ref count.</summary>
-        /// <value>The ref count.</value>
-        public int RefCount { get; set; }
-
-        /// <summary>Acquires the lock.</summary>
-        public void AcquireLock()
-        {
-            Monitor.Enter(LockObject);
-        }
-
-        /// <summary>Releases the lock.</summary>
-        public void ReleaseLock()
-        {
-            Monitor.Exit(LockObject);
+            Assert.IsNotNull(health);
+            Assert.IsNotNull(power);
+            Assert.AreEqual(health, entity.GetComponent<TestHealthComponent>());
+            Assert.AreEqual(power, entity.GetComponent<TestPowerComponent>());
         }
     }
 }

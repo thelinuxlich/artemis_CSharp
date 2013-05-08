@@ -64,12 +64,8 @@ namespace Artemis.Attributes
         /// <value>The layer.</value>
         public int Layer { get; set; }
 
-        /// <summary>
-        /// Gets or sets the type of the execution.
-        /// </summary>
-        /// <value>
-        /// The type of the execution.
-        /// </value>
+        /// <summary>Gets or sets the type of the execution.</summary>
+        /// <value>The type of the execution.</value>
         public ExecutionType ExecutionType { get; set; }
     }
 }

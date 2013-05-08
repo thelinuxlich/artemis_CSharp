@@ -41,21 +41,18 @@ namespace Artemis.System
     using global::System;
     using global::System.Collections.Generic;
     using global::System.Diagnostics;
-    using Artemis.Blackboard;
-
-#if !XBOX && !WINDOWS_PHONE  && !PORTABLE
-    using global::System.Numerics;
-#endif
 #if XBOX || WINDOWS_PHONE || PORTABLE
     using BigInteger = global::System.Int32;
 #endif
+#if !XBOX && !WINDOWS_PHONE  && !PORTABLE
+    using global::System.Numerics;
+#endif
+    using Artemis.Blackboard;
 
     #endregion Using statements
 
-    /// <summary>
-    /// <para>Base of all Entity Systems.</para>
-    /// <para>Provide basic functionalities.</para>
-    /// </summary>
+    /// <summary><para>Base of all Entity Systems.</para>
+    /// <para>Provide basic functionalities.</para></summary>
     public abstract class EntitySystem
     {
         /// <summary>The entity world.</summary>
@@ -63,12 +60,6 @@ namespace Artemis.System
 
         /// <summary>The actives.</summary>
         private IDictionary<int, Entity> actives;
-
-        /// <summary> Enumerates all active Entities for this system. </summary>
-        public IEnumerable<Entity> ActiveEntities
-        {
-            get { return this.actives.Values; }
-        }
 
         /// <summary>Initializes static members of the <see cref="EntitySystem"/> class.</summary>
         static EntitySystem()
@@ -89,7 +80,9 @@ namespace Artemis.System
         protected EntitySystem(params Type[] types) 
             : this()
         {
-            Debug.Assert(types != null || types.Length == 0, "Types must not be null / zero lengthed.");
+            Debug.Assert(types != null, "Types must not be null.");
+            Debug.Assert(types.Length != 0, "Types must not be zero lengthed.");
+            this.Types = types;
             this.Aspect = Aspect.All(types);
         }
 
@@ -99,13 +92,19 @@ namespace Artemis.System
             : this()
         {
             Debug.Assert(aspect != null, "Aspect must not be null.");
-
+            this.Types = null;
             this.Aspect = aspect;
         }
 
         /// <summary>Gets or sets the black board.</summary>
         /// <value>The black board.</value>
         public static BlackBoard BlackBoard { get; protected set; }
+
+        /// <summary>Gets all active Entities for this system.</summary>
+        public IEnumerable<Entity> ActiveEntities
+        {
+            get { return this.actives.Values; }
+        }
 
         /// <summary>Gets or sets the entity world.</summary>
         /// <value>The entity world.</value>
@@ -145,6 +144,10 @@ namespace Artemis.System
         /// <summary>Gets or sets the aspect.</summary>
         /// <value>The aspect.</value>
         protected Aspect Aspect { get; set; }
+
+        /// <summary>Gets the types.</summary>
+        /// <value>The types.</value>
+        protected Type[] Types { get; private set; }
 
         /// <summary>Gets the merged types.</summary>
         /// <param name="requiredType">Type of the required.</param>
@@ -200,12 +203,10 @@ namespace Artemis.System
             }
             else if (interest && contains && entity.IsEnabled)
             {
-                // TODO: contains always true here. Need some investigation.
                 this.Enable(entity);
             }
             else if (interest && contains && !entity.IsEnabled)
             {
-                // TODO: contains always true here. Need some investigation.
                 this.Disable(entity);
             }
         }

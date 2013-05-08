@@ -1,7 +1,7 @@
 #region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="EntityProcessingSystem.cs" company="GAMADU.COM">
+// <copyright file="TestEntityProcessingSystem1.cs" company="GAMADU.COM">
 //     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
@@ -29,78 +29,37 @@
 //     or implied, of GAMADU.COM.
 // </copyright>
 // <summary>
-//   Class EntityProcessingSystem.
+//   The dummy system 1.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
 
-namespace Artemis.System
+namespace UnitTests.System
 {
     #region Using statements
 
-    using global::System;
-    using global::System.Collections.Generic;
+    using Artemis.System;
 
     #endregion Using statements
 
-    /// <summary>Class ProcessingSystem.
-    /// Special type of System that has NO entity associated (called once each frame)
-    /// Extend it and override the ProcessSystem function
-    /// </summary>
-    public abstract class ProcessingSystem : EntitySystem
+    /// <summary>The test entity processing system class.</summary>
+    public class TestEntityProcessingSystem : EntityProcessingSystem
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EntityProcessingSystem" /> class.
-        /// </summary>
-        public ProcessingSystem()
-            : base()
+        /// <summary>Initializes a new instance of the <see cref="TestEntityProcessingSystem" /> class.</summary>
+        public TestEntityProcessingSystem()
         {
+            this.Counter = 0;
         }
 
-        /// <summary>
-        /// Called when [change].
-        /// </summary>
-        /// <param name="entity">The entity.</param>
-        public override void OnChange(Entity entity)
-        {            
-        }
+        /// <summary>Gets or sets the counter.</summary>
+        /// <value>The counter.</value>
+        public int Counter { get; set; }
 
-        /// <summary>
-        /// Called when [removed].
-        /// </summary>
-        /// <param name="entity">The entity.</param>
-        public override void OnRemoved(Entity entity)
-        {            
-        }
-
-        /// <summary>
-        /// Processes this instance.
-        /// [Internal]
-        /// </summary>
-        public override void Process()
+        /// <summary>Processes the System
+        /// Users should extend this method</summary>
+        public override void ProcessSystem()
         {
-            if (this.CheckProcessing())
-            {
-                this.Begin();
-                this.ProcessSystem();
-                this.End();
-            }
-        }
-
-        /// <summary>
-        /// Processes the System
-        /// Users should extend this method
-        /// </summary>
-        public abstract void ProcessSystem();
-
-        /// <summary>Processes the specified entity.</summary>
-        /// <param name="entity">The entity.</param>
-        public void Process(Entity entity) { }
-
-        /// <summary>Processes the entities.</summary>
-        /// <param name="entities">The entities.</param>
-        protected override void ProcessEntities(IDictionary<int, Entity> entities)
-        {            
+            ++this.Counter;
         }
     }
 }

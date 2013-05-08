@@ -50,7 +50,6 @@ namespace Artemis
     using Artemis.Manager;
     using Artemis.Utils;
 
-
     #endregion
 
     /// <summary>Basic unity of this entity system.</summary>
@@ -83,10 +82,10 @@ namespace Artemis
         }
 
         /// <summary>
-        /// <para>Gets all components belonging to this entity.</para>
-        /// <para>Warning: Use only for debugging purposes, it is dead slow.</para>
-        /// <para>The returned bag is only valid until this method is called</para>
-        /// <para>again, then it is overwritten.</para>
+        ///   <para>Gets all components belonging to this entity.</para>
+        ///   <para>Warning: Use only for debugging purposes, it is dead slow.</para>
+        ///   <para>The returned bag is only valid until this method is called</para>
+        ///   <para>again, then it is overwritten.</para>
         /// </summary>
         /// <value>All components of this entity.</value>
         public Bag<IComponent> Components
@@ -123,8 +122,8 @@ namespace Artemis
         /// <summary>
         /// <para>Gets the internal id for this entity within the framework.</para>
         /// <para>No other entity will have the same ID,</para>
-        /// <para>but ID's are however reused so another entity may acquire</para>
-        /// <para> this ID if the previous entity was deleted.</para>
+        /// <para>but IDs are however reused so another entity may acquire</para>
+        /// <para>this ID if the previous entity was deleted.</para>
         /// </summary>
         /// <value>The id.</value>
         public int Id { get; private set; }
@@ -212,7 +211,6 @@ namespace Artemis
             this.entityManager.AddComponent<T>(this, component);
         }
 
-
         /// <summary>Adds the component from pool.</summary>
         /// <typeparam name="T">The <see langword="Type"/> T.</typeparam>
         /// <returns>The added component.</returns>
@@ -271,14 +269,13 @@ namespace Artemis
             return !object.Equals((T)this.entityManager.GetComponent(this, ComponentType<T>.CType), default(T));
         }
 
-        /// <summary>
-        /// <para>Refreshes this instance.</para>
-        /// <para>Refresh all changes to components for this entity.</para>
-        /// <para>After adding or removing components,</para>
-        /// <para>you must call this method.</para>
-        /// <para>It will update all relevant systems.</para>
-        /// <para>It is typical to call this after adding components</para>
-        /// <para>to a newly created entity.</para>
+        /// <summary><para>Refreshes this instance.</para>
+        ///   <para>Refresh all changes to components for this entity.</para>
+        ///   <para>After adding or removing components,</para>
+        ///   <para>you must call this method.</para>
+        ///   <para>It will update all relevant systems.</para>
+        ///   <para>It is typical to call this after adding components</para>
+        ///   <para>to a newly created entity.</para>
         /// </summary>
         public void Refresh()
         {
@@ -298,10 +295,8 @@ namespace Artemis
             this.entityManager.RemoveComponent(this, ComponentTypeManager.GetTypeFor<T>());
         }
 
-        /// <summary>
-        /// <para>Removes the component.</para>
-        /// <para>Faster removal of components from a entity.</para>
-        /// </summary>
+        /// <summary><para>Removes the component.</para>
+        ///   <para>Faster removal of components from a entity.</para></summary>
         /// <param name="componentType">The type.</param>
         public void RemoveComponent(ComponentType componentType)
         {

@@ -29,7 +29,7 @@
 //     or implied, of GAMADU.COM.
 // </copyright>
 // <summary>
-//   Class EntityProcessingSystem.
+//   Class EntityComponentProcessingSystem.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
@@ -43,14 +43,14 @@ namespace Artemis.System
 
     #endregion Using statements
 
-    /// <summary>Class EntityProcessingSystem.</summary>
+    /// <summary>Class EntityProcessingSystem.
+    /// Special type of System that has NO entity associated (called once each frame)
+    /// Extend it and override the ProcessSystem function
+    /// </summary>
     public abstract class EntityProcessingSystem : EntitySystem
     {
         /// <summary>Initializes a new instance of the <see cref="EntityProcessingSystem"/> class.</summary>
-        /// <param name="requiredType">Type of the required.</param>
-        /// <param name="otherTypes">The other types.</param>
-        protected EntityProcessingSystem(Type requiredType, params Type[] otherTypes)
-            : base(EntitySystem.GetMergedTypes(requiredType, otherTypes))
+        protected EntityProcessingSystem()
         {
         }
 
@@ -61,17 +61,39 @@ namespace Artemis.System
         {
         }
 
+        /// <summary>Initializes a new instance of the <see cref="EntityProcessingSystem"/> class.</summary>
+        /// <param name="requiredType">Type of the required.</param>
+        /// <param name="otherTypes">The other types.</param>
+        protected EntityProcessingSystem(Type requiredType, params Type[] otherTypes)
+            : base(EntitySystem.GetMergedTypes(requiredType, otherTypes))
+        {
+        }
+
+        /// <summary>Processes the System. Users might extend this method.</summary>
+        public virtual void ProcessSystem()
+        {
+        }
+
         /// <summary>Processes the specified entity.</summary>
         /// <param name="entity">The entity.</param>
-        public abstract void Process(Entity entity);
+        public virtual void Process(Entity entity)
+        {
+        }
+
+        /// <summary>Begins this instance processing.</summary>
+        protected override void Begin()
+        {
+            base.Begin();
+            this.ProcessSystem();
+        }
 
         /// <summary>Processes the entities.</summary>
         /// <param name="entities">The entities.</param>
         protected override void ProcessEntities(IDictionary<int, Entity> entities)
         {
-            foreach (Entity item in entities.Values)
+            foreach (Entity entity in entities.Values)
             {
-                this.Process(item);
+                this.Process(entity);
             }
         }
     }

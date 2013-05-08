@@ -47,7 +47,7 @@ namespace Artemis.Manager
     internal class QueueManager
     {
         /// <summary>The lock object.</summary>
-        private readonly object LockObject = new object();
+        private readonly object lockObject = new object();
 
         /// <summary>Initializes a new instance of the <see cref="QueueManager"/> class.</summary>
         public QueueManager()
@@ -76,13 +76,57 @@ namespace Artemis.Manager
         /// <summary>Acquires the lock.</summary>
         public void AcquireLock()
         {
-            Monitor.Enter(LockObject);
+            Monitor.Enter(this.lockObject);
         }
 
         /// <summary>Releases the lock.</summary>
         public void ReleaseLock()
         {
-            Monitor.Exit(LockObject);
+            Monitor.Exit(this.lockObject);
+        }
+    }
+
+    /// <summary>Class QueueManager that is independent of the entity concept.</summary>
+    /// <typeparam name="T">The Type T.</typeparam>
+    internal class QueueManager<T>
+    {
+        /// <summary>The lock object.</summary>
+        private readonly object lockObject = new object();
+
+        /// <summary>Initializes a new instance of the <see cref="QueueManager{T}"/> class.</summary>
+        public QueueManager()
+        {
+            this.EntitiesToProcessEachFrame = 50;
+            this.Queue = new Queue<T>();
+            this.RefCount = 0;
+
+            this.AcquireLock();
+            ++this.RefCount;
+            this.ReleaseLock();
+        }
+
+        /// <summary>Gets or sets the entities to process each frame.</summary>
+        /// <value>The entities to process each frame.</value>
+        public int EntitiesToProcessEachFrame { get; set; }
+
+        /// <summary>Gets or sets the queue.</summary>
+        /// <value>The queue.</value>
+        public Queue<T> Queue { get; set; }
+
+        /// <summary>Gets or sets the ref count.</summary>
+        /// <value>The ref count.</value>
+        public int RefCount { get; set; }
+
+        /// <summary>Acquires the lock.</summary>
+        public void AcquireLock()
+        {
+            Monitor.Enter(this.lockObject);
+        }
+
+        /// <summary>Releases the lock.</summary>
+        public void ReleaseLock()
+        {
+            Monitor.Exit(this.lockObject);
         }
     }
 }

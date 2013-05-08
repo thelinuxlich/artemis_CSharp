@@ -40,7 +40,6 @@ namespace Artemis
     #region Using statements
 
     using global::System;
-    using global::System.Collections.Generic;
 
     using Artemis.Interface;
 
@@ -53,10 +52,11 @@ namespace Artemis
     public class ComponentPoolMultiThread<T> : IComponentPool<T>
         where T : ComponentPoolable
     {
+        /// <summary>The pool.</summary>
         private readonly ComponentPool<T> pool;
+        
         /// <summary>The sync.</summary>
         private readonly object sync;
-
 
         /// <summary>Initializes a new instance of the <see cref="ComponentPoolMultiThread{T}"/> class.</summary>
         /// <param name="initialSize">The initial size.</param>
@@ -74,11 +74,23 @@ namespace Artemis
 
         /// <summary>Gets the number of invalid objects in the pool.</summary>
         /// <value>The invalid count.</value>
-        public int InvalidCount { get { return this.pool.InvalidCount; } }
+        public int InvalidCount
+        {
+            get
+            {
+                return this.pool.InvalidCount;
+            }
+        }
 
         /// <summary>Gets the resize amount.</summary>
         /// <value>The resize amount.</value>
-        public int ResizeAmount { get { return this.pool.ResizeAmount; } }
+        public int ResizeAmount
+        {
+            get
+            {
+                return this.pool.ResizeAmount;
+            }
+        }
 
         /// <summary>Gets the number of valid objects in the pool.</summary>
         /// <value>The valid count.</value>
