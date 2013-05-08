@@ -328,12 +328,13 @@ namespace Artemis.Manager
             Debug.Assert(entity != null, "Entity must not be null.");
             Debug.Assert(componentType != null, "Component type must not be null.");
 
-            int entityId = entity.Id;
-            Bag<IComponent> bag = this.componentsByType.Get(componentType.Id);
             if (componentType.Id >= this.componentsByType.Capacity)
             {
                 return null;
             }
+
+            int entityId = entity.Id;
+            Bag<IComponent> bag = this.componentsByType.Get(componentType.Id);            
 
             if (bag != null && entityId < bag.Capacity)
             {
