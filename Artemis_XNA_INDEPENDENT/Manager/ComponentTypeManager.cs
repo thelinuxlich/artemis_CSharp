@@ -111,7 +111,13 @@ namespace Artemis.Manager
         /// <returns>An Enumerable of each type the bits has.</returns>
         internal static IEnumerable<Type> GetTypesFromBits(BigInteger bits)
         {
-            return from item in ComponentTypes where (item.Value.Bit & bits) != 0 select item.Key;
+            foreach (var item in ComponentTypes)
+            {
+                if ((item.Value.Bit & bits) != 0)
+                {
+                    yield return item.Key;
+                }
+            }            
         }
 
         /// <summary>Sets the type for specified ComponentType T.</summary>
