@@ -257,13 +257,13 @@ namespace UnitTests
         [TestMethod]
         public void TestPerformance()
         {
-            global::System.Diagnostics.Debug.WriteLine("Number of elements: ");
+            Debug.WriteLine("Number of elements: ");
 
             // Identify max mem size.
             Bag<int> bigBag = new Bag<int>();
             int maxMem = 5000;
             
-            //pointless to use int.maxvalue (sometimes it works, some it does not ... depends on other process)
+            // pointless to use int.maxvalue (sometimes it works, some it does not ... depends on other process)
             for (int index = 0; index < 5000; ++index)
             {
                 try
@@ -272,7 +272,8 @@ namespace UnitTests
                 }
                 catch (Exception)
                 {
-                    maxMem = index ; //some extra to be sure (there are some memory allocs we cant control in other threads)
+                    // some extra to be sure (there are some memory allocs we cant control in other threads)
+                    maxMem = index;
                     break;
                 }
             }
@@ -287,7 +288,7 @@ namespace UnitTests
 #endif
             GC.Collect();
 
-            global::System.Diagnostics.Debug.WriteLine(maxMem.ToString(CultureInfo.InvariantCulture));
+            Debug.WriteLine(maxMem.ToString(CultureInfo.InvariantCulture));
 
             // Reset bag.
             bigBag = new Bag<int>(0);
@@ -302,12 +303,12 @@ namespace UnitTests
             }
 
             stopwatch.Stop();
-            global::System.Diagnostics.Debug.WriteLine("Load  duration: {0}", FastDateTime.ToString(stopwatch.Elapsed));
+            Debug.WriteLine("Load  duration: {0}", FastDateTime.ToString(stopwatch.Elapsed));
 
             stopwatch.Restart();
             bigBag.Clear();
             stopwatch.Stop();
-            global::System.Diagnostics.Debug.WriteLine("Clear duration: {0}", FastDateTime.ToString(stopwatch.Elapsed));
+            Debug.WriteLine("Clear duration: {0}", FastDateTime.ToString(stopwatch.Elapsed));
         }
     }
 }

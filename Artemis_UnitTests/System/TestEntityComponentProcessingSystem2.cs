@@ -1,8 +1,8 @@
-#region File description
+﻿#region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="TestQueueHybridSystem.cs" company="GAMADU.COM">
-//     Copyright � 2013 GAMADU.COM. All rights reserved.
+// <copyright file="TestEntityComponentProcessingSystem2.cs" company="GAMADU.COM">
+//     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
 //     permitted provided that the following conditions are met:
@@ -29,7 +29,7 @@
 //     or implied, of GAMADU.COM.
 // </copyright>
 // <summary>
-//   The hybrid queue system test.
+//   The test entity component system2 class.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
@@ -40,25 +40,31 @@ namespace UnitTests.System
 
     using Artemis;
     using Artemis.System;
+#if METRO
+    using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+#else
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+#endif
 
     using UnitTests.Component;
 
-    #endregion Using statements
+    #endregion
 
-    /// <summary>The hybrid queue system test.</summary>
-    public class TestQueueHybridSystem : HybridQueueSystemProcessing
+    /// <summary>The test entity component system2 class.</summary>
+    public class TestEntityComponentProcessingSystem2 : EntityComponentProcessingSystem<TestHealthComponent, TestPowerComponent>
     {
-        /// <summary>Initializes a new instance of the <see cref="TestQueueHybridSystem" /> class.</summary>
-        public TestQueueHybridSystem()
-            : base(typeof(TestHealthComponent))
-        {
-        }
-
-        /// <summary>The process.</summary>
+        /// <summary>Processes the specified entity.</summary>
         /// <param name="entity">The entity.</param>
-        public override void Process(Entity entity)
+        /// <param name="health">The health.</param>
+        /// <param name="power">The power.</param>
+        public override void Process(Entity entity, TestHealthComponent health, TestPowerComponent power)
         {
-            entity.GetComponent<TestHealthComponent>().AddDamage(10);
+            Assert.IsTrue(this.Aspect.Interests(entity));
+
+            Assert.IsNotNull(health);
+            Assert.IsNotNull(power);
+            Assert.AreEqual(health, entity.GetComponent<TestHealthComponent>());
+            Assert.AreEqual(power, entity.GetComponent<TestPowerComponent>());
         }
     }
 }

@@ -41,14 +41,17 @@ namespace Artemis.Manager
     using global::System;
     using global::System.Collections.Generic;
     using global::System.Diagnostics;
-    using Artemis.Interface;
-
 #if !XBOX && !WINDOWS_PHONE  && !PORTABLE
+    using global::System.Linq;
     using global::System.Numerics;
 #endif
 #if XBOX || WINDOWS_PHONE || PORTABLE
+    using global::System.Linq;
+
     using BigInteger = global::System.Int32;
 #endif
+
+    using Artemis.Interface;
 
     #endregion Using statements
 
@@ -103,11 +106,9 @@ namespace Artemis.Manager
             return result;
         }
 
-        /// <summary>
-        /// Creates an enumerable from a BigIntger which holds typebits
-        /// </summary>
-        /// <param name="bits"> The BigInteger which holds the type bits. </param>
-        /// <returns> An Enumerable of each type the bits has. </returns>
+        /// <summary>Creates an enumerable from a <c>BigIntger</c> which holds type bits.</summary>
+        /// <param name="bits">The BigInteger which holds the type bits.</param>
+        /// <returns>An Enumerable of each type the bits has.</returns>
         internal static IEnumerable<Type> GetTypesFromBits(BigInteger bits)
         {
             foreach (var item in ComponentTypes)
@@ -116,9 +117,12 @@ namespace Artemis.Manager
                 {
                     yield return item.Key;
                 }
-            }
+            }            
         }
 
+        /// <summary>Sets the type for specified ComponentType T.</summary>
+        /// <typeparam name="T">The <see langword="Type" /> of T.</typeparam>
+        /// <param name="type">The type.</param>
         internal static void SetTypeFor<T>(ComponentType type)
         {
             ComponentTypes.Add(typeof(T), type);

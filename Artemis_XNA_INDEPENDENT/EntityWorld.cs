@@ -3,17 +3,13 @@
 // --------------------------------------------------------------------------------------------------------------------
 // <copyright file="EntityWorld.cs" company="GAMADU.COM">
 //     Copyright © 2013 GAMADU.COM. All rights reserved.
-//
 //     Redistribution and use in source and binary forms, with or without modification, are
 //     permitted provided that the following conditions are met:
-//
 //        1. Redistributions of source code must retain the above copyright notice, this list of
 //           conditions and the following disclaimer.
-//
 //        2. Redistributions in binary form must reproduce the above copyright notice, this list
 //           of conditions and the following disclaimer in the documentation and/or other materials
 //           provided with the distribution.
-//
 //     THIS SOFTWARE IS PROVIDED BY GAMADU.COM 'AS IS' AND ANY EXPRESS OR IMPLIED
 //     WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
 //     FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL GAMADU.COM OR
@@ -23,7 +19,6 @@
 //     ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
 //     NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 //     ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-//
 //     The views and conclusions contained in the software and documentation are those of the
 //     authors and should not be interpreted as representing official policies, either expressed
 //     or implied, of GAMADU.COM.
@@ -42,17 +37,17 @@ namespace Artemis
     using global::System.Collections.Generic;
     using global::System.Diagnostics;
     using global::System.Linq;
+    using global::System.Reflection;
+
+    using Artemis.Exceptions;
     using Artemis.Interface;
     using Artemis.Manager;
     using Artemis.Utils;
-    using Artemis.Exceptions;
 
-    #endregion Using statements
+    #endregion
 
-    /// <summary>
-    /// <para>The Entity World Class.</para>
-    /// <para>Main interface of the Entity System.</para>
-    /// </summary>
+    /// <summary><para>The Entity World Class.</para>
+    /// <para>Main interface of the Entity System.</para></summary>
     public sealed class EntityWorld
     {
         /// <summary>The deleted.</summary>
@@ -65,13 +60,11 @@ namespace Artemis
         private readonly Dictionary<Type, IComponentPool<ComponentPoolable>> pools;
 
         /// <summary>The refreshed.</summary>
-		/// 
-		#if XBOX || WINDOWS_PHONE || PORTABLE
-    		private readonly Bag<Entity> refreshed;
-		#else
-    		private readonly HashSet<Entity> refreshed;
-		#endif
-        
+#if XBOX || WINDOWS_PHONE || PORTABLE
+   		private readonly Bag<Entity> refreshed;
+#else
+        private readonly HashSet<Entity> refreshed;
+#endif
 
         /// <summary>The date time.</summary>
         private DateTime dateTime;
@@ -80,7 +73,7 @@ namespace Artemis
         private int poolCleanupDelayCounter;
 
 #if !XBOX && !WINDOWS_PHONE
-        /// <summary>Initializes a new instance of the <see cref="EntityWorld"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="EntityWorld" /> class.</summary>
         /// <param name="isSortedEntities">if set to <c>true</c> [is sorted entities].</param>
         public EntityWorld(bool isSortedEntities = false)
         {
@@ -91,7 +84,11 @@ namespace Artemis
         {
             this.IsSortedEntities = false;
 #endif
+#if XBOX || WINDOWS_PHONE || PORTABLE
+   		    this.refreshed = new Bag<Entity>();
+#else
             this.refreshed = new HashSet<Entity>();
+#endif
             this.pools = new Dictionary<Type, IComponentPool<ComponentPoolable>>();
             this.entityTemplates = new Dictionary<string, IEntityTemplate>();
             this.deleted = new Bag<Entity>();
@@ -161,72 +158,34 @@ namespace Artemis
             this.Update();
         }
 
-        /// <summary>
-        /// Creates the entity.
-        /// </summary>
-        /// <param name="entityUniqueId">The desired unique id of this Entity. if null, artemis will create an unique ID.
-        /// This value can be accessed by using the property uniqueID of the Entity
-        /// </param>
-        /// <returns>
-        /// A new entity.
-        /// </returns>
+        /// <summary>Creates the entity.</summary>
+        /// <param name="entityUniqueId">The desired unique id of this Entity. if null, <c>artemis</c> will create an unique ID.
+        /// This value can be accessed by using the property uniqueID of the Entity</param>
+        /// <returns>A new entity.</returns>
         public Entity CreateEntity(long? entityUniqueId = null)
         {
             return this.EntityManager.Create(entityUniqueId);
-
         }
 
-        /// <summary>
-        /// Creates a entity from template.
-        /// </summary>
+        /// <summary>Creates a entity from template.</summary>
         /// <param name="entityTemplateTag">The entity template tag.</param>
-        /// <param name="templateArgs">The template args.</param>
-        /// <returns>
-        /// The created entity.
-        /// </returns>
+        /// <param name="templateArgs">The template arguments.</param>
+        /// <returns>The created entity.</returns>
         /// <exception cref="MissingEntityTemplateException">EntityTemplate for the tag "entityTemplateTag" was not registered.</exception>
         public Entity CreateEntityFromTemplate(string entityTemplateTag, params object[] templateArgs)
         {
-            return createEntityFromTemplate(null, entityTemplateTag, templateArgs);
+            return this.CreateEntityFromTemplate(null, entityTemplateTag, templateArgs);
         }
 
-        /// <summary>
-        /// Creates a entity from template.
-        /// </summary>
-        /// <param name="entityUniqueId">The entity unique id. (artemis can provide this value, use the overloaded method)</param>
+        /// <summary>Creates a entity from template.</summary>
+        /// <param name="entityUniqueId">The entity unique id. (<c>artemis</c> can provide this value, use the overloaded method)</param>
         /// <param name="entityTemplateTag">The entity template tag.</param>
-        /// <param name="templateArgs">The template args.</param>
-        /// <returns>
-        /// The created entity.
-        /// </returns>
+        /// <param name="templateArgs">The template arguments.</param>
+        /// <returns>The created entity.</returns>
         /// <exception cref="MissingEntityTemplateException">EntityTemplate for the tag "entityTemplateTag" was not registered.</exception>
-        public Entity CreateEntityFromTemplate(long entityUniqueId,string entityTemplateTag, params object[] templateArgs)
+        public Entity CreateEntityFromTemplate(long entityUniqueId, string entityTemplateTag, params object[] templateArgs)
         {
-            return createEntityFromTemplate(entityUniqueId, entityTemplateTag, templateArgs);   
-        }
-
-        /// <summary>
-        /// Creates the entity from template.
-        /// </summary>
-        /// <param name="entityUniqueId">The entity unique id.</param>
-        /// <param name="entityTemplateTag">The entity template tag.</param>
-        /// <param name="templateArgs">The template args.</param>
-        /// <returns></returns>
-        /// <exception cref="MissingEntityTemplateException"></exception>
-        private Entity createEntityFromTemplate(long? entityUniqueId, string entityTemplateTag, params object[] templateArgs)
-        {
-            Debug.Assert(!string.IsNullOrEmpty(entityTemplateTag), "Entity template tag must not be null or empty.");
-
-            Entity entity = this.EntityManager.Create(entityUniqueId);
-            IEntityTemplate entityTemplate;
-            this.entityTemplates.TryGetValue(entityTemplateTag, out entityTemplate);
-            if (entityTemplate == null)
-            {
-                throw new MissingEntityTemplateException(entityTemplateTag);
-            }
-			Entity e = entityTemplate.BuildEntity(entity, this, templateArgs);
-			RefreshEntity(e);
-            return e;
+            return this.CreateEntityFromTemplate((long?)entityUniqueId, entityTemplateTag, templateArgs);
         }
 
         /// <summary>Deletes the entity.</summary>
@@ -260,7 +219,7 @@ namespace Artemis
         /// <exception cref="Exception">There is no pool for the type  + type</exception>
         public T GetComponentFromPool<T>() where T : ComponentPoolable
         {
-            return (T)GetComponentFromPool(typeof(T));
+            return (T)this.GetComponentFromPool(typeof(T));
         }
 
         /// <summary>Gets the entity.</summary>
@@ -283,12 +242,11 @@ namespace Artemis
             return this.pools[type];
         }
 
-
-        /// <summary>Initialize the EntityWorld.</summary>        
+        /// <summary>Initialize the EntityWorld.</summary>
         /// <param name="assembliesToScan">The assemblies to scan for data attributes.</param>
-        public void InitializeAll(params global::System.Reflection.Assembly[] assembliesToScan)
+        public void InitializeAll(params Assembly[] assembliesToScan)
         {
-            var processAttributes = assembliesToScan != null && assembliesToScan.Length > 0 ? true : false;
+            bool processAttributes = assembliesToScan != null && assembliesToScan.Length > 0;
             this.SystemManager.InitializeAll(processAttributes, assembliesToScan);
         }
 
@@ -299,12 +257,12 @@ namespace Artemis
             this.SystemManager.InitializeAll(processAttributes);
         }
 
-
         /// <summary>Loads the state of the entity.</summary>
         /// <param name="templateTag">The template tag. Can be null.</param>
         /// <param name="groupName">Name of the group. Can be null.</param>
         /// <param name="components">The components.</param>
         /// <param name="templateArgs">Parameters for entity template.</param>
+        /// <returns>The <see cref="Entity" />.</returns>
         public Entity LoadEntityState(string templateTag, string groupName, IEnumerable<IComponent> components, params object[] templateArgs)
         {
             Debug.Assert(components != null, "Components must not be null.");
@@ -312,7 +270,7 @@ namespace Artemis
             Entity entity;
             if (!string.IsNullOrEmpty(templateTag))
             {
-                entity = this.CreateEntityFromTemplate(templateTag, -1 ,templateArgs);
+                entity = this.CreateEntityFromTemplate(templateTag, -1, templateArgs);
             }
             else
             {
@@ -328,6 +286,7 @@ namespace Artemis
             {
                 entity.AddComponent(comp);
             }
+
             return entity;
         }
 
@@ -350,9 +309,7 @@ namespace Artemis
             this.pools.Add(type, pool);
         }
 
-        /// <summary>
-        /// Updates the EntityWorld.
-        /// </summary>
+        /// <summary>Updates the EntityWorld.</summary>
         public void Update()
         {
             long deltaTicks = (FastDateTime.Now - this.dateTime).Ticks;
@@ -360,9 +317,7 @@ namespace Artemis
             this.Update(deltaTicks);
         }
 
-        /// <summary>
-        /// Updates the EntityWorld.
-        /// </summary>
+        /// <summary>Updates the EntityWorld.</summary>
         /// <param name="deltaTicks">The delta ticks.</param>
         public void Update(long deltaTicks)
         {
@@ -392,36 +347,35 @@ namespace Artemis
                 this.deleted.Clear();
             }
 
-			#if XBOX || WINDOWS_PHONE || PORTABLE
-				var isRefreshing = !this.refreshed.IsEmpty;
-			#else
-				var isRefreshing = this.refreshed.Count > 0;
-			#endif
+#if XBOX || WINDOWS_PHONE || PORTABLE
+		    bool isRefreshing = !this.refreshed.IsEmpty;
+#else
+            bool isRefreshing = this.refreshed.Count > 0;
+#endif
             if (isRefreshing)
             {
-                #if XBOX || WINDOWS_PHONE || PORTABLE
-                    for (int index = this.refreshed.Count - 1; index >= 0; --index)
-                    {
-			    		Entity entity = this.refreshed.Get(index);
-                        this.EntityManager.Refresh(entity);
-                        entity.RefreshingState = false;
-                    }
-                #else
-                    foreach(Entity entity in refreshed)
-                    {
-                        this.EntityManager.Refresh(entity);
-                        entity.RefreshingState = false;
-                    }
-                #endif
+#if XBOX || WINDOWS_PHONE || PORTABLE
+                for (int index = this.refreshed.Count - 1; index >= 0; --index)
+                {
+			    	Entity entity = this.refreshed.Get(index);
+                    this.EntityManager.Refresh(entity);
+                    entity.RefreshingState = false;
+                }
+#else
+                foreach (Entity entity in this.refreshed)
+                {
+                    this.EntityManager.Refresh(entity);
+                    entity.RefreshingState = false;
+                }
+
+#endif
                 this.refreshed.Clear();
             }
 
             this.SystemManager.Update();
         }
 
-        /// <summary>
-        /// Draws the EntityWorld.
-        /// </summary>
+        /// <summary>Draws the EntityWorld.</summary>
         public void Draw()
         {
             this.SystemManager.Draw();
@@ -430,7 +384,7 @@ namespace Artemis
         /// <summary>Unloads the content.</summary>
         public void UnloadContent()
         {
-            SystemManager.TerminateAll();
+            this.SystemManager.TerminateAll();
         }
 
         /// <summary>Refreshes the entity.</summary>
@@ -438,13 +392,37 @@ namespace Artemis
         internal void RefreshEntity(Entity entity)
         {
             Debug.Assert(entity != null, "Entity must not be null.");
-			#if XBOX || WINDOWS_PHONE || PORTABLE
-				if(!this.refreshed.Contains(entity)) {
-					this.refreshed.Add(entity);
-				}
-			#else
-            	this.refreshed.Add(entity);
-			#endif
+#if XBOX || WINDOWS_PHONE || PORTABLE
+			if(!this.refreshed.Contains(entity))
+            {
+				this.refreshed.Add(entity);
+			}
+#else
+            this.refreshed.Add(entity);
+#endif
+        }
+
+        /// <summary>Creates the entity from template.</summary>
+        /// <param name="entityUniqueId">The entity unique id.</param>
+        /// <param name="entityTemplateTag">The entity template tag.</param>
+        /// <param name="templateArgs">The template arguments.</param>
+        /// <returns>The Entity.</returns>
+        /// <exception cref="MissingEntityTemplateException">Template for entity is missing.</exception>
+        private Entity CreateEntityFromTemplate(long? entityUniqueId, string entityTemplateTag, params object[] templateArgs)
+        {
+            Debug.Assert(!string.IsNullOrEmpty(entityTemplateTag), "Entity template tag must not be null or empty.");
+
+            Entity entity = this.EntityManager.Create(entityUniqueId);
+            IEntityTemplate entityTemplate;
+            this.entityTemplates.TryGetValue(entityTemplateTag, out entityTemplate);
+            if (entityTemplate == null)
+            {
+                throw new MissingEntityTemplateException(entityTemplateTag);
+            }
+
+            entity = entityTemplate.BuildEntity(entity, this, templateArgs);
+            this.RefreshEntity(entity);
+            return entity;
         }
     }
 }

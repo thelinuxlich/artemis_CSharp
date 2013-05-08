@@ -48,9 +48,6 @@ namespace UnitTests.System
     /// <summary>The queue system test 2.</summary>
     public class TestQueueSystemCopy : QueueSystemProcessingThreadSafe
     {
-        /// <summary>The test health mapper.</summary>
-        private ComponentMapper<TestHealthComponent> testHealthMapper;
-
         /// <summary>Initializes a new instance of the <see cref="TestQueueSystemCopy"/> class.</summary>
         /// <param name="damage">The damage.</param>
         public TestQueueSystemCopy(int damage)
@@ -62,17 +59,11 @@ namespace UnitTests.System
         /// <value>The damage.</value>
         public int Damage { get; private set; }
 
-        /// <summary>Override to implement code that gets executed when systems are initialized.</summary>
-        public override void LoadContent()
-        {
-            this.testHealthMapper = new ComponentMapper<TestHealthComponent>(this.EntityWorld);
-        }
-
         /// <summary>The process.</summary>
         /// <param name="entity">The entity.</param>
         public override void Process(Entity entity)
         {
-            this.testHealthMapper.Get(entity).AddDamage(this.Damage);
+            entity.GetComponent<TestHealthComponent>().AddDamage(this.Damage);
         }
     }
 }

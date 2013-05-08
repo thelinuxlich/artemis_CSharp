@@ -69,6 +69,9 @@
     <Compile Include="System\TestEntityComponentSystem1.cs" />
     <Compile Include="System\TestEntityComponentSystem2.cs" />
     <Compile Include="System\TestProcessingSystem.cs" />
+    <Compile Include="System\TestEntityComponentProcessingSystem1.cs" />
+    <Compile Include="System\TestEntityComponentProcessingSystem2.cs" />
+    <Compile Include="System\TestEntityProcessingSystem.cs" />
     <Compile Include="System\TestQueueSystemCopy2.cs" />
     <Compile Include="System\TestNormalEntityProcessingSystem2.cs" />
     <Compile Include="System\TestNormalEntityProcessingSystem3.cs" />

@@ -65,9 +65,9 @@ namespace Artemis.System
         {
             this.queue = new Queue<Entity>();
             this.compTypes = new List<ComponentType>();
-            foreach (Type item in EntitySystem.GetMergedTypes(requiredType, otherTypes))
+            foreach (Type type in this.Types)
             {
-                this.compTypes.Add(ComponentTypeManager.GetTypeFor(item));
+                this.compTypes.Add(ComponentTypeManager.GetTypeFor(type));
             }
         }
 

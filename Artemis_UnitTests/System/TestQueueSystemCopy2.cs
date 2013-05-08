@@ -1,7 +1,7 @@
 #region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="TestQueueSystemCopy.cs" company="GAMADU.COM">
+// <copyright file="TestQueueSystemCopy2.cs" company="GAMADU.COM">
 //     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
@@ -38,7 +38,6 @@ namespace UnitTests.System
 {
     #region Using statements
 
-    using Artemis;
     using Artemis.System;
 
     using UnitTests.Component;
@@ -49,25 +48,25 @@ namespace UnitTests.System
     /// <summary>The queue system test 3.</summary>
     public class TestQueueSystemCopy2 : FQueueSystemProcessingThreadSafe<DummyPlaceHolder>
     {
-        /// <summary>Initializes a new instance of the <see cref="TestQueueSystemCopy"/> class.</summary>
+        /// <summary>The damage.</summary>
+        private readonly int damage;
+
+        /// <summary>Initializes a new instance of the <see cref="TestQueueSystemCopy2" /> class.</summary>
         /// <param name="damage">The damage.</param>
         public TestQueueSystemCopy2(int damage)
         {
             this.damage = damage;
         }
 
-        int damage;
-
-        /// <summary>Override to implement code that gets executed when systems are initialized.</summary>
-        public override void LoadContent()
-        {
-        }
-
-        /// <summary>The process.</summary>        
+        /// <summary>The process.</summary>
+        /// <param name="entity">The entity.</param>
         public override void Process(DummyPlaceHolder entity)
         {
-            TestHealthComponent TestHealthComponent = entity.Component as TestHealthComponent;
-            TestHealthComponent.AddDamage(damage);       
+            TestHealthComponent testHealthComponent = entity.Component as TestHealthComponent;
+            if (testHealthComponent != null)
+            {
+                testHealthComponent.AddDamage(this.damage);
+            }
         }
     }
 }
