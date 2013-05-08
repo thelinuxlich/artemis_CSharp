@@ -14,9 +14,9 @@ using UnitTests.Component;
 
 namespace UnitTests.System
 {
-    class TestEntityComponentSystem1 : EntityProcessingSystem<TestHealthComponent>
+    class TestEntityComponentSystem1 : EntityComponentProcessingSystem<TestHealthComponent>
     {
-        protected override void Process(Entity e, TestHealthComponent health)
+        public override void Process(Entity e, TestHealthComponent health)
         {
             Assert.IsTrue(this.Aspect.Interests(e));
 
