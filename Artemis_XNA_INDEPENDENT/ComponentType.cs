@@ -43,6 +43,7 @@ namespace Artemis
 #else
     using global::System.Numerics;
 #endif
+    using Artemis.Interface;
     using Artemis.Manager;
 
     #endregion Using statements
@@ -50,45 +51,59 @@ namespace Artemis
     /// <summary>Represents a Component Type.</summary>
     public sealed class ComponentType 
     {
-        private static BigInteger bit = 1;
-        internal static BigInteger nextBit
+        /// <summary>The bit.</summary>
+        private static BigInteger bit;
+
+        /// <summary>The id.</summary>
+        private static int id;
+
+        /// <summary>Initializes static members of the <see cref="ComponentType"/> class.</summary>
+        static ComponentType()
         {
-            get { BigInteger value = bit; bit <<= 1; return value; }
+            bit = 1;
+            id = 0;
         }
-        private static int id = 0;
-        internal static int nextId
+
+        /// <summary>Initializes a new instance of the <see cref="ComponentType"/> class.</summary>
+        internal ComponentType()
+        {
+            this.Id = NextId;
+            this.Bit = NextBit;
+        }
+
+        /// <summary>Gets the bit index that represents this type of component.</summary>
+        /// <value>The id.</value>
+        public int Id { get; private set; }
+
+        /// <summary>Gets the bit that represents this type of component.</summary>
+        /// <value>The bit.</value>
+        public BigInteger Bit { get; private set; }
+
+        /// <summary>Gets the next id.</summary>
+        /// <value>The next id.</value>
+        internal static int NextId
         {
             get { return id++; }
         }
 
-        internal ComponentType()
+        /// <summary>Gets the next bit.</summary>
+        /// <value>The next bit.</value>
+        internal static BigInteger NextBit
         {
-            Id = nextId;
-            Bit = nextBit;
-        }
-
-        /// <summary>
-        /// The bitindex that represents this type of component.
-        /// </summary>
-        public int Id
-        {
-            get;
-            private set;
-        }
-        /// <summary>
-        /// The bit that represents this type of component.
-        /// </summary>
-        public BigInteger Bit
-        {
-            get;
-            private set;
+            get
+            {
+                BigInteger value = bit;
+                bit <<= 1;
+                return value;
+            }
         }
     }
 
-
-    internal static class ComponentType<T>
-        where T : Artemis.Interface.IComponent
+    /// <summary>The component type class.</summary>
+    /// <typeparam name="T">The Type T.</typeparam>
+    internal static class ComponentType<T> where T : IComponent
     {
+        /// <summary>Initializes static members of the <see cref="ComponentType{T}"/> class.</summary>
         static ComponentType()
         {
             CType = ComponentTypeManager.GetTypeFor<T>();
@@ -98,6 +113,9 @@ namespace Artemis
                 ComponentTypeManager.SetTypeFor<T>(CType);
             }
         }
-        public static readonly ComponentType CType;
+
+        /// <summary>Gets the type of the C.</summary>
+        /// <value>The type of the C.</value>
+        public static ComponentType CType { get; private set; }
     }
 }

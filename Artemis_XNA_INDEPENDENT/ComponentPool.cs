@@ -147,7 +147,7 @@ namespace Artemis
 
                 if (index < this.InvalidCount || index >= this.components.Length)
                 {
-                    throw new ArgumentOutOfRangeException("The index must be less than or equal to ValidCount");
+                    throw new ArgumentOutOfRangeException("index", "The index must be less than or equal to ValidCount.");
                 }
 
                 return this.components[index];

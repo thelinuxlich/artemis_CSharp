@@ -39,6 +39,7 @@ namespace UnitTests
     #region Using statements
 
     using global::System;
+    using global::System.Diagnostics;
 
     #endregion
 
@@ -48,7 +49,7 @@ namespace UnitTests
         /// <summary>Defines the entry point of the application.</summary>
         public static void Main()
         {
-            global::System.Diagnostics.Debug.WriteLine("General test begin...");
+            Debug.WriteLine("General test begin...");
             TestGeneral testGeneral = new TestGeneral();
             testGeneral.TestAttributes();
             testGeneral.TestDummies();
@@ -62,14 +63,14 @@ namespace UnitTests
             testGeneral.TestSystemCommunication();
             testGeneral.TestEntityComponentSystem();
             testGeneral.TestDerivedComponents();
-            global::System.Diagnostics.Debug.WriteLine("General test end.");
+            Debug.WriteLine("General test end.");
 
 #if !METRO && !PORTABLE
-            global::System.Diagnostics.Debug.WriteLine("Press any key to continue...");
+            Debug.WriteLine("Press any key to continue...");
             Console.ReadKey(true);
 #endif
 
-            global::System.Diagnostics.Debug.WriteLine("Bag test begin...");
+            Debug.WriteLine("Bag test begin...");
             TestBag testBag = new TestBag();
             testBag.TestPerformance();
             testBag.TestAdd();
@@ -86,10 +87,10 @@ namespace UnitTests
             testBag.TestRemoveAll();
             testBag.TestRemoveLast();
             testBag.TestSet();
-            global::System.Diagnostics.Debug.WriteLine("Bag test end.");
+            Debug.WriteLine("Bag test end.");
 
 #if !METRO && !PORTABLE
-            global::System.Diagnostics.Debug.WriteLine("Press any key to continue...");
+            Debug.WriteLine("Press any key to continue...");
             Console.ReadKey(true);
 #endif
         }

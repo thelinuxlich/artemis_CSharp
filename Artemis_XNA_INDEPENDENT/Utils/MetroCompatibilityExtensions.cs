@@ -1,8 +1,8 @@
-#region File description
+﻿#region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="TestQueueHybridSystem.cs" company="GAMADU.COM">
-//     Copyright � 2013 GAMADU.COM. All rights reserved.
+// <copyright file="MetroCompatibilityExtensions.cs" company="GAMADU.COM">
+//     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
 //     permitted provided that the following conditions are met:
@@ -29,36 +29,38 @@
 //     or implied, of GAMADU.COM.
 // </copyright>
 // <summary>
-//   The hybrid queue system test.
+//   System Not based On Components. It Process ONCE everything you explicitly add to it using the method AddToQueue.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion File description
 
-namespace UnitTests.System
+#if METRO
+namespace Artemis.Utils
 {
     #region Using statements
 
-    using Artemis;
-    using Artemis.System;
+    using global::System;
 
-    using UnitTests.Component;
+    using global::System.Reflection;
 
-    #endregion Using statements
+    #endregion
 
-    /// <summary>The hybrid queue system test.</summary>
-    public class TestQueueHybridSystem : HybridQueueSystemProcessing
+    /// <summary>The metro compatibility extensions.</summary>
+    internal static class MetroCompatibilityExtensions
     {
-        /// <summary>Initializes a new instance of the <see cref="TestQueueHybridSystem" /> class.</summary>
-        public TestQueueHybridSystem()
-            : base(typeof(TestHealthComponent))
-        {
-        }
+        /// <summary>The create delegate.</summary>
+        /// <param name="self">The self.</param>
+        /// <param name="type">The type.</param>
+        /// <returns>The <see cref="Delegate" />.</returns>
+        public static Delegate CreateDelegate(this MethodInfo self, Type type)
+        {            
 
-        /// <summary>The process.</summary>
-        /// <param name="entity">The entity.</param>
-        public override void Process(Entity entity)
-        {
-            entity.GetComponent<TestHealthComponent>().AddDamage(10);
+#if METRO
+            return self.CreateDelegate(type);
+#else
+            return Delegate.CreateDelegate(type, self);
+#endif
         }
     }
 }
+#endif

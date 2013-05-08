@@ -41,12 +41,11 @@ namespace Artemis.Interface
     {
     }
 
-    /// <summary>
-    /// Interface that can be used if the component can be subclassed but should still be treated as the base class, 'T'
-    /// when being added to a entity
-    /// </summary>
-    public interface IComponent<T> : IComponent
-        where T : IComponent
+    // TODO: int<int> - are you serious?
+
+    /// <summary>Interface that can be used if the component can be sub-classed but should still be treated as the base class, 'T' when being added to a entity.</summary>
+    /// <typeparam name="T">The Type T.</typeparam>
+    public interface IComponent<T> : IComponent where T : IComponent
     {
     }
 }

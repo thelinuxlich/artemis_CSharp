@@ -41,12 +41,13 @@ namespace Artemis
     using global::System;
     using global::System.Diagnostics;
     using global::System.Linq;
-    using global::System.Text;
-    using Artemis.Manager;
-
 #if !XBOX && !WINDOWS_PHONE  && !PORTABLE
     using global::System.Numerics;
 #endif
+    using global::System.Text;
+
+    using Artemis.Manager;
+
 #if XBOX || WINDOWS_PHONE || PORTABLE
     using BigInteger = global::System.Int32;
 #endif
@@ -84,10 +85,8 @@ namespace Artemis
             return new Aspect().GetAll(types);
         }
 
-        /// <summary>
-        /// Returns an Empty Aspect (does not filter anything).
-        /// </summary>
-        /// <returns></returns>
+        /// <summary>Returns an Empty Aspect (does not filter anything).</summary>
+        /// <returns>The Aspect.</returns>
         public static Aspect Empty()
         {
             return new Aspect();
@@ -178,6 +177,24 @@ namespace Artemis
             return this;
         }
 
+        /// <summary>Creates a string that displays all the type names of the components that interests this Aspect.</summary>
+        /// <returns>A string displaying all the type names that interests this Aspect.</returns>
+        public override string ToString()
+        {
+            StringBuilder builder = new StringBuilder(1024);
+
+            builder.AppendLine("Aspect :");
+            AppendTypes(builder, " Requires the components : ", this.ContainsTypesMap);
+            AppendTypes(builder, " Has none of the components : ", this.ExcludeTypesMap);
+            AppendTypes(builder, " Has atleast one of the components : ", this.OneTypesMap);
+
+            return builder.ToString();
+        }
+
+        /// <summary>Appends the types.</summary>
+        /// <param name="builder">The builder.</param>
+        /// <param name="headerMessage">The header message.</param>
+        /// <param name="typeBits">The type bits.</param>
         private static void AppendTypes(StringBuilder builder, string headerMessage, BigInteger typeBits)
         {
             if (typeBits != 0)
@@ -189,22 +206,6 @@ namespace Artemis
                     builder.AppendLine(type.Name);
                 }
             }
-        }
-
-        /// <summary>
-        /// Creates a string that displays all the typenames of the components that interests this Aspect.
-        /// </summary>
-        /// <returns> A string displaying all the typenames that interests this Aspect. </returns>
-        public override string ToString()
-        {
-            StringBuilder builder = new StringBuilder(1024);
-
-            builder.AppendLine("Aspect :");
-            AppendTypes(builder, " Requires the components : ", this.ContainsTypesMap);
-            AppendTypes(builder, " Has none of the components : ", this.ExcludeTypesMap);
-            AppendTypes(builder, " Has atleast one of the components : ", this.OneTypesMap);
-
-            return builder.ToString();
         }
     }
 }

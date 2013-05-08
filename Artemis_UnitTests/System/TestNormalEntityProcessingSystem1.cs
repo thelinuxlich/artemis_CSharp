@@ -48,27 +48,17 @@ namespace UnitTests.System
     /// <summary>The most simple system ever.</summary>
     public class TestNormalEntityProcessingSystem1 : EntityProcessingSystem
     {
-        /// <summary>The test health mapper.</summary>
-        private ComponentMapper<TestHealthComponent> testHealthMapper;
-
         /// <summary>Initializes a new instance of the <see cref="TestNormalEntityProcessingSystem1" /> class.</summary>
         public TestNormalEntityProcessingSystem1()
             : base(Aspect.Exclude(typeof(TestPowerComponent)))
         {
         }
 
-        /// <summary>Override to implement code that gets executed when systems are initialized.</summary>
-        public override void LoadContent()
-        {
-            this.testHealthMapper = new ComponentMapper<TestHealthComponent>(this.EntityWorld);
-        }
-
         /// <summary>The process.</summary>
         /// <param name="entity">The entity.</param>
         public override void Process(Entity entity)
         {
-            TestHealthComponent testHealthComponent = this.testHealthMapper.Get(entity);
-            testHealthComponent.AddDamage(10);
+            entity.GetComponent<TestHealthComponent>().AddDamage(10);
         }
     }
 }
