@@ -48,22 +48,18 @@ namespace Artemis.Utils
     /// <summary>The metro compatibility extensions.</summary>
     internal static class MetroCompatibilityExtensions
     {
-        /// <summary>Extension which only returns the type itself if not using metro.
-        /// This lets one call GetTypeInfo on Type objects even when metro is not being used.</summary>
-        /// <param name="self">The self.</param>
-        /// <returns>The <see cref="Type" />.</returns>
-        public static Type GetTypeInfo(this Type self)
-        {
-            return self;
-        }
-
         /// <summary>The create delegate.</summary>
         /// <param name="self">The self.</param>
         /// <param name="type">The type.</param>
         /// <returns>The <see cref="Delegate" />.</returns>
         public static Delegate CreateDelegate(this MethodInfo self, Type type)
-        {
+        {            
+
+#if METRO
+            return self.CreateDelegate(type);
+#else
             return Delegate.CreateDelegate(type, self);
+#endif
         }
     }
 }

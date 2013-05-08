@@ -62,16 +62,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\Exceptions\MissingEntityTemplateException.cs">
-      <Link>MissingEntityTemplateException.cs</Link>
-    </Compile>
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\System\EntityComponentProcessingSystem.cs">
-      <Link>EntityComponentProcessingSystem.cs</Link>
-    </Compile>
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\System\ProcessingSystem.cs" />
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\FQueueManager.cs" />
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\System\FQueueSystemProcessingThreadSafe.cs" />
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\Aspect.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+	<Compile Include="..\Artemis_XNA_INDEPENDENT\Aspect.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\ArtemisComponentCreate.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\ArtemisComponentPool.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Attributes\ArtemisEntitySystem.cs" />
@@ -96,6 +88,7 @@
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\AddedComponentHandler.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\AddedEntityHandler.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\ComponentTypeManager.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\FQueueManager.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\EntityManager.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\ExecutionType.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\GameLoopType.cs" />
@@ -105,13 +98,14 @@
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\RemovedEntityHandler.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\SystemBitManager.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\SystemManager.cs" />
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\TagManager.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Manager\TagManager.cs" />    
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\System\ProcessingSystem.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\System\FQueueSystemProcessingThreadSafe.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\System\DelayedEntityProcessingSystem.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\System\DelayedEntitySystem.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\System\EntityComponentProcessingSystem.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\System\EntityProcessingSystem.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\System\EntitySystem.cs" />
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\System\FQueueSystemProcessingThreadSafe.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\System\HybridQueueSystemProcessing.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\System\IntervalEntityProcessingSystem.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\System\IntervalEntitySystem.cs" />
@@ -122,12 +116,10 @@
     <Compile Include="..\Artemis_XNA_INDEPENDENT\System\TagSystem.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\Bag.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\BagEnumerator.cs" />
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\Extensions.cs">
-      <Link>Extensions.cs</Link>
-    </Compile>
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\Extensions.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\FastDateTime.cs" />
+    <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\MetroCompatibilityExtensions.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\Utils\Timer.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
