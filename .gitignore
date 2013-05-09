@@ -10,6 +10,7 @@
 *.user
 *.sln.docstates
 *.gpState
+*.userprefs
 
 # Build results
 [Dd]ebug/
