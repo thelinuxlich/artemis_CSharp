@@ -43,17 +43,9 @@ namespace Artemis.System
 
     #endregion Using statements
 
-    /// <summary>Class EntityProcessingSystem.
-    /// Special type of System that has NO entity associated (called once each frame)
-    /// Extend it and override the ProcessSystem function
-    /// </summary>
+    /// <summary>The entity processing system - a template for processing many entities, tied to components.</summary>
     public abstract class EntityProcessingSystem : EntitySystem
     {
-        /// <summary>Initializes a new instance of the <see cref="EntityProcessingSystem"/> class.</summary>
-        protected EntityProcessingSystem()
-        {
-        }
-
         /// <summary>Initializes a new instance of the <see cref="EntityProcessingSystem" /> class.</summary>
         /// <param name="aspect">The aspect.</param>
         protected EntityProcessingSystem(Aspect aspect)
@@ -62,30 +54,18 @@ namespace Artemis.System
         }
 
         /// <summary>Initializes a new instance of the <see cref="EntityProcessingSystem"/> class.</summary>
-        /// <param name="requiredType">Type of the required.</param>
-        /// <param name="otherTypes">The other types.</param>
+        /// <param name="requiredType">The required Type.</param>
+        /// <param name="otherTypes">The optional other types.</param>
         protected EntityProcessingSystem(Type requiredType, params Type[] otherTypes)
             : base(EntitySystem.GetMergedTypes(requiredType, otherTypes))
         {
         }
 
-        /// <summary>Processes the System. Users might extend this method.</summary>
-        public virtual void ProcessSystem()
-        {
-        }
-
-        /// <summary>Processes the specified entity.</summary>
+        /// <summary><para>Processes the specified entity.</para>
+        /// <para>Users might extend this method when they want</para>
+        /// <para>to process the specified entities.</para></summary>
         /// <param name="entity">The entity.</param>
-        public virtual void Process(Entity entity)
-        {
-        }
-
-        /// <summary>Begins this instance processing.</summary>
-        protected override void Begin()
-        {
-            base.Begin();
-            this.ProcessSystem();
-        }
+        public abstract void Process(Entity entity);
 
         /// <summary>Processes the entities.</summary>
         /// <param name="entities">The entities.</param>

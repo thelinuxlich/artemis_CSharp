@@ -200,7 +200,7 @@ namespace Artemis
             if (typeBits != 0)
             {
                 builder.AppendLine(headerMessage);
-                foreach (var type in ComponentTypeManager.GetTypesFromBits(typeBits))
+                foreach (Type type in ComponentTypeManager.GetTypesFromBits(typeBits))
                 {
                     builder.Append(", ");
                     builder.AppendLine(type.Name);

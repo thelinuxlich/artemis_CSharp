@@ -1,7 +1,7 @@
 ﻿#region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ComponentType.cs" company="GAMADU.COM">
+// <copyright file="MissingEntityTemplateException.cs" company="GAMADU.COM">
 //     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are

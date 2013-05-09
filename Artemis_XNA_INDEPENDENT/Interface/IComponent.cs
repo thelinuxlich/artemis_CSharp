@@ -41,7 +41,7 @@ namespace Artemis.Interface
     {
     }
 
-    // TODO: int<int> - are you serious?
+    // TODO: int<int> = int - are you serious? Please explain that here so that anyone can understand the need. I still do have serious behaviors against this.
 
     /// <summary>Interface that can be used if the component can be sub-classed but should still be treated as the base class, 'T' when being added to a entity.</summary>
     /// <typeparam name="T">The Type T.</typeparam>

@@ -44,6 +44,7 @@ namespace Artemis.Attributes
     using global::System.Linq;
 #endif
     using global::System.Reflection;
+
 #if METRO
     using global::System.Threading.Tasks;
     using Utils;
@@ -76,6 +77,7 @@ namespace Artemis.Attributes
         /// <returns>System.Threading.Tasks.Task{IEnumerable{Assembly}}.</returns>
         private async Task<IEnumerable<Assembly>> GetAssemblyListAsync()
         {
+            // TODO: Please use explicit declaration only.
             var folder = Windows.ApplicationModel.Package.Current.InstalledLocation;
 
             List<Assembly> assemblies = new List<Assembly>();
@@ -137,9 +139,9 @@ namespace Artemis.Attributes
                     foreach (Type type in types)
                     {
 #if METRO      
-                        var attributes = type.GetTypeInfo().GetCustomAttributes(false);
+                        object[] attributes = type.GetTypeInfo().GetCustomAttributes(false);
 #else
-                        var attributes = type.GetCustomAttributes(false);
+                        object[] attributes = type.GetCustomAttributes(false);
 #endif
                         foreach (object attribute in attributes)
                         {

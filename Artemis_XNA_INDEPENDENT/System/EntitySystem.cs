@@ -56,7 +56,7 @@ namespace Artemis.System
     public abstract class EntitySystem
     {
         /// <summary>The entity world.</summary>
-        public EntityWorld entityWorld;
+        private EntityWorld entityWorld;
 
         /// <summary>The actives.</summary>
         private IDictionary<int, Entity> actives;
@@ -73,6 +73,7 @@ namespace Artemis.System
             this.SystemBit = 0;
             this.Aspect = null;
             this.IsEnabled = true;
+            this.Types = null;
         }
 
         /// <summary>Initializes a new instance of the <see cref="EntitySystem" /> class.</summary>
@@ -82,8 +83,8 @@ namespace Artemis.System
         {
             Debug.Assert(types != null, "Types must not be null.");
             Debug.Assert(types.Length != 0, "Types must not be zero lengthed.");
-            this.Types = types;
             this.Aspect = Aspect.All(types);
+            this.Types = types;
         }
 
         /// <summary>Initializes a new instance of the <see cref="EntitySystem"/> class.</summary>
@@ -92,7 +93,6 @@ namespace Artemis.System
             : this()
         {
             Debug.Assert(aspect != null, "Aspect must not be null.");
-            this.Types = null;
             this.Aspect = aspect;
         }
 
@@ -246,9 +246,7 @@ namespace Artemis.System
             this.IsEnabled = !this.IsEnabled;
         }
 
-        /// <summary>
-        /// Adds the specified entity.
-        /// </summary>
+        /// <summary>Adds the specified entity.</summary>
         /// <param name="entity">The entity.</param>
         protected void Add(Entity entity)
         {

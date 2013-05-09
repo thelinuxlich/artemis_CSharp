@@ -1,9 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 13.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtemisPC", "Artemis_XNA_INDEPENDENT\Artemis.csproj", "{22C89AF2-E1CF-4976-91B9-7D33773DC6E7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtemisUnitTests", "Artemis_UnitTests\Artemis_UnitTests.csproj", "{7E590B36-02CD-415A-B920-69E6D96300C8}"
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtemisPC", "Artemis.csproj", "{22C89AF2-E1CF-4976-91B9-7D33773DC6E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +13,6 @@ Global
 		{22C89AF2-E1CF-4976-91B9-7D33773DC6E7}.Debug|x86.Build.0 = Debug|x86
 		{22C89AF2-E1CF-4976-91B9-7D33773DC6E7}.Release|x86.ActiveCfg = Release|x86
 		{22C89AF2-E1CF-4976-91B9-7D33773DC6E7}.Release|x86.Build.0 = Release|x86
-		{7E590B36-02CD-415A-B920-69E6D96300C8}.Debug|x86.ActiveCfg = Debug|x86
-		{7E590B36-02CD-415A-B920-69E6D96300C8}.Debug|x86.Build.0 = Debug|x86
-		{7E590B36-02CD-415A-B920-69E6D96300C8}.Release|x86.ActiveCfg = Release|x86
-		{7E590B36-02CD-415A-B920-69E6D96300C8}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

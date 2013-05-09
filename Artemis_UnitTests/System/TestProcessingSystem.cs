@@ -1,7 +1,7 @@
 #region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="TestEntityProcessingSystem1.cs" company="GAMADU.COM">
+// <copyright file="TestProcessingSystem.cs" company="GAMADU.COM">
 //     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
@@ -38,44 +38,28 @@ namespace UnitTests.System
 {
     #region Using statements
 
-    using Artemis;
     using Artemis.System;
-
-    using UnitTests.Component;
 
     #endregion Using statements
 
-    /// <summary>
-    /// The dummy system .
-    /// </summary>
+    /// <summary>The dummy system.</summary>
     public class TestProcessingSystem : ProcessingSystem
     {
-        /// <summary>
-        /// Gets or sets the counter.
-        /// </summary>
-        /// <value>
-        /// The counter.
-        /// </value>
-        public int Counter
-        {
-            get;
-            set;
-        }
-
         /// <summary>Initializes a new instance of the <see cref="TestProcessingSystem" /> class.</summary>
         public TestProcessingSystem()            
         {
-            Counter = 0;
+            this.Counter = 0;
         }
 
+        /// <summary>Gets or sets the counter.</summary>
+        /// <value>The counter.</value>
+        public int Counter { get; set; }
 
-        /// <summary>
-        /// Processes the System
-        /// Users should extend this method
-        /// </summary>
+        /// <summary>Processes the System
+        /// Users should extend this method</summary>
         public override void ProcessSystem()
         {
-            Counter++;
+            ++this.Counter;
         }
     }
 }

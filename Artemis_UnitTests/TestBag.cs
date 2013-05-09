@@ -264,7 +264,7 @@ namespace UnitTests
             int maxMem = 5000;
             
             // pointless to use int.maxvalue (sometimes it works, some it does not ... depends on other process)
-            for (int index = 0; index < 5000; ++index)
+            for (int index = 0; index < maxMem; ++index)
             {
                 try
                 {
@@ -310,5 +310,65 @@ namespace UnitTests
             stopwatch.Stop();
             Debug.WriteLine("Clear duration: {0}", FastDateTime.ToString(stopwatch.Elapsed));
         }
+
+/*
+        /// <summary>Tests the limit.</summary>
+        [TestMethod]
+        public void TestLimit()
+        {
+            Debug.WriteLine("Number of elements: ");
+
+            // Identify max mem size.
+            Bag<int> bigBag = new Bag<int>();
+            int maxMem = int.MaxValue;
+
+            // pointless to use int.maxvalue (sometimes it works, some it does not ... depends on other process)
+            for (int index = 0; index < maxMem; ++index)
+            {
+                try
+                {
+                    bigBag.Add(index);
+                }
+                catch (Exception)
+                {
+                    // some extra to be sure (there are some memory allocs we cant control in other threads)
+                    maxMem = index - 1;
+                    break;
+                }
+            }
+
+            bigBag = null;
+
+            // This is need to secure that enough memory is left.
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+#if !METRO
+            GC.WaitForFullGCComplete();
+#endif
+            GC.Collect();
+
+            Debug.WriteLine(maxMem.ToString(CultureInfo.InvariantCulture));
+
+            // Reset bag.
+            bigBag = new Bag<int>(0);
+
+            // Start measurement.
+            Stopwatch stopwatch = Stopwatch.StartNew();
+
+            // Fill
+            for (int index = maxMem; index >= 0; --index)
+            {
+                bigBag.Add(index);
+            }
+
+            stopwatch.Stop();
+            Debug.WriteLine("Load  duration: {0}", FastDateTime.ToString(stopwatch.Elapsed));
+
+            stopwatch.Restart();
+            bigBag.Clear();
+            stopwatch.Stop();
+            Debug.WriteLine("Clear duration: {0}", FastDateTime.ToString(stopwatch.Elapsed));
+        }
+*/
     }
 }

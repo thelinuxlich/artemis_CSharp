@@ -191,13 +191,13 @@ namespace UnitTests
             entityWorld.SystemManager.SetSystem(new TestCommunicationSystem(), GameLoopType.Update);
             entityWorld.InitializeAll();
             Debug.WriteLine("OK");            
-            var ent1 = TestEntityFactory.CreateTestHealthEntityWithId(entityWorld, -5);
+            Entity ent1 = TestEntityFactory.CreateTestHealthEntityWithId(entityWorld, -5);
             Debug.WriteLine("ID1 " + ent1.UniqueId);
             Debug.Assert(ent1.UniqueId == -5, "Ids dont match");                        
-            var ent2 = TestEntityFactory.CreateTestHealthEntity(entityWorld);
+            Entity ent2 = TestEntityFactory.CreateTestHealthEntity(entityWorld);
             Debug.WriteLine("ID2 " + ent2.UniqueId);
             Debug.Assert(ent2.UniqueId != -5 && ent2.UniqueId > 0, "Ids cant match");
-            var entrec = entityWorld.EntityManager.GetEntityByUniqueId(-5);
+            Entity entrec = entityWorld.EntityManager.GetEntityByUniqueId(-5);
             Debug.Assert(ent1 == entrec, "Entities must match");
             entrec = entityWorld.EntityManager.GetEntity(ent1.Id);
             Debug.Assert(ent1 == entrec, "Entities must match");            
@@ -444,14 +444,14 @@ namespace UnitTests
             entityWorld.InitializeAll();
             Debug.WriteLine("OK");
 
-            FQueueSystemProcessingThreadSafe<DummyPlaceHolder>.SetQueueProcessingLimit(20, testQueueSystem1.Id);                                    
+            QueueSystemProcessingThreadSafe<DummyPlaceHolder>.SetQueueProcessingLimit(20, testQueueSystem1.Id);                                    
             
             Debug.WriteLine("Fill EntityWorld with first  chunk of " + Load + " entities: ");
             List<DummyPlaceHolder> entities1 = new List<DummyPlaceHolder>();
             for (int index = Load; index >= 0; --index)
             {
                 DummyPlaceHolder dph = new DummyPlaceHolder { Component = new TestHealthComponent(100) };
-                FQueueSystemProcessingThreadSafe<DummyPlaceHolder>.AddToQueue(dph, testQueueSystem1.Id);
+                QueueSystemProcessingThreadSafe<DummyPlaceHolder>.AddToQueue(dph, testQueueSystem1.Id);
                 entities1.Add(dph);
             }
             
@@ -459,13 +459,13 @@ namespace UnitTests
             Debug.WriteLine("Begin down tearing of queues...");
             Stopwatch stopwatch = Stopwatch.StartNew();
             int loopCount = 0;
-            while (FQueueSystemProcessingThreadSafe<DummyPlaceHolder>.QueueCount(testQueueSystem1.Id) > 0 || FQueueSystemProcessingThreadSafe<DummyPlaceHolder>.QueueCount(testQueueSystem1.Id) > 0)
+            while (QueueSystemProcessingThreadSafe<DummyPlaceHolder>.QueueCount(testQueueSystem1.Id) > 0 || QueueSystemProcessingThreadSafe<DummyPlaceHolder>.QueueCount(testQueueSystem1.Id) > 0)
             {
                 entityWorld.Update();
                 entityWorld.Draw();
                 ++loopCount;
 #if DEBUG
-                Debug.WriteLine("Queue size thread A: {0} ", FQueueSystemProcessingThreadSafe<DummyPlaceHolder>.QueueCount(testQueueSystem1.Id));
+                Debug.WriteLine("Queue size thread A: {0} ", QueueSystemProcessingThreadSafe<DummyPlaceHolder>.QueueCount(testQueueSystem1.Id));
 #endif
             }
 
