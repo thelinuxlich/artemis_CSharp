@@ -54,12 +54,7 @@ namespace Artemis.Utils
         /// <returns>The <see cref="Delegate" />.</returns>
         public static Delegate CreateDelegate(this MethodInfo self, Type type)
         {            
-
-#if METRO
             return self.CreateDelegate(type);
-#else
-            return Delegate.CreateDelegate(type, self);
-#endif
         }
     }
 }

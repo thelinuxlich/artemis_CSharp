@@ -326,7 +326,7 @@ namespace Artemis.Manager
 
             ////Type[] typeArgs = { type };
             ////Type d1 = typeof(ComponentPool<>);
-            ////var typeGen = d1.MakeGenericType(typeArgs);
+            ////Type typeGen = d1.MakeGenericType(typeArgs);
             ////Activator.CreateInstance(typeGen, new object[] {PropertyComponentPool.InitialSize, PropertyComponentPool.IsResizable, create}
 
             if (propertyComponentPool == null)

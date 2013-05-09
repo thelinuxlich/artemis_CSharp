@@ -42,12 +42,9 @@ namespace Artemis.Manager
     using global::System.Collections.Generic;
     using global::System.Diagnostics;
 #if !XBOX && !WINDOWS_PHONE  && !PORTABLE
-    using global::System.Linq;
     using global::System.Numerics;
 #endif
 #if XBOX || WINDOWS_PHONE || PORTABLE
-    using global::System.Linq;
-
     using BigInteger = global::System.Int32;
 #endif
 
@@ -111,11 +108,11 @@ namespace Artemis.Manager
         /// <returns>An Enumerable of each type the bits has.</returns>
         internal static IEnumerable<Type> GetTypesFromBits(BigInteger bits)
         {
-            foreach (var item in ComponentTypes)
+            foreach (KeyValuePair<Type, ComponentType> keyValuePair in ComponentTypes)
             {
-                if ((item.Value.Bit & bits) != 0)
+                if ((keyValuePair.Value.Bit & bits) != 0)
                 {
-                    yield return item.Key;
+                    yield return keyValuePair.Key;
                 }
             }            
         }

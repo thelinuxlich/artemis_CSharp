@@ -46,7 +46,7 @@ namespace UnitTests.System
     #endregion Using statements
 
     /// <summary>The queue system test 3.</summary>
-    public class TestQueueSystemCopy2 : FQueueSystemProcessingThreadSafe<DummyPlaceHolder>
+    public class TestQueueSystemCopy2 : QueueSystemProcessingThreadSafe<DummyPlaceHolder>
     {
         /// <summary>The damage.</summary>
         private readonly int damage;

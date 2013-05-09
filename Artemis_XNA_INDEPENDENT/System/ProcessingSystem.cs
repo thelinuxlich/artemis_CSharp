@@ -1,7 +1,7 @@
 #region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="EntityProcessingSystem.cs" company="GAMADU.COM">
+// <copyright file="ProcessingSystem.cs" company="GAMADU.COM">
 //     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
@@ -36,47 +36,42 @@
 
 namespace Artemis.System
 {
-    #region Using statements
-
-    using global::System;
-    using global::System.Collections.Generic;
-
-    #endregion Using statements
-
-    /// <summary>Class ProcessingSystem.
-    /// Special type of System that has NO entity associated (called once each frame)
-    /// Extend it and override the ProcessSystem function
-    /// </summary>
+    /// <summary><para>The processing system class.</para>
+    /// <para>Special type of System that has NO entity associated (called once each frame).</para>
+    /// <para>Extend it and override the ProcessSystem function.</para></summary>
     public abstract class ProcessingSystem : EntitySystem
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EntityProcessingSystem" /> class.
-        /// </summary>
-        public ProcessingSystem()
-            : base()
+        /// <summary>Called when [added].</summary>
+        /// <param name="entity">The entity.</param>
+        public override void OnAdded(Entity entity)
         {
         }
 
-        /// <summary>
-        /// Called when [change].
-        /// </summary>
+        /// <summary>Called when [change].</summary>
         /// <param name="entity">The entity.</param>
         public override void OnChange(Entity entity)
         {            
         }
 
-        /// <summary>
-        /// Called when [removed].
-        /// </summary>
+        /// <summary>Called when [disabled].</summary>
+        /// <param name="entity">The entity.</param>
+        public override void OnDisabled(Entity entity)
+        {
+        }
+
+        /// <summary>Called when [enabled].</summary>
+        /// <param name="entity">The entity.</param>
+        public override void OnEnabled(Entity entity)
+        {
+        }
+
+        /// <summary>Called when [removed].</summary>
         /// <param name="entity">The entity.</param>
         public override void OnRemoved(Entity entity)
         {            
         }
 
-        /// <summary>
-        /// Processes this instance.
-        /// [Internal]
-        /// </summary>
+        /// <summary>Processes this instance. [Internal]</summary>
         public override void Process()
         {
             if (this.CheckProcessing())
@@ -87,20 +82,13 @@ namespace Artemis.System
             }
         }
 
-        /// <summary>
-        /// Processes the System
-        /// Users should extend this method
-        /// </summary>
+        /// <summary>Processes the System. Users must extend this method. Called once per frame.</summary>
         public abstract void ProcessSystem();
 
         /// <summary>Processes the specified entity.</summary>
         /// <param name="entity">The entity.</param>
-        public void Process(Entity entity) { }
-
-        /// <summary>Processes the entities.</summary>
-        /// <param name="entities">The entities.</param>
-        protected override void ProcessEntities(IDictionary<int, Entity> entities)
-        {            
+        public void Process(Entity entity)
+        {
         }
     }
 }

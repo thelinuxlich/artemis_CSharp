@@ -72,7 +72,9 @@ namespace UnitTests.System
             this.damage = BlackBoard.GetEntry<int>("Damage");
         }
 
-        /// <summary>The process.</summary>
+        /// <summary><para>Processes the specified entity.</para>
+        ///   <para>Users might extend this method when they want</para>
+        ///   <para>to process the specified entities.</para></summary>
         /// <param name="entity">The entity.</param>
         public override void Process(Entity entity)
         {
