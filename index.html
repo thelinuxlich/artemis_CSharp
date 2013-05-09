@@ -66,10 +66,10 @@
             <li><a href="http://gamesfromwithin.com/data-oriented-design">Data-Oriented Design</a></li>
         </ul>
         And many more can be found <a href="http://www.ploobs.com.br/forum/viewtopic.php?f=39&t=136">here.</a><br/><br/>
-        Your components must inherit from the class Component or ComponentPoolable if you want it to use the Artemis Component Pool. Example:
+        Your components must inherit from the interface IComponent or ComponentPoolable if you want it to use the Artemis Component Pool. Example:
         <div class="highlight">
         <pre lang="csharp"><code>//Add this Attribute and extend ComponentPoolable if you want your Component to use Artemis Component Pool
-[Artemis.Attributes.ArtemisComponentPool(InitialSize=5,Resizes=true, ResizeSize=20, isSupportMultiThread=false)]
+[Artemis.Attributes.ArtemisComponentPool(InitialSize=5,IsResizable=true, ResizeSize=20, IsSupportMultiThread=false)]
 class Velocity : ComponentPoolable
 {
         private float velocity;
@@ -184,7 +184,7 @@ world.Draw(); // do this on a different loop, e.g: every 60 frames.</code></pre>
     It's quite simple to extend the EntitySystem with your own logic, an example can be found <a href="https://github.com/thelinuxlich/artemis_CSharp/blob/master/Artemis_XNA_INDEPENDENT/System/EntityComponentProcessingSystem.cs">here</a>, which gives us less setup on systems which only uses Aspect.All(), example:
     <pre>
       <code>[Artemis.Attributes.ArtemisEntitySystem(ExecutionType = ExecutionType.Synchronous,GameLoopType = GameLoopType.Update, Layer = 1)]
-public class MovementSystem : EntityProcessingSystem&lt;Transform,Velocity&gt; {
+public class MovementSystem : EntityComponentProcessingSystem&lt;Transform,Velocity&gt; {
     public override void Process(Entity e,Transform transform, Velocity velocity) {
         float v = velocity.Speed;
         float r = velocity.AngleAsRadians;
