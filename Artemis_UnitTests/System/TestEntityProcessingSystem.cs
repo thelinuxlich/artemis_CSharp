@@ -43,7 +43,7 @@ namespace UnitTests.System
     #endregion Using statements
 
     /// <summary>The test entity processing system class.</summary>
-    public class TestEntityProcessingSystem : EntityProcessingSystem
+    public class TestEntityProcessingSystem : ProcessingSystem
     {
         /// <summary>Initializes a new instance of the <see cref="TestEntityProcessingSystem" /> class.</summary>
         public TestEntityProcessingSystem()
@@ -55,8 +55,7 @@ namespace UnitTests.System
         /// <value>The counter.</value>
         public int Counter { get; set; }
 
-        /// <summary>Processes the System
-        /// Users should extend this method</summary>
+        /// <summary>Processes the System. Users must extend this method. Called once per frame.</summary>
         public override void ProcessSystem()
         {
             ++this.Counter;

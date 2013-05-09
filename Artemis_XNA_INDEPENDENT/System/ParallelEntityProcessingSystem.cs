@@ -106,7 +106,6 @@ namespace Artemis.System
 #elif METRO
                 tasks.Add(Task.Factory.StartNew(
 #else
-                
                 tasks.Add(Parallel.Start(
 #endif
                         () =>
@@ -121,9 +120,9 @@ namespace Artemis.System
 #if FULLDOTNET
             Task.WaitAll(tasks.ToArray());
 #else
-            foreach (var item in tasks)
+            foreach (Task task in tasks)
             {
-                item.Wait();
+                task.Wait();
             }
 #endif
         }

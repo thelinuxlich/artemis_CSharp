@@ -9,6 +9,7 @@
 *.suo
 *.user
 *.sln.docstates
+*.gpState
 
 # Build results
 [Dd]ebug/

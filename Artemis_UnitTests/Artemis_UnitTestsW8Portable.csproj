@@ -60,38 +60,36 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-  <Compile Include="Component\TestBaseComponent.cs" />
+    <Compile Include="Component\TestBaseComponent.cs" />
     <Compile Include="Component\TestDerivedComponent.cs" />
     <Compile Include="Component\TestHealthComponent.cs" />
     <Compile Include="Component\TestPowerComponent.cs" />
     <Compile Include="Component\TestPowerComponentPoolable.cs" />
     <Compile Include="Extra\DummyPlaceHolder.cs" />
-    <Compile Include="System\TestEntityComponentSystem1.cs" />
-    <Compile Include="System\TestEntityComponentSystem2.cs" />
-    <Compile Include="System\TestProcessingSystem.cs" />
-    <Compile Include="System\TestEntityComponentProcessingSystem1.cs" />
-    <Compile Include="System\TestEntityComponentProcessingSystem2.cs" />
-    <Compile Include="System\TestEntityProcessingSystem.cs" />
-    <Compile Include="System\TestQueueSystemCopy2.cs" />
-    <Compile Include="System\TestNormalEntityProcessingSystem2.cs" />
-    <Compile Include="System\TestNormalEntityProcessingSystem3.cs" />
-    <Compile Include="System\TestQueueSystemCopy.cs" />
-    <Compile Include="TestEntityFactory.cs" />
-    <Compile Include="TestGeneral.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="System\TestCommunicationSystem.cs" />
+    <Compile Include="System\TestEntityComponentProcessingSystem1.cs" />
+    <Compile Include="System\TestEntityComponentProcessingSystem2.cs" />
+    <Compile Include="System\TestEntityProcessingSystem.cs" />
     <Compile Include="System\TestEntityProcessingSystem1.cs" />
     <Compile Include="System\TestEntityProcessingSystem2.cs" />
     <Compile Include="System\TestEntityProcessingSystem3.cs" />
+    <Compile Include="System\TestNormalEntityProcessingSystem1.cs" />
+    <Compile Include="System\TestNormalEntityProcessingSystem2.cs" />
+    <Compile Include="System\TestNormalEntityProcessingSystem3.cs" />
+    <Compile Include="System\TestProcessingSystem.cs" />
     <Compile Include="System\TestQueueHybridSystem.cs" />
     <Compile Include="System\TestQueueSystem.cs" />
-    <Compile Include="System\TestRenderHealthBarSingleSystem.cs" />
-    <Compile Include="System\TestNormalEntityProcessingSystem1.cs" />
+    <Compile Include="System\TestQueueSystemCopy.cs" />
+    <Compile Include="System\TestQueueSystemCopy2.cs" />
     <Compile Include="System\TestRenderHealthBarMultiSystem.cs" />
     <Compile Include="System\TestRenderHealthBarSingleHeavySystem.cs" />
+    <Compile Include="System\TestRenderHealthBarSingleSystem.cs" />
     <Compile Include="Template\TestEntityTemplate.cs" />
     <Compile Include="TestBag.cs" />
+    <Compile Include="TestEntityFactory.cs" />
+    <Compile Include="TestGeneral.cs" />
     <Compile Include="TestTimeWaster.cs" />
   </ItemGroup>
   <ItemGroup>
