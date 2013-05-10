@@ -3,4 +3,3 @@ language: c
 install:
   - sudo apt-get install mono-devel mono-gmcs nunit-consolescript:
   - xbuild Artemis_Mono/Artemis_Mono.csproj
-# - nunit-console ./src/FluentMigrator.Tests/bin/Debug/FluentMigrator.Tes
