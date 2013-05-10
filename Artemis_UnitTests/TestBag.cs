@@ -328,7 +328,13 @@ namespace UnitTests
 
             // Identify max mem size.
             Bag<int> bigBag = new Bag<int>();
+
+#if METRO
+        int maxMem = 50;
+#else
             int maxMem = 5000;
+#endif
+            
             
             // pointless to use int.maxvalue (sometimes it works, some it does not ... depends on other process)
             for (int index = 0; index < maxMem; ++index)
@@ -346,7 +352,7 @@ namespace UnitTests
             }
             
             bigBag = null;
-
+#if !MONO
             // This is need to secure that enough memory is left.
             GC.Collect();
             GC.WaitForPendingFinalizers();
@@ -354,6 +360,7 @@ namespace UnitTests
             GC.WaitForFullGCComplete();
 #endif
             GC.Collect();
+#endif
 
             Debug.WriteLine(maxMem.ToString(CultureInfo.InvariantCulture));
 
