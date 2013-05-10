@@ -1,5 +1,13 @@
+## Travis CI Integration
+
 language: c
 
 install:
+<<<<<<< HEAD
   - sudo apt-get install mono-devel mono-gmcs nunit-console
   - xbuild Artemis_Mono/Artemis_Mono.sln
+=======
+  - sudo apt-get install mono-devel mono-gmcs nunit-consolescript:
+  - xbuild Artemis_Mono/Artemis_Mono.csproj  
+  
+>>>>>>> Mono Solution Fixes
