@@ -51,6 +51,8 @@ namespace UnitTests
 
 #if METRO
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+#elif MONO
+    using NUnit.Framework;
 #else
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 #endif
@@ -62,7 +64,11 @@ namespace UnitTests
     #endregion Using statements
 
     /// <summary>The general test.</summary>
+#if MONO
+    [TestFixture]
+#else
     [TestClass]
+#endif
     public class TestGeneral
     {
         /// <summary>The load.</summary>
@@ -77,7 +83,11 @@ namespace UnitTests
         private static readonly Bag<IComponent> HealthBag = new Bag<IComponent>();
 
         /// <summary>Tests the attributes.</summary>
-        [TestMethod]
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
         public void TestAttributes()
         {
             Debug.WriteLine("Initialize EntityWorld: ");
@@ -127,7 +137,11 @@ namespace UnitTests
         }
 
         /// <summary>Tests the dummies.</summary>
-        [TestMethod]
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
         public void TestDummies()
         {
             Debug.WriteLine("Initialize EntityWorld: ");
@@ -183,7 +197,11 @@ namespace UnitTests
         }
 
         /// <summary>Tests unique id.</summary>
-        [TestMethod]
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
         public void TestUniqueId()
         {
             Debug.WriteLine("Initialize EntityWorld: ");
@@ -211,7 +229,11 @@ namespace UnitTests
         }
 
         /// <summary>Tests the hybrid queue system.</summary>
-        [TestMethod]
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
         public void TestHybridQueueSystem()
         {
             Debug.WriteLine("Initialize EntityWorld: ");
@@ -286,7 +308,11 @@ namespace UnitTests
         }
 
         /// <summary>Tests a simple system.</summary>
-        [TestMethod]
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
         public void TestSimpleSystem()
         {
             Debug.WriteLine("Initialize EntityWorld: ");
@@ -321,7 +347,11 @@ namespace UnitTests
         /// <summary>
         /// Tests the simple system2.
         /// </summary>
-        [TestMethod]
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
         public void TestSimpleSystem2()
         {
             Debug.WriteLine("Initialize EntityWorld: ");
@@ -348,7 +378,11 @@ namespace UnitTests
         }
 
         /// <summary>Tests the queue systems.</summary>
-        [TestMethod]
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
         public void TestQueueSystems()
         {
             Debug.WriteLine("Initialize EntityWorld: ");
@@ -431,7 +465,11 @@ namespace UnitTests
         }
 
         /// <summary>Tests the queue systems.</summary>
-        [TestMethod]
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
         public void FTestQueueSystems()
         {
             Debug.WriteLine("Initialize EntityWorld: ");
@@ -487,7 +525,11 @@ namespace UnitTests
         }
 
         /// <summary>Systems the communication test.</summary>
-        [TestMethod]
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
         public void TestSystemCommunication()
         {
             Debug.WriteLine("Initialize EntityWorld: ");
@@ -534,7 +576,11 @@ namespace UnitTests
 
 #if !PORTABLE
         /// <summary>Tests the render multi health bar system.</summary>
-        [TestMethod]
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
         public void TestRenderMultiHealthBarSystem()
         {
             Debug.WriteLine("Initialize EntityWorld: ");
@@ -587,7 +633,11 @@ namespace UnitTests
         }
 #endif
         /// <summary>Tests multiple systems.</summary>
-        [TestMethod]
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
         public void TestMultipleSystems()
         {
             Debug.WriteLine("Initialize EntityWorld: ");
@@ -646,7 +696,11 @@ namespace UnitTests
         }
 
         /// <summary>Tests the entity component system.</summary>
-        [TestMethod]
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
         public void TestEntityComponentSystem()
         {
             EntityWorld entityWorld = new EntityWorld();
@@ -657,7 +711,11 @@ namespace UnitTests
         }
 
         /// <summary> Test IComponent{T} (Deprecated!)</summary>
-        [TestMethod]
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
         public void TestDerivedComponents()
         {
             EntityWorld entityWorld = new EntityWorld();

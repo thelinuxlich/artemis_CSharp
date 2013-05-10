@@ -45,6 +45,8 @@ namespace UnitTests
     
 #if METRO    
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+#elif MONO
+    using NUnit.Framework;
 #else
     using Microsoft.VisualStudio.TestTools.UnitTesting;    
 #endif
@@ -52,7 +54,12 @@ namespace UnitTests
     #endregion Usind statemnets
 
     /// <summary>This is a test class for TestBag and is intended to contain all TestBag Unit Tests.</summary>
+#if MONO
+    [TestFixture]
+#else
     [TestClass]
+#endif
+
     public class TestBag
     {
         /// <summary>The test Capacity.</summary>
@@ -102,7 +109,11 @@ namespace UnitTests
         #endregion
 
         /// <summary>Tests the bag constructor.</summary>
-        [TestMethod]
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
         public void TestBagConstructor()
         {
             Bag<string> target = new Bag<string>(Capacity);
@@ -110,7 +121,11 @@ namespace UnitTests
         }
 
         /// <summary>Tests the add.</summary>
-        [TestMethod]
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
         public void TestAdd()
         {
             // ReSharper disable UseObjectOrCollectionInitializer
@@ -124,7 +139,11 @@ namespace UnitTests
         }
 
         /// <summary>Tests the add range.</summary>
-        [TestMethod]
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
         public void TestAddRange()
         {
             Bag<string> target = new Bag<string>(Capacity);
@@ -134,7 +153,11 @@ namespace UnitTests
         }
 
         /// <summary>Tests the clear.</summary>
-        [TestMethod]
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
         public void TestClear()
         {
             Bag<string> target = new Bag<string>(Capacity) { TestElement1, TestElement2, TestElement3 };
@@ -143,7 +166,11 @@ namespace UnitTests
         }
 
         /// <summary>Tests the contains.</summary>
-        [TestMethod]
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
         public void TestContains()
         {
             Bag<string> target = new Bag<string>(Capacity) { TestElement1, TestElement2, TestElement3 };
@@ -154,7 +181,11 @@ namespace UnitTests
         }
 
         /// <summary>Tests the get.</summary>
-        [TestMethod]
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
         public void TestGet()
         {
             Bag<string> target = new Bag<string>(Capacity) { TestElement1, TestElement2, TestElement3 };
@@ -165,8 +196,12 @@ namespace UnitTests
         }
 
         /// <summary>Tests the grow.</summary>
-        [TestMethod]
-#if !METRO
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
+#if !METRO && !MONO
         [DeploymentItem("artemis.dll")]
 #endif
         public void TestGrow()
@@ -181,7 +216,11 @@ namespace UnitTests
         }
 
         /// <summary>Tests the remove.</summary>
-        [TestMethod]
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
         public void TestRemove()
         {
             Bag<string> target = new Bag<string>(Capacity) { TestElement1, TestElement2, TestElement3 };
@@ -192,7 +231,11 @@ namespace UnitTests
         }
 
         /// <summary>Tests the remove all.</summary>
-        [TestMethod]
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
         public void TestRemoveAll()
         {
             Bag<string> target = new Bag<string>(Capacity) { TestElement1, TestElement2, TestElement3 };
@@ -203,7 +246,11 @@ namespace UnitTests
         }
 
         /// <summary>Tests the remove last.</summary>
-        [TestMethod]
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
         public void TestRemoveLast()
         {
             Bag<string> target = new Bag<string>(Capacity) { TestElement1, TestElement2, TestElement3 };
@@ -213,7 +260,11 @@ namespace UnitTests
         }
 
         /// <summary>Tests the set.</summary>
-        [TestMethod]
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
         public void TestSet()
         {
             Bag<string> target = new Bag<string>(Capacity) { TestElement1, TestElement2, TestElement3 };
@@ -226,7 +277,11 @@ namespace UnitTests
         }
 
         /// <summary>Tests the capacity.</summary>
-        [TestMethod]
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
         public void TestCapacity()
         {
             Bag<string> target = new Bag<string>(Capacity);
@@ -235,7 +290,11 @@ namespace UnitTests
         }
 
         /// <summary>Tests the is empty.</summary>
-        [TestMethod]
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
         public void TestIsEmpty()
         {
             Bag<string> target = new Bag<string>(Capacity);
@@ -243,7 +302,11 @@ namespace UnitTests
         }
 
         /// <summary>Tests the item.</summary>
-        [TestMethod]
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
         public void TestItem()
         {
             Bag<string> target = new Bag<string>(Capacity) { TestElement1, TestElement2, TestElement3 };
@@ -254,7 +317,11 @@ namespace UnitTests
         }
 
         /// <summary>Tests the performance.</summary>
-        [TestMethod]
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
         public void TestPerformance()
         {
             Debug.WriteLine("Number of elements: ");

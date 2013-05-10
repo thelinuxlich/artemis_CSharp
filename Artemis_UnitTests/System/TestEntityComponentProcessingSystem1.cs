@@ -37,6 +37,8 @@ namespace UnitTests.System
     using Artemis.System;
 #if METRO
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+#elif MONO
+    using Assert = NUnit.Framework.Assert;
 #else
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 #endif
@@ -53,7 +55,6 @@ namespace UnitTests.System
         public override void Process(Entity entity, TestHealthComponent health)
         {
             Assert.IsTrue(this.Aspect.Interests(entity));
-
             Assert.IsNotNull(health);
             Assert.AreEqual(health, entity.GetComponent<TestHealthComponent>());
         }
