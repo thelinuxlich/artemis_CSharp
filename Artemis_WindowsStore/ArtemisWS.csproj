@@ -21,7 +21,7 @@
     <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <DefineConstants>DEBUG;NETFX_CORE</DefineConstants>
+    <DefineConstants>DEBUG;METRO</DefineConstants>
     <DocumentationFile>bin\Debug\PC\W8\artemis.xml</DocumentationFile>
     <ErrorReport>prompt</ErrorReport>
     <Optimize>false</Optimize>
@@ -32,7 +32,7 @@
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
     <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
     <DebugType>pdbonly</DebugType>
-    <DefineConstants>NETFX_CORE;METRO</DefineConstants>
+    <DefineConstants>METRO</DefineConstants>
     <DocumentationFile>bin\Release\PC\W8\artemis.xml</DocumentationFile>
     <ErrorReport>prompt</ErrorReport>
     <Optimize>true</Optimize>
