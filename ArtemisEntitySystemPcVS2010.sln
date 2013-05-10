@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artemis", "Artemis_XNA_INDEPENDENT\Artemis.csproj", "{22C89AF2-E1CF-4976-91B9-7D33773DC6E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artemis_UnitTests", "Artemis_UnitTests\Artemis_UnitTests.csproj", "{7E590B36-02CD-415A-B920-69E6D96300C8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Release|Mixed Platforms = Release|Mixed Platforms
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{22C89AF2-E1CF-4976-91B9-7D33773DC6E7}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{22C89AF2-E1CF-4976-91B9-7D33773DC6E7}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{22C89AF2-E1CF-4976-91B9-7D33773DC6E7}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{22C89AF2-E1CF-4976-91B9-7D33773DC6E7}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{7E590B36-02CD-415A-B920-69E6D96300C8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{7E590B36-02CD-415A-B920-69E6D96300C8}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{7E590B36-02CD-415A-B920-69E6D96300C8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{7E590B36-02CD-415A-B920-69E6D96300C8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

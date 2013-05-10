@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 13.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtemisWS", "Artemis_WindowsStore\ArtemisWS.csproj", "{462418AB-8B59-42C2-ADE4-956F94B31768}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artemis_W8Portable", "Artemis_W8Portable\Artemis_W8Portable.csproj", "{4B7CB7D1-DFE2-4FCD-BAA0-F743B7ACCEF4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artemis_UnitTestsW8Portable", "Artemis_UnitTests\Artemis_UnitTestsW8Portable.csproj", "{7E590B36-02CD-415A-B920-69E6D96300C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artemis_UnitTestsWS", "Artemis_UnitTests\Artemis_UnitTestsWS.csproj", "{62F4F38B-B899-43CF-BC92-1505D80F8B19}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Release|Mixed Platforms = Release|Mixed Platforms
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{462418AB-8B59-42C2-ADE4-956F94B31768}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{462418AB-8B59-42C2-ADE4-956F94B31768}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{462418AB-8B59-42C2-ADE4-956F94B31768}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{462418AB-8B59-42C2-ADE4-956F94B31768}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{4B7CB7D1-DFE2-4FCD-BAA0-F743B7ACCEF4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{4B7CB7D1-DFE2-4FCD-BAA0-F743B7ACCEF4}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{4B7CB7D1-DFE2-4FCD-BAA0-F743B7ACCEF4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{4B7CB7D1-DFE2-4FCD-BAA0-F743B7ACCEF4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{7E590B36-02CD-415A-B920-69E6D96300C8}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{7E590B36-02CD-415A-B920-69E6D96300C8}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{7E590B36-02CD-415A-B920-69E6D96300C8}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{7E590B36-02CD-415A-B920-69E6D96300C8}.Release|Mixed Platforms.Build.0 = Release|x86
+		{62F4F38B-B899-43CF-BC92-1505D80F8B19}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{62F4F38B-B899-43CF-BC92-1505D80F8B19}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{62F4F38B-B899-43CF-BC92-1505D80F8B19}.Debug|Mixed Platforms.Deploy.0 = Debug|Any CPU
+		{62F4F38B-B899-43CF-BC92-1505D80F8B19}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{62F4F38B-B899-43CF-BC92-1505D80F8B19}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{62F4F38B-B899-43CF-BC92-1505D80F8B19}.Release|Mixed Platforms.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Artemis_XNA_INDEPENDENT\Artemis.csproj
+	EndGlobalSection
+EndGlobal

@@ -138,8 +138,8 @@ namespace Artemis.Attributes
 
                     foreach (Type type in types)
                     {
-#if METRO      
-                        object[] attributes = type.GetTypeInfo().GetCustomAttributes(false);
+#if METRO
+                        IEnumerable<Attribute> attributes = type.GetTypeInfo().GetCustomAttributes(false);
 #else
                         object[] attributes = type.GetCustomAttributes(false);
 #endif

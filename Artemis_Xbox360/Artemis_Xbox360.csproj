@@ -22,7 +22,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\Xbox360\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;XBOX;XBOX360</DefineConstants>
+    <DefineConstants>DEBUG;XBOX;XBOX360</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
@@ -35,7 +35,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\Xbox360\</OutputPath>
-    <DefineConstants>TRACE;XBOX;XBOX360</DefineConstants>
+    <DefineConstants>XBOX;XBOX360</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
@@ -43,6 +43,7 @@
     <XnaCompressContent>true</XnaCompressContent>
     <LangVersion>default</LangVersion>
     <DocumentationFile>bin\Release\Xbox360\ArtemisXbox360.xml</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
