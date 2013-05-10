@@ -33,9 +33,9 @@ Visual Studio 2010 (Windows 7 and older):
 * Use ArtemisEntitySystemPcVS2010 to develop on Entity System and Unit-tests only.
 * Requirements:
   * Windows 7 (Up to date inclusive newest SP)
-  * Visual Studio 2010 SP1 (Express not supported)
+  * Visual Studio 2010 SP1
   * .net framework 4.0 (client)
-  * XNA GameStudio 4.+
+  * XNA GameStudio 4.+ (for xbox and windows phone 7 only)
 
 Visual Studio 2012 (Windows 8 and higher):
 * Use ArtemisEntitySystemPcStorePortableVS2012 to check compatibility with and build 
@@ -47,3 +47,11 @@ Visual Studio 2012 (Windows 8 and higher):
   * Visual Studio 2012 (Express not supported)
   * .net framework 4.5 (client)
   * Windows 8 SDK
+
+Supported Platforms:
+* Pc - .Net framework 4 and higher
+* Windows Store Apps (Metro)
+* Silverlight 3 and higher (Portable Solution)
+* Windows Phone 7 / 8
+* Xbox
+* Mono (Linux/Android/OSx)
