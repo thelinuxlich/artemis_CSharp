@@ -34,10 +34,11 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <DefineConstants>TRACE;WINDOWS_PHONE</DefineConstants>
+    <DefineConstants>WINDOWS_PHONE</DefineConstants>
     <XnaCompressContent>false</XnaCompressContent>
     <LangVersion>default</LangVersion>
     <DocumentationFile>bin\Release\Phone7\ArtemisPhone7.xml</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Windows Phone' ">
     <OutputPath>bin\Debug\Phone7\</OutputPath>
@@ -48,7 +49,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <DefineConstants>DEBUG;TRACE;WINDOWS_PHONE</DefineConstants>
+    <DefineConstants>DEBUG;WINDOWS_PHONE</DefineConstants>
     <XnaCompressContent>false</XnaCompressContent>
     <LangVersion>default</LangVersion>
     <DocumentationFile>bin\Debug\Phone7\ArtemisPhone7.xml</DocumentationFile>
