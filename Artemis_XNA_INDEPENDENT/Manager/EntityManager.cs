@@ -209,7 +209,7 @@ namespace Artemis.Manager
         /// <summary>Gets the entity by unique ID. Note: that UniqueId is different from Id.</summary>
         /// <param name="entityUniqueId">The entity unique id.</param>
         /// <returns>The Entity.</returns>
-        public Entity GetEntityByUniqueId(int entityUniqueId)
+        public Entity GetEntityByUniqueId(long entityUniqueId)
         {
             Debug.Assert(entityUniqueId != -1, "Id must != -1");
             Entity entity;
