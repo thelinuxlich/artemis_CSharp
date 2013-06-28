@@ -187,7 +187,7 @@ namespace Artemis.Manager
             for (int index = 0; index < this.ActiveEntities.Count; ++index)
             {
                 Entity entity = this.ActiveEntities.Get(index);
-                if (aspect.Interests(entity))
+                if (entity != null && aspect.Interests(entity))
                 {
                     entitiesBag.Add(entity);
                 }
