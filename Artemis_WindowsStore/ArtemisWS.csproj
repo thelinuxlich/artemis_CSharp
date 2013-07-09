@@ -33,10 +33,10 @@
     <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
     <DebugType>pdbonly</DebugType>
     <DefineConstants>METRO</DefineConstants>
-    <DocumentationFile>bin\Release\PC\W8\artemis.xml</DocumentationFile>
+    <DocumentationFile>..\bin\Release\PC\W8\artemis.xml</DocumentationFile>
     <ErrorReport>prompt</ErrorReport>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\PC\W8\</OutputPath>
+    <OutputPath>..\bin\Release\PC\W8\</OutputPath>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>

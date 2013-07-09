@@ -28,10 +28,10 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <DefineConstants>PORTABLE</DefineConstants>
-    <DocumentationFile>bin\Release\W8Portable\artemis.xml</DocumentationFile>
+    <DocumentationFile>..\bin\Release\W8Portable\artemis.xml</DocumentationFile>
     <ErrorReport>prompt</ErrorReport>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\W8Portable\</OutputPath>
+    <OutputPath>..\bin\Release\W8Portable\</OutputPath>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
