@@ -51,6 +51,7 @@ namespace UnitTests
         {
             Debug.WriteLine("General test begin...");
             TestGeneral testGeneral = new TestGeneral();
+            testGeneral.TestIntervalEntitySystem();
             testGeneral.TestAttributes();
             testGeneral.TestDummies();
             testGeneral.TestHybridQueueSystem();

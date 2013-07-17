@@ -71,6 +71,7 @@
     <Compile Include="System\TestCommunicationSystem.cs" />
     <Compile Include="System\TestEntityComponentProcessingSystem1.cs" />
     <Compile Include="System\TestEntityComponentProcessingSystem2.cs" />
+	<Compile Include="System\TestIntervalEntitySystem.cs" />
     <Compile Include="System\TestEntityProcessingSystem.cs" />
     <Compile Include="System\TestEntityProcessingSystem1.cs" />
     <Compile Include="System\TestEntityProcessingSystem2.cs" />

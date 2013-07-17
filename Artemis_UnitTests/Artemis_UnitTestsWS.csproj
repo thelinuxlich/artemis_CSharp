@@ -128,6 +128,7 @@
     <Compile Include="System\TestNormalEntityProcessingSystem1.cs" />
     <Compile Include="System\TestNormalEntityProcessingSystem2.cs" />
     <Compile Include="System\TestNormalEntityProcessingSystem3.cs" />
+	<Compile Include="System\TestIntervalEntitySystem.cs" />
     <Compile Include="System\TestProcessingSystem.cs" />
     <Compile Include="System\TestQueueHybridSystem.cs" />
     <Compile Include="System\TestQueueSystem.cs" />

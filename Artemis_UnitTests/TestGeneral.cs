@@ -574,6 +574,60 @@ namespace UnitTests
             EntitySystem.BlackBoard.RemoveEntry("Damage");
         }
 
+
+     /// <summary>Tests the render multi health bar system.</summary>
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
+        public void TestIntervalEntitySystem()
+        {
+            Debug.WriteLine("Initialize EntityWorld: ");
+            EntityWorld entityWorld = new EntityWorld();
+            entityWorld.EntityManager.RemovedComponentEvent += RemovedComponent;
+            entityWorld.EntityManager.RemovedEntityEvent += RemovedEntity;
+            entityWorld.SystemManager.SetSystem(new TestIntervalEntitySystem(), GameLoopType.Update);
+            entityWorld.InitializeAll();
+            Debug.WriteLine("OK");
+
+            Debug.WriteLine("Fill EntityWorld with " + Load + " entities: ");
+            List<Entity> entities = new List<Entity>();
+            for (int index = Load - 1; index >= 0; --index)
+            {
+                Entity entity = TestEntityFactory.CreateTestHealthEntity(entityWorld);
+                entities.Add(entity);
+            }
+
+            Debug.WriteLine("OK");
+
+            const int Passes = 9;
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            for (int index = 0; index < Passes; ++index)
+            {
+                entityWorld.Update();
+                entityWorld.Draw();
+                
+            }
+
+            stopwatch.Stop();
+            Debug.WriteLine("Update (" + Passes + " passes) duration: {0}", FastDateTime.ToString(stopwatch.Elapsed));
+
+            int expectedPoints = 100 - (Passes * 10);
+            if (expectedPoints < 0)
+            {
+                expectedPoints = 0;
+            }
+
+            int df = entities.Count(item => Math.Abs((int)(item.GetComponent<TestHealthComponent>().Points - expectedPoints)) < float.Epsilon);
+
+            Assert.AreEqual(Load, df);
+           Debug.WriteLine("Found {0} entities with health of {1}.", df, expectedPoints);
+
+        }
+
+
+
 #if !PORTABLE
         /// <summary>Tests the render multi health bar system.</summary>
 #if MONO
