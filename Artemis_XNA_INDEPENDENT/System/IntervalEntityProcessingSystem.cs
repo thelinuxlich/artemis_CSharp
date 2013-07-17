@@ -71,9 +71,9 @@ namespace Artemis.System
         /// <param name="entities">The entities.</param>
         protected override void ProcessEntities(IDictionary<int, Entity> entities)
         {
-            for (int index = 0, s = entities.Count; s > index; ++index)
+            foreach (Entity entity in entities.Values)
             {
-                this.Process(entities[index]);
+                this.Process(entity);
             }
         }
     }
