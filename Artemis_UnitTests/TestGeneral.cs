@@ -134,6 +134,18 @@ namespace UnitTests
 
             Assert.IsTrue(entityWithPooledComponent.HasComponent<TestPowerComponentPoolable>(), "Could not add component to entity.");
             Debug.WriteLine("OK");
+
+            // TestNormalEntityProcessingSystem2 and TestNormalEntityProcessingSystem3 are autoloaded (marked with ArtemisEntitySystem attribute)
+            List<TestNormalEntityProcessingSystem2> listOfTestNormalEntityProcessingSystem2 = entityWorld.SystemManager.GetSystem<TestNormalEntityProcessingSystem2>();
+            Assert.IsNotNull(listOfTestNormalEntityProcessingSystem2, "Failed to retrieve autoloaded TestNormalEntityProcessingSystem2 system.");
+            Assert.AreEqual(1, listOfTestNormalEntityProcessingSystem2.Count, "Invalid count of TestNormalEntityProcessingSystem2 systems");
+            Debug.WriteLine("OK");
+
+            List<TestNormalEntityProcessingSystem3> listOfTestNormalEntityProcessingSystem3 = entityWorld.SystemManager.GetSystem<TestNormalEntityProcessingSystem3>();
+            Assert.IsNotNull(listOfTestNormalEntityProcessingSystem3, "Failed to retrieve autoloaded TestNormalEntityProcessingSystem3 system.");
+            Assert.AreEqual(1, listOfTestNormalEntityProcessingSystem3.Count, "Invalid count of TestNormalEntityProcessingSystem3 systems");
+            Debug.WriteLine("OK");
+
         }
 
         /// <summary>Tests the dummies.</summary>

@@ -113,7 +113,7 @@ namespace Artemis.Manager
         /// <returns>The set system.</returns>
         public T SetSystem<T>(T system, GameLoopType gameLoopType, int layer = 0, ExecutionType executionType = ExecutionType.Synchronous) where T : EntitySystem
         {
-            return (T)this.SetSystem(typeof(T), system, gameLoopType, layer, executionType);
+            return (T)this.SetSystem(system.GetType(), system, gameLoopType, layer, executionType);
         }
 
         /// <summary>Gets the system.</summary>
