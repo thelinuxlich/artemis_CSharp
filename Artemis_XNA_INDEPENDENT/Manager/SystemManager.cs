@@ -116,16 +116,38 @@ namespace Artemis.Manager
             return (T)this.SetSystem(system.GetType(), system, gameLoopType, layer, executionType);
         }
 
-        /// <summary>Gets the system.</summary>
-        /// <typeparam name="T">The <see langword="Type"/> T.</typeparam>
-        /// <returns>The List{EntitySystem} of systems.</returns>
-        public List<T> GetSystem<T>() where T : EntitySystem
+        /// <summary>
+        /// Gets the systems.
+        /// </summary>
+        /// <typeparam name="T">The EntitySystem</typeparam>
+        /// <returns>A List of System Instances</returns>
+        public List<T> GetSystems<T>() where T : EntitySystem
         {
             IList system;
 
             this.systems.TryGetValue(typeof(T), out system);
 
             return (List<T>)system;
+        }
+
+        /// <summary>
+        /// Gets the system.
+        /// </summary>
+        /// <typeparam name="T">The EntitySystem</typeparam>
+        /// <returns>The system instance</returns>
+        /// <exception cref="InvalidOperationException">There are more or none systems of the type passed</exception>
+        public T GetSystem<T>() where T : EntitySystem
+        {
+            IList systems;
+
+            this.systems.TryGetValue(typeof(T), out systems);
+
+            if (systems != null && systems.Count > 1)
+            {
+                throw new InvalidOperationException(string.Format("System list contains more than one element of type {0}", typeof(T)));
+            }
+
+            return (T)systems[0];
         }
 
         /// <summary>Initializes all.</summary>
