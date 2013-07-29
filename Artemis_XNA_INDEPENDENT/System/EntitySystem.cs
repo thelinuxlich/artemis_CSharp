@@ -71,7 +71,7 @@ namespace Artemis.System
         protected EntitySystem()
         {
             this.SystemBit = 0;
-            this.Aspect = null;
+            this.Aspect = Aspect.Empty();
             this.IsEnabled = true;
             this.Types = null;
         }
