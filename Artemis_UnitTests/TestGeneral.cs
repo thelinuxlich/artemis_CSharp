@@ -2,7 +2,7 @@
 
 // --------------------------------------------------------------------------------------------------------------------
 // <copyright file="TestGeneral.cs" company="GAMADU.COM">
-//     Copyright © 2013 GAMADU.COM. All rights reserved.
+//     Copyright ï¿½ 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
 //     permitted provided that the following conditions are met:
@@ -801,6 +801,48 @@ namespace UnitTests
             Assert.IsNull(derivedMapper.Get(entity));
             Assert.IsNotNull(baseMapper.Get(entity));
             Assert.AreEqual(baseMapper.Get(entity), entity.GetComponent<TestBaseComponent>());
+        }
+        
+        /// <summary>Tests removing components</summary>
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
+        public void TestRemoveComponent()
+        {
+            EntityWorld entityWorld = new EntityWorld();
+
+            Entity entity = entityWorld.CreateEntity();
+
+            // Remove absent component from a world with no components
+            entity.RemoveComponent<TestHealthComponent>();
+            Debug.WriteLine("OK");
+
+            entity.AddComponent(new TestHealthComponent());
+            entity.RemoveComponent<TestHealthComponent>();
+            Debug.WriteLine("OK");
+
+            // Remove absent component
+            entity.RemoveComponent<TestHealthComponent>();
+            Debug.WriteLine("OK");
+
+            int defaultComponentsBagCapacity = 16;
+
+            for (int i = 0; i < defaultComponentsBagCapacity - 1; i++)
+            {
+                entity = entityWorld.CreateEntity();
+                entity.RemoveComponent<TestHealthComponent>();
+            }
+
+            Debug.WriteLine("OK");
+
+            entity = entityWorld.CreateEntity();
+            Assert.AreEqual(defaultComponentsBagCapacity, entity.Id, "Entity id has unexpected value.");
+        
+            // Remove absent component now from Entity{16} (16 is the magic number = defaultComponentsBagCapacity)
+            entity.RemoveComponent<TestHealthComponent>();
+            Debug.WriteLine("OK");
         }
 
         /// <summary>The removed component.</summary>
