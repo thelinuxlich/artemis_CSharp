@@ -2,7 +2,7 @@
 
 // --------------------------------------------------------------------------------------------------------------------
 // <copyright file="EntityManager.cs" company="GAMADU.COM">
-//     Copyright © 2013 GAMADU.COM. All rights reserved.
+//     Copyright ï¿½ 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
 //     permitted provided that the following conditions are met:
@@ -371,19 +371,24 @@ namespace Artemis.Manager
         {
             Debug.Assert(entity != null, "Entity must not be null.");
             Debug.Assert(componentType != null, "Component type must not be null.");
-
+        
             int entityId = entity.Id;
             Bag<IComponent> components = this.componentsByType.Get(componentType.Id);
-            if (this.RemovedComponentEvent != null)
+        
+            if (components != null && entityId < components.Count)
             {
-                this.RemovedComponentEvent(entity, components.Get(entityId));
+                IComponent componentToBeRemoved = components.Get(entityId);
+                if (this.RemovedComponentEvent != null && componentToBeRemoved != null)
+                {
+                    this.RemovedComponentEvent(entity, componentToBeRemoved);
+                }
+        
+                components.Set(entityId, null);
+                entity.RemoveTypeBit(componentType.Bit);
+                this.Refresh(entity);
             }
-
-            components.Set(entityId, null);
-            entity.RemoveTypeBit(componentType.Bit);
-            this.Refresh(entity);
         }
-
+        
         /// <summary>Strips all components from the given entity.</summary>
         /// <param name="entity">Entity for which you want to remove all components</param>
         internal void RemoveComponentsOfEntity(Entity entity)
