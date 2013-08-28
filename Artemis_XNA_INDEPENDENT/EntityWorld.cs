@@ -75,7 +75,7 @@ namespace Artemis
 #if !XBOX && !WINDOWS_PHONE
         /// <summary>Initializes a new instance of the <see cref="EntityWorld" /> class.</summary>
         /// <param name="isSortedEntities">if set to <c>true</c> [is sorted entities].</param>
-        public EntityWorld(bool isSortedEntities = false)
+        public EntityWorld(bool isSortedEntities = false, bool processAttributes = true)
         {
             this.IsSortedEntities = isSortedEntities;
 #else
@@ -98,6 +98,7 @@ namespace Artemis
             this.GroupManager = new GroupManager();
             this.PoolCleanupDelay = 10;
             this.dateTime = FastDateTime.Now;
+            this.InitializeAll(processAttributes);
         }
 
         /// <summary>Gets the current state of the entity world.</summary>

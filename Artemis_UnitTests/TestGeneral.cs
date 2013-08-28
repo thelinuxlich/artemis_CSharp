@@ -93,9 +93,7 @@ namespace UnitTests
             Debug.WriteLine("Initialize EntityWorld: ");
             EntityWorld entityWorld = new EntityWorld { PoolCleanupDelay = 1 };
 #if (!FULLDOTNET && !METRO) || CLIENTPROFILE
-            entityWorld.InitializeAll(global::System.Reflection.Assembly.GetExecutingAssembly());
-#else
-            entityWorld.InitializeAll(true);            
+            entityWorld.InitializeAll(global::System.Reflection.Assembly.GetExecutingAssembly());       
 #endif
             Debug.WriteLine("OK");
 
