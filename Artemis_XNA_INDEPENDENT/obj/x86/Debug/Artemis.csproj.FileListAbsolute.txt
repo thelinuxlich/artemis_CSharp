@@ -1,8 +1,0 @@
-D:\opensource\artemis_CSharp\Artemis_XNA_INDEPENDENT\obj\x86\Debug\Artemis.csprojResolveAssemblyReference.cache
-D:\opensource\artemis_CSharp\Artemis_XNA_INDEPENDENT\obj\x86\Debug\artemis.dll
-D:\opensource\artemis_CSharp\Artemis_XNA_INDEPENDENT\bin\Debug\PC\artemis.xml
-D:\opensource\artemis_CSharp\Artemis_XNA_INDEPENDENT\bin\Debug\PC\artemis.dll
-D:\opensource\artemis_CSharp\Artemis_XNA_INDEPENDENT\bin\Debug\PC\artemis.pdb
-D:\opensource\artemis_CSharp\Artemis_XNA_INDEPENDENT\bin\Debug\PC\ParallelTasks.dll
-D:\opensource\artemis_CSharp\Artemis_XNA_INDEPENDENT\bin\Debug\PC\ParallelTasks.xml
-D:\opensource\artemis_CSharp\Artemis_XNA_INDEPENDENT\obj\x86\Debug\artemis.pdb

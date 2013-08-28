@@ -158,9 +158,8 @@ public class MovementSystem : EntityProcessingSystem {
         transform.SetLocation(xn, yn);
     }
 }</code></pre>
-        On your game initialization, create a new EntityWorld and initialize it:
-        <pre><code>var world = new EntityWorld();
-world.InitializeAll(true); // pass true/false to enable/disable DataAttributes on Systems</code></pre>
+        On your game initialization, create a new EntityWorld:
+        <pre><code>var world = new EntityWorld();</code></pre>
         Update or Draw the World:
         <pre><code>world.Update();
 world.Draw(); // do this on a different loop, e.g: every 60 frames.</code></pre>
