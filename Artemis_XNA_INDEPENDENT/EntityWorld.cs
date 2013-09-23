@@ -257,8 +257,12 @@ namespace Artemis
         /// <param name="assembliesToScan">The assemblies to scan for data attributes.</param>
         public void InitializeAll(params Assembly[] assembliesToScan)
         {
-            bool processAttributes = assembliesToScan != null && assembliesToScan.Length > 0;
-            this.SystemManager.InitializeAll(processAttributes, assembliesToScan);
+            if(!this.isInitialized)
+            {
+                bool processAttributes = assembliesToScan != null && assembliesToScan.Length > 0;
+                this.SystemManager.InitializeAll(processAttributes, assembliesToScan);
+                this.isInitialized = true;
+            }
         }
 
         /// <summary>Initialize the EntityWorld.
