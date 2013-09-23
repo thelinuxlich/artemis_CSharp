@@ -91,7 +91,7 @@ namespace UnitTests
         public void TestAttributes()
         {
             Debug.WriteLine("Initialize EntityWorld: ");
-            EntityWorld entityWorld = new EntityWorld { PoolCleanupDelay = 1 };
+            EntityWorld entityWorld = new EntityWorld(false,true,true) { PoolCleanupDelay = 1 };
 #if (!FULLDOTNET && !METRO) || CLIENTPROFILE
             entityWorld.InitializeAll(global::System.Reflection.Assembly.GetExecutingAssembly());       
 #endif

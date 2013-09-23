@@ -143,7 +143,15 @@ namespace Artemis
 
             set
             {
-                this.entityWorld.TagManager.Register(value, this);
+                var oldTag = this.entityWorld.TagManager.GetTagOfEntity(this);
+                if (value != oldTag)
+                {
+                    if(oldTag != null)
+                        this.entityWorld.TagManager.Unregister(this);
+
+                    if(value != null)
+                        this.entityWorld.TagManager.Register(value, this);
+                }
             }
         }
 
