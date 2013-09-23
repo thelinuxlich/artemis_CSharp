@@ -81,7 +81,7 @@ namespace Artemis.Manager
         {
             Debug.Assert(entity != null, "Entity must not be null.");
 
-            string tag = string.Empty;
+            string tag = null;
             foreach (KeyValuePair<string, Entity> pair in this.entityByTag.Where(pair => pair.Value.Equals(entity)))
             {
                 tag = pair.Key;
