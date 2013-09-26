@@ -72,10 +72,19 @@ namespace Artemis
         /// <summary>The pool cleanup delay counter.</summary>
         private int poolCleanupDelayCounter;
 
+        /// <summary>
+        /// If this instance is initialized
+        /// </summary>
+        private bool isInitialized = false;
+
 #if !XBOX && !WINDOWS_PHONE
-        /// <summary>Initializes a new instance of the <see cref="EntityWorld" /> class.</summary>
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EntityWorld" /> class.
+        /// </summary>
         /// <param name="isSortedEntities">if set to <c>true</c> [is sorted entities].</param>
-        public EntityWorld(bool isSortedEntities = false)
+        /// <param name="processAttributes">if set to <c>true</c> [process attributes].</param>
+        /// <param name="initializeAll">if set to <c>true</c> [initialize all]. If you pass true here, there will be no need to call EntityWorld.InitializeAll() method</param>
+        public EntityWorld(bool isSortedEntities = false, bool processAttributes = true, bool initializeAll = false)
         {
             this.IsSortedEntities = isSortedEntities;
 #else
@@ -98,6 +107,8 @@ namespace Artemis
             this.GroupManager = new GroupManager();
             this.PoolCleanupDelay = 10;
             this.dateTime = FastDateTime.Now;
+            if(initializeAll)
+                this.InitializeAll(processAttributes);
         }
 
         /// <summary>Gets the current state of the entity world.</summary>
@@ -246,15 +257,25 @@ namespace Artemis
         /// <param name="assembliesToScan">The assemblies to scan for data attributes.</param>
         public void InitializeAll(params Assembly[] assembliesToScan)
         {
-            bool processAttributes = assembliesToScan != null && assembliesToScan.Length > 0;
-            this.SystemManager.InitializeAll(processAttributes, assembliesToScan);
+            if(!this.isInitialized)
+            {
+                bool processAttributes = assembliesToScan != null && assembliesToScan.Length > 0;
+                this.SystemManager.InitializeAll(processAttributes, assembliesToScan);
+                this.isInitialized = true;
+            }
         }
 
-        /// <summary>Initialize the EntityWorld.</summary>
+        /// <summary>Initialize the EntityWorld.
+        /// Call this if you dont pass true in the parameter called InitializedALL in entity world constructor
+        /// </summary>
         /// <param name="processAttributes">if set to <see langword="true" /> [process attributes].</param>
         public void InitializeAll(bool processAttributes = false)
         {
-            this.SystemManager.InitializeAll(processAttributes);
+            if(!this.isInitialized)
+            {
+                this.SystemManager.InitializeAll(processAttributes);
+                this.isInitialized = true;
+            }
         }
 
         /// <summary>Loads the state of the entity.</summary>
