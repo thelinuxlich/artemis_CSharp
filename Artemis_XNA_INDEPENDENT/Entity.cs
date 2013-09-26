@@ -43,7 +43,7 @@ namespace Artemis
 #if !XBOX && !WINDOWS_PHONE  && !PORTABLE
     using global::System.Numerics;
 #endif
-#if XBOX || WINDOWS_PHONE || PORTABLE
+#if XBOX || WINDOWS_PHONE || PORTABLE || FORCEINT32
     using BigInteger = global::System.Int32;
 #endif
     using Artemis.Interface;

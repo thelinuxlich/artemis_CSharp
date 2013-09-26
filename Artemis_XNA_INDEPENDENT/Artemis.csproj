@@ -34,7 +34,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug\PC\</OutputPath>
-    <DefineConstants>DEBUG;FULLDOTNET</DefineConstants>
+    <DefineConstants>DEBUG;FULLDOTNET,FORCEINT32</DefineConstants>
     <DocumentationFile>bin\Debug\PC\artemis.xml</DocumentationFile>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>

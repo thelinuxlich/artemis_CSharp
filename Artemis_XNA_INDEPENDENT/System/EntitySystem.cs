@@ -41,7 +41,7 @@ namespace Artemis.System
     using global::System;
     using global::System.Collections.Generic;
     using global::System.Diagnostics;
-#if XBOX || WINDOWS_PHONE || PORTABLE
+#if XBOX || WINDOWS_PHONE || PORTABLE || FORCEINT32
     using BigInteger = global::System.Int32;
 #endif
 #if !XBOX && !WINDOWS_PHONE  && !PORTABLE
