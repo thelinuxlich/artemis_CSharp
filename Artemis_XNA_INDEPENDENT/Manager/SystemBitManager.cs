@@ -44,7 +44,7 @@ namespace Artemis.Manager
 #if !XBOX && !WINDOWS_PHONE  && !PORTABLE
     using global::System.Numerics;
 #endif
-#if XBOX || WINDOWS_PHONE || PORTABLE
+#if XBOX || WINDOWS_PHONE || PORTABLE || FORCEINT32
     using BigInteger = global::System.Int32;
 #endif
 
@@ -67,7 +67,7 @@ namespace Artemis.Manager
             BigInteger bit;
             if (SystemBits.TryGetValue(entitySystem, out bit) == false)
             {
-#if WINDOWS_PHONE || XBOX || PORTABLE
+#if WINDOWS_PHONE || XBOX || PORTABLE || FORCEINT32
                 bit = 1 << position;
 #else
                 bit = 1L << position;
