@@ -176,7 +176,7 @@ world.Draw(); // do this on a different loop, e.g: every 60 frames.</code></pre>
 			<li>Aspect.Exclude(params Type[] types) - The system will not process entities which have at least one of the components of the Aspect.</li>
 		</ul>
 		You can also compose your Aspect utilizing these methods together, example:
-		<pre><code>public LogEnemySystem() : base(Aspect.All(typeof(Health)).One(typeof(Koopa),typeof(Goomba),typeof(Magikoopa)).exclude(typeof(Ghost))) {}</code></pre>
+		<pre><code>public LogEnemySystem() : base(Aspect.All(typeof(Health)).GetOne(typeof(Koopa),typeof(Goomba),typeof(Magikoopa)).GetExclude(typeof(Ghost))) {}</code></pre>
 	</section>
   <section id="extending_systems">
     <h3>Extending Systems</h3>
