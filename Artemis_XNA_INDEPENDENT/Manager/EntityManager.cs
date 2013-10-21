@@ -383,9 +383,9 @@ namespace Artemis.Manager
                     this.RemovedComponentEvent(entity, componentToBeRemoved);
                 }
         
-                components.Set(entityId, null);
                 entity.RemoveTypeBit(componentType.Bit);
                 this.Refresh(entity);
+                components.Set(entityId, null);
             }
         }
         
