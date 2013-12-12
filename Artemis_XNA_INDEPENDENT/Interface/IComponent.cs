@@ -45,6 +45,7 @@ namespace Artemis.Interface
 
     /// <summary>Interface that can be used if the component can be sub-classed but should still be treated as the base class, 'T' when being added to a entity.</summary>
     /// <typeparam name="T">The Type T.</typeparam>
+    [global::System.Obsolete("Use entity.AddComponent(derived as BaseComponent) if you intend to use derived component as a base component", true)]
     public interface IComponent<T> : IComponent where T : IComponent
     {
     }

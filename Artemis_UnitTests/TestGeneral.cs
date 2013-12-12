@@ -786,7 +786,7 @@ namespace UnitTests
             TestDerivedComponent derived = new TestDerivedComponent();
             Entity entity = entityWorld.CreateEntity();
 
-            entity.AddComponent(derived);
+            entity.AddComponent(derived as TestBaseComponent);
             Assert.IsNull(entity.GetComponent<TestDerivedComponent>(), "Should be null because the component should be added as if it was a base component");
             Assert.IsNotNull(entity.GetComponent<TestBaseComponent>());
             Assert.IsTrue(entity.GetComponent<TestBaseComponent>().IsDerived());

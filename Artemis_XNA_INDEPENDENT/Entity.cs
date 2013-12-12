@@ -208,16 +208,6 @@ namespace Artemis
 
             this.entityManager.AddComponent<T>(this, component);
         }
-        
-        /// <summary>Adds the component.</summary>
-        /// <typeparam name="T">The <see langword="Type"/> T.</typeparam>
-        /// <param name="component">The component.</param>
-        public void AddComponent<T>(IComponent<T> component) where T : IComponent
-        {
-            Debug.Assert(component != null, "Component must not be null.");
-
-            this.entityManager.AddComponent<T>(this, component);
-        }
 
         /// <summary>Adds the component from pool.</summary>
         /// <typeparam name="T">The <see langword="Type"/> T.</typeparam>
