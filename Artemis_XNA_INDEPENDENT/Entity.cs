@@ -229,6 +229,18 @@ namespace Artemis
             return (T)component;
         }
 
+        /// <summary>Gets the component from pool, runs init delegate, then adds the components to the entity.</summary>
+        /// <typeparam name="T">The <see langword="Type"/> T.</typeparam>
+        /// <returns>The added component.</returns>
+        public void AddComponentFromPool<T>(global::System.Action<T> init) where T : ComponentPoolable
+        {
+            Debug.Assert(init != null, "Init delegate must not be null.");
+
+            T component = this.entityWorld.GetComponentFromPool<T>();
+            init(component);
+            this.entityManager.AddComponent<T>(this, component);
+        }
+
         /// <summary>Deletes this instance.</summary>
         public void Delete()
         {
