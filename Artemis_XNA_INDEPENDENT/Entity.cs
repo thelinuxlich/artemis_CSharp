@@ -214,9 +214,9 @@ namespace Artemis
         /// <returns>The added component.</returns>
         public T AddComponentFromPool<T>() where T : ComponentPoolable
         {
-            IComponent component = this.entityWorld.GetComponentFromPool(typeof(T));
-            this.entityManager.AddComponent(this, component);
-            return (T)component;
+            T component = this.entityWorld.GetComponentFromPool<T>();
+            this.entityManager.AddComponent<T>(this, component);
+            return component;
         }
 
         /// <summary>Deletes this instance.</summary>
