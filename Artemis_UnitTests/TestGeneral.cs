@@ -44,6 +44,7 @@ namespace UnitTests
     using global::System.Linq;
 
     using Artemis;
+    using Artemis.Attributes;
     using Artemis.Interface;
     using Artemis.Manager;
     using Artemis.System;
@@ -799,6 +800,83 @@ namespace UnitTests
             Assert.IsNull(derivedMapper.Get(entity));
             Assert.IsNotNull(baseMapper.Get(entity));
             Assert.AreEqual(baseMapper.Get(entity), entity.GetComponent<TestBaseComponent>());
+        }
+
+        /// <summary>Tests poolable components</summary>
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
+        public void TestPoolableComponents()
+        {
+            var entityWorld = new EntityWorld(isSortedEntities: false, processAttributes: true, initializeAll: true) { PoolCleanupDelay = 0 };
+            var pool = (ComponentPool<ComponentPoolable>)entityWorld.GetPool(typeof(TestPowerComponentPoolable));
+
+            Debug.WriteLine("ComponentPool<TestPowerComponentPoolable> is not Null:");
+            Assert.IsNotNull(pool);
+            Debug.WriteLine("OK");
+
+            var poolAttribute = (ArtemisComponentPool) typeof(TestPowerComponentPoolable).GetCustomAttributes(typeof(ArtemisComponentPool), false).Single();
+
+            Assert.AreEqual(poolAttribute.InitialSize, pool.InvalidCount, "Initially component pool should contain only invalid items");
+
+            int expectedPower = default(int);
+
+            var addedComponentEventHandler = new AddedComponentHandler((e, c) =>
+            {
+                Debug.WriteLine("TestPowerComponentPoolable added: ");
+                Assert.AreEqual(typeof (TestPowerComponentPoolable), c.GetType());
+                Debug.WriteLine("OK");
+                Debug.WriteLine("TestPowerComponentPoolable.Power == {0}:", expectedPower);
+                Assert.AreEqual(expectedPower, ((TestPowerComponentPoolable) c).Power);
+                Debug.WriteLine("OK");
+            });
+
+            entityWorld.EntityManager.AddedComponentEvent += addedComponentEventHandler;
+
+            Entity entity = entityWorld.CreateEntity();
+
+            Debug.WriteLine("Adding FRESH uninitialized TestPowerComponentPoolable from pool (expected power = {0})", default(int));
+            TestPowerComponentPoolable testPowerComponent = entity.AddComponentFromPool<TestPowerComponentPoolable>();
+
+            Assert.AreEqual(expectedPower, testPowerComponent.Power);
+            Assert.AreEqual(expectedPower, entity.GetComponent<TestPowerComponentPoolable>().Power);
+
+            entity.RemoveComponent<TestPowerComponentPoolable>();
+            Assert.IsFalse(entity.HasComponent<TestPowerComponentPoolable>());
+
+            expectedPower = 100;
+            Debug.WriteLine("Adding initialized TestPowerComponentPoolable from pool (expected power = {0})", expectedPower);
+            entity.AddComponentFromPool<TestPowerComponentPoolable>(c => c.Power = expectedPower);
+
+            Assert.AreEqual(expectedPower, entity.GetComponent<TestPowerComponentPoolable>().Power);
+
+            entity.RemoveComponent<TestPowerComponentPoolable>();
+            Assert.IsFalse(entity.HasComponent<TestPowerComponentPoolable>());
+
+            entityWorld.EntityManager.AddedComponentEvent -= addedComponentEventHandler;
+
+            Debug.WriteLine("Causing ComponentPool<TestPowerComponentPoolable> to fill up to maximum capacity...");	
+
+            while (pool.InvalidCount > 0)
+            {
+                entity.AddComponentFromPool<TestPowerComponentPoolable>(c => c.Power = expectedPower);
+                entity.RemoveComponent<TestPowerComponentPoolable>();
+            }
+
+            Debug.WriteLine("Causing ComponentPool<TestPowerComponentPoolable> cleanup...");
+            entityWorld.Update();
+            Assert.AreEqual(poolAttribute.InitialSize, pool.InvalidCount, "Cleaned up component pool should contain only invalid items");
+            Debug.WriteLine("OK");
+
+            entityWorld.EntityManager.AddedComponentEvent += addedComponentEventHandler;
+
+            Debug.WriteLine("Adding USED uninitialized TestPowerComponentPoolable from pool (expected power = {0})", expectedPower);
+            testPowerComponent = entity.AddComponentFromPool<TestPowerComponentPoolable>();
+
+            Assert.AreEqual(expectedPower, testPowerComponent.Power);
+            Assert.AreEqual(expectedPower, entity.GetComponent<TestPowerComponentPoolable>().Power);
         }
         
         /// <summary>Tests removing components</summary>
