@@ -975,9 +975,9 @@ namespace UnitTests
                 typeof(TestHealthComponent),
                 typeof(TestPowerComponent),
                 typeof(TestPowerComponentPoolable),
+                typeof(IComponent), // should be filtered out
+                typeof(ComponentPoolable), // should be filtered out
                 typeof(TestDerivedComponent), // should be filtered out
-                typeof(Array), // should be filtered out
-                typeof(List<IComponent>), // should be filtered out
             });
             Debug.WriteLine("OK");
 
