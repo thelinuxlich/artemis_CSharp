@@ -202,17 +202,7 @@ namespace Artemis
         /// <summary>Adds the component.</summary>
         /// <typeparam name="T">The <see langword="Type"/> T.</typeparam>
         /// <param name="component">The component.</param>
-        public void AddComponent<T>(IComponent component) where T : IComponent
-        {
-            Debug.Assert(component != null, "Component must not be null.");
-
-            this.entityManager.AddComponent<T>(this, component);
-        }
-        
-        /// <summary>Adds the component.</summary>
-        /// <typeparam name="T">The <see langword="Type"/> T.</typeparam>
-        /// <param name="component">The component.</param>
-        public void AddComponent<T>(IComponent<T> component) where T : IComponent
+        public void AddComponent<T>(T component) where T : IComponent
         {
             Debug.Assert(component != null, "Component must not be null.");
 
@@ -224,9 +214,9 @@ namespace Artemis
         /// <returns>The added component.</returns>
         public T AddComponentFromPool<T>() where T : ComponentPoolable
         {
-            IComponent component = this.entityWorld.GetComponentFromPool(typeof(T));
-            this.entityManager.AddComponent(this, component);
-            return (T)component;
+            T component = this.entityWorld.GetComponentFromPool<T>();
+            this.entityManager.AddComponent<T>(this, component);
+            return component;
         }
 
         /// <summary>Gets the component from pool, runs init delegate, then adds the components to the entity.</summary>

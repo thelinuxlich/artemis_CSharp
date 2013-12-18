@@ -43,7 +43,7 @@ namespace UnitTests.Component
     #endregion
 
     /// <summary>The test base component.</summary>
-    internal class TestBaseComponent : IComponent<TestBaseComponent>
+    internal class TestBaseComponent : IComponent
     {
         /// <summary>Gets or sets the value.</summary>
         /// <value>The value.</value>
