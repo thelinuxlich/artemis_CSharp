@@ -957,7 +957,7 @@ namespace UnitTests
         {
             FieldInfo field = typeof(ComponentTypeManager).GetField("ComponentTypes", BindingFlags.Static | BindingFlags.NonPublic);
             Assert.IsNotNull(field, "ComponentTypeManager.ComponentTypes field has not been found");
-            Assert.IsInstanceOfType(field.GetValue(null), typeof(Dictionary<Type, ComponentType>), "ComponentTypes container is expected to be of type Dictionary<Type, ComponentType>");
+            Assert.IsTrue(field.GetValue(null).GetType() == typeof(Dictionary<Type, ComponentType>), "ComponentTypes container is expected to be of type Dictionary<Type, ComponentType>");
 
             Debug.WriteLine("Resetting ComponentTypeManager.ComponentTypes...");
             field.SetValue(null, new Dictionary<Type, ComponentType>());
@@ -1015,7 +1015,7 @@ namespace UnitTests
         {
             FieldInfo field = typeof(ComponentTypeManager).GetField("ComponentTypes", BindingFlags.Static | BindingFlags.NonPublic);
             Assert.IsNotNull(field, "ComponentTypeManager.ComponentTypes field has not been found");
-            Assert.IsInstanceOfType(field.GetValue(null), typeof(Dictionary<Type, ComponentType>), "ComponentTypes container is expected to be of type Dictionary<Type, ComponentType>");
+            Assert.IsTrue(field.GetValue(null).GetType() == typeof(Dictionary<Type, ComponentType>), "ComponentTypes container is expected to be of type Dictionary<Type, ComponentType>");
 
             Debug.WriteLine("Resetting ComponentTypeManager.ComponentTypes...");
             field.SetValue(null, new Dictionary<Type, ComponentType>());
