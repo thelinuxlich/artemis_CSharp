@@ -41,6 +41,8 @@ namespace Artemis.Manager
     using global::System;
     using global::System.Collections.Generic;
     using global::System.Diagnostics;
+    using global::System.Linq;
+    using global::System.Reflection;
 #if !XBOX && !WINDOWS_PHONE  && !PORTABLE
     using global::System.Numerics;
 #endif
@@ -101,6 +103,61 @@ namespace Artemis.Manager
             }
 
             return result;
+        }
+
+        /// <summary><para>Scans assemblies for types implementing <see cref="IComponent"/> interface</para>
+        /// <para>and creates a corresponding Artemis <see cref="ComponentType"/> for each type found.</para>
+        /// </summary>
+        /// <param name="assembliesToScan">The assemblies to scan.</param>
+        public static void Initialize(params Assembly[] assembliesToScan)
+        {
+#if FULLDOTNET || METRO
+            if (assembliesToScan.Length == 0)
+            {
+                assembliesToScan = AppDomain.CurrentDomain.GetAssemblies();
+            }
+#endif
+
+            foreach (Assembly assembly in assembliesToScan)
+            {
+#if METRO
+                IEnumerable<Type> types = assembly.ExportedTypes;
+#else
+                IEnumerable<Type> types = assembly.GetTypes();
+#endif
+
+                Initialize(types);
+            }
+        }
+
+        /// <summary><para>Scans the types for types implementing <see cref="IComponent"/> interface</para>
+        /// <para>and creates a corresponding Artemis <see cref="ComponentType"/> for each type found.</para>
+        /// </summary>
+        /// <param name="types">Types to scan</param>
+        public static void Initialize(IEnumerable<Type> types)
+        {
+            foreach (Type type in types)
+            {
+                if (type.IsInterface)
+                    continue;
+
+                if (type == typeof(ComponentPoolable))
+                    continue;
+
+#if METRO
+                if (typeof(IComponent).GetTypeInfo().IsAssignableFrom(type.GetTypeInfo()))
+#else
+                if (typeof(IComponent).IsAssignableFrom(type))
+#endif
+                {
+                    if (!type.GetInterfaces().Any(iface => iface.IsGenericType && iface.GetGenericTypeDefinition() == typeof(IComponent<>))
+                        ||
+                        type.BaseType == typeof(Object))
+                    {
+                        GetTypeFor(type);
+                    }
+                }
+            }
         }
 
         /// <summary>Creates an enumerable from a <c>BigIntger</c> which holds type bits.</summary>

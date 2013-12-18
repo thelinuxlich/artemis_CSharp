@@ -64,6 +64,8 @@ namespace UnitTests
             testGeneral.TestSystemCommunication();
             testGeneral.TestEntityComponentSystem();
             testGeneral.TestDerivedComponents();
+            testGeneral.TestInitializeComponentTypes();
+            testGeneral.TestInitializeComponentTypesFromAssemblies();
             Debug.WriteLine("General test end.");
 
 #if !METRO && !PORTABLE

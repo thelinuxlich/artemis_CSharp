@@ -49,7 +49,7 @@ namespace UnitTests
     using Artemis.Manager;
     using Artemis.System;
     using Artemis.Utils;
-
+    using global::System.Reflection;
 #if METRO
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #elif MONO
@@ -945,6 +945,113 @@ namespace UnitTests
         private static void RemovedEntity(Entity entity)
         {
             Debug.WriteLine("The entity {0} was removed successfully.", entity.UniqueId);
+        }
+
+        /// <summary>Tests initializing ComponentTypes.</summary>
+#if MONO
+    [Test]
+#else
+        [TestMethod]
+#endif
+        public void TestInitializeComponentTypes()
+        {
+            FieldInfo field = typeof(ComponentTypeManager).GetField("ComponentTypes", BindingFlags.Static | BindingFlags.NonPublic);
+            Assert.IsNotNull(field, "ComponentTypeManager.ComponentTypes field has not been found");
+            Assert.IsInstanceOfType(field.GetValue(null), typeof(Dictionary<Type, ComponentType>), "ComponentTypes container is expected to be of type Dictionary<Type, ComponentType>");
+
+            Debug.WriteLine("Resetting ComponentTypeManager.ComponentTypes...");
+            field.SetValue(null, new Dictionary<Type, ComponentType>());
+
+            var componentTypes = (Dictionary<Type, ComponentType>)field.GetValue(null);
+
+            Assert.IsNotNull(componentTypes, "Component Types dictionary must not be null");
+            Assert.IsTrue(componentTypes.Count == 0, "Initial Component Types dictionary is expected to be empty.");
+            Debug.WriteLine("OK");
+
+            Debug.WriteLine("Initializing specific Component types...");
+            ComponentTypeManager.Initialize(new List<Type>
+            {
+                typeof(TestBaseComponent),
+                typeof(TestHealthComponent),
+                typeof(TestPowerComponent),
+                typeof(TestPowerComponentPoolable),
+                typeof(TestDerivedComponent), // should be filtered out
+                typeof(Array), // should be filtered out
+                typeof(List<IComponent>), // should be filtered out
+            });
+            Debug.WriteLine("OK");
+
+            Assert.IsNotNull(componentTypes, "Initialized Component Types dictionary must not be null");
+
+            // NOTE: list of initialized types may change if you change existing Components
+
+            var expectedTypes = new List<Type>
+            {
+                typeof(TestBaseComponent),
+                typeof(TestHealthComponent),
+                typeof(TestPowerComponent),
+                typeof(TestPowerComponentPoolable)
+            };
+
+            Debug.WriteLine("Checking initialized Component types...");
+
+            Assert.AreEqual(expectedTypes.Count, componentTypes.Count, "Expected and actual Component Types count do not match.");
+
+            foreach (var expectedType in expectedTypes)
+            {
+                Assert.IsTrue(componentTypes.ContainsKey(expectedType), "ComponentTypes is expected to contain {0}", expectedType);
+            }
+
+            Debug.WriteLine("OK");
+        }
+
+        /// <summary>Tests initializing ComponentTypes from assemblies.</summary>
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
+        public void TestInitializeComponentTypesFromAssemblies()
+        {
+            FieldInfo field = typeof(ComponentTypeManager).GetField("ComponentTypes", BindingFlags.Static | BindingFlags.NonPublic);
+            Assert.IsNotNull(field, "ComponentTypeManager.ComponentTypes field has not been found");
+            Assert.IsInstanceOfType(field.GetValue(null), typeof(Dictionary<Type, ComponentType>), "ComponentTypes container is expected to be of type Dictionary<Type, ComponentType>");
+
+            Debug.WriteLine("Resetting ComponentTypeManager.ComponentTypes...");
+            field.SetValue(null, new Dictionary<Type, ComponentType>());
+
+            var componentTypes = (Dictionary<Type, ComponentType>)field.GetValue(null);
+
+            Assert.IsNotNull(componentTypes, "Component Types dictionary must not be null");
+            Assert.IsTrue(componentTypes.Count == 0, "Initial Component Types dictionary is expected to be empty.");
+            Debug.WriteLine("OK");
+
+            Debug.WriteLine("Initializing all Component types...");
+            ComponentTypeManager.Initialize();
+            Debug.WriteLine("OK");
+
+            Assert.IsNotNull(componentTypes, "Initialized Component Types dictionary must not be null");
+        
+            // NOTE: list of initialized types may change if you declare more Component types or remove/change existing
+
+            var expectedTypes = new List<Type>
+            {
+                typeof(TestBaseComponent),
+                typeof(TestHealthComponent),
+                typeof(TestPowerComponent),
+                typeof(TestPowerComponentPoolable)
+            };
+
+            Debug.WriteLine("Checking initialized Component types...");
+
+            Assert.AreEqual(expectedTypes.Count, componentTypes.Count, "Expected and actual Component Types count do not match.");
+
+            foreach (var expectedType in expectedTypes)
+            {
+                Assert.IsTrue(componentTypes.ContainsKey(expectedType), "ComponentTypes is expected to contain {0}", expectedType);
+            }
+
+            Debug.WriteLine("OK");
         }
     }
 }
