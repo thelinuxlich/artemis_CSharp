@@ -151,12 +151,7 @@ namespace Artemis.Manager
                     if (type == typeof(ComponentPoolable))
                         continue;
 
-                    if (!type.GetInterfaces().Any(iface => iface.IsGenericType && iface.GetGenericTypeDefinition() == typeof(IComponent<>))
-                        ||
-                        type.BaseType == typeof(Object))
-                    {
-                        GetTypeFor(type);
-                    }
+                    GetTypeFor(type);
                 }
                 else if (!ignoreInvalidTypes)
                 {
