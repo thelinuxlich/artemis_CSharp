@@ -972,12 +972,12 @@ namespace UnitTests
             ComponentTypeManager.Initialize(new List<Type>
             {
                 typeof(TestBaseComponent),
+                typeof(TestDerivedComponent),
                 typeof(TestHealthComponent),
                 typeof(TestPowerComponent),
                 typeof(TestPowerComponentPoolable),
                 typeof(IComponent), // should be filtered out
                 typeof(ComponentPoolable), // should be filtered out
-                typeof(TestDerivedComponent), // should be filtered out
             });
             Debug.WriteLine("OK");
 
@@ -988,6 +988,7 @@ namespace UnitTests
             var expectedTypes = new List<Type>
             {
                 typeof(TestBaseComponent),
+                typeof(TestDerivedComponent),
                 typeof(TestHealthComponent),
                 typeof(TestPowerComponent),
                 typeof(TestPowerComponentPoolable)
@@ -1037,6 +1038,7 @@ namespace UnitTests
             var expectedTypes = new List<Type>
             {
                 typeof(TestBaseComponent),
+                typeof(TestDerivedComponent),
                 typeof(TestHealthComponent),
                 typeof(TestPowerComponent),
                 typeof(TestPowerComponentPoolable)
