@@ -38,6 +38,7 @@ namespace Artemis
 {
     #region Using statements
 
+    using global::System.Diagnostics;
 #if XBOX || WINDOWS_PHONE || PORTABLE || FORCEINT32
     using BigInteger = global::System.Int32;
 #else
@@ -49,26 +50,30 @@ namespace Artemis
     #endregion Using statements
 
     /// <summary>Represents a Component Type.</summary>
+    [DebuggerDisplay("Id:{Id}, Bit:{Bit}")]
     public sealed class ComponentType 
     {
-        /// <summary>The bit.</summary>
-        private static BigInteger bit;
+        /// <summary>The bit next instance of the <see cref="ComponentType"/> class will get.</summary>
+        private static BigInteger nextBit;
 
-        /// <summary>The id.</summary>
-        private static int id;
+        /// <summary>The id next instance of the <see cref="ComponentType"/> class will get.</summary>
+        private static int nextId;
 
         /// <summary>Initializes static members of the <see cref="ComponentType"/> class.</summary>
         static ComponentType()
         {
-            bit = 1;
-            id = 0;
+            nextBit = 1;
+            nextId = 0;
         }
 
         /// <summary>Initializes a new instance of the <see cref="ComponentType"/> class.</summary>
         internal ComponentType()
         {
-            this.Id = NextId;
-            this.Bit = NextBit;
+            this.Id = nextId;
+            this.Bit = nextBit;
+
+            nextId++;
+            nextBit <<= 1;
         }
 
         /// <summary>Gets the bit index that represents this type of component.</summary>
@@ -78,25 +83,6 @@ namespace Artemis
         /// <summary>Gets the bit that represents this type of component.</summary>
         /// <value>The bit.</value>
         public BigInteger Bit { get; private set; }
-
-        /// <summary>Gets the next id.</summary>
-        /// <value>The next id.</value>
-        internal static int NextId
-        {
-            get { return id++; }
-        }
-
-        /// <summary>Gets the next bit.</summary>
-        /// <value>The next bit.</value>
-        internal static BigInteger NextBit
-        {
-            get
-            {
-                BigInteger value = bit;
-                bit <<= 1;
-                return value;
-            }
-        }
     }
 
     /// <summary>The component type class.</summary>
