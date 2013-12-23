@@ -69,6 +69,9 @@ namespace Artemis.Manager
         /// <summary>The systems.</summary>
         private readonly IDictionary<Type, IList> systems;
 
+        /// <summary>The systemBitManager.</summary>
+        private readonly SystemBitManager systemBitManager;
+
         /// <summary>The merged bag.</summary>
         private readonly Bag<EntitySystem> mergedBag;
 
@@ -90,6 +93,7 @@ namespace Artemis.Manager
             this.drawLayers = new Dictionary<int, SystemLayer>();
             this.updateLayers = new Dictionary<int, SystemLayer>();                
 #endif
+            this.systemBitManager = new SystemBitManager();
             this.systems = new Dictionary<Type, IList>();
             this.entityWorld = entityWorld;
         }
@@ -412,7 +416,7 @@ namespace Artemis.Manager
                 this.mergedBag.Add(system);
             }
 
-            system.SystemBit = SystemBitManager.GetBitFor(system);
+            system.SystemBit = this.systemBitManager.GetBitFor(system);
 
             return system;
         }
