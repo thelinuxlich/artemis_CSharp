@@ -232,11 +232,6 @@ namespace Artemis.Manager
             Debug.Assert(entity != null, "Entity must not be null.");
 
             this.ActiveEntities.Set(entity.Id, null);
-
-            entity.TypeBits = 0;
-
-            this.Refresh(entity);
-
             this.RemoveComponentsOfEntity(entity);
 #if DEBUG
             --this.EntitiesRequestedCount;
@@ -394,6 +389,9 @@ namespace Artemis.Manager
         internal void RemoveComponentsOfEntity(Entity entity)
         {
             Debug.Assert(entity != null, "Entity must not be null.");
+
+            entity.TypeBits = 0;
+            this.Refresh(entity);
             
             int entityId = entity.Id;
             for (int index = this.componentsByType.Count - 1; index >= 0; --index)
@@ -410,8 +408,6 @@ namespace Artemis.Manager
                     components.Set(entityId, null);
                 }
             }
-
-			this.Refresh(entity);
         }
 
         /// <summary>Entities the manager removed component event.</summary>
