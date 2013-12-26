@@ -1014,7 +1014,7 @@ namespace UnitTests
 #endif
         public void TestInitializeComponentTypesFromAssemblies()
         {
-            FieldInfo field = typeof(ComponentTypeManager).GetField("ComponentTypes", BindingFlags.Static | BindingFlags.NonPublic);
+            FieldInfo field = typeof(ComponentTypeManager).GetField("ComponentTypes", BindingFlags.Static | BindingFlags.NonPublic);	
             Assert.IsNotNull(field, "ComponentTypeManager.ComponentTypes field has not been found");
             Assert.IsTrue(field.GetValue(null).GetType() == typeof(Dictionary<Type, ComponentType>), "ComponentTypes container is expected to be of type Dictionary<Type, ComponentType>");
 
@@ -1054,6 +1054,111 @@ namespace UnitTests
             }
 
             Debug.WriteLine("OK");
+        }
+
+        /// <summary>Tests ComponentType bits.</summary>
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
+        public void TestComponentTypeBit()
+        {
+            bool int32Used = typeof(ComponentType).GetProperty("Bit").PropertyType == typeof(global::System.Int32);
+
+            // Ugly resetting of private static fields in case the type has already been initialized and used
+            typeof(ComponentType).GetField("nextBit", BindingFlags.Static | BindingFlags.NonPublic).SetValue(null, 1);
+            typeof(ComponentType).GetField("nextId", BindingFlags.Static | BindingFlags.NonPublic).SetValue(null, 0);
+
+            if (int32Used)
+            {
+                for (int i = 0; i < 32; i++)
+                {
+                    Assert.AreEqual(1 << i, new ComponentType().Bit);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 32; i++)
+                {
+                    Assert.AreEqual(1u << i, new ComponentType().Bit);
+                }
+            }
+
+            // If ComponentType.Bit property is compiled as Int32,
+            // next (33rd) ComponentType instance will get invalid (overflown) Bit value.
+            // Should get exception instead of silent overflow.
+
+            bool thrown = false;
+
+            try
+            {
+                var badCtype = new ComponentType();
+            }
+            catch (InvalidOperationException)
+            {
+                thrown = true;
+            }
+
+            if (int32Used)
+            {
+                Assert.IsTrue(thrown, "33rd ComponentType constructor should fail when Int32 bit type is used");
+            }
+            else
+            {
+                Assert.IsFalse(thrown, "33rd ComponentType constructor should not fail when BigInteger bit type is used");
+            }
+        }
+
+    /// <summary>Tests EntitySystem SystemBits.</summary>
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
+        public void TestEntitySystemSystemBit()
+        {
+            bool int32Used = typeof(SystemBitManager).GetMethod("GetBitFor").ReturnType == typeof (global::System.Int32);
+            var systemBitManager = new SystemBitManager();
+
+            if (int32Used)
+            {
+                for (int i = 0; i < 32; i++)
+                {
+                    Assert.AreEqual(1 << i, systemBitManager.GetBitFor(new TestEntityProcessingSystem()));
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 32; i++)
+                {
+                    Assert.AreEqual(1u << i, systemBitManager.GetBitFor(new TestEntityProcessingSystem()));
+                }
+            }
+            
+            // If SystemBitManager is compiled with Int32 bit type,
+            // next (33rd) EntitySystem instance will get invalid (overflown) SystemBit value.
+            // Should get exception instead of silent overflow.
+
+            bool thrown = false;
+
+            try
+            {
+                systemBitManager.GetBitFor(new TestEntityProcessingSystem());
+            }
+            catch (InvalidOperationException)
+            {
+                thrown = true;
+            }
+
+            if (int32Used)
+            {
+                Assert.IsTrue(thrown, "Getting SystemBit for 33rd EntitySystem instance should fail when Int32 bit type is used");
+            }
+            else
+            {
+                Assert.IsFalse(thrown, "Getting SystemBit for 33rd EntitySystem instance should not fail when BigInteger bit type is used");
+            }
         }
     }
 }

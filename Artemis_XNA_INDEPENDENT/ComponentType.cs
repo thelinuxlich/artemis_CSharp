@@ -38,6 +38,7 @@ namespace Artemis
 {
     #region Using statements
 
+    using global::System;
     using global::System.Diagnostics;
 #if XBOX || WINDOWS_PHONE || PORTABLE || FORCEINT32
     using BigInteger = global::System.Int32;
@@ -69,6 +70,14 @@ namespace Artemis
         /// <summary>Initializes a new instance of the <see cref="ComponentType"/> class.</summary>
         internal ComponentType()
         {
+#if XBOX || WINDOWS_PHONE || PORTABLE || FORCEINT32
+            if (nextId == 32)
+            {
+                // nextBit has overflown and is 0 now
+                throw new InvalidOperationException("Distinct ComponentType limit reached: number of ComponentType types is restricted to 32 in the current Artemis build.");
+            }
+#endif
+
             this.Id = nextId;
             this.Bit = nextBit;
 
