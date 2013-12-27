@@ -1086,7 +1086,7 @@ namespace UnitTests
             {
                 for (int i = 0; i < 32; i++)
                 {
-                    Assert.AreEqual(1u << i, new ComponentType().Bit);
+                    Assert.AreEqual(BigInteger.One << i, new ComponentType().Bit);
                 }
             }
 
@@ -1137,7 +1137,7 @@ namespace UnitTests
             {
                 for (int i = 0; i < 32; i++)
                 {
-                    Assert.AreEqual(1u << i, systemBitManager.GetBitFor(new TestEntityProcessingSystem()));
+                    Assert.AreEqual(BigInteger.One << i, systemBitManager.GetBitFor(new TestEntityProcessingSystem()));
                 }
             }
             
