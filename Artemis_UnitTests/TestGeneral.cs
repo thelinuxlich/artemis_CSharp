@@ -42,6 +42,8 @@ namespace UnitTests
     using global::System.Collections.Generic;
     using global::System.Diagnostics;
     using global::System.Linq;
+    using global::System.Numerics;
+    using global::System.Reflection;
 
     using Artemis;
     using Artemis.Attributes;
@@ -49,7 +51,6 @@ namespace UnitTests
     using Artemis.Manager;
     using Artemis.System;
     using Artemis.Utils;
-    using global::System.Reflection;
 #if METRO
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #elif MONO
@@ -1067,8 +1068,12 @@ namespace UnitTests
             bool int32Used = typeof(ComponentType).GetProperty("Bit").PropertyType == typeof(global::System.Int32);
 
             // Ugly resetting of private static fields in case the type has already been initialized and used
-            typeof(ComponentType).GetField("nextBit", BindingFlags.Static | BindingFlags.NonPublic).SetValue(null, 1);
             typeof(ComponentType).GetField("nextId", BindingFlags.Static | BindingFlags.NonPublic).SetValue(null, 0);
+
+            if (int32Used)
+                typeof(ComponentType).GetField("nextBit", BindingFlags.Static | BindingFlags.NonPublic).SetValue(null, 1);
+            else
+                typeof(ComponentType).GetField("nextBit", BindingFlags.Static | BindingFlags.NonPublic).SetValue(null, (BigInteger)1);
 
             if (int32Used)
             {
