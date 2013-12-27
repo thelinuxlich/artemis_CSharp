@@ -37,9 +37,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
+    <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\Artemis_UnitTests\Component\TestBaseComponent.cs" />
@@ -60,7 +58,7 @@
     <Compile Include="..\Artemis_UnitTests\System\TestNormalEntityProcessingSystem1.cs" />
     <Compile Include="..\Artemis_UnitTests\System\TestNormalEntityProcessingSystem2.cs" />
     <Compile Include="..\Artemis_UnitTests\System\TestNormalEntityProcessingSystem3.cs" />
-	<Compile Include="..\Artemis_UnitTests\System\TestIntervalEntitySystem.cs" />
+    <Compile Include="..\Artemis_UnitTests\System\TestIntervalEntitySystem.cs" />
     <Compile Include="..\Artemis_UnitTests\System\TestProcessingSystem.cs" />
     <Compile Include="..\Artemis_UnitTests\System\TestQueueHybridSystem.cs" />
     <Compile Include="..\Artemis_UnitTests\System\TestQueueSystem.cs" />

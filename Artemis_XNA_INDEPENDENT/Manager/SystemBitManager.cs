@@ -38,6 +38,7 @@ namespace Artemis.Manager
 {
     #region Using statements
 
+    using global::System;
     using global::System.Collections.Generic;
     using Artemis.System;
 
@@ -68,6 +69,12 @@ namespace Artemis.Manager
             if (this.systemBits.TryGetValue(entitySystem, out bit) == false)
             {
 #if WINDOWS_PHONE || XBOX || PORTABLE || FORCEINT32
+                if (this.position == 32)
+                {
+                    // bit is going to overflow and become 1 again
+                    throw new InvalidOperationException("EntitySystem instances limit reached: number of EntitySystem instances is restricted to 32 in the current Artemis build.");
+                }
+
                 bit = 1 << this.position;
 #else
                 bit = 1L << this.position;
