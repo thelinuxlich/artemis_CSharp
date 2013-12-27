@@ -70,3 +70,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("2.0.0.0")]
 [assembly: AssemblyFileVersion("2.0.0.0")]
 [assembly: NeutralResourcesLanguage("en")]
+
+// Permits unit testing of internal members
+[assembly: InternalsVisibleTo("ArtemisMonoUnitTests")]
