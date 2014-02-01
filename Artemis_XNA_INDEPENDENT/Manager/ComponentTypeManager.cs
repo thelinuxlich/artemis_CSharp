@@ -49,6 +49,9 @@ namespace Artemis.Manager
 #if XBOX || WINDOWS_PHONE || PORTABLE || FORCEINT32
     using BigInteger = global::System.Int32;
 #endif
+#if METRO
+    using Artemis.Attributes;
+#endif
 
     using Artemis.Interface;
 
@@ -114,7 +117,7 @@ namespace Artemis.Manager
 #if FULLDOTNET || METRO
             if (assembliesToScan.Length == 0)
             {
-                assembliesToScan = AppDomain.CurrentDomain.GetAssemblies();
+                assembliesToScan = AppDomain.CurrentDomain.GetAssemblies().ToArray();
             }
 #endif
 
@@ -141,12 +144,15 @@ namespace Artemis.Manager
             {
 #if METRO
                 if (typeof(IComponent).GetTypeInfo().IsAssignableFrom(type.GetTypeInfo()))
+                {
+                    if (type.GetTypeInfo().IsInterface)
+                        continue;
 #else
                 if (typeof(IComponent).IsAssignableFrom(type))
-#endif
                 {
                     if (type.IsInterface)
                         continue;
+#endif
 
                     if (type == typeof(ComponentPoolable))
                         continue;
