@@ -311,7 +311,7 @@ namespace Artemis.Manager
                 this.AddedComponentEvent(entity, component);
             }
 
-            this.Refresh(entity);
+            this.entityWorld.RefreshEntity(entity);
         }
 
         /// <summary>Get the component instance of the given component type for the given entity.</summary>
@@ -379,7 +379,7 @@ namespace Artemis.Manager
                 }
         
                 entity.RemoveTypeBit(componentType.Bit);
-                this.Refresh(entity);
+                this.entityWorld.RefreshEntity(entity);
                 components.Set(entityId, null);
             }
         }
@@ -391,7 +391,7 @@ namespace Artemis.Manager
             Debug.Assert(entity != null, "Entity must not be null.");
 
             entity.TypeBits = 0;
-            this.Refresh(entity);
+            this.entityWorld.RefreshEntity(entity);
             
             int entityId = entity.Id;
             for (int index = this.componentsByType.Count - 1; index >= 0; --index)
