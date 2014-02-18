@@ -113,7 +113,9 @@ namespace Artemis
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
         public virtual bool Interests(Entity entity)
         {
-            if (!(this.ContainsTypesMap > 0 || this.ExcludeTypesMap > 0 || this.OneTypesMap > 0) || entity == null)
+            Debug.Assert(entity != null, "Entity must not be null.");
+            
+            if (!(this.ContainsTypesMap > 0 || this.ExcludeTypesMap > 0 || this.OneTypesMap > 0))
             {
                 return false;
             }
