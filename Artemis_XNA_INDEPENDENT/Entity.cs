@@ -298,14 +298,14 @@ namespace Artemis
             this.RefreshingState = true;
         }
 
-        /// <summary>Remove Component from this entity.</summary>
+        /// <summary>Marks the component to remove. The actual removal is deferred and will happen in the next EntityWorld update.</summary>
         /// <typeparam name="T">Component Type.</typeparam>
         public void RemoveComponent<T>() where T : IComponent
         {
             this.entityManager.RemoveComponent(this, ComponentTypeManager.GetTypeFor<T>());
         }
 
-        /// <summary><para>Removes the component.</para>
+        /// <summary><para>Marks the component to remove. The actual removal is deferred and will happen in the next EntityWorld update.</para>
         ///   <para>Faster removal of components from a entity.</para></summary>
         /// <param name="componentType">The type.</param>
         public void RemoveComponent(ComponentType componentType)
