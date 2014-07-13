@@ -898,7 +898,13 @@ namespace UnitTests
 
             entity.AddComponent(new TestHealthComponent());
             entity.RemoveComponent<TestHealthComponent>();
-            Debug.WriteLine("OK");
+
+            // Removing component is deferred until the update
+            Assert.IsNotNull(entity.GetComponent<TestHealthComponent>());
+
+            // Update the world, component should be removed
+            entityWorld.Update();
+            Assert.IsNull(entity.GetComponent<TestHealthComponent>());
 
             // Remove absent component
             entity.RemoveComponent<TestHealthComponent>();
