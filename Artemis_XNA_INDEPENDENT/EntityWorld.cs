@@ -354,6 +354,8 @@ namespace Artemis
                 }
             }
 
+            this.EntityManager.RemoveMarkedComponents();
+
             if (!this.deleted.IsEmpty)
             {
                 for (int index = this.deleted.Count - 1; index >= 0; --index)
