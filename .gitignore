@@ -16,6 +16,8 @@
 # Build results
 [Dd]ebug/
 [Rr]elease/
+# Roslyn cache directories
+*.ide/
 *_i.c
 *_p.c
 *.ilk
