@@ -61,7 +61,7 @@ namespace Artemis
 
         /// <summary>The refreshed.</summary>
 #if XBOX || WINDOWS_PHONE || PORTABLE
-   		private readonly Bag<Entity> refreshed;
+        private readonly Bag<Entity> refreshed;
 #else
         private readonly HashSet<Entity> refreshed;
 #endif
@@ -94,7 +94,7 @@ namespace Artemis
             this.IsSortedEntities = false;
 #endif
 #if XBOX || WINDOWS_PHONE || PORTABLE
-   		    this.refreshed = new Bag<Entity>();
+            this.refreshed = new Bag<Entity>();
 #else
             this.refreshed = new HashSet<Entity>();
 #endif
@@ -122,8 +122,11 @@ namespace Artemis
                 for (int index = 0, j = entities.Count; index < j; ++index)
                 {
                     Entity entity = entities.Get(index);
-                    Bag<IComponent> components = entity.Components;
-                    currentState.Add(entity, components);
+                    if (entity != null)
+                    {
+                        Bag<IComponent> components = entity.Components;
+                        currentState.Add(entity, components);
+                    }
                 }
 
                 return currentState;
@@ -369,7 +372,7 @@ namespace Artemis
             }
 
 #if XBOX || WINDOWS_PHONE || PORTABLE
-		    bool isRefreshing = !this.refreshed.IsEmpty;
+            bool isRefreshing = !this.refreshed.IsEmpty;
 #else
             bool isRefreshing = this.refreshed.Count > 0;
 #endif
@@ -378,7 +381,7 @@ namespace Artemis
 #if XBOX || WINDOWS_PHONE || PORTABLE
                 for (int index = this.refreshed.Count - 1; index >= 0; --index)
                 {
-			    	Entity entity = this.refreshed.Get(index);
+                    Entity entity = this.refreshed.Get(index);
                     this.EntityManager.Refresh(entity);
                     entity.RefreshingState = false;
                 }
@@ -414,10 +417,10 @@ namespace Artemis
         {
             Debug.Assert(entity != null, "Entity must not be null.");
 #if XBOX || WINDOWS_PHONE || PORTABLE
-			if(!this.refreshed.Contains(entity))
+            if(!this.refreshed.Contains(entity))
             {
-				this.refreshed.Add(entity);
-			}
+                this.refreshed.Add(entity);
+            }
 #else
             this.refreshed.Add(entity);
 #endif
