@@ -131,7 +131,7 @@ namespace Artemis
 
             return ((this.OneTypesMap      & entity.TypeBits) != 0                     || this.OneTypesMap      == 0) &&
                    ((this.ContainsTypesMap & entity.TypeBits) == this.ContainsTypesMap || this.ContainsTypesMap == 0) &&
-                   ((this.ExcludeTypesMap  & entity.TypeBits) != this.ExcludeTypesMap  || this.ExcludeTypesMap  == 0);
+                   ((this.ExcludeTypesMap  & entity.TypeBits) == 0                     || this.ExcludeTypesMap  == 0);
         }
 
         /// <summary>Gets all.</summary>
