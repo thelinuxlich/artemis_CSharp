@@ -91,6 +91,7 @@
     <Compile Include="System\TestRenderHealthBarSingleHeavySystem.cs" />
     <Compile Include="System\TestRenderHealthBarSingleSystem.cs" />
     <Compile Include="Template\TestEntityTemplate.cs" />
+    <Compile Include="TestAspect.cs" />
     <Compile Include="TestBag.cs" />
     <Compile Include="TestEntityFactory.cs" />
     <Compile Include="TestGeneral.cs" />
