@@ -96,6 +96,23 @@ namespace UnitTests
             Debug.WriteLine("Press any key to continue...");
             Console.ReadKey(true);
 #endif
+
+            Debug.WriteLine("Aspect test begin...");
+            TestAspect testAspect = new TestAspect();
+            testAspect.TestAspectEmpty();
+            testAspect.TestAspectAllSingle();
+            testAspect.TestAspectAllMultiple();
+            testAspect.TestAspectOneSingle();
+            testAspect.TestAspectOneMultiple();
+            testAspect.TestAspectExcludeSingle();
+            testAspect.TestAspectExcludeMultiple();
+            testAspect.TestAspectAllOneExclude();
+            Debug.WriteLine("Aspect test end.");
+
+#if !METRO && !PORTABLE
+            Debug.WriteLine("Press any key to continue...");
+            Console.ReadKey(true);
+#endif
         }
     }
 }
