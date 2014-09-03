@@ -39,7 +39,7 @@ namespace UnitTests
     #region Using statements
 
     using Artemis;
-
+    using global::System;
 #if METRO
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #elif MONO
@@ -52,7 +52,7 @@ namespace UnitTests
 
     #endregion Using statements
 
-    /// <summary>The general test.</summary>
+    /// <summary>Aspect test.</summary>
 #if MONO
     [TestFixture]
 #else
@@ -60,56 +60,316 @@ namespace UnitTests
 #endif
     public class TestAspect
     {
+        #region Aspect.Empty
         /// <summary>
-        /// Test Aspect.Exclude with single type
+        /// Tests Aspect.Empty
+        /// </summary>
+#if MONO
+    [Test]
+#else
+        [TestMethod]
+#endif
+        public void TestAspectEmpty()
+        {
+            Aspect aspect = Aspect.Empty();
+            EntityWorld entityWorld = new EntityWorld();
+            Entity entity;
+
+            // Aspect.Empty is a base Aspect for EntitySystem meaning "no entities to process"
+            entity = entityWorld.CreateEntity();
+            Assert.IsFalse(aspect.Interests(entity), "Entity without components must NOT be subject to empty Aspect");
+
+            entity = entityWorld.CreateEntity();
+            entity.AddComponent(new TestHealthComponent());
+            Assert.IsFalse(aspect.Interests(entity), "Entity with any component must NOT be subject to empty Aspect");
+
+            entity = entityWorld.CreateEntity();
+            entity.AddComponent(new TestPowerComponent());
+            entity.AddComponent(new TestHealthComponent());
+            Assert.IsFalse(aspect.Interests(entity), "Entity with any components must NOT be subject to empty Aspect");
+        } 
+        #endregion
+
+        #region Aspect.All
+        /// <summary>
+        /// Tests Aspect.All with single type required
         /// </summary>
 #if MONO
     [Test]
 #else
     [TestMethod]
 #endif
-        public void TestExcludeSingle()
+        public void TestAspectAllSingle()
         {
-            Aspect notPoweredAspect = Aspect.Exclude(typeof(TestPowerComponent));
-            Entity entity = new EntityWorld().CreateEntity();
+            Aspect aspect = Aspect.All(typeof(TestPowerComponent));
+            EntityWorld entityWorld = new EntityWorld();
+            Entity entity;
 
-            Assert.IsTrue(notPoweredAspect.Interests(entity), "Entity without components must be subject to \"Not Powered\" Aspect");
+            entity = entityWorld.CreateEntity();
+            Assert.IsFalse(aspect.Interests(entity), "Entity without components must NOT be subject to \"Powered\" Aspect");
 
+            entity = entityWorld.CreateEntity();
             entity.AddComponent(new TestHealthComponent());
+            Assert.IsFalse(aspect.Interests(entity), "Entity with {TestHealthComponent} must NOT be subject to \"Powered\" Aspect");
 
-            Assert.IsTrue(notPoweredAspect.Interests(entity), "Entity with {TestHealthComponent} must be subject to \"Not Powered\" Aspect");
-    
+            entity = entityWorld.CreateEntity();
             entity.AddComponent(new TestPowerComponent());
+            Assert.IsTrue(aspect.Interests(entity), "Entity with {TestPowerComponent} must be subject to \"Powered\" Aspect");
 
-            Assert.IsFalse(notPoweredAspect.Interests(entity), "Entity with {TestHealthComponent, TestPowerComponent} must NOT be subject to \"Not Powered\" Aspect");
+            entity = entityWorld.CreateEntity();
+            entity.AddComponent(new TestHealthComponent());
+            entity.AddComponent(new TestPowerComponent());
+            Assert.IsTrue(aspect.Interests(entity), "Entity with {TestHealthComponent, TestPowerComponent} must be subject to \"Powered\" Aspect");
+        }
+
+        /// <summary>
+        /// Tests Aspect.All with multiple types required
+        /// </summary>
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
+        public void TestAspectAllMultiple()
+        {
+            Aspect aspect = Aspect.All(typeof(TestHealthComponent), typeof(TestPowerComponent));
+            EntityWorld entityWorld = new EntityWorld();
+            Entity entity;
+
+            entity = entityWorld.CreateEntity();
+            Assert.IsFalse(aspect.Interests(entity), "Entity without components must NOT be subject to \"Healthy Powered\" Aspect");
+
+            entity = entityWorld.CreateEntity();
+            entity.AddComponent(new TestHealthComponent());
+            Assert.IsFalse(aspect.Interests(entity), "Entity with {TestHealthComponent} must NOT be subject to \"Healthy Powered\" Aspect");
+
+            entity = entityWorld.CreateEntity();
+            entity.AddComponent(new TestHealthComponent());
+            entity.AddComponent(new TestPowerComponentPoolable());
+            Assert.IsFalse(aspect.Interests(entity), "Entity with {TestHealthComponent, TestPowerComponentPoolable} must NOT be subject to \"Healthy Powered\" Aspect");
+
+            entity = entityWorld.CreateEntity();
+            entity.AddComponent(new TestHealthComponent());
+            entity.AddComponent(new TestPowerComponent());
+            Assert.IsTrue(aspect.Interests(entity), "Entity with {TestHealthComponent, TestPowerComponent} must be subject to \"Healthy Powered\" Aspect");
+
+            entity = entityWorld.CreateEntity();
+            entity.AddComponent(new TestHealthComponent());
+            entity.AddComponent(new TestPowerComponent());
+            entity.AddComponent(new TestPowerComponentPoolable());
+            Assert.IsTrue(aspect.Interests(entity), "Entity with {TestHealthComponent, TestPowerComponent, TestPowerComponentPoolable} must be subject to \"Healthy Powered\" Aspect");
+        } 
+        #endregion
+
+        #region Aspect.One
+        /// <summary>
+        /// Tests Aspect.One with single type.
+        /// </summary>
+        /// <remarks>
+        /// Should work exactly like Aspect.All with single type.
+        /// Should work like negated Aspect.Exclude with same type.
+        /// </remarks>
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
+        public void TestAspectOneSingle()
+        {
+            Aspect aspect = Aspect.One(typeof(TestPowerComponent));
+            EntityWorld entityWorld = new EntityWorld();
+            Entity entity;
+
+            entity = entityWorld.CreateEntity();
+            Assert.IsFalse(aspect.Interests(entity), "Entity without components must NOT be subject to \"Powered\" Aspect");
+
+            entity = entityWorld.CreateEntity();
+            entity.AddComponent(new TestHealthComponent());
+            Assert.IsFalse(aspect.Interests(entity), "Entity with {TestHealthComponent} must NOT be subject to \"Powered\" Aspect");
+
+            entity = entityWorld.CreateEntity();
+            entity.AddComponent(new TestPowerComponent());
+            Assert.IsTrue(aspect.Interests(entity), "Entity with {TestPowerComponent} must be subject to \"Powered\" Aspect");
+
+            entity = entityWorld.CreateEntity();
+            entity.AddComponent(new TestPowerComponent());
+            entity.AddComponent(new TestHealthComponent());
+            Assert.IsTrue(aspect.Interests(entity), "Entity with {TestPowerComponent, TestHealthComponent} must be subject to \"Powered\" Aspect");
+        }
+
+        /// <summary>
+        /// Tests Aspect.One with multiple types, of which an entity must possess.
+        /// </summary>
+        /// <remarks>
+        /// Should work like negated Aspect.Exclude with same set of types
+        /// </remarks>
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
+        public void TestAspectOneMultiple()
+        {
+            Aspect aspect = Aspect.One(typeof(TestPowerComponent), typeof(TestPowerComponentPoolable));
+            EntityWorld entityWorld = new EntityWorld();
+            Entity entity;
+
+            entity = entityWorld.CreateEntity();
+            Assert.IsFalse(aspect.Interests(entity), "Entity without components must NOT be subject to \"Powered by any means\" Aspect");
+
+            entity = entityWorld.CreateEntity();
+            entity.AddComponent(new TestHealthComponent());
+            Assert.IsFalse(aspect.Interests(entity), "Entity with {TestHealthComponent} must NOT be subject to \"Powered by any means\" Aspect");
+
+            entity = entityWorld.CreateEntity();
+            entity.AddComponent(new TestPowerComponent());
+            Assert.IsTrue(aspect.Interests(entity), "Entity with {TestPowerComponent} must be subject to \"Powered by any means\" Aspect");
+
+            entity = entityWorld.CreateEntity();
+            entity.AddComponent(new TestPowerComponentPoolable());
+            Assert.IsTrue(aspect.Interests(entity), "Entity with {TestPowerComponentPoolable} must be subject to \"Powered by any means\" Aspect");
+
+            entity = entityWorld.CreateEntity();
+            entity.AddComponent(new TestHealthComponent());
+            entity.AddComponent(new TestPowerComponent());
+            Assert.IsTrue(aspect.Interests(entity), "Entity with {TestHealthComponent, TestPowerComponent} must be subject to \"Powered by any means\" Aspect");
+
+            entity = entityWorld.CreateEntity();
+            entity.AddComponent(new TestHealthComponent());
+            entity.AddComponent(new TestPowerComponent());
+            entity.AddComponent(new TestPowerComponentPoolable());
+            Assert.IsTrue(aspect.Interests(entity), "Entity with {TestHealthComponent, TestPowerComponent, TestPowerComponentPoolable} must be subject to \"Powered by any means\" Aspect");
+        } 
+        #endregion
+
+        #region Aspect.Exclude
+        /// <summary>
+        /// Test Aspect.Exclude with single type excluded.
+        /// </summary>
+        /// <remarks>
+        /// Should work like negated Aspect.One with same type
+        /// </remarks>
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
+        public void TestAspectExcludeSingle()
+        {
+            Aspect aspect = Aspect.Exclude(typeof(TestPowerComponent));
+            EntityWorld entityWorld = new EntityWorld();
+            Entity entity;
+
+            entity = entityWorld.CreateEntity();
+            Assert.IsTrue(aspect.Interests(entity), "Entity without components must be subject to \"Not Powered\" Aspect");
+
+            entity = entityWorld.CreateEntity();
+            entity.AddComponent(new TestHealthComponent());
+            Assert.IsTrue(aspect.Interests(entity), "Entity with {TestHealthComponent} must be subject to \"Not Powered\" Aspect");
+
+            entity = entityWorld.CreateEntity();
+            entity.AddComponent(new TestPowerComponent());
+            Assert.IsFalse(aspect.Interests(entity), "Entity with {TestPowerComponent} must NOT be subject to \"Not Powered\" Aspect");
+
+            entity = entityWorld.CreateEntity();
+            entity.AddComponent(new TestHealthComponent());
+            entity.AddComponent(new TestPowerComponent());
+            Assert.IsFalse(aspect.Interests(entity), "Entity with {TestHealthComponent, TestPowerComponent} must NOT be subject to \"Not Powered\" Aspect");
         }
 
         /// <summary>
         /// Test Aspect.Exclude with multiple types excluded
         /// </summary>
+        /// <remarks>
+        /// Should work like negated Aspect.One with same set of types
+        /// </remarks>
 #if MONO
     [Test]
 #else
     [TestMethod]
 #endif
-        public void TestExcludeMultiple()
+        public void TestAspectExcludeMultiple()
         {
-            Aspect notPoweredAspect = Aspect.Exclude(typeof(TestPowerComponent), typeof(TestPowerComponentPoolable));
-            Entity entity = new EntityWorld().CreateEntity();
+            Aspect aspect = Aspect.Exclude(typeof(TestPowerComponent), typeof(TestPowerComponentPoolable));
+            EntityWorld entityWorld = new EntityWorld();
+            Entity entity;
 
-            Assert.IsTrue(notPoweredAspect.Interests(entity), "Entity without components must be subject to \"Not Powered\" Aspect");
+            entity = entityWorld.CreateEntity();
+            Assert.IsTrue(aspect.Interests(entity), "Entity without components must be subject to \"Not Powered by any means\" Aspect");
 
+            entity = entityWorld.CreateEntity();
             entity.AddComponent(new TestHealthComponent());
+            Assert.IsTrue(aspect.Interests(entity), "Entity with {TestHealthComponent} must be subject to \"Not Powered by any means\" Aspect");
 
-            Assert.IsTrue(notPoweredAspect.Interests(entity), "Entity with {TestHealthComponent} must be subject to \"Not Powered\" Aspect");
-
+            entity = entityWorld.CreateEntity();
+            entity.AddComponent(new TestHealthComponent());
             entity.AddComponent(new TestPowerComponent());
+            Assert.IsFalse(aspect.Interests(entity), "Entity with {TestHealthComponent, TestPowerComponent} must NOT be subject to \"Not Powered by any means\" Aspect");
 
-            Assert.IsFalse(notPoweredAspect.Interests(entity), "Entity with {TestHealthComponent, TestPowerComponent} must NOT be subject to \"Not Powered\" Aspect");
-
+            entity = entityWorld.CreateEntity();
+            entity.AddComponent(new TestHealthComponent());
+            entity.AddComponent(new TestPowerComponent());
             entity.AddComponent(new TestPowerComponentPoolable());
+            Assert.IsFalse(aspect.Interests(entity), "Entity with {TestHealthComponent, TestPowerComponent, TestPowerComponentPoolable} must NOT be subject to \"Not Powered by any means\" Aspect");
+        } 
+        #endregion
 
-            Assert.IsFalse(notPoweredAspect.Interests(entity), "Entity with {TestHealthComponent, TestPowerComponent, TestPowerComponentPoolable} must NOT be subject to \"Not Powered\" Aspect");
+        /// <summary>
+        /// Tests Aspect combined of All, One, Exclude filters
+        /// </summary>
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
+        public void TestAspectAllOneExclude()
+        {
+            Aspect aspect = Aspect.Empty()
+                .GetAll(typeof(TestHealthComponent))
+                .GetOne(typeof(TestBaseComponent), typeof(TestDerivedComponent))
+                .GetExclude(typeof(TestPowerComponent), typeof(TestPowerComponentPoolable));
+
+            EntityWorld entityWorld = new EntityWorld();
+            Entity entity;
+
+            entity = entityWorld.CreateEntity();
+            Assert.IsFalse(aspect.Interests(entity), "Entity without components must NOT be subject to \"(Healthy) && (Base || Derived) && !(Power || PowerPoolable)\" Aspect");
+
+            entity = entityWorld.CreateEntity();
+            entity.AddComponent(new TestHealthComponent());
+            Assert.IsFalse(aspect.Interests(entity), "Entity with {TestHealthComponent} must NOT be subject to \"(Healthy) && (Base || Derived) && !(Power || PowerPoolable)\" Aspect");
+
+            entity = entityWorld.CreateEntity();
+            entity.AddComponent(new TestHealthComponent());
+            entity.AddComponent(new TestBaseComponent());
+            Assert.IsTrue(aspect.Interests(entity), "Entity with {TestHealthComponent, TestBaseComponent} must be subject to \"(Healthy) && (Base || Derived) && !(Power || PowerPoolable)\" Aspect");
+
+            entity = entityWorld.CreateEntity();
+            entity.AddComponent(new TestHealthComponent());
+            entity.AddComponent(new TestBaseComponent());
+            entity.AddComponent(new TestDerivedComponent());
+            Assert.IsTrue(aspect.Interests(entity), "Entity with {TestHealthComponent, TestBaseComponent, TestDerivedComponent} must be subject to \"(Healthy) && (Base || Derived) && !(Power || PowerPoolable)\" Aspect");
+
+            entity = entityWorld.CreateEntity();
+            entity.AddComponent(new TestHealthComponent());
+            entity.AddComponent(new TestBaseComponent());
+            entity.AddComponent(new TestDerivedComponent());
+            entity.AddComponent(new TestPowerComponent());
+            Assert.IsFalse(aspect.Interests(entity), "Entity with {TestHealthComponent, TestBaseComponent, TestDerivedComponent, TestPowerComponent} must NOT be subject to \"(Healthy) && (Base || Derived) && !(Power || PowerPoolable)\" Aspect");
+
+            entity = entityWorld.CreateEntity();
+            entity.AddComponent(new TestHealthComponent());
+            entity.AddComponent(new TestDerivedComponent());
+            entity.AddComponent(new TestPowerComponentPoolable());
+            Assert.IsFalse(aspect.Interests(entity), "Entity with {TestHealthComponent, TestDerivedComponent, TestPowerComponentPoolable} must NOT be subject to \"(Healthy) && (Base || Derived) && !(Power || PowerPoolable)\" Aspect");
+
+            entity = entityWorld.CreateEntity();
+            entity.AddComponent(new TestHealthComponent());
+            entity.AddComponent(new TestBaseComponent());
+            entity.AddComponent(new TestDerivedComponent());
+            entity.AddComponent(new TestPowerComponent());
+            entity.AddComponent(new TestPowerComponentPoolable());
+            Assert.IsFalse(aspect.Interests(entity), "Entity with {TestHealthComponent, TestBaseComponent, TestDerivedComponent, TestPowerComponent, TestPowerComponentPoolable} must NOT be subject to \"(Healthy) && (Base || Derived) && !(Power || PowerPoolable)\" Aspect");
         }
     }
 }

@@ -85,7 +85,7 @@ namespace Artemis
             return new Aspect().GetAll(types);
         }
 
-        /// <summary>Returns an Empty Aspect (does not filter anything).</summary>
+        /// <summary>Returns an Empty Aspect (does not filter anything - i.e. rejects everything).</summary>
         /// <returns>The Aspect.</returns>
         public static Aspect Empty()
         {
