@@ -41,34 +41,11 @@ namespace Artemis.System
     /// <para>Extend it and override the ProcessSystem function.</para></summary>
     public abstract class ProcessingSystem : EntitySystem
     {
-        /// <summary>Called when [added].</summary>
-        /// <param name="entity">The entity.</param>
-        public override void OnAdded(Entity entity)
-        {
-        }
-
         /// <summary>Called when [change].</summary>
         /// <param name="entity">The entity.</param>
         public override void OnChange(Entity entity)
-        {            
-        }
-
-        /// <summary>Called when [disabled].</summary>
-        /// <param name="entity">The entity.</param>
-        public override void OnDisabled(Entity entity)
         {
-        }
-
-        /// <summary>Called when [enabled].</summary>
-        /// <param name="entity">The entity.</param>
-        public override void OnEnabled(Entity entity)
-        {
-        }
-
-        /// <summary>Called when [removed].</summary>
-        /// <param name="entity">The entity.</param>
-        public override void OnRemoved(Entity entity)
-        {            
+            // By overriding base.OnChange we disable notification of Entities' changes
         }
 
         /// <summary>Processes this instance. [Internal]</summary>
@@ -84,11 +61,5 @@ namespace Artemis.System
 
         /// <summary>Processes the System. Users must extend this method. Called once per frame.</summary>
         public abstract void ProcessSystem();
-
-        /// <summary>Processes the specified entity.</summary>
-        /// <param name="entity">The entity.</param>
-        public void Process(Entity entity)
-        {
-        }
     }
 }

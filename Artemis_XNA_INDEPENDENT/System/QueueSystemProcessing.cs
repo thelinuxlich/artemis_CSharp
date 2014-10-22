@@ -43,11 +43,12 @@ namespace Artemis.System
     #endregion Using statements
 
     /// <summary>
-    /// <para>System Not based On Components.</para>
-    /// <para>It Process ONCE everything you explicitly add to it</para>
+    /// <para>System not based on Components.</para>
+    /// <para>It processes ONCE everything you explicitly add to it</para>
     /// <para>using the method AddToQueue.</para>
+    /// <para>Use <see cref="EntitiesToProcessEachFrame" /> property to set processing batch size.</para>
     /// </summary>
-    public class QueueSystemProcessing : EntitySystem
+    public abstract class QueueSystemProcessing : ProcessingSystem
     {
         /// <summary>The queue.</summary>
         private readonly Queue<Entity> queue;
@@ -80,53 +81,17 @@ namespace Artemis.System
             this.queue.Enqueue(entity);
         }
 
-        /// <summary>Override to implement code that gets executed when systems are initialized.</summary>
-        public override void LoadContent()
+        public override void ProcessSystem()
         {
-        }
-
-        /// <summary>Override to implement code that gets executed when systems are terminated.</summary>
-        public override void UnloadContent()
-        {
-        }
-
-        /// <summary>Called when the system has received a entity it is interested in, e.g. created or a component was added to it.</summary>
-        /// <param name="entity">The entity that was added to this system.</param>
-        public override void OnAdded(Entity entity)
-        {
-        }
-
-        /// <summary>Called when an entity was removed from this system, e.g. deleted or had one of it's components removed.</summary>
-        /// <param name="entity">The entity that was removed from this system.</param>
-        public override void OnChange(Entity entity)
-        {
-        }
-
-        /// <summary>Called when [removed].</summary>
-        /// <param name="entity">The entity.</param>
-        public override void OnRemoved(Entity entity)
-        {
-        }
-
-        /// <summary>Processes the specified entity.</summary>
-        /// <param name="entity">The entity.</param>
-        public virtual void Process(Entity entity)
-        {
-        }
-
-        /// <summary>Processes this instance.</summary>
-        public override void Process()
-        {
-            if (!this.IsEnabled)
-            {
-                return;
-            }
-
             int size = this.queue.Count > this.EntitiesToProcessEachFrame ? this.EntitiesToProcessEachFrame : this.queue.Count;
             for (int index = 0; index < size; ++index)
             {
                 this.Process(this.queue.Dequeue());
             }
         }
+
+        /// <summary>Processes the specified entity.</summary>
+        /// <param name="entity">The entity.</param>
+        public abstract void Process(Entity entity);
     }
 }
