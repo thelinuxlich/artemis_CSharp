@@ -97,7 +97,6 @@
     <Compile Include="System\EntityComponentProcessingSystem.cs" />
     <Compile Include="System\EntityProcessingSystem.cs" />
     <Compile Include="System\EntitySystem.cs" />
-    <Compile Include="System\HybridQueueSystemProcessing.cs" />
     <Compile Include="System\IntervalEntityProcessingSystem.cs" />
     <Compile Include="System\IntervalEntitySystem.cs" />
     <Compile Include="System\IntervalTagSystem.cs" />

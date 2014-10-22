@@ -96,7 +96,6 @@
     <Compile Include="..\Artemis_XNA_INDEPENDENT\System\EntityComponentProcessingSystem.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\System\EntityProcessingSystem.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\System\EntitySystem.cs" />
-    <Compile Include="..\Artemis_XNA_INDEPENDENT\System\HybridQueueSystemProcessing.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\System\IntervalEntityProcessingSystem.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\System\IntervalEntitySystem.cs" />
     <Compile Include="..\Artemis_XNA_INDEPENDENT\System\IntervalTagSystem.cs" />
