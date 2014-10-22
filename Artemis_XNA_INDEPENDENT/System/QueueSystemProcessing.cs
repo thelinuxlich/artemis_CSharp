@@ -128,19 +128,5 @@ namespace Artemis.System
                 this.Process(this.queue.Dequeue());
             }
         }
-
-        /*
-        /// <summary>Des the queue.</summary>
-        /// <returns>Entity.</returns>
-        private Entity DeQueue()
-        {
-            if (this.queue.Count > 0)
-            {
-                return this.queue.Dequeue();
-            }
-
-            return null;
-        }
-        */
     }
 }
