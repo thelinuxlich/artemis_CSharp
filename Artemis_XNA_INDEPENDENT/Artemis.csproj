@@ -102,7 +102,7 @@
     <Compile Include="System\IntervalTagSystem.cs" />
     <Compile Include="System\ParallelEntityProcessingSystem.cs" />
     <Compile Include="System\ProcessingSystem.cs" />
-    <Compile Include="System\QueueSystemProcessing.cs" />
+    <Compile Include="System\QueueProcessingSystem.cs" />
     <Compile Include="System\QueueSystemProcessingThreadSafe.cs" />
     <Compile Include="System\TagSystem.cs" />
     <Compile Include="Utils\Bag.cs" />

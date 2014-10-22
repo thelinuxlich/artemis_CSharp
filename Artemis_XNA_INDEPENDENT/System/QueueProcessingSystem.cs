@@ -1,7 +1,7 @@
 ﻿#region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="QueueSystemProcessing.cs" company="GAMADU.COM">
+// <copyright file="QueueProcessingSystem.cs" company="GAMADU.COM">
 //     Copyright © 2013 GAMADU.COM. All rights reserved.
 //
 //     Redistribution and use in source and binary forms, with or without modification, are
@@ -48,13 +48,13 @@ namespace Artemis.System
     /// <para>using the method AddToQueue.</para>
     /// <para>Use <see cref="EntitiesToProcessEachFrame" /> property to set processing batch size.</para>
     /// </summary>
-    public abstract class QueueSystemProcessing : ProcessingSystem
+    public abstract class QueueProcessingSystem : ProcessingSystem
     {
         /// <summary>The queue.</summary>
         private readonly Queue<Entity> queue;
 
-        /// <summary>Initializes a new instance of the <see cref="QueueSystemProcessing"/> class.</summary>
-        public QueueSystemProcessing()
+        /// <summary>Initializes a new instance of the <see cref="QueueProcessingSystem"/> class.</summary>
+        public QueueProcessingSystem()
         {
             this.EntitiesToProcessEachFrame = 50;
             this.queue = new Queue<Entity>();
