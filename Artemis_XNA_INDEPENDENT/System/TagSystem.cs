@@ -46,18 +46,22 @@ namespace Artemis.System
     /// <summary>Tag System does not fire ANY Events of the EntitySystem.</summary>
     public abstract class TagSystem : ProcessingSystem
     {
+        private readonly string tag;
+
         /// <summary>Initializes a new instance of the <see cref="TagSystem"/> class.</summary>
         /// <param name="tag">The tag.</param>
         protected TagSystem(string tag)
         {
             Debug.Assert(!string.IsNullOrEmpty(tag), "Tag must not be null.");
 
-            this.Tag = tag;
+            this.tag = tag;
         }
 
-        /// <summary>Gets or sets the tag.</summary>
-        /// <value>The tag.</value>
-        protected string Tag { get; set; }
+        /// <summary>Gets the tag.</summary>
+        public string Tag
+        {
+            get { return this.tag; }
+        }
 
         /// <summary>Called when [change].</summary>
         /// <param name="entity">The entity.</param>
