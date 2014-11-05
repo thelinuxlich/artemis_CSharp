@@ -44,7 +44,7 @@ namespace Artemis.System
     #endregion Using statements
 
     /// <summary>Tag System does not fire ANY Events of the EntitySystem.</summary>
-    public abstract class TagSystem : EntitySystem
+    public abstract class TagSystem : ProcessingSystem
     {
         /// <summary>Initializes a new instance of the <see cref="TagSystem"/> class.</summary>
         /// <param name="tag">The tag.</param>
@@ -65,13 +65,7 @@ namespace Artemis.System
         {
         }
 
-        /// <summary>Processes the specified entity.</summary>
-        /// <param name="entity">The entity.</param>
-        public abstract void Process(Entity entity);
-
-        /// <summary>Processes the entities.</summary>
-        /// <param name="entities">The entities.</param>
-        protected override void ProcessEntities(IDictionary<int, Entity> entities)
+        public override void ProcessSystem()
         {
             Entity entity = this.EntityWorld.TagManager.GetEntity(this.Tag);
             if (entity != null)
@@ -79,5 +73,9 @@ namespace Artemis.System
                 this.Process(entity);
             }
         }
+
+        /// <summary>Processes the specified entity.</summary>
+        /// <param name="entity">The entity.</param>
+        public abstract void Process(Entity entity);
     }
 }
