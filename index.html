@@ -124,7 +124,7 @@ e.AddComponentFromPool&lt;Velocity&gt;(); // use AddComponentFromPool if the Com
         <ul>
             <li>EntitySystem - the simplest system template, not tied to components, good for stuff like collision</li>
             <li>EntityProcessingSystem - a template for processing many entities, tied to components</li>
-            <li>IntervalEntitySystem - a simple system template, not tied to components, process periodically, based on world delta.</li>
+            <li>IntervalEntitySystem - a simple system template, tied to components, for processing periodically, based on world delta.</li>
             <li>IntervalEntityProcessingSystem - a template that process entities periodically, based on world delta, tied to components.</li>
             <li>ParallelEntityProcessingSystem - a template to leverage your multicore CPU for processing many entities, tied to components</li>
             <li>ProcessingSystem - a template that process whichever logic you desire, without being tied to components</li>
