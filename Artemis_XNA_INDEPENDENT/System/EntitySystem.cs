@@ -73,7 +73,7 @@ namespace Artemis.System
         /// <summary>Initializes a new instance of the <see cref="EntitySystem" /> class.</summary>
         protected EntitySystem()
         {
-            this.SystemBit = 0;
+            this.Bit = 0;
             this.aspect = Aspect.Empty();
             this.IsEnabled = true;
         }
@@ -130,7 +130,7 @@ namespace Artemis.System
 
         /// <summary>Gets or sets the system bit. (Setter only).</summary>
         /// <value>The system bit.</value>
-        internal BigInteger SystemBit { private get; set; }
+        internal BigInteger Bit { get; set; }
 
         /// <summary>Gets the aspect.</summary>
         public Aspect Aspect
@@ -160,7 +160,7 @@ namespace Artemis.System
         {
             Debug.Assert(entity != null, "Entity must not be null.");
 
-            bool contains = (this.SystemBit & entity.SystemBits) == this.SystemBit;
+            bool contains = (this.Bit & entity.SystemBits) == this.Bit;
             ////bool interest = (this.typeFlags & entity.TypeBits) == this.typeFlags;
             bool interest = this.Aspect.Interests(entity);
 
@@ -223,7 +223,7 @@ namespace Artemis.System
         {
             Debug.Assert(entity != null, "Entity must not be null.");
 
-            entity.AddSystemBit(this.SystemBit);
+            entity.AddSystemBit(this.Bit);
             if (entity.IsEnabled)
             {
                 this.Enable(entity);
@@ -269,7 +269,7 @@ namespace Artemis.System
         {
             Debug.Assert(entity != null, "Entity must not be null.");
 
-            entity.RemoveSystemBit(this.SystemBit);
+            entity.RemoveSystemBit(this.Bit);
             if (entity.IsEnabled)
             {
                 this.Disable(entity);
