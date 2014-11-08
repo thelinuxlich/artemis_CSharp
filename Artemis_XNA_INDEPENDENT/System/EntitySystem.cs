@@ -61,6 +61,9 @@ namespace Artemis.System
         /// <summary>The actives.</summary>
         private IDictionary<int, Entity> actives;
 
+        /// <summary>Aspect this EntitySystem is interested in.</summary>
+        private readonly Aspect aspect;
+
         /// <summary>Initializes static members of the <see cref="EntitySystem"/> class.</summary>
         static EntitySystem()
         {
@@ -71,7 +74,7 @@ namespace Artemis.System
         protected EntitySystem()
         {
             this.SystemBit = 0;
-            this.Aspect = Aspect.Empty();
+            this.aspect = Aspect.Empty();
             this.IsEnabled = true;
         }
 
@@ -81,7 +84,7 @@ namespace Artemis.System
             : this()
         {
             Debug.Assert(aspect != null, "Aspect must not be null.");
-            this.Aspect = aspect;
+            this.aspect = aspect;
         }
 
         /// <summary>Gets or sets the black board.</summary>
@@ -129,9 +132,11 @@ namespace Artemis.System
         /// <value>The system bit.</value>
         internal BigInteger SystemBit { private get; set; }
 
-        /// <summary>Gets or sets the aspect.</summary>
-        /// <value>The aspect.</value>
-        protected Aspect Aspect { get; set; }
+        /// <summary>Gets the aspect.</summary>
+        public Aspect Aspect
+        {
+            get { return this.aspect; }
+        }
 
         /// <summary>Override to implement code that gets executed when systems are initialized.</summary>
         public virtual void LoadContent()
