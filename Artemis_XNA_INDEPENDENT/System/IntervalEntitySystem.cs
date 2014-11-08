@@ -52,15 +52,6 @@ namespace Artemis.System
 
         /// <summary>Initializes a new instance of the <see cref="IntervalEntitySystem"/> class.</summary>
         /// <param name="timeSpan">The time span.</param>
-        /// <param name="types">The types.</param>
-        protected IntervalEntitySystem(TimeSpan timeSpan, params Type[] types)
-            : base(types)
-        {
-            this.timer = new Timer(timeSpan);
-        }
-
-        /// <summary>Initializes a new instance of the <see cref="IntervalEntitySystem"/> class.</summary>
-        /// <param name="timeSpan">The time span.</param>
         /// <param name="aspect">The aspect.</param>
         protected IntervalEntitySystem(TimeSpan timeSpan, Aspect aspect)
             : base(aspect)

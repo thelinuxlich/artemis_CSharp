@@ -46,14 +46,6 @@ namespace Artemis.System
     /// <summary>Class DelayedEntityProcessingSystem.</summary>
     public abstract class DelayedEntityProcessingSystem : DelayedEntitySystem
     {
-        /// <summary>Initializes a new instance of the <see cref="DelayedEntityProcessingSystem"/> class.</summary>
-        /// <param name="requiredType">The required component type.</param>
-        /// <param name="otherTypes">Other component types.</param>
-        protected DelayedEntityProcessingSystem(Type requiredType, params Type[] otherTypes)
-            : base(EntitySystem.GetMergedTypes(requiredType, otherTypes))
-        {
-        }
-
         /// <summary>Initializes a new instance of the <see cref="DelayedEntityProcessingSystem" /> class.</summary>
         /// <param name="aspect">The aspect.</param>
         protected DelayedEntityProcessingSystem(Aspect aspect)

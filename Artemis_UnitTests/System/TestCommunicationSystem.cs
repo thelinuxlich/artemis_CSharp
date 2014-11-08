@@ -54,7 +54,7 @@ namespace UnitTests.System
 
         /// <summary>Initializes a new instance of the <see cref="TestCommunicationSystem" /> class.</summary>
         public TestCommunicationSystem()
-            : base(typeof(TestHealthComponent))
+            : base(Aspect.All(typeof(TestHealthComponent)))
         {
             this.damage = 10;
             BlackBoard.AddTrigger(

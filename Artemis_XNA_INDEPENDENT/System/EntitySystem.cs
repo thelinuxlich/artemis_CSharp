@@ -73,18 +73,6 @@ namespace Artemis.System
             this.SystemBit = 0;
             this.Aspect = Aspect.Empty();
             this.IsEnabled = true;
-            this.Types = null;
-        }
-
-        /// <summary>Initializes a new instance of the <see cref="EntitySystem" /> class.</summary>
-        /// <param name="types">The types.</param>
-        protected EntitySystem(params Type[] types) 
-            : this()
-        {
-            Debug.Assert(types != null, "Types must not be null.");
-            Debug.Assert(types.Length != 0, "Types must not be zero lengthed.");
-            this.Aspect = Aspect.All(types);
-            this.Types = types;
         }
 
         /// <summary>Initializes a new instance of the <see cref="EntitySystem"/> class.</summary>
@@ -144,28 +132,6 @@ namespace Artemis.System
         /// <summary>Gets or sets the aspect.</summary>
         /// <value>The aspect.</value>
         protected Aspect Aspect { get; set; }
-
-        /// <summary>Gets the types.</summary>
-        /// <value>The types.</value>
-        protected Type[] Types { get; private set; }
-
-        /// <summary>Gets the merged types.</summary>
-        /// <param name="requiredType">Type of the required.</param>
-        /// <param name="otherTypes">The other types.</param>
-        /// <returns>All specified types in an array.</returns>
-        public static Type[] GetMergedTypes(Type requiredType, params Type[] otherTypes)
-        {
-            Debug.Assert(requiredType != null, "RequiredType must not be null.");
-
-            Type[] types = new Type[1 + otherTypes.Length];
-            types[0] = requiredType;
-            for (int index = otherTypes.Length - 1; index >= 0; --index)
-            {
-                types[index + 1] = otherTypes[index];
-            }
-
-            return types;
-        }
 
         /// <summary>Override to implement code that gets executed when systems are initialized.</summary>
         public virtual void LoadContent()

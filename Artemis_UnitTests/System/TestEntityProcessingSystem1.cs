@@ -50,7 +50,7 @@ namespace UnitTests.System
     {
         /// <summary>Initializes a new instance of the <see cref="TestEntityProcessingSystem1" /> class.</summary>
         public TestEntityProcessingSystem1()
-            : base(typeof(TestHealthComponent))
+            : base(Aspect.All(typeof(TestHealthComponent)))
         {
         }
 
