@@ -66,7 +66,7 @@ namespace Artemis.Manager
         /// <summary>The next available id.</summary>
         private int nextAvailableId;
 
-        private Bag<int> identifierPool;
+        private readonly Bag<int> identifierPool;
 
         /// <summary>Initializes a new instance of the <see cref="EntityManager" /> class.</summary>
         /// <param name="entityWorld">The entity world.</param>
@@ -78,6 +78,7 @@ namespace Artemis.Manager
             this.removedAndAvailable = new Bag<Entity>();
             this.componentsByType = new Bag<Bag<IComponent>>();
             this.ActiveEntities = new Bag<Entity>();
+            this.identifierPool = new Bag<int>(4);
             this.RemovedEntitiesRetention = 100;
             this.entityWorld = entityWorld;
             this.RemovedComponentEvent += this.EntityManagerRemovedComponentEvent;
@@ -130,7 +131,7 @@ namespace Artemis.Manager
             Entity result = this.removedAndAvailable.RemoveLast();
             if (result == null)
             {
-                int entityId = (this.identifierPool == null || this.identifierPool.IsEmpty)
+                int entityId = this.identifierPool.IsEmpty
                     ? this.nextAvailableId++
                     : this.identifierPool.RemoveLast();
 
@@ -256,9 +257,6 @@ namespace Artemis.Manager
             }
             else
             {
-                if (this.identifierPool == null)
-                    this.identifierPool = new Bag<int>(4);
-
                 this.identifierPool.Add(entity.Id);
             }
 
