@@ -1,7 +1,7 @@
 ![Artemis Build](https://api.travis-ci.org/thelinuxlich/artemis_CSharp.png)
 
 This is a complete C# port and an extension of the awesome Entity System framework Artemis,
-originally available in Java here: http://gamadu.com/artemis
+originally available in Java here: https://github.com/tescott/artemis
 
 Available on Nuget: http://nuget.org/packages/Artemis
 
