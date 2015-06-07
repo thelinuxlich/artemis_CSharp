@@ -845,6 +845,7 @@ namespace UnitTests
             Assert.AreEqual(expectedPower, entity.GetComponent<TestPowerComponentPoolable>().Power);
 
             entity.RemoveComponent<TestPowerComponentPoolable>();
+            entityWorld.Update();
             Assert.IsFalse(entity.HasComponent<TestPowerComponentPoolable>());
 
             expectedPower = 100;
@@ -854,16 +855,24 @@ namespace UnitTests
             Assert.AreEqual(expectedPower, entity.GetComponent<TestPowerComponentPoolable>().Power);
 
             entity.RemoveComponent<TestPowerComponentPoolable>();
+            entityWorld.Update();
             Assert.IsFalse(entity.HasComponent<TestPowerComponentPoolable>());
 
             entityWorld.EntityManager.AddedComponentEvent -= addedComponentEventHandler;
 
-            Debug.WriteLine("Causing ComponentPool<TestPowerComponentPoolable> to fill up to maximum capacity...");	
+            Debug.WriteLine("Causing ComponentPool<TestPowerComponentPoolable> to fill up to maximum capacity...");
 
+            var entities = new List<Entity>();
             while (pool.InvalidCount > 0)
             {
-                entity.AddComponentFromPool<TestPowerComponentPoolable>(c => c.Power = expectedPower);
-                entity.RemoveComponent<TestPowerComponentPoolable>();
+                var ent = entityWorld.CreateEntity();
+                ent.AddComponentFromPool<TestPowerComponentPoolable>(c => c.Power = expectedPower);
+                entities.Add(ent);
+            }
+
+            foreach (var ent in entities)
+            { 
+                ent.RemoveComponent<TestPowerComponentPoolable>();
             }
 
             Debug.WriteLine("Causing ComponentPool<TestPowerComponentPoolable> cleanup...");
@@ -898,7 +907,13 @@ namespace UnitTests
 
             entity.AddComponent(new TestHealthComponent());
             entity.RemoveComponent<TestHealthComponent>();
-            Debug.WriteLine("OK");
+
+            // Removing component is deferred until the update
+            Assert.IsNotNull(entity.GetComponent<TestHealthComponent>());
+
+            // Update the world, component should be removed
+            entityWorld.Update();
+            Assert.IsNull(entity.GetComponent<TestHealthComponent>());
 
             // Remove absent component
             entity.RemoveComponent<TestHealthComponent>();

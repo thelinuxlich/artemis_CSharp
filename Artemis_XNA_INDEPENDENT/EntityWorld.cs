@@ -347,6 +347,8 @@ namespace Artemis
         {
             this.Delta = deltaTicks;
 
+            this.EntityManager.RemoveMarkedComponents();
+
             ++this.poolCleanupDelayCounter;
             if (this.poolCleanupDelayCounter > this.PoolCleanupDelay)
             {

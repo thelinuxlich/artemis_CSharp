@@ -53,9 +53,16 @@ namespace Artemis.Manager
     {
         /// <summary>The components by type.</summary>
         private readonly Bag<Bag<IComponent>> componentsByType;
-        
+
         /// <summary>The removed and available.</summary>
         private readonly Bag<Entity> removedAndAvailable;
+
+        /// <summary>Components to be removed in the next update</summary>
+#if XBOX || WINDOWS_PHONE || PORTABLE
+   		private readonly Bag<Tuple<Entity, ComponentType>> componentsToBeRemoved = new Bag<Tuple<Entity, ComponentType>>();
+#else
+        private readonly HashSet<Tuple<Entity, ComponentType>> componentsToBeRemoved = new HashSet<Tuple<Entity, ComponentType>>();
+#endif
 
         /// <summary>Map unique id to entities</summary>
         private readonly Dictionary<long, Entity> uniqueIdToEntities;
@@ -169,7 +176,7 @@ namespace Artemis.Manager
             Debug.Assert(entity != null, "Entity must not be null.");
             //Debug.Assert(entity.entityManager == this, "");  // TODO
 
-            Bag<IComponent> entityComponents = new Bag<IComponent>();            
+            Bag<IComponent> entityComponents = new Bag<IComponent>();
             int entityId = entity.Id;
             for (int index = 0, b = this.componentsByType.Count; b > index; ++index)
             {
@@ -343,7 +350,7 @@ namespace Artemis.Manager
             }
 
             int entityId = entity.Id;
-            Bag<IComponent> bag = this.componentsByType.Get(componentType.Id);            
+            Bag<IComponent> bag = this.componentsByType.Get(componentType.Id);
 
             if (bag != null && entityId < bag.Capacity)
             {
@@ -380,24 +387,51 @@ namespace Artemis.Manager
         {
             Debug.Assert(entity != null, "Entity must not be null.");
             Debug.Assert(componentType != null, "Component type must not be null.");
-        
-            int entityId = entity.Id;
-            Bag<IComponent> components = this.componentsByType.Get(componentType.Id);
-        
-            if (components != null && entityId < components.Count)
+
+            var pair = new Tuple<Entity, ComponentType>(entity, componentType);
+#if XBOX || WINDOWS_PHONE || PORTABLE
+            if (!this.componentsToBeRemoved.Contains(pair))
             {
-                IComponent componentToBeRemoved = components.Get(entityId);
-                if (this.RemovedComponentEvent != null && componentToBeRemoved != null)
-                {
-                    this.RemovedComponentEvent(entity, componentToBeRemoved);
-                }
-        
-                entity.RemoveTypeBit(componentType.Bit);
-                this.entityWorld.RefreshEntity(entity);
-                components.Set(entityId, null);
+                this.componentsToBeRemoved.Add(pair);
             }
+#else
+            this.componentsToBeRemoved.Add(pair);
+#endif
         }
-        
+
+        /// <summary>Removes components marked for removal</summary>
+        internal void RemoveMarkedComponents()
+        {
+#if XBOX || WINDOWS_PHONE || PORTABLE
+            for (int index = this.componentsToBeRemoved.Count - 1; index >= 0; --index)
+            {
+                var pair = this.componentsToBeRemoved.Get(index);
+#else
+            foreach (var pair in this.componentsToBeRemoved)
+            {
+#endif
+                var entity = pair.Item1;
+                var componentType = pair.Item2;
+
+                int entityId = entity.Id;
+                Bag<IComponent> components = this.componentsByType.Get(componentType.Id);
+
+                if (components != null && entityId < components.Count)
+                {
+                    IComponent componentToBeRemoved = components.Get(entityId);
+                    if (this.RemovedComponentEvent != null && componentToBeRemoved != null)
+                    {
+                        this.RemovedComponentEvent(entity, componentToBeRemoved);
+                    }
+
+                    entity.RemoveTypeBit(componentType.Bit);
+                    this.entityWorld.RefreshEntity(entity);
+                    components.Set(entityId, null);
+                }
+            }
+            this.componentsToBeRemoved.Clear();
+        }
+
         /// <summary>Strips all components from the given entity.</summary>
         /// <param name="entity">Entity for which you want to remove all components</param>
         internal void RemoveComponentsOfEntity(Entity entity)
@@ -406,7 +440,7 @@ namespace Artemis.Manager
 
             entity.TypeBits = 0;
             this.entityWorld.RefreshEntity(entity);
-            
+
             int entityId = entity.Id;
             for (int index = this.componentsByType.Count - 1; index >= 0; --index)
             {
