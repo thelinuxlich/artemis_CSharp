@@ -35,6 +35,7 @@
 #endregion File description
 
 using System;
+using Artemis;
 using Artemis.System;
 using UnitTests.Component;
 
@@ -48,7 +49,8 @@ namespace UnitTests.System
         /// <summary>
         /// Initializes a new instance of the <see cref="TestIntervalEntitySystem"/> class.
         /// </summary>
-        public TestIntervalEntitySystem() : base(new TimeSpan(0,0,0,0), typeof(TestHealthComponent))
+        public TestIntervalEntitySystem()
+            : base(new TimeSpan(0,0,0,0), Aspect.All(typeof(TestHealthComponent)))
         {
 
         }

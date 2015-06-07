@@ -55,13 +55,6 @@ namespace Artemis.System
         private bool isRunning;
 
         /// <summary>Initializes a new instance of the <see cref="DelayedEntitySystem" /> class.</summary>
-        /// <param name="types">The types.</param>
-        protected DelayedEntitySystem(params Type[] types)
-            : base(types)
-        {
-        }
-
-        /// <summary>Initializes a new instance of the <see cref="DelayedEntitySystem" /> class.</summary>
         /// <param name="aspect">The aspect.</param>
         protected DelayedEntitySystem(Aspect aspect)
             : base(aspect)

@@ -61,6 +61,9 @@ namespace Artemis.System
         /// <summary>The actives.</summary>
         private IDictionary<int, Entity> actives;
 
+        /// <summary>Aspect this EntitySystem is interested in.</summary>
+        private readonly Aspect aspect;
+
         /// <summary>Initializes static members of the <see cref="EntitySystem"/> class.</summary>
         static EntitySystem()
         {
@@ -70,21 +73,9 @@ namespace Artemis.System
         /// <summary>Initializes a new instance of the <see cref="EntitySystem" /> class.</summary>
         protected EntitySystem()
         {
-            this.SystemBit = 0;
-            this.Aspect = Aspect.Empty();
+            this.Bit = 0;
+            this.aspect = Aspect.Empty();
             this.IsEnabled = true;
-            this.Types = null;
-        }
-
-        /// <summary>Initializes a new instance of the <see cref="EntitySystem" /> class.</summary>
-        /// <param name="types">The types.</param>
-        protected EntitySystem(params Type[] types) 
-            : this()
-        {
-            Debug.Assert(types != null, "Types must not be null.");
-            Debug.Assert(types.Length != 0, "Types must not be zero lengthed.");
-            this.Aspect = Aspect.All(types);
-            this.Types = types;
         }
 
         /// <summary>Initializes a new instance of the <see cref="EntitySystem"/> class.</summary>
@@ -93,7 +84,7 @@ namespace Artemis.System
             : this()
         {
             Debug.Assert(aspect != null, "Aspect must not be null.");
-            this.Aspect = aspect;
+            this.aspect = aspect;
         }
 
         /// <summary>Gets or sets the black board.</summary>
@@ -139,32 +130,12 @@ namespace Artemis.System
 
         /// <summary>Gets or sets the system bit. (Setter only).</summary>
         /// <value>The system bit.</value>
-        internal BigInteger SystemBit { private get; set; }
+        internal BigInteger Bit { get; set; }
 
-        /// <summary>Gets or sets the aspect.</summary>
-        /// <value>The aspect.</value>
-        protected Aspect Aspect { get; set; }
-
-        /// <summary>Gets the types.</summary>
-        /// <value>The types.</value>
-        protected Type[] Types { get; private set; }
-
-        /// <summary>Gets the merged types.</summary>
-        /// <param name="requiredType">Type of the required.</param>
-        /// <param name="otherTypes">The other types.</param>
-        /// <returns>All specified types in an array.</returns>
-        public static Type[] GetMergedTypes(Type requiredType, params Type[] otherTypes)
+        /// <summary>Gets the aspect.</summary>
+        public Aspect Aspect
         {
-            Debug.Assert(requiredType != null, "RequiredType must not be null.");
-
-            Type[] types = new Type[1 + otherTypes.Length];
-            types[0] = requiredType;
-            for (int index = otherTypes.Length - 1; index >= 0; --index)
-            {
-                types[index + 1] = otherTypes[index];
-            }
-
-            return types;
+            get { return this.aspect; }
         }
 
         /// <summary>Override to implement code that gets executed when systems are initialized.</summary>
@@ -189,7 +160,7 @@ namespace Artemis.System
         {
             Debug.Assert(entity != null, "Entity must not be null.");
 
-            bool contains = (this.SystemBit & entity.SystemBits) == this.SystemBit;
+            bool contains = (this.Bit & entity.SystemBits) == this.Bit;
             ////bool interest = (this.typeFlags & entity.TypeBits) == this.typeFlags;
             bool interest = this.Aspect.Interests(entity);
 
@@ -252,7 +223,7 @@ namespace Artemis.System
         {
             Debug.Assert(entity != null, "Entity must not be null.");
 
-            entity.AddSystemBit(this.SystemBit);
+            entity.AddSystemBit(this.Bit);
             if (entity.IsEnabled)
             {
                 this.Enable(entity);
@@ -298,7 +269,7 @@ namespace Artemis.System
         {
             Debug.Assert(entity != null, "Entity must not be null.");
 
-            entity.RemoveSystemBit(this.SystemBit);
+            entity.RemoveSystemBit(this.Bit);
             if (entity.IsEnabled)
             {
                 this.Disable(entity);

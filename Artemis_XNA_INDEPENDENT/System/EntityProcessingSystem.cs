@@ -53,14 +53,6 @@ namespace Artemis.System
         {
         }
 
-        /// <summary>Initializes a new instance of the <see cref="EntityProcessingSystem"/> class.</summary>
-        /// <param name="requiredType">The required Type.</param>
-        /// <param name="otherTypes">The optional other types.</param>
-        protected EntityProcessingSystem(Type requiredType, params Type[] otherTypes)
-            : base(EntitySystem.GetMergedTypes(requiredType, otherTypes))
-        {
-        }
-
         /// <summary><para>Processes the specified entity.</para>
         /// <para>Users might extend this method when they want</para>
         /// <para>to process the specified entities.</para></summary>

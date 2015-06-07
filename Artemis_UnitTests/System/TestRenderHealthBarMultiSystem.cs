@@ -51,7 +51,7 @@ namespace UnitTests.System
     {
         /// <summary>Initializes a new instance of the <see cref="TestRenderHealthBarMultiSystem" /> class.</summary>
         public TestRenderHealthBarMultiSystem()
-            : base(typeof(TestHealthComponent))
+            : base(Aspect.All(typeof(TestHealthComponent)))
         {
         }
 

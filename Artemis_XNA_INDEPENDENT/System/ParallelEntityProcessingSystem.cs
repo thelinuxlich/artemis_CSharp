@@ -57,17 +57,6 @@ namespace Artemis.System
         private readonly TaskFactory factory;
 #endif
 
-        /// <summary>Initializes a new instance of the <see cref="ParallelEntityProcessingSystem"/> class.</summary>
-        /// <param name="requiredType">Type of the required.</param>
-        /// <param name="otherTypes">The other types.</param>
-        protected ParallelEntityProcessingSystem(Type requiredType, params Type[] otherTypes)
-            : base(EntitySystem.GetMergedTypes(requiredType, otherTypes))
-        {
-#if FULLDOTNET || CLIENTPROFILE
-            this.factory = new TaskFactory(TaskScheduler.Default);
-#endif
-        }
-
         /// <summary>Initializes a new instance of the <see cref="ParallelEntityProcessingSystem" /> class.</summary>
         /// <param name="aspect">The aspect.</param>
         protected ParallelEntityProcessingSystem(Aspect aspect)

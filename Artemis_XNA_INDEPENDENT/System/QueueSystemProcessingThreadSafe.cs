@@ -198,20 +198,6 @@ namespace Artemis.System
                 this.Process(item);
             }
         }
-
-        /*
-        /// <summary>Des the queue.</summary>
-        /// <param name="entitySystemType">Type of the entity system.</param>
-        /// <returns>Entity.</returns>
-        private static Entity DeQueue(Type entitySystemType)
-        {
-            QueueManager queueManager = QueuesManager[entitySystemType];
-            queueManager.AcquireLock();
-            Entity entity = queueManager.Queue.Dequeue();
-            queueManager.ReleaseLock();
-            return entity;
-        }
-        */
     }
 
     // NOTE: Please follow only one concept to overload entity system parts.
@@ -375,19 +361,5 @@ namespace Artemis.System
         public virtual void Process(T entity)
         {
         }
-
-        /*
-        /// <summary>Des the queue.</summary>
-        /// <param name="entitySystemType">Type of the entity system.</param>
-        /// <returns>Entity.</returns>
-        private static Entity DeQueue(Type entitySystemType)
-        {
-            QueueManager queueManager = QueuesManager[entitySystemType];
-            queueManager.AcquireLock();
-            Entity entity = queueManager.Queue.Dequeue();
-            queueManager.ReleaseLock();
-            return entity;
-        }
-        */
     }
 }

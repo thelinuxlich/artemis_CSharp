@@ -26,12 +26,6 @@ namespace ArtemisTest
         }
 
         [Test]
-        public void HybridQueueSystemTest()
-        {
-            Test.HybridQueueSystemTeste();
-        }
-
-        [Test]
         public void SystemCommunicationTest()
         {
             Test.SystemComunicationTeste();

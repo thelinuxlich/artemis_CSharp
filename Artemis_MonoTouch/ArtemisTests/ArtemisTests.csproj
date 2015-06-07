@@ -85,9 +85,6 @@
     <Compile Include="..\..\Artemis_XNA_INDEPENDENT\ArtemisTest\Health.cs">
       <Link>Health.cs</Link>
     </Compile>
-    <Compile Include="..\..\Artemis_XNA_INDEPENDENT\ArtemisTest\HybridQueueSystemTest.cs">
-      <Link>HybridQueueSystemTest.cs</Link>
-    </Compile>
     <Compile Include="..\..\Artemis_XNA_INDEPENDENT\ArtemisTest\MultHealthBarRenderSystem.cs">
       <Link>MultHealthBarRenderSystem.cs</Link>
     </Compile>

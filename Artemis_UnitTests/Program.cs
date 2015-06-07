@@ -54,7 +54,6 @@ namespace UnitTests
             testGeneral.TestIntervalEntitySystem();
             testGeneral.TestAttributes();
             testGeneral.TestDummies();
-            testGeneral.TestHybridQueueSystem();
             testGeneral.TestMultipleSystems();
             testGeneral.TestQueueSystems();
 #if !PORTABLE

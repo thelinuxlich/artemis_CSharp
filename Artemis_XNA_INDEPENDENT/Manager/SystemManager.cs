@@ -416,7 +416,7 @@ namespace Artemis.Manager
                 this.mergedBag.Add(system);
             }
 
-            system.SystemBit = this.systemBitManager.GetBitFor(system);
+            system.Bit = this.systemBitManager.GetBitFor(system);
 
             return system;
         }

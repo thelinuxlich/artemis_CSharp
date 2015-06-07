@@ -46,15 +46,6 @@ namespace Artemis.System
     /// <summary>Class IntervalEntityProcessingSystem.</summary>
     public abstract class IntervalEntityProcessingSystem : IntervalEntitySystem
     {
-        /// <summary>Initializes a new instance of the <see cref="IntervalEntityProcessingSystem"/> class.</summary>
-        /// <param name="timeSpan">The time span.</param>
-        /// <param name="requiredType">Type of the required.</param>
-        /// <param name="otherTypes">The other types.</param>
-        protected IntervalEntityProcessingSystem(TimeSpan timeSpan, Type requiredType, params Type[] otherTypes)
-            : base(timeSpan, EntitySystem.GetMergedTypes(requiredType, otherTypes))
-        {
-        }
-
         /// <summary>Initializes a new instance of the <see cref="IntervalEntityProcessingSystem" /> class.</summary>
         /// <param name="timeSpan">The time span.</param>
         /// <param name="aspect">The aspect.</param>
