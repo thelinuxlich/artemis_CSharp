@@ -66,6 +66,8 @@ namespace Artemis.Manager
         /// <summary>The next available id.</summary>
         private int nextAvailableId;
 
+        private readonly Bag<int> identifierPool;
+
         /// <summary>Initializes a new instance of the <see cref="EntityManager" /> class.</summary>
         /// <param name="entityWorld">The entity world.</param>
         public EntityManager(EntityWorld entityWorld)
@@ -76,6 +78,7 @@ namespace Artemis.Manager
             this.removedAndAvailable = new Bag<Entity>();
             this.componentsByType = new Bag<Bag<IComponent>>();
             this.ActiveEntities = new Bag<Entity>();
+            this.identifierPool = new Bag<int>(4);
             this.RemovedEntitiesRetention = 100;
             this.entityWorld = entityWorld;
             this.RemovedComponentEvent += this.EntityManagerRemovedComponentEvent;
@@ -124,10 +127,15 @@ namespace Artemis.Manager
         public Entity Create(long? uniqueid = null)
         {
             long id = uniqueid.HasValue ? uniqueid.Value : BitConverter.ToInt64(Guid.NewGuid().ToByteArray(), 0);
+
             Entity result = this.removedAndAvailable.RemoveLast();
             if (result == null)
             {
-                result = new Entity(this.entityWorld, this.nextAvailableId++);
+                int entityId = this.identifierPool.IsEmpty
+                    ? this.nextAvailableId++
+                    : this.identifierPool.RemoveLast();
+
+                result = new Entity(this.entityWorld, entityId);
             }
             else
             {
@@ -159,6 +167,7 @@ namespace Artemis.Manager
         public Bag<IComponent> GetComponents(Entity entity)
         {
             Debug.Assert(entity != null, "Entity must not be null.");
+            //Debug.Assert(entity.entityManager == this, "");  // TODO
 
             Bag<IComponent> entityComponents = new Bag<IComponent>();            
             int entityId = entity.Id;
@@ -230,6 +239,7 @@ namespace Artemis.Manager
         public void Remove(Entity entity)
         {
             Debug.Assert(entity != null, "Entity must not be null.");
+            //Debug.Assert(entity.entityManager == this, "");  // TODO
 
             this.ActiveEntities.Set(entity.Id, null);
             this.RemoveComponentsOfEntity(entity);
@@ -244,6 +254,10 @@ namespace Artemis.Manager
             if (this.removedAndAvailable.Count < this.RemovedEntitiesRetention)
             {
                 this.removedAndAvailable.Add(entity);
+            }
+            else
+            {
+                this.identifierPool.Add(entity.Id);
             }
 
             if (this.RemovedEntityEvent != null)
