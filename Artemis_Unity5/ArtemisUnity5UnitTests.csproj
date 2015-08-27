@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <ProductVersion>9.0.21107</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4D1A5323-E021-4C6E-ABDC-9070BD81DFCB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>WorkflowProject1</RootNamespace>
+    <AssemblyName>WorkflowProject1</AssemblyName>
+    <ProjectTypeGuids>{14822709-B5A1-4724-98CA-57A101D1B079};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>.\bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;UNITY5</DefineConstants>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <OutputPath>.\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\Artemis_UnitTests\Component\TestBaseComponent.cs">
+      <Link>TestBaseComponent.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_UnitTests\Component\TestDerivedComponent.cs">
+      <Link>TestDerivedComponent.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_UnitTests\Component\TestHealthComponent.cs">
+      <Link>TestHealthComponent.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_UnitTests\Component\TestPowerComponent.cs">
+      <Link>TestPowerComponent.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_UnitTests\Component\TestPowerComponentPoolable.cs">
+      <Link>TestPowerComponentPoolable.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_UnitTests\Extra\DummyPlaceHolder.cs">
+      <Link>DummyPlaceHolder.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_UnitTests\Program.cs">
+      <Link>Program.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_UnitTests\System\TestCommunicationSystem.cs">
+      <Link>TestCommunicationSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_UnitTests\System\TestEntityComponentProcessingSystem1.cs">
+      <Link>TestEntityComponentProcessingSystem1.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_UnitTests\System\TestEntityComponentProcessingSystem2.cs">
+      <Link>TestEntityComponentProcessingSystem2.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_UnitTests\System\TestEntityProcessingSystem.cs">
+      <Link>TestEntityProcessingSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_UnitTests\System\TestEntityProcessingSystem1.cs">
+      <Link>TestEntityProcessingSystem1.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_UnitTests\System\TestEntityProcessingSystem2.cs">
+      <Link>TestEntityProcessingSystem2.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_UnitTests\System\TestEntityProcessingSystem3.cs">
+      <Link>TestEntityProcessingSystem3.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_UnitTests\System\TestIntervalEntitySystem.cs">
+      <Link>TestIntervalEntitySystem.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_UnitTests\System\TestNormalEntityProcessingSystem1.cs">
+      <Link>TestNormalEntityProcessingSystem1.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_UnitTests\System\TestNormalEntityProcessingSystem2.cs">
+      <Link>TestNormalEntityProcessingSystem2.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_UnitTests\System\TestNormalEntityProcessingSystem3.cs">
+      <Link>TestNormalEntityProcessingSystem3.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_UnitTests\System\TestProcessingSystem.cs">
+      <Link>TestProcessingSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_UnitTests\System\TestQueueSystem.cs">
+      <Link>TestQueueSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_UnitTests\System\TestQueueSystemCopy.cs">
+      <Link>TestQueueSystemCopy.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_UnitTests\System\TestQueueSystemCopy2.cs">
+      <Link>TestQueueSystemCopy2.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_UnitTests\System\TestRenderHealthBarMultiSystem.cs">
+      <Link>TestRenderHealthBarMultiSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_UnitTests\System\TestRenderHealthBarSingleHeavySystem.cs">
+      <Link>TestRenderHealthBarSingleHeavySystem.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_UnitTests\System\TestRenderHealthBarSingleSystem.cs">
+      <Link>TestRenderHealthBarSingleSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_UnitTests\Template\TestEntityTemplate.cs">
+      <Link>TestEntityTemplate.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_UnitTests\TestAspect.cs">
+      <Link>TestAspect.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_UnitTests\TestBag.cs">
+      <Link>TestBag.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_UnitTests\TestEntityFactory.cs">
+      <Link>TestEntityFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_UnitTests\TestGeneral.cs">
+      <Link>TestGeneral.cs</Link>
+    </Compile>
+    <Compile Include="..\Artemis_UnitTests\TestTimeWaster.cs">
+      <Link>TestTimeWaster.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Artemis_Unity5.csproj">
+      <Project>{7d95c5fb-0a33-4eb0-a7b8-3925a79835d1}</Project>
+      <Name>Artemis_Unity5</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="BigInteger, Version=1.4.5574.38047, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\BigInteger.dll</HintPath>
+    </Reference>
+    <Reference Include="MathNet.Numerics, Version=3.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\MathNet.Numerics.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="ParallelTasks.cs.pp" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.Targets" />
+  <Import Project="$(MSBuildToolsPath)\Workflow.Targets" />
+</Project>

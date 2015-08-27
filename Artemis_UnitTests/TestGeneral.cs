@@ -42,7 +42,10 @@ namespace UnitTests
     using global::System.Collections.Generic;
     using global::System.Diagnostics;
     using global::System.Linq;
+#if !UNITY5
     using global::System.Numerics;
+#endif
+
     using global::System.Reflection;
 
     using Artemis;
@@ -63,7 +66,7 @@ namespace UnitTests
     using UnitTests.Extra;
     using UnitTests.System;
 
-    #endregion Using statements
+#endregion Using statements
 
     /// <summary>The general test.</summary>
 #if MONO
@@ -714,10 +717,10 @@ namespace UnitTests
             Assert.IsNotNull(entity.GetComponent<TestBaseComponent>());
             Assert.IsTrue(entity.GetComponent<TestBaseComponent>().IsDerived());
 
-#pragma warning disable 612,618
+#pragma warning disable 612, 618
             ComponentMapper<TestBaseComponent> baseMapper = new ComponentMapper<TestBaseComponent>(entityWorld);
             ComponentMapper<TestDerivedComponent> derivedMapper = new ComponentMapper<TestDerivedComponent>(entityWorld);
-#pragma warning restore 612,618
+#pragma warning restore 612, 618
 
             Assert.IsNull(derivedMapper.Get(entity));
             Assert.IsNotNull(baseMapper.Get(entity));
@@ -1022,7 +1025,7 @@ namespace UnitTests
             {
                 for (int i = 0; i < 32; i++)
                 {
-                    Assert.AreEqual(BigInteger.One << i, new ComponentType().Bit);
+                    Assert.AreEqual(1 << i, new ComponentType().Bit);
                 }
             }
 
@@ -1073,7 +1076,7 @@ namespace UnitTests
             {
                 for (int i = 0; i < 32; i++)
                 {
-                    Assert.AreEqual(BigInteger.One << i, systemBitManager.GetBitFor(new TestEntityProcessingSystem()));
+                    Assert.AreEqual(1 << i, systemBitManager.GetBitFor(new TestEntityProcessingSystem()));
                 }
             }
             

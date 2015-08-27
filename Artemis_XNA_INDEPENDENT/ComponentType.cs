@@ -40,7 +40,8 @@ namespace Artemis
 
     using global::System;
     using global::System.Diagnostics;
-#if XBOX || WINDOWS_PHONE || PORTABLE || FORCEINT32
+
+#if XBOX || WINDOWS_PHONE || PORTABLE || FORCEINT32 || UNITY5
     using BigInteger = global::System.Int32;
 #else
     using global::System.Numerics;
@@ -68,7 +69,11 @@ namespace Artemis
         }
 
         /// <summary>Initializes a new instance of the <see cref="ComponentType"/> class.</summary>
+#if UNITY5
+        public ComponentType()
+#else
         internal ComponentType()
+#endif
         {
 #if XBOX || WINDOWS_PHONE || PORTABLE || FORCEINT32
             if (nextId == 32)

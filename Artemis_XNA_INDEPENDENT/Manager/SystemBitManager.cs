@@ -38,21 +38,26 @@ namespace Artemis.Manager
 {
     #region Using statements
 
-    using global::System;
     using global::System.Collections.Generic;
     using Artemis.System;
 
-#if !XBOX && !WINDOWS_PHONE  && !PORTABLE
+#if !XBOX && !WINDOWS_PHONE && !PORTABLE && !UNITY5
     using global::System.Numerics;
 #endif
+
 #if XBOX || WINDOWS_PHONE || PORTABLE || FORCEINT32
     using BigInteger = global::System.Int32;
+    using global::System;
 #endif
 
     #endregion Using statements
 
     /// <summary>Class SystemBitManager.</summary>
+#if UNITY5
+    public class SystemBitManager
+#else
     internal class SystemBitManager
+#endif
     {
         /// <summary>The system bits.</summary>
         private readonly Dictionary<EntitySystem, BigInteger> systemBits = new Dictionary<EntitySystem, BigInteger>();

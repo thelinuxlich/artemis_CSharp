@@ -41,7 +41,7 @@ namespace Artemis.System
 
     using global::System;
     using global::System.Collections.Generic;
-#if FULLDOTNET || METRO || CLIENTPROFILE
+#if FULLDOTNET || METRO || CLIENTPROFILE || UNITY5
     using global::System.Threading.Tasks;
 #else
     using ParallelTasks;
@@ -92,7 +92,7 @@ namespace Artemis.System
 #if FULLDOTNET || CLIENTPROFILE
                 tasks.Add(
                     this.factory.StartNew(
-#elif METRO
+#elif METRO || UNITY5
                 tasks.Add(Task.Factory.StartNew(
 #else
                 tasks.Add(Parallel.Start(

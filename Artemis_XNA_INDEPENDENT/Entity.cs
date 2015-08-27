@@ -40,7 +40,7 @@ namespace Artemis
 
     using global::System.Diagnostics;
 
-#if !XBOX && !WINDOWS_PHONE  && !PORTABLE
+#if !XBOX && !WINDOWS_PHONE && !PORTABLE && !UNITY5
     using global::System.Numerics;
 #endif
 #if XBOX || WINDOWS_PHONE || PORTABLE || FORCEINT32

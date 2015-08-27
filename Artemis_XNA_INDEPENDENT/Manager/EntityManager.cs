@@ -45,8 +45,11 @@ namespace Artemis.Manager
     using Artemis.Interface;
     using Artemis.System;
     using Artemis.Utils;
+#if UNITY5
+    using MathNet.Numerics;
+#endif
 
-    #endregion Using statements
+#endregion Using statements
 
     /// <summary>The Entity Manager.</summary>
     public sealed class EntityManager
