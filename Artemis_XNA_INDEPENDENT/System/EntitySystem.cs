@@ -44,7 +44,7 @@ namespace Artemis.System
 #if XBOX || WINDOWS_PHONE || PORTABLE || FORCEINT32
     using BigInteger = global::System.Int32;
 #endif
-#if !XBOX && !WINDOWS_PHONE  && !PORTABLE
+#if !XBOX && !WINDOWS_PHONE  && !PORTABLE && !UNITY5
     using global::System.Numerics;
 #endif
     using Artemis.Blackboard;

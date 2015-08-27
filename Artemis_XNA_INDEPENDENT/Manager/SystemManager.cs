@@ -50,8 +50,13 @@ namespace Artemis.Manager
     using Artemis.Interface;
     using Artemis.System;
     using Artemis.Utils;
-#if (!FULLDOTNET && !PORTABLE && !METRO) && !CLIENTPROFILE
+
+#if (!FULLDOTNET && !PORTABLE && !METRO) && !CLIENTPROFILE && !UNITY5
     using ParallelTasks;
+#endif
+
+#if UNITY5
+    using global::System.Threading.Tasks;
 #endif
 
 #if METRO
@@ -178,29 +183,29 @@ namespace Artemis.Manager
 
                 foreach (KeyValuePair<Type, List<Attribute>> item in types)
                 {
-#if METRO                    
+#if METRO
                     if (typeof(EntitySystem).GetTypeInfo().IsAssignableFrom(item.Key.GetTypeInfo()))
 #else
                     if (typeof(EntitySystem).IsAssignableFrom(item.Key))
-#endif 
+#endif
                     {
                         Type type = item.Key;
                         ArtemisEntitySystem pee = (ArtemisEntitySystem)item.Value[0];
                         EntitySystem instance = (EntitySystem)Activator.CreateInstance(type);
                         this.SetSystem(instance, pee.GameLoopType, pee.Layer, pee.ExecutionType);
                     }
-#if METRO                    
+#if METRO
                     else if (typeof(IEntityTemplate).GetTypeInfo().IsAssignableFrom(item.Key.GetTypeInfo()))
 #else
                     else if (typeof(IEntityTemplate).IsAssignableFrom(item.Key))
-#endif 
+#endif
                     {
                         Type type = item.Key;
                         ArtemisEntityTemplate pee = (ArtemisEntityTemplate)item.Value[0];
                         IEntityTemplate instance = (IEntityTemplate)Activator.CreateInstance(type);
                         this.entityWorld.SetEntityTemplate(pee.Name, instance);
                     }
-#if METRO                    
+#if METRO
                     else if (typeof(ComponentPoolable).GetTypeInfo().IsAssignableFrom(item.Key.GetTypeInfo()))
 #else
                     else if (typeof(ComponentPoolable).IsAssignableFrom(item.Key))
@@ -322,7 +327,7 @@ namespace Artemis.Manager
             {
                 propertyComponentPool = artemisComponentPool;
             }
-#if METRO            
+#if METRO
             IEnumerable<MethodInfo> methods = type.GetRuntimeMethods();
 #else
             MethodInfo[] methods = type.GetMethods();
@@ -336,7 +341,7 @@ namespace Artemis.Manager
 
             foreach (MethodInfo methodInfo in methodInfos)
             {
-#if METRO                                                                   
+#if METRO
                 create = (Func<Type, ComponentPoolable>) methodInfo.CreateDelegate(typeof(Func<Type, ComponentPoolable>));                            
 #else
                 create = (Func<Type, ComponentPoolable>)Delegate.CreateDelegate(typeof(Func<Type, ComponentPoolable>), methodInfo);
