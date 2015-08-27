@@ -57,3 +57,4 @@ Supported Platforms:
 * Windows Phone 7 / 8
 * Xbox
 * Mono (Linux/Android/OSx)
+* Unity 5 - .Net framework 3.5
