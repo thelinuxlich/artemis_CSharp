@@ -386,6 +386,7 @@ namespace Artemis
                     Entity entity = this.refreshed.Get(index);
                     this.EntityManager.Refresh(entity);
                     entity.RefreshingState = false;
+                    this.refreshed.Remove(index);
                 }
 #else
                 foreach (Entity entity in this.refreshed)
@@ -394,8 +395,8 @@ namespace Artemis
                     entity.RefreshingState = false;
                 }
 
-#endif
                 this.refreshed.Clear();
+#endif
             }
 
             this.SystemManager.Update();
