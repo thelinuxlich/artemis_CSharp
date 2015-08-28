@@ -108,7 +108,7 @@ namespace Artemis.Attributes
                                                                         typeof(ArtemisComponentCreate)
                                                                     };
 
-#if FULLDOTNET || METRO
+#if FULLDOTNET || METRO || UNITY5
         /// <summary>Processes the specified supported attributes.</summary>
         /// <param name="supportedAttributes">The supported attributes.</param>
         /// <returns>The Dictionary{TypeList{Attribute}}.</returns>
