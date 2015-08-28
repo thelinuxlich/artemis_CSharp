@@ -114,7 +114,7 @@ namespace Artemis.Manager
         /// <param name="assembliesToScan">The assemblies to scan.</param>
         public static void Initialize(params Assembly[] assembliesToScan)
         {
-#if FULLDOTNET || METRO
+#if FULLDOTNET || METRO || UNITY5
             if (assembliesToScan.Length == 0)
             {
                 assembliesToScan = AppDomain.CurrentDomain.GetAssemblies().ToArray();

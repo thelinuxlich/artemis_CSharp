@@ -41,9 +41,9 @@ namespace Artemis
     using global::System;
     using global::System.Diagnostics;
 
-#if XBOX || WINDOWS_PHONE || PORTABLE || FORCEINT32 || UNITY5
+#if XBOX || WINDOWS_PHONE || PORTABLE || FORCEINT32
     using BigInteger = global::System.Int32;
-#else
+#elif !UNITY5
     using global::System.Numerics;
 #endif
     using Artemis.Interface;

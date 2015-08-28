@@ -170,7 +170,7 @@ namespace Artemis.Manager
                 IDictionary<Type, List<Attribute>> types;
                 if (assembliesToScan == null)
                 {
-#if FULLDOTNET || METRO
+#if FULLDOTNET || METRO || UNITY5
                     types = AttributesProcessor.Process(AttributesProcessor.SupportedAttributes);
 #else
                     types = AttributesProcessor.Process(AttributesProcessor.SupportedAttributes, null);
