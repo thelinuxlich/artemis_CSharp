@@ -1112,5 +1112,28 @@ namespace UnitTests
                 Assert.IsFalse(thrown, "Getting SystemBit for 33rd EntitySystem instance should not fail when BigInteger bit type is used");
             }
         }
+
+        /// <summary>Tests EntitySystem SystemBits Issue 93.</summary>
+#if MONO
+    [Test]
+#else
+    [TestMethod]
+#endif
+        public void TestEntitySystemSystemBit_Issue_93_More_than_64_Systems()
+        {
+            bool int32Used = typeof(SystemBitManager).GetMethod("GetBitFor").ReturnType == typeof (global::System.Int32);
+            var systemBitManager = new SystemBitManager();
+
+            if (int32Used)
+                Assert.Inconclusive("Test cannot be run because the Artemis build being tested is compiled with System.Int32 SystemBit type");
+
+            // If SystemBitManager is compiled with BigInteger SystemBit type,
+            // virtually any number of EntitySystem instances will get valid SystemBit values.
+
+            for (int i = 0; i < 100; i++)
+            {
+                Assert.AreEqual(new BigInteger(1) << i, systemBitManager.GetBitFor(new TestEntityProcessingSystem()), "i = {0}", i);
+            }
+        }
     }
 }

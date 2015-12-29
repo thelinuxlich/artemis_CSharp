@@ -82,7 +82,7 @@ namespace Artemis.Manager
 
                 bit = 1 << this.position;
 #else
-                bit = 1L << this.position;
+                bit = new BigInteger(1) << this.position;
 #endif
                 this.position++;
                 this.systemBits.Add(entitySystem, bit);
