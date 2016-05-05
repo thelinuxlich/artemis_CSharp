@@ -1,0 +1,2 @@
+This file is added as part of the NuGet package installation process for the Unity3D.DLLs package.
+It should be deleted automatically after the package is installed. The file can also be removed manually.
