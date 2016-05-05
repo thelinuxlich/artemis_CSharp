@@ -53,7 +53,7 @@ namespace Artemis_Unity5Editor
 	[ArtemisEntitySystem(ExecutionType = ExecutionType.Synchronous, GameLoopType = GameLoopType.Update, Layer = 0)]
 	public class EntityDebugSystem : EntitySystem
 	{
-		GameObject container = new GameObject ("Pool (Active Entities: 0)");
+		GameObject Container = new GameObject ("EntityWorld (Active Entities: 0)");
 
 		public override void LoadContent ()
 		{
@@ -71,11 +71,11 @@ namespace Artemis_Unity5Editor
 		void AddedEntityEvent (Entity entity)
 		{
 			GameObject entityObj = new GameObject ("Entity " + entity.Id);
-			entityObj.transform.parent = container.transform;
+			entityObj.transform.parent = Container.transform;
 			entityObj.AddComponent<EntityBehaviour> ();
 			var script = entityObj.GetComponent<EntityBehaviour> ();
-			script.SetManager (this.entityWorld.EntityManager);
-			script.SetEntity (entity);
+			script.EntityManager = this.EntityWorld.EntityManager;
+			script.Entity = entity;
 
 			Print ();
 
@@ -84,9 +84,9 @@ namespace Artemis_Unity5Editor
 
 		void Print()
 		{
-			container.name = "Pool (Active Entities: " + this.entityWorld.CurrentState.Count;
-			container.name += " Total Created: " + this.entityWorld.EntityManager.TotalCreated;
-			container.name += " Total Removed: " + this.entityWorld.EntityManager.TotalRemoved + ")";
+			Container.name = "EntityWorld (Active Entities: " + this.entityWorld.CurrentState.Count;
+			Container.name += " Total Created: " + this.entityWorld.EntityManager.TotalCreated;
+			Container.name += " Total Removed: " + this.entityWorld.EntityManager.TotalRemoved + ")";
 		}
 	}
 }

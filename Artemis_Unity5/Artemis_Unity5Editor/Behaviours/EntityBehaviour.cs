@@ -53,22 +53,12 @@ namespace Artemis_Unity5Editor
 	/// <para>Unity representation of internal artemis entity.</para></summary>
 	public class EntityBehaviour : MonoBehaviour
 	{
-		public Entity Entity { get; private set; }
-		public EntityManager EntityManager { get; private set; }
+		internal Entity Entity { get; set; }
+		internal EntityManager EntityManager { get; set; }
 
-		public void SetManager(EntityManager EntityManager)
+		void Start()
 		{
-			if (this.EntityManager == null) {
-				this.EntityManager = EntityManager;
-				this.EntityManager.RemovedEntityEvent += RemovedEntityEvent;
-			}
-		}
-
-		public void SetEntity(Entity Entity)
-		{
-			if (this.Entity == null) {
-				this.Entity = Entity;
-			}
+			this.EntityManager.RemovedEntityEvent += RemovedEntityEvent;
 		}
 
 		void RemovedEntityEvent (Entity entity)

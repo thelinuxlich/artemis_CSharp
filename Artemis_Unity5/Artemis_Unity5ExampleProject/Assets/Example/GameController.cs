@@ -2,7 +2,6 @@
 using System.Collections;
 
 using Artemis;
-using System.Linq;
 
 public class GameController : MonoBehaviour {
 
