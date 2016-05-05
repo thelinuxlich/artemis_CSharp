@@ -1,19 +1,15 @@
 ﻿#region File description
 
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="EntityDebugSystem.cs" company="GAMADU.COM">
+// <copyright file="EntityWorld.cs" company="GAMADU.COM">
 //     Copyright © 2013 GAMADU.COM. All rights reserved.
-//
 //     Redistribution and use in source and binary forms, with or without modification, are
 //     permitted provided that the following conditions are met:
-//
 //        1. Redistributions of source code must retain the above copyright notice, this list of
 //           conditions and the following disclaimer.
-//
 //        2. Redistributions in binary form must reproduce the above copyright notice, this list
 //           of conditions and the following disclaimer in the documentation and/or other materials
 //           provided with the distribution.
-//
 //     THIS SOFTWARE IS PROVIDED BY GAMADU.COM 'AS IS' AND ANY EXPRESS OR IMPLIED
 //     WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
 //     FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL GAMADU.COM OR
@@ -23,70 +19,66 @@
 //     ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
 //     NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 //     ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-//
 //     The views and conclusions contained in the software and documentation are those of the
 //     authors and should not be interpreted as representing official policies, either expressed
 //     or implied, of GAMADU.COM.
 // </copyright>
 // <summary>
-//   Class EntityDebugSystem.
+//   The Entity World Class. Main interface of the Entity System.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
 #endregion File description
 
 namespace Artemis_Unity5Editor
 {
 	#region Using statements
 
-	using Artemis.Manager;
-	using Artemis.Attributes;
-	using Artemis.System;
-	using Artemis;
-
+	using UnityEditor;
 	using UnityEngine;
 
-	#endregion Using statements
+	using global::System.Reflection;
+	using global::System;
+
+	#endregion
 
 	/// <summary>
-	/// Entity Debug System.
+	/// Entity Behaviour Inspector.
 	/// </summary>
-	[ArtemisEntitySystem(ExecutionType = ExecutionType.Synchronous, GameLoopType = GameLoopType.Update, Layer = 0)]
-	public class EntityDebugSystem : EntitySystem
+	[CustomEditor(typeof(EntityBehaviour))]
+	public class EntityBehaviourInspector : Editor
 	{
-		GameObject container = new GameObject ("Pool (Active Entities: 0)");
-
-		public override void LoadContent ()
+		public override void OnInspectorGUI()
 		{
-			this.EntityWorld.EntityManager.AddedEntityEvent += AddedEntityEvent;
-			this.EntityWorld.EntityManager.RemovedEntityEvent += RemovedEntityEvent;
-		}
+			DrawDefaultInspector();
 
-		void RemovedEntityEvent (Entity entity)
-		{
-			Print ();
+			EntityBehaviour EntityBahaviourScript = (EntityBehaviour)target;
+			if(GUILayout.Button("Delete Entity"))
+			{
+				EntityBahaviourScript.Entity.Delete ();
+			}
 
-			Debug.Log ("Entity " + entity.UniqueId + " Removed.");
-		}
+			foreach (var Component in EntityBahaviourScript.Entity.Components) {
+				Type ComponentType = Component.GetType ();
+				foreach (PropertyInfo propertyInfo in ComponentType.GetProperties()) {
+					// Get name.
+					string name = propertyInfo.Name;
 
-		void AddedEntityEvent (Entity entity)
-		{
-			GameObject entityObj = new GameObject ("Entity " + entity.Id);
-			entityObj.transform.parent = container.transform;
-			entityObj.AddComponent<EntityBehaviour> ();
-			var script = entityObj.GetComponent<EntityBehaviour> ();
-			script.SetManager (this.entityWorld.EntityManager);
-			script.SetEntity (entity);
+					// Get value on the target instance.
+					object value = propertyInfo.GetValue (Component, null);
 
-			Print ();
+					EditorGUILayout.BeginHorizontal ();
+					EditorGUILayout.LabelField (name, GUILayout.MaxWidth(10));
 
-			Debug.Log ("Entity " + entity.UniqueId + " Added.");
-		}
-
-		void Print()
-		{
-			container.name = "Pool (Active Entities: " + this.entityWorld.CurrentState.Count;
-			container.name += " Total Created: " + this.entityWorld.EntityManager.TotalCreated;
-			container.name += " Total Removed: " + this.entityWorld.EntityManager.TotalRemoved + ")";
+					// Test value type.
+					if (value is int) {
+						int nvalue = EditorGUILayout.IntField ((int)value);
+						propertyInfo.SetValue (Component, Convert.ChangeType (nvalue, propertyInfo.PropertyType), null);
+					}
+					EditorGUILayout.EndHorizontal ();
+				}
+			}
 		}
 	}
 }
+

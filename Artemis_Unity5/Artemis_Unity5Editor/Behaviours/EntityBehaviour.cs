@@ -53,36 +53,35 @@ namespace Artemis_Unity5Editor
 	/// <para>Unity representation of internal artemis entity.</para></summary>
 	public class EntityBehaviour : MonoBehaviour
 	{
-		private Entity entity;
-		private EntityManager manager;
+		public Entity Entity { get; private set; }
+		public EntityManager EntityManager { get; private set; }
 
-		public void SetManager(EntityManager manager)
+		public void SetManager(EntityManager EntityManager)
 		{
-			if (this.manager == null) {
-				this.manager = manager;
-				this.manager.RemovedEntityEvent += RemovedEntityEvent;
+			if (this.EntityManager == null) {
+				this.EntityManager = EntityManager;
+				this.EntityManager.RemovedEntityEvent += RemovedEntityEvent;
 			}
 		}
 
-		public void SetEntity(Entity entity)
+		public void SetEntity(Entity Entity)
 		{
-			if (this.entity == null) {
-				this.entity = entity;
+			if (this.Entity == null) {
+				this.Entity = Entity;
 			}
 		}
 
 		void RemovedEntityEvent (Entity entity)
 		{
-			if (this.entity == entity) {
-				Debug.Log ("Entity " + entity.UniqueId + " Removed.");
+			if (this.Entity == entity) {
 				Destroy (this.gameObject);
 			}
 		}
 
 		void OnDestroy()
 		{
-			entity = null;
-			manager = null;
+			Entity = null;
+			EntityManager = null;
 		}
 	}
 }

@@ -40,11 +40,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Systems\EntityDebugSystem.cs" />
     <Compile Include="Behaviours\EntityBehaviour.cs" />
+    <Compile Include="Behaviours\Editor\EntityBehaviourInspector.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Systems\" />
     <Folder Include="Behaviours\" />
+    <Folder Include="Behaviours\Editor\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Artemis_Unity5.csproj">
