@@ -34,75 +34,44 @@ namespace Artemis_Unity5Editor
 {
 	#region Using statements
 
-	using global::System.Reflection;
-	using global::System;
-
 	using UnityEditor;
 	using UnityEngine;
 
-	using Artemis.Interface;
-	using Artemis;
+	using global::System.Collections.Generic;
+	using global::System.Reflection;
+	using global::System;
 
 	#endregion
 
 	/// <summary>
-	/// Entity Behaviour Inspector.
+	/// Type Drawer.
 	/// </summary>
-	[CanEditMultipleObjects]
-	[CustomEditor(typeof(EntityBehaviour))]
-	public class EntityBehaviourInspector : Editor
+	public static class TypeDrawer
 	{
-		bool Initialized=false;
+		static Dictionary<Type, ITypeDrawer> types = new Dictionary<Type, ITypeDrawer>();
 
-		public void InitializeDrawer()
+		public static void Initialize ()
 		{
-			if (!Initialized) {
-				Initialized = true;
-				TypeDrawer.Initialize ();
-			}
-		}
-
-		public override void OnInspectorGUI()
-		{
-			DrawDefaultInspector();
-			InitializeDrawer ();
-
-			if (targets.Length == 1) {
-				EntityBehaviour EntityBahaviourScript = (EntityBehaviour)target;
-				if (GUILayout.Button ("Delete Entity")) {
-					EntityBahaviourScript.Entity.Delete ();
+			var LibraryCollection = AppDomain.CurrentDomain.GetAssemblies ();
+			foreach (var Library in LibraryCollection) {
+				var LibraryTypes = Library.GetTypes ();
+				foreach (var LibraryType in LibraryTypes) {
+					if (typeof(ITypeDrawer).IsAssignableFrom (LibraryType) && LibraryType.IsClass) {
+						ITypeDrawer Drawer = (ITypeDrawer)Activator.CreateInstance (LibraryType);
+						if (!types.ContainsKey (Drawer.Handles ())) {
+							types.Add (Drawer.Handles (), Drawer); 
+						}
+					}
 				}
-				EditorGUILayout.Space ();
-
-				DrawEntity (EntityBahaviourScript.Entity);
 			}
 		}
 
-		void DrawEntity(Entity Entity)
+		public static object Draw(Type ValueType, object Value)
 		{
-			foreach (IComponent Component in Entity.Components) {
-				EditorGUILayout.LabelField (Component.GetType ().Name);
-				DrawComponent (Component);
-			}
-		}
-
-		void DrawComponent(IComponent Component)
-		{
-			Type ComponentType = Component.GetType ();
-			foreach (PropertyInfo propertyInfo in ComponentType.GetProperties()) {
-				// Get name.
-				string name = propertyInfo.Name;
-
-				// Get value on the target instance.
-				object value = propertyInfo.GetValue (Component, null);
-
-				EditorGUILayout.BeginHorizontal ();
-				EditorGUILayout.LabelField (name, GUILayout.MaxWidth (10));
-
-				object nvalue = TypeDrawer.Draw (propertyInfo.PropertyType, value);
-				propertyInfo.SetValue (Component, Convert.ChangeType (nvalue, propertyInfo.PropertyType), null);
-
-				EditorGUILayout.EndHorizontal ();
+			if (types.ContainsKey (ValueType)) {
+				return types [ValueType].Draw (Value);
+			} else {
+				return null;
 			}
 		}
 	}

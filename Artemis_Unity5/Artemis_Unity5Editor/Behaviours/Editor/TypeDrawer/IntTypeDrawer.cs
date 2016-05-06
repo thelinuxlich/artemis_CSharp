@@ -34,77 +34,30 @@ namespace Artemis_Unity5Editor
 {
 	#region Using statements
 
-	using global::System.Reflection;
-	using global::System;
-
 	using UnityEditor;
 	using UnityEngine;
 
-	using Artemis.Interface;
-	using Artemis;
+	using global::System.Reflection;
+	using global::System;
 
 	#endregion
 
 	/// <summary>
-	/// Entity Behaviour Inspector.
+	/// Int Type Drawer.
 	/// </summary>
-	[CanEditMultipleObjects]
-	[CustomEditor(typeof(EntityBehaviour))]
-	public class EntityBehaviourInspector : Editor
+	public class IntTypeDrawer : ITypeDrawer
 	{
-		bool Initialized=false;
+		public IntTypeDrawer(){}
 
-		public void InitializeDrawer()
+		public Type Handles ()
 		{
-			if (!Initialized) {
-				Initialized = true;
-				TypeDrawer.Initialize ();
-			}
+			return typeof(int);
 		}
 
-		public override void OnInspectorGUI()
+		public object Draw (object Value)
 		{
-			DrawDefaultInspector();
-			InitializeDrawer ();
-
-			if (targets.Length == 1) {
-				EntityBehaviour EntityBahaviourScript = (EntityBehaviour)target;
-				if (GUILayout.Button ("Delete Entity")) {
-					EntityBahaviourScript.Entity.Delete ();
-				}
-				EditorGUILayout.Space ();
-
-				DrawEntity (EntityBahaviourScript.Entity);
-			}
-		}
-
-		void DrawEntity(Entity Entity)
-		{
-			foreach (IComponent Component in Entity.Components) {
-				EditorGUILayout.LabelField (Component.GetType ().Name);
-				DrawComponent (Component);
-			}
-		}
-
-		void DrawComponent(IComponent Component)
-		{
-			Type ComponentType = Component.GetType ();
-			foreach (PropertyInfo propertyInfo in ComponentType.GetProperties()) {
-				// Get name.
-				string name = propertyInfo.Name;
-
-				// Get value on the target instance.
-				object value = propertyInfo.GetValue (Component, null);
-
-				EditorGUILayout.BeginHorizontal ();
-				EditorGUILayout.LabelField (name, GUILayout.MaxWidth (10));
-
-				object nvalue = TypeDrawer.Draw (propertyInfo.PropertyType, value);
-				propertyInfo.SetValue (Component, Convert.ChangeType (nvalue, propertyInfo.PropertyType), null);
-
-				EditorGUILayout.EndHorizontal ();
-			}
-		}
+			return EditorGUILayout.IntField((int)Value);
+		}	
 	}
 }
 

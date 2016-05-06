@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Example\Components\PositionComponent.cs" />
+     <Compile Include="Assets\Example\Components\VelocityComponent.cs" />
      <Compile Include="Assets\Example\GameController.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

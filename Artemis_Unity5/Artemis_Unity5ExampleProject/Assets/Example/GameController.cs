@@ -36,6 +36,7 @@ public class GameController : MonoBehaviour {
 			var e = World.CreateEntity ();
 			e.AddComponent (new PositionComponent ());
 			e.GetComponent<PositionComponent> ().X = Random.Range(0,100);
+			e.AddComponent<VelocityComponent> (new VelocityComponent());
 		}
 
 		if (Input.GetKeyUp (KeyCode.G)) {
