@@ -30,7 +30,7 @@
 
 #endregion File description
 
-namespace Artemis_Unity5Editor
+namespace Artemis_Unity5Editor.Editor
 {
 	#region Using statements
 
@@ -48,61 +48,25 @@ namespace Artemis_Unity5Editor
 	/// <summary>
 	/// Entity Behaviour Inspector.
 	/// </summary>
-	[CanEditMultipleObjects]
-	[CustomEditor(typeof(EntityBehaviour))]
+	[CustomEditor(typeof(EntityBehaviour)), CanEditMultipleObjects]
 	public class EntityBehaviourInspector : Editor
 	{
-		bool Initialized=false;
-
-		public void InitializeDrawer()
+		void Awake()
 		{
-			if (!Initialized) {
-				Initialized = true;
-				TypeDrawer.Initialize ();
-			}
+			EntityDrawer.Initialize ();
 		}
 
 		public override void OnInspectorGUI()
 		{
-			DrawDefaultInspector();
-			InitializeDrawer ();
-
 			if (targets.Length == 1) {
+				EditorGUILayout.Space ();
 				EntityBehaviour EntityBahaviourScript = (EntityBehaviour)target;
 				if (GUILayout.Button ("Delete Entity")) {
 					EntityBahaviourScript.Entity.Delete ();
 				}
 				EditorGUILayout.Space ();
 
-				DrawEntity (EntityBahaviourScript.Entity);
-			}
-		}
-
-		void DrawEntity(Entity Entity)
-		{
-			foreach (IComponent Component in Entity.Components) {
-				EditorGUILayout.LabelField (Component.GetType ().Name);
-				DrawComponent (Component);
-			}
-		}
-
-		void DrawComponent(IComponent Component)
-		{
-			Type ComponentType = Component.GetType ();
-			foreach (PropertyInfo propertyInfo in ComponentType.GetProperties()) {
-				// Get name.
-				string name = propertyInfo.Name;
-
-				// Get value on the target instance.
-				object value = propertyInfo.GetValue (Component, null);
-
-				EditorGUILayout.BeginHorizontal ();
-				EditorGUILayout.LabelField (name, GUILayout.MaxWidth (10));
-
-				object nvalue = TypeDrawer.Draw (propertyInfo.PropertyType, value);
-				propertyInfo.SetValue (Component, Convert.ChangeType (nvalue, propertyInfo.PropertyType), null);
-
-				EditorGUILayout.EndHorizontal ();
+				EntityDrawer.DrawEntity (EntityBahaviourScript.Entity);
 			}
 		}
 	}

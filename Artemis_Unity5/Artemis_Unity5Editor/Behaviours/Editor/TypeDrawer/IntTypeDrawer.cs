@@ -30,7 +30,7 @@
 
 #endregion File description
 
-namespace Artemis_Unity5Editor
+namespace Artemis_Unity5Editor.Editor
 {
 	#region Using statements
 

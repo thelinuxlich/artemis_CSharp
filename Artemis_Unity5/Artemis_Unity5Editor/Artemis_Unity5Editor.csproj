@@ -44,6 +44,7 @@
     <Compile Include="Behaviours\Editor\TypeDrawer\Interface\ITypeDrawer.cs" />
     <Compile Include="Behaviours\Editor\TypeDrawer\IntTypeDrawer.cs" />
     <Compile Include="Behaviours\Editor\TypeDrawer\TypeDrawer.cs" />
+    <Compile Include="Behaviours\Editor\TypeDrawer\EntityDrawer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

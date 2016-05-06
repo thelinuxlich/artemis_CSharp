@@ -37,50 +37,95 @@ namespace Artemis_Unity5Editor.Editor
 	using UnityEditor;
 	using UnityEngine;
 
-	using global::System.Collections.Generic;
 	using global::System.Reflection;
 	using global::System;
+
+	using Artemis.Manager;
+	using Artemis.Interface;
+	using Artemis.Utils;
+	using Artemis;
 
 	#endregion
 
 	/// <summary>
-	/// Type Drawer.
+	/// Entity Drawer.
 	/// </summary>
-	public static class TypeDrawer
+	public static class EntityDrawer
 	{
-		static Dictionary<Type, ITypeDrawer> types = new Dictionary<Type, ITypeDrawer>();
+		static bool Initialized = false;
 
-		public static void Initialize ()
+		static Bag<bool> components = new Bag<bool>();
+
+		public static void Initialize()
 		{
-			var LibraryCollection = AppDomain.CurrentDomain.GetAssemblies ();
-			foreach (var Library in LibraryCollection) {
-				var LibraryTypes = Library.GetTypes ();
-				foreach (var LibraryType in LibraryTypes) {
-					if (typeof(ITypeDrawer).IsAssignableFrom (LibraryType) && LibraryType.IsClass) {
-						ITypeDrawer Drawer = (ITypeDrawer)Activator.CreateInstance (LibraryType);
-						if (!types.ContainsKey (Drawer.Handles ())) {
-							types.Add (Drawer.Handles (), Drawer); 
-						}
-					}
-				}
+			if (!Initialized) {
+				Initialized = true;
+				TypeDrawer.Initialize ();
 			}
 		}
 
-		public static bool Supports(Type Type)
+		public static void DrawEntity(Entity Entity)
 		{
-			if(types.ContainsKey(Type)){
-				return true;
-			} return false;
+			foreach (IComponent Component in Entity.Components) {
+				DrawComponent (Entity, Component);
+			}
 		}
 
-		public static object Draw(Type ValueType, object Value)
+		public static void DrawComponent(Entity Entity, IComponent Component)
 		{
-			if (types.ContainsKey (ValueType)) {
-				return types [ValueType].Draw (Value);
-			} else {
-				return null;
+			Type ComponentType = Component.GetType ();
+			BindingFlags BindingFlags = BindingFlags.Public | BindingFlags.Instance;
+		
+
+			EditorGUILayout.BeginVertical(GUI.skin.box);
+			{
+				int ComponentId = ComponentTypeManager.GetTypeFor (ComponentType).Id;
+
+				EditorGUILayout.BeginHorizontal();
+				{
+					//EditorGUILayout.LabelField(ComponentType.Name, EditorStyles.boldLabel);
+
+					EditorGUI.indentLevel = 1;
+					components.Set (ComponentId, EditorGUILayout.Foldout (components[ComponentId], ComponentType.Name));
+					EditorGUI.indentLevel = 0;
+
+					if (GUILayout.Button ("-", GUILayout.Width (19), GUILayout.Height (14))) {
+						Entity.RemoveComponent (ComponentTypeManager.GetTypeFor (ComponentType));
+					}
+				}
+				EditorGUILayout.EndHorizontal();
+
+				if (components [ComponentId]) {
+					DrawProperties (Component);
+				}
+		
+			}
+			EditorGUILayout.EndVertical();
+		}
+
+		public static void DrawProperties(IComponent Component)
+		{
+			Type ComponentType = Component.GetType ();
+			foreach (PropertyInfo PropertyInfo in ComponentType.GetProperties()) {
+				EditorGUILayout.BeginVertical ();
+				DrawProperty (Component, PropertyInfo);
+				EditorGUILayout.EndVertical ();
+			}
+		}
+
+		public static void DrawProperty(IComponent Component, PropertyInfo PropertyInfo)
+		{
+			if (TypeDrawer.Supports (PropertyInfo.PropertyType)) {
+				EditorGUILayout.BeginHorizontal ();
+				// Get value on the target instance.
+				object value = PropertyInfo.GetValue (Component, null);
+
+				EditorGUILayout.LabelField (PropertyInfo.Name, GUILayout.MaxWidth (50));
+
+				object nvalue = TypeDrawer.Draw (PropertyInfo.PropertyType, value);
+				PropertyInfo.SetValue (Component, Convert.ChangeType (nvalue, PropertyInfo.PropertyType), null);
+				EditorGUILayout.EndHorizontal ();
 			}
 		}
 	}
 }
-
