@@ -244,6 +244,22 @@ namespace Artemis.Manager
             return this.ActiveEntities.Get(entityId) != null;
         }
 
+		/// <summary>Check if a component on a given entity can reset.</summary>
+		/// <param name="entity">The entity for which you want to get the component</param>
+		/// <param name="componentType">The desired component type</param>
+		internal bool CanReset(Entity entity, ComponentType componentType)
+		{
+			Debug.Assert(entity != null, "Entity must not be null.");
+			Debug.Assert(componentType != null, "Component type must not be null.");
+
+			IInitialize Component = GetComponent (entity, componentType) as IInitialize;
+			if (Component != null) {
+				return true;
+			} 
+
+			return false;
+		}
+
         /// <summary>Remove an entity from the entityWorld.</summary>
         /// <param name="entity">Entity you want to remove.</param>
         public void Remove(Entity entity)
@@ -362,6 +378,22 @@ namespace Artemis.Manager
 
             return null;
         }
+
+		/// <summary>Resets the component of the given component type for the given entity by overwriting it with
+		/// a new one.</summary>
+		/// <param name="entity">The entity for which you want to get the component</param>
+		/// <param name="componentType">The desired component type</param>
+		/// <param name="args">The initialize parameters</param>
+		internal void ResetComponent(Entity entity, ComponentType componentType, params object[] args)
+		{
+			Debug.Assert(entity != null, "Entity must not be null.");
+			Debug.Assert(componentType != null, "Component type must not be null.");
+
+			IInitialize Component = GetComponent (entity, componentType) as IInitialize;
+			if (Component != null) {
+				Component.Initialize (args);
+			}
+		}
 
         /// <summary>Ensure the any changes to components are synced up with the entity - ensure systems "see" all components.</summary>
         /// <param name="entity">The entity whose components you want to refresh</param>

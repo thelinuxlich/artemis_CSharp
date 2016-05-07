@@ -30,6 +30,12 @@ public class GameController : MonoBehaviour {
 		if (Input.GetKeyUp (KeyCode.D)) {
 			var entities = World.CurrentState;
 			Debug.Log (entities.Count);
+
+			Debug.Log (World.GetEntity (0).HasComponent<PositionComponent> ());
+		}
+
+		if (Input.GetKeyUp (KeyCode.W)) {
+			World.GetEntity (0).AddComponent<PositionComponent> (new PositionComponent());
 		}
 
 		if (Input.GetKeyUp (KeyCode.F)) {

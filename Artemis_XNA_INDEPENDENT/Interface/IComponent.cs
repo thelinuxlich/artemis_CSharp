@@ -36,6 +36,14 @@
 
 namespace Artemis.Interface
 {
+	/// <summary>
+	/// Interface that components can use for data reset.
+	/// </summary>
+	public interface IInitialize
+	{
+		void Initialize (params object[] args);
+	}
+
     /// <summary>Empty Interface that all Components must extend.</summary>
     public interface IComponent
     {

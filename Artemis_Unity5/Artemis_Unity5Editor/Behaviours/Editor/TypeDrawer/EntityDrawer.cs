@@ -89,6 +89,9 @@ namespace Artemis_Unity5Editor.Editor
 					components.Set (ComponentId, EditorGUILayout.Foldout (components[ComponentId], ComponentType.Name));
 					EditorGUI.indentLevel = 0;
 
+					if (GUILayout.Button ("+", GUILayout.Width (19), GUILayout.Height (14))) {
+						Entity.ResetComponent (ComponentType);
+					}
 					if (GUILayout.Button ("-", GUILayout.Width (19), GUILayout.Height (14))) {
 						Entity.RemoveComponent (ComponentTypeManager.GetTypeFor (ComponentType));
 					}

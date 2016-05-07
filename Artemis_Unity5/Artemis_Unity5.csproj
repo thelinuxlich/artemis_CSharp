@@ -226,6 +226,6 @@
   </Target>
   -->
   <Target Name="AfterBuild">
-     <Copy SourceFiles="$(OutputPath)\Artemis_Unity5.dll" DestinationFolder="Artemis_Unity5ExampleProject\Assets\Libraries\Artemis" ContinueOnError="true" />
+    <Copy SourceFiles="$(OutputPath)\Artemis_Unity5.dll" DestinationFolder="Artemis_Unity5ExampleProject\Assets\Libraries\Artemis" ContinueOnError="true" />
   </Target>
 </Project>

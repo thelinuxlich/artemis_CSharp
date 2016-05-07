@@ -32,6 +32,9 @@
 //   Basic unity of this entity system.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
+using System;
+
+
 #endregion File description
 
 namespace Artemis
@@ -279,6 +282,45 @@ namespace Artemis
             return !object.Equals((T)this.entityManager.GetComponent(this, ComponentType<T>.CType), default(T));
         }
 
+		/// <summary>
+		/// <para>Resets the component.</para>
+		/// <para>Minimize usage of this.</para>
+		/// </summary>
+		/// <param name="componentType">Type of the component.</param>
+		public void ResetComponent(Type componentType, params object[] args) 
+		{
+			this.entityManager.ResetComponent (this, ComponentTypeManager.GetTypeFor(componentType), args);
+		}
+			
+		/// <summary>
+		/// <para>Resets the component.</para>
+		/// <para>This is the preferred method to use when</para>
+		/// <para>resetting a component to its orignal state when first added.</para>
+		/// </summary>
+		/// <typeparam name="T">the component type.</typeparam>
+		public void ResetComponent<T>(params object[] args) where T : IComponent
+		{
+			this.entityManager.ResetComponent (this, ComponentType<T>.CType, args);
+		}
+
+		/// <summary>
+		/// <para>Checks whether the given component can be reset.</para>
+		/// </summary>
+		/// <typeparam name="T">the component type.</typeparam>
+		public bool CanReset<T>() where T : IComponent
+		{
+			return this.entityManager.CanReset (this, ComponentType<T>.CType);
+		}
+
+		/// <summary>
+		/// <para>Checks whether the given component can be reset.</para>
+		/// </summary>
+		/// <param name="componentType">Type of the component.</param>
+		public bool CanReset(Type componentType) 
+		{
+			return this.entityManager.CanReset (this, ComponentTypeManager.GetTypeFor(componentType));
+		}
+			
         /// <summary><para>Refreshes this instance.</para>
         ///   <para>Refresh all changes to components for this entity.</para>
         ///   <para>After adding or removing components,</para>
