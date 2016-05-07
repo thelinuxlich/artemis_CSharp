@@ -54,11 +54,11 @@ namespace Artemis_Unity5Editor
 	public class EntityBehaviour : MonoBehaviour
 	{
 		internal Entity Entity { get; set; }
-		internal EntityManager EntityManager { get; set; }
+		internal EntityWorld EntityWorld { get; set; }
 
 		void Start()
 		{
-			this.EntityManager.RemovedEntityEvent += RemovedEntityEvent;
+			this.EntityWorld.EntityManager.RemovedEntityEvent += RemovedEntityEvent;
 		}
 
 		void RemovedEntityEvent (Entity entity)
@@ -71,7 +71,7 @@ namespace Artemis_Unity5Editor
 		void OnDestroy()
 		{
 			Entity = null;
-			EntityManager = null;
+			EntityWorld = null;
 		}
 	}
 }

@@ -45,8 +45,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Example\Components\PositionComponent.cs" />
-     <Compile Include="Assets\Example\Components\VelocityComponent.cs" />
+     <Compile Include="Assets\Example\Components\Blah.cs" />
+     <Compile Include="Assets\Example\Components\Empty.cs" />
+     <Compile Include="Assets\Example\Components\Position.cs" />
+     <Compile Include="Assets\Example\Components\Test.cs" />
+     <Compile Include="Assets\Example\Components\Velocity.cs" />
+     <Compile Include="Assets\Example\Components\View.cs" />
      <Compile Include="Assets\Example\GameController.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

@@ -74,7 +74,7 @@ namespace Artemis_Unity5Editor
 			entityObj.transform.parent = Container.transform;
 			entityObj.AddComponent<EntityBehaviour> ();
 			var script = entityObj.GetComponent<EntityBehaviour> ();
-			script.EntityManager = this.EntityWorld.EntityManager;
+			script.EntityWorld = this.EntityWorld;
 			script.Entity = entity;
 
 			Print ();

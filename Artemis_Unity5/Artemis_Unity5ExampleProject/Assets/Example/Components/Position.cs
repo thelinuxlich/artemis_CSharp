@@ -1,12 +1,12 @@
 using Artemis.Interface;
 
-public class PositionComponent : IComponent, IReset {
+public class Position : IComponent, IReset {
 
 	int x = 0;
 	int y = 100;
 	int z = 0;
 
-	public void Initialize (params object[] args)
+	public void Reset (params object[] args)
 	{
 		X = 0;
 		y = 0;

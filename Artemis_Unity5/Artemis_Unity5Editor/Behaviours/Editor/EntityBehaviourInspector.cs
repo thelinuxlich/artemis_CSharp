@@ -41,6 +41,7 @@ namespace Artemis_Unity5Editor.Editor
 	using UnityEngine;
 
 	using Artemis.Interface;
+	using Artemis.Utils;
 	using Artemis;
 
 	#endregion
@@ -58,16 +59,24 @@ namespace Artemis_Unity5Editor.Editor
 
 		public override void OnInspectorGUI()
 		{
-			if (targets.Length == 1) {
-				EditorGUILayout.Space ();
-				EntityBehaviour EntityBahaviourScript = (EntityBehaviour)target;
-				if (GUILayout.Button ("Delete Entity")) {
-					EntityBahaviourScript.Entity.Delete ();
-				}
-				EditorGUILayout.Space ();
-
-				EntityDrawer.DrawEntity (EntityBahaviourScript.Entity);
+			var Entities = GetEntities ();
+			if (Entities.Count == 1) {
+				EntityDrawer.DrawEntity (Entities [0]);
+			} else if (Entities.Count > 1) {
+				EntityDrawer.DrawEntityList (Entities);
 			}
+		}
+
+		public Bag<Entity> GetEntities()
+		{
+			Bag<Entity> EntityBag = new Bag<Entity> ();
+			foreach (UnityEngine.Object Object in targets) 
+			{
+				EntityBehaviour EntityBahaviourScript = (EntityBehaviour)Object;
+				EntityBag.Add (EntityBahaviourScript.Entity);
+			}
+
+			return EntityBag;
 		}
 	}
 }

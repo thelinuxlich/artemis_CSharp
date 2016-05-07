@@ -45,6 +45,7 @@ namespace Artemis_Unity5Editor.Editor
 	/// <summary>
 	/// Int Type Drawer.
 	/// </summary>
+	[Artemis_Unity5Editor.Attributes.TypeDrawer]
 	public class IntTypeDrawer : ITypeDrawer
 	{
 		public IntTypeDrawer(){}

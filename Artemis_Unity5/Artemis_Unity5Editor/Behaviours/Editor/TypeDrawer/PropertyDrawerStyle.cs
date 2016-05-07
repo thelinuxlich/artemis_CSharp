@@ -37,50 +37,38 @@ namespace Artemis_Unity5Editor.Editor
 	using UnityEditor;
 	using UnityEngine;
 
-	using global::System.Collections.Generic;
 	using global::System.Reflection;
 	using global::System;
+
+	using Artemis.Interface;
+	using Artemis;
 
 	#endregion
 
 	/// <summary>
-	/// Type Drawer.
+	/// Property Drawer.
 	/// </summary>
-	public static class TypeDrawer
+	public static class PropertyDrawerStyle
 	{
-		static Dictionary<Type, ITypeDrawer> types = new Dictionary<Type, ITypeDrawer>();
-
-		public static void Initialize ()
+		public static void BeginPropertyList()
 		{
-			var LibraryCollection = AppDomain.CurrentDomain.GetAssemblies ();
-			foreach (var Library in LibraryCollection) {
-				var LibraryTypes = Library.GetTypes ();
-				foreach (var LibraryType in LibraryTypes) {
-					if (typeof(ITypeDrawer).IsAssignableFrom (LibraryType) && LibraryType.IsClass) {
-						ITypeDrawer Drawer = (ITypeDrawer)Activator.CreateInstance (LibraryType);
-						if (!types.ContainsKey (Drawer.Handles ())) {
-							types.Add (Drawer.Handles (), Drawer); 
-						}
-					}
-				}
-			}
+			EditorGUILayout.BeginVertical ();
 		}
 
-		public static bool Supports(Type Type)
+		public static void EndPropertyList()
 		{
-			if(types.ContainsKey(Type)){
-				return true;
-			} return false;
+			EditorGUILayout.EndVertical ();
 		}
 
-		public static object Draw(Type ValueType, object Value)
+		public static void BeginProperty(String PropertyName)
 		{
-			if (types.ContainsKey (ValueType)) {
-				return types [ValueType].Draw (Value);
-			} else {
-				return null;
-			}
+			EditorGUILayout.BeginHorizontal ();
+			EditorGUILayout.LabelField (PropertyName, GUILayout.MaxWidth (50));
+		}
+
+		public static void EndProperty()
+		{
+			EditorGUILayout.EndHorizontal ();
 		}
 	}
 }
-

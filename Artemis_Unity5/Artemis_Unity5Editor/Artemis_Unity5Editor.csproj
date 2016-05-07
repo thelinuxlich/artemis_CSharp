@@ -43,8 +43,14 @@
     <Compile Include="Behaviours\Editor\EntityBehaviourInspector.cs" />
     <Compile Include="Behaviours\Editor\TypeDrawer\Interface\ITypeDrawer.cs" />
     <Compile Include="Behaviours\Editor\TypeDrawer\IntTypeDrawer.cs" />
-    <Compile Include="Behaviours\Editor\TypeDrawer\TypeDrawer.cs" />
     <Compile Include="Behaviours\Editor\TypeDrawer\EntityDrawer.cs" />
+    <Compile Include="Behaviours\Editor\TypeDrawer\PropertyDrawer.cs" />
+    <Compile Include="Behaviours\Editor\TypeDrawer\PropertyDrawerStyle.cs" />
+    <Compile Include="Behaviours\Editor\TypeDrawer\ComponentDrawer.cs" />
+    <Compile Include="Behaviours\Editor\TypeDrawer\ComponentDrawerStyle.cs" />
+    <Compile Include="Attributes\TypeDrawer.cs" />
+    <Compile Include="Behaviours\Editor\TypeDrawer\TypeDrawerManager.cs" />
+    <Compile Include="Behaviours\Editor\TypeDrawer\EntityDrawerStyle.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -53,6 +59,7 @@
     <Folder Include="Behaviours\Editor\" />
     <Folder Include="Behaviours\Editor\TypeDrawer\" />
     <Folder Include="Behaviours\Editor\TypeDrawer\Interface\" />
+    <Folder Include="Attributes\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Artemis_Unity5.csproj">

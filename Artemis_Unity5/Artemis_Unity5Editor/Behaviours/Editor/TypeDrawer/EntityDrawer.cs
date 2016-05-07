@@ -54,83 +54,62 @@ namespace Artemis_Unity5Editor.Editor
 	{
 		static bool Initialized = false;
 
-		static Bag<bool> components = new Bag<bool>();
+		//static Bag<Vector2> scroll = new Bag<Vector2> ();
+
+		static Bag<bool> entities = new Bag<bool> ();
 
 		public static void Initialize()
 		{
 			if (!Initialized) {
 				Initialized = true;
-				TypeDrawer.Initialize ();
+				TypeDrawerManager.Initialize ();
 			}
+		}
+
+		public static void DrawEntityList(Bag<Entity> EntityList)
+		{
+			if (GUILayout.Button ("Delete Entities"))
+			{
+				foreach (Entity Entity in EntityList) {
+					Entity.Delete ();
+				}
+			}
+			EditorGUILayout.Space ();
+
+			EntityDrawerStyle.BeginEntityList ();
+			foreach (Entity Entity in EntityList) 
+			{
+				DrawEntity (Entity);
+			}
+			EntityDrawerStyle.EndEntityList ();
 		}
 
 		public static void DrawEntity(Entity Entity)
 		{
-			foreach (IComponent Component in Entity.Components) {
-				DrawComponent (Entity, Component);
-			}
-		}
+			EntityDrawerStyle.BeginEntity ();
+			EntityDrawerStyle.BeginEntityHeader ();
 
-		public static void DrawComponent(Entity Entity, IComponent Component)
-		{
-			Type ComponentType = Component.GetType ();
-			BindingFlags BindingFlags = BindingFlags.Public | BindingFlags.Instance;
-		
+			entities [Entity.Id] = EditorGUILayout.Foldout (entities [Entity.Id], "Entity " + Entity.UniqueId);
 
-			EditorGUILayout.BeginVertical(GUI.skin.box);
-			{
-				int ComponentId = ComponentTypeManager.GetTypeFor (ComponentType).Id;
+			EntityDrawerStyle.EndEntityHeader ();
 
-				EditorGUILayout.BeginHorizontal();
+			if (entities [Entity.Id]) {
+
+				EditorGUILayout.Space ();
+				if (GUILayout.Button ("Delete Entity"))
 				{
-					//EditorGUILayout.LabelField(ComponentType.Name, EditorStyles.boldLabel);
-
-					EditorGUI.indentLevel = 1;
-					components.Set (ComponentId, EditorGUILayout.Foldout (components[ComponentId], ComponentType.Name));
-					EditorGUI.indentLevel = 0;
-
-					if (GUILayout.Button ("+", GUILayout.Width (19), GUILayout.Height (14))) {
-						Entity.ResetComponent (ComponentType);
-					}
-					if (GUILayout.Button ("-", GUILayout.Width (19), GUILayout.Height (14))) {
-						Entity.RemoveComponent (ComponentTypeManager.GetTypeFor (ComponentType));
-					}
+					Entity.Delete ();
 				}
-				EditorGUILayout.EndHorizontal();
+				EditorGUILayout.Space ();
 
-				if (components [ComponentId]) {
-					DrawProperties (Component);
-				}
-		
+				//EditorGUILayout.BeginVertical(GUILayout.MinHeight(300.0f));
+				//scroll [Entity.Id] = EditorGUILayout.BeginScrollView (scroll [Entity.Id]);
+				ComponentDrawer.DrawComponentList (Entity, Entity.Components);
+				//EditorGUILayout.EndScrollView ();
+				//EditorGUILayout.EndVertical ();
 			}
-			EditorGUILayout.EndVertical();
-		}
 
-		public static void DrawProperties(IComponent Component)
-		{
-			Type ComponentType = Component.GetType ();
-			foreach (PropertyInfo PropertyInfo in ComponentType.GetProperties()) {
-				EditorGUILayout.BeginVertical ();
-				DrawProperty (Component, PropertyInfo);
-				EditorGUILayout.EndVertical ();
-			}
-		}
-
-		public static void DrawProperty(IComponent Component, PropertyInfo PropertyInfo)
-		{
-			if (TypeDrawer.Supports (PropertyInfo.PropertyType)) {
-				EditorGUILayout.BeginHorizontal ();
-				// Get value on the target instance.
-				object value = PropertyInfo.GetValue (Component, null);
-
-				EditorGUILayout.LabelField (PropertyInfo.Name, GUILayout.MaxWidth (50));
-
-				object nvalue = TypeDrawer.Draw (PropertyInfo.PropertyType, value);
-
-					PropertyInfo.SetValue (Component, Convert.ChangeType (nvalue, PropertyInfo.PropertyType), null);
-			
-				EditorGUILayout.EndHorizontal ();
-			}
+			EntityDrawerStyle.EndEntity ();
 		}
 	}
 }
