@@ -252,7 +252,7 @@ namespace Artemis.Manager
 			Debug.Assert(entity != null, "Entity must not be null.");
 			Debug.Assert(componentType != null, "Component type must not be null.");
 
-			IInitialize Component = GetComponent (entity, componentType) as IInitialize;
+			IReset Component = GetComponent (entity, componentType) as IReset;
 			if (Component != null) {
 				return true;
 			} 
@@ -389,9 +389,9 @@ namespace Artemis.Manager
 			Debug.Assert(entity != null, "Entity must not be null.");
 			Debug.Assert(componentType != null, "Component type must not be null.");
 
-			IInitialize Component = GetComponent (entity, componentType) as IInitialize;
+			IReset Component = GetComponent (entity, componentType) as IReset;
 			if (Component != null) {
-				Component.Initialize (args);
+				Component.Reset (args);
 			}
 		}
 

@@ -126,7 +126,9 @@ namespace Artemis_Unity5Editor.Editor
 				EditorGUILayout.LabelField (PropertyInfo.Name, GUILayout.MaxWidth (50));
 
 				object nvalue = TypeDrawer.Draw (PropertyInfo.PropertyType, value);
-				PropertyInfo.SetValue (Component, Convert.ChangeType (nvalue, PropertyInfo.PropertyType), null);
+
+					PropertyInfo.SetValue (Component, Convert.ChangeType (nvalue, PropertyInfo.PropertyType), null);
+			
 				EditorGUILayout.EndHorizontal ();
 			}
 		}
