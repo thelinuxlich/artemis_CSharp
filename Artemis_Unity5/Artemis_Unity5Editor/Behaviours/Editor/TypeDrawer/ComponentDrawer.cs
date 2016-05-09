@@ -57,9 +57,8 @@ namespace Artemis_Unity5Editor.Editor
 		public static void DrawComponentList(Entity Entity, Bag<IComponent> ComponentList)
 		{
 			ComponentDrawerStyle.BeginComponentList ();
-			foreach (IComponent Component in ComponentList) 
-			{
-				DrawComponent (Entity, Component);
+			for (int i = 0; i < ComponentList.Count; i++) {
+				DrawComponent (Entity, ComponentList[i]);
 			}
 			ComponentDrawerStyle.EndComponentList ();
 		}

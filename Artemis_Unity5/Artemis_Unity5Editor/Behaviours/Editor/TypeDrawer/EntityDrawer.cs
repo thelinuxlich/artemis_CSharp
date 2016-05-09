@@ -53,10 +53,8 @@ namespace Artemis_Unity5Editor.Editor
 	public static class EntityDrawer
 	{
 		static bool Initialized = false;
-
-		//static Bag<Vector2> scroll = new Bag<Vector2> ();
-
-		static Bag<bool> entities = new Bag<bool> ();
+	
+		static Bag<bool> Folded = new Bag<bool> ();
 
 		static Rect buttonRect;
 
@@ -68,48 +66,53 @@ namespace Artemis_Unity5Editor.Editor
 			}
 		}
 
-		public static void DrawEntityList(Bag<Entity> EntityList)
+		public static void DrawEntityList(Bag<Entity> EntityList, int Total)
 		{
+			if (Folded.Count < Total) {
+				for (int i = 0; i < Total; i++) {
+					Folded.Add (false);
+				}
+			}
+
 			if (GUILayout.Button ("Delete Entities"))
 			{
-				foreach (Entity Entity in EntityList) {
-					Entity.Delete ();
+				for (int i = 0; i < EntityList.Count; i++) {
+					EntityList [i].Delete ();
 				}
 			}
 			EditorGUILayout.Space ();
 
 			EntityDrawerStyle.BeginEntityList ();
-			foreach (Entity Entity in EntityList) 
-			{
-				DrawEntity (Entity);
+			for (int i = 0; i < EntityList.Count; i++) {
+				DrawEntity (EntityList[i]);
 			}
 			EntityDrawerStyle.EndEntityList ();
 		}
 			
 		public static void DrawEntity(Entity Entity)
 		{
-			/* Draw entity with entity header */
+	
 			EntityDrawerStyle.BeginEntity ();
 			EntityDrawerStyle.BeginEntityHeader ();
-			entities [Entity.Id] = EditorGUILayout.Foldout (entities [Entity.Id], "Entity " + Entity.Id + " / " + Entity.UniqueId);
+			Folded[Entity.Id] = EditorGUILayout.Foldout (Folded [Entity.Id], "Entity " + Entity.Id + " / " + Entity.UniqueId);
 			EntityDrawerStyle.EndEntityHeader ();
 
-			if (entities [Entity.Id]) {
+			if (Folded [Entity.Id]) {
 
-				/* Draw delete entity button */
+
 				EditorGUILayout.Space ();
 				if (GUILayout.Button ("Delete Entity"))
 				{
 					Entity.Delete ();
 				}
 
-				/* Draw components */
+
 				EditorGUILayout.Space ();
 				ComponentDrawer.DrawComponentList (Entity, Entity.Components);
 				EditorGUILayout.Space ();
 
 
-				/* Draw add component button */
+			
 				GUILayout.BeginHorizontal();
 				GUILayout.FlexibleSpace();
 

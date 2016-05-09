@@ -64,7 +64,8 @@ namespace Artemis_Unity5Editor.Editor
 			if (Entities.Count == 1) {
 				EntityDrawer.DrawEntity (Entities [0]);
 			} else if (Entities.Count > 1) {
-				EntityDrawer.DrawEntityList (Entities);
+				EntityBehaviour EntityBahaviourScript = (EntityBehaviour)target;
+				EntityDrawer.DrawEntityList (Entities, EntityBahaviourScript.EntityWorld.EntityManager.ActiveEntities.Count);
 			}
 		}
 
@@ -76,7 +77,6 @@ namespace Artemis_Unity5Editor.Editor
 				EntityBehaviour EntityBahaviourScript = (EntityBehaviour)Object;
 				EntityBag.Add (EntityBahaviourScript.Entity);
 			}
-
 			return EntityBag;
 		}
 	}
