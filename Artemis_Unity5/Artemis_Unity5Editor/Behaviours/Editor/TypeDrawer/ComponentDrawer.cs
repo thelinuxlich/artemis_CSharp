@@ -52,7 +52,7 @@ namespace Artemis_Unity5Editor.Editor
 	/// </summary>
 	public static class ComponentDrawer
 	{
-		static Bag<bool> components = new Bag<bool>();
+		static Bag<bool> Folded = new Bag<bool>();
 
 		public static void DrawComponentList(Entity Entity, Bag<IComponent> ComponentList)
 		{
@@ -76,33 +76,32 @@ namespace Artemis_Unity5Editor.Editor
 			ComponentDrawerStyle.BeginComponentHeader ();
 
 
-					if (PropertyInfo.Length > 0 || FieldInfo.Length > 0) {
-						components [ComponentId] = EditorGUILayout.Foldout (components [ComponentId], ComponentType.Name);
-					} else {
-						EditorGUILayout.LabelField(ComponentType.Name);
-					}
+			if (PropertyInfo.Length > 0 || FieldInfo.Length > 0) {
+				Folded [ComponentId] = EditorGUILayout.Foldout (Folded [ComponentId], ComponentType.Name);
+			} else {
+				EditorGUILayout.LabelField (ComponentType.Name);
+			}
 
-					var bgColor = GUI.backgroundColor;
+			var bgColor = GUI.backgroundColor;
 
-					GUI.backgroundColor = Entity.CanReset(ComponentType) ? bgColor:Color.red;
+			GUI.backgroundColor = Entity.CanReset(ComponentType) ? bgColor:Color.red;
 
-					if (GUILayout.Button ("+", GUILayout.Width (19), GUILayout.Height (14))) {
-						Entity.ResetComponent (ComponentType);
-					}
+			if (GUILayout.Button ("+", GUILayout.Width (19), GUILayout.Height (14))) {
+				Entity.ResetComponent (ComponentType);
+			}
 
-					GUI.backgroundColor = bgColor;
+			GUI.backgroundColor = bgColor;
 
-					if (GUILayout.Button ("-", GUILayout.Width (19), GUILayout.Height (14))) {
-						Entity.RemoveComponent (ComponentTypeManager.GetTypeFor (ComponentType));
-					}
+			if (GUILayout.Button ("-", GUILayout.Width (19), GUILayout.Height (14))) {
+				Entity.RemoveComponent (ComponentTypeManager.GetTypeFor (ComponentType));
+			}
 				
 			ComponentDrawerStyle.EndComponentHeader();
 
-				if (components [ComponentId]) {
-					PropertyDrawer.DrawPropertyList (Component, FieldInfo);
-					PropertyDrawer.DrawPropertyList (Component, PropertyInfo);
-				}
-
+			if (Folded [ComponentId]) {
+				PropertyDrawer.DrawPropertyList (Component, FieldInfo);
+				PropertyDrawer.DrawPropertyList (Component, PropertyInfo);
+			}
 
 			ComponentDrawerStyle.EndComponent();
 		}

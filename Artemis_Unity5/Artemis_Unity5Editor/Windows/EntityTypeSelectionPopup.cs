@@ -42,6 +42,7 @@ namespace Artemis_Unity5Editor.Editor
 	using global::System;
 
 	using Artemis.Interface;
+	using Artemis.Utils;
 	using Artemis;
 
 	#endregion
@@ -52,6 +53,12 @@ namespace Artemis_Unity5Editor.Editor
 	public sealed class EntityTypeSelectionPopup : TypeSelectionPopup
 	{
 		internal Entity Entity;
+		internal Bag<Entity> EntityList;
+
+		public EntityTypeSelectionPopup(Bag<Entity> EntityList) : base (typeof(IComponent))
+		{
+			this.EntityList = EntityList;
+		}
 
 		public EntityTypeSelectionPopup(Entity Entity) : base (typeof(IComponent))
 		{
@@ -60,9 +67,21 @@ namespace Artemis_Unity5Editor.Editor
 
 		public override void TypeConfirmed (Type Type)
 		{
-			IComponent Component = (IComponent)Activator.CreateInstance (Type);
-			if (Component != null) {
-				Entity.AddComponent (Component);
+			if (Entity != null) {
+				IComponent Component = (IComponent)Activator.CreateInstance (Type);
+				if (Component != null) {
+					Entity.AddComponent (Component);
+				}
+				return;
+			}
+
+			if (EntityList != null) {
+				IComponent Component = (IComponent)Activator.CreateInstance (Type);
+				if (Component != null) {
+					for (int i = 0; i < EntityList.Count; i++) {
+						EntityList[i].AddComponent (Component);
+					}
+				}
 			}
 		}
 	}

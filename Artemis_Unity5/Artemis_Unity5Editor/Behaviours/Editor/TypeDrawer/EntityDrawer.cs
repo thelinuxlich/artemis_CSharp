@@ -87,6 +87,17 @@ namespace Artemis_Unity5Editor.Editor
 				DrawEntity (EntityList[i]);
 			}
 			EntityDrawerStyle.EndEntityList ();
+
+			GUILayout.BeginHorizontal();
+			GUILayout.FlexibleSpace();
+			if (GUILayout.Button("Add Component",GUILayout.Width(200)))
+			{
+				PopupWindow.Show(buttonRect, new EntityTypeSelectionPopup(EntityList));
+			}
+
+			if (Event.current.type == EventType.Repaint) buttonRect = GUILayoutUtility.GetLastRect();
+			GUILayout.FlexibleSpace();
+			GUILayout.EndHorizontal ();
 		}
 			
 		public static void DrawEntity(Entity Entity)
