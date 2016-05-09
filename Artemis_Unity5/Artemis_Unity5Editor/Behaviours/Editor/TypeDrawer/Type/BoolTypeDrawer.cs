@@ -30,9 +30,12 @@
 
 #endregion File description
 
-namespace Artemis_Unity5Editor
+namespace Artemis_Unity5Editor.Editor
 {
 	#region Using statements
+
+	using UnityEditor;
+	using UnityEngine;
 
 	using global::System.Reflection;
 	using global::System;
@@ -40,15 +43,26 @@ namespace Artemis_Unity5Editor
 	#endregion
 
 	/// <summary>
-	/// IType Drawerr.
+	/// Bool Type Drawer.
 	/// </summary>
-	public interface ITypeDrawer
+	[Artemis_Unity5Editor.Attributes.TypeDrawer]
+	public class BoolTypeDrawer : ITypeDrawer
 	{
-		Type Handles();
+		public Type Handles ()
+		{
+			return typeof(bool);
+		}
 
-		object Default { get; }
+		public object Default {
+			get { 
+				return default(bool);
+			}
+		}
 
-		object Draw(object Value);
+		public object Draw (object Value)
+		{
+			return EditorGUILayout.Toggle((bool)Value);
+		}	
 	}
 }
 

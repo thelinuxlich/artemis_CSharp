@@ -53,6 +53,12 @@ namespace Artemis_Unity5Editor.Editor
 			return typeof(double);
 		}
 
+		public object Default {
+			get { 
+				return default(double);
+			}
+		}
+
 		public object Draw (object Value)
 		{
 			return EditorGUILayout.DoubleField((double)Value);

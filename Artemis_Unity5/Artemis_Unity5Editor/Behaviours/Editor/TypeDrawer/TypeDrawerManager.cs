@@ -71,17 +71,20 @@ namespace Artemis_Unity5Editor
 			}
 		}
 
-		public static bool Supports(Type Type)
+		public static object DefaultOf(Type Type)
 		{
-			if(types.ContainsKey(Type)){
-				return true;
-			} return false;
+			return (types.ContainsKey (Type)) ? types [Type].Default : null;
 		}
 
-		public static object Draw(Type ValueType, object Value)
+		public static bool Supports(Type Type)
 		{
-			if (types.ContainsKey (ValueType)) {
-				return types [ValueType].Draw (Value);
+			return (types.ContainsKey (Type)) ? true : false;
+		}
+
+		public static object Draw(Type Type, object Value)
+		{
+			if (types.ContainsKey (Type)) {
+				return types [Type].Draw (Value);
 			} else {
 				return null;
 			}

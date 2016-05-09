@@ -53,6 +53,13 @@ namespace Artemis_Unity5Editor.Editor
 			return typeof(string);
 		}
 
+
+		public object Default {
+			get { 
+				return default(string);
+			}
+		}
+
 		public object Draw (object Value)
 		{
 			return EditorGUILayout.TextField((string)Value);

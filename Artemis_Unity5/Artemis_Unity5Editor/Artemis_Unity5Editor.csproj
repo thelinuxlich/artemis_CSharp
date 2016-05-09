@@ -56,9 +56,9 @@
     <Compile Include="Behaviours\Editor\TypeDrawer\Type\StringTypeDrawer.cs" />
     <Compile Include="Behaviours\Editor\TypeDrawer\Type\FloatTypeDrawer.cs" />
     <Compile Include="Behaviours\Editor\TypeDrawer\Type\DoubleTypeDrawer.cs" />
-    <Compile Include="Behaviours\Editor\TypeDrawer\Type\BoolTypeDrawer.cs" />
     <Compile Include="Behaviours\Editor\TypeDrawer\Type\LongTypeDrawer.cs" />
     <Compile Include="Behaviours\Editor\TypeDrawer\Type\GameObjectTypeDrawer.cs" />
+    <Compile Include="Behaviours\Editor\TypeDrawer\Type\BoolTypeDrawer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

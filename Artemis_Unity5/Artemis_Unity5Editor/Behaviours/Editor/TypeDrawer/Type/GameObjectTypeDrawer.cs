@@ -53,6 +53,13 @@ namespace Artemis_Unity5Editor.Editor
 			return typeof(GameObject);
 		}
 
+
+		public object Default {
+			get { 
+				return null;
+			}
+		}
+
 		public object Draw (object Value)
 		{
 			return EditorGUILayout.ObjectField((GameObject)Value, typeof(GameObject), true);

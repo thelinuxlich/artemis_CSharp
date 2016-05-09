@@ -53,6 +53,13 @@ namespace Artemis_Unity5Editor.Editor
 			return typeof(long);
 		}
 
+
+		public object Default {
+			get { 
+				return default(long);
+			}
+		}
+
 		public object Draw (object Value)
 		{
 			return EditorGUILayout.LongField((long)Value);

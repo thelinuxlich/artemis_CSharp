@@ -79,6 +79,10 @@ namespace Artemis_Unity5Editor.Editor
 
 				FieldInfo.SetValue (Component, Convert.ChangeType (nvalue, FieldInfo.FieldType));
 
+				if (GUILayout.Button ("x", GUILayout.Width (19), GUILayout.Height (14))) {
+					FieldInfo.SetValue (Component, Convert.ChangeType (TypeDrawerManager.DefaultOf(FieldInfo.FieldType), FieldInfo.FieldType));
+				}
+
 				PropertyDrawerStyle.EndProperty ();
 			}
 		}
@@ -93,6 +97,10 @@ namespace Artemis_Unity5Editor.Editor
 				object nvalue = TypeDrawerManager.Draw (PropertyInfo.PropertyType, value);
 
 				PropertyInfo.SetValue (Component, Convert.ChangeType (nvalue, PropertyInfo.PropertyType), null);
+
+				if (GUILayout.Button ("x", GUILayout.Width (19), GUILayout.Height (14))) {
+					PropertyInfo.SetValue (Component, Convert.ChangeType (TypeDrawerManager.DefaultOf(PropertyInfo.PropertyType), PropertyInfo.PropertyType));
+				}
 
 				PropertyDrawerStyle.EndProperty ();
 			}
