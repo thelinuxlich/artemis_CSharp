@@ -42,15 +42,23 @@
     <Compile Include="Behaviours\EntityBehaviour.cs" />
     <Compile Include="Behaviours\Editor\EntityBehaviourInspector.cs" />
     <Compile Include="Behaviours\Editor\TypeDrawer\Interface\ITypeDrawer.cs" />
-    <Compile Include="Behaviours\Editor\TypeDrawer\IntTypeDrawer.cs" />
     <Compile Include="Behaviours\Editor\TypeDrawer\EntityDrawer.cs" />
     <Compile Include="Behaviours\Editor\TypeDrawer\PropertyDrawer.cs" />
-    <Compile Include="Behaviours\Editor\TypeDrawer\PropertyDrawerStyle.cs" />
     <Compile Include="Behaviours\Editor\TypeDrawer\ComponentDrawer.cs" />
-    <Compile Include="Behaviours\Editor\TypeDrawer\ComponentDrawerStyle.cs" />
     <Compile Include="Attributes\TypeDrawer.cs" />
     <Compile Include="Behaviours\Editor\TypeDrawer\TypeDrawerManager.cs" />
-    <Compile Include="Behaviours\Editor\TypeDrawer\EntityDrawerStyle.cs" />
+    <Compile Include="Windows\TypeSelectionPopup.cs" />
+    <Compile Include="Windows\EntityTypeSelectionPopup.cs" />
+    <Compile Include="Behaviours\Editor\TypeDrawerStyle\PropertyDrawerStyle.cs" />
+    <Compile Include="Behaviours\Editor\TypeDrawerStyle\EntityDrawerStyle.cs" />
+    <Compile Include="Behaviours\Editor\TypeDrawerStyle\ComponentDrawerStyle.cs" />
+    <Compile Include="Behaviours\Editor\TypeDrawer\Type\IntTypeDrawer.cs" />
+    <Compile Include="Behaviours\Editor\TypeDrawer\Type\StringTypeDrawer.cs" />
+    <Compile Include="Behaviours\Editor\TypeDrawer\Type\FloatTypeDrawer.cs" />
+    <Compile Include="Behaviours\Editor\TypeDrawer\Type\DoubleTypeDrawer.cs" />
+    <Compile Include="Behaviours\Editor\TypeDrawer\Type\BoolTypeDrawer.cs" />
+    <Compile Include="Behaviours\Editor\TypeDrawer\Type\LongTypeDrawer.cs" />
+    <Compile Include="Behaviours\Editor\TypeDrawer\Type\GameObjectTypeDrawer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -60,6 +68,9 @@
     <Folder Include="Behaviours\Editor\TypeDrawer\" />
     <Folder Include="Behaviours\Editor\TypeDrawer\Interface\" />
     <Folder Include="Attributes\" />
+    <Folder Include="Windows\" />
+    <Folder Include="Behaviours\Editor\TypeDrawerStyle\" />
+    <Folder Include="Behaviours\Editor\TypeDrawer\Type\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Artemis_Unity5.csproj">

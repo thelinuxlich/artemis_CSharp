@@ -35,6 +35,7 @@ namespace Artemis_Unity5Editor.Editor
 	#region Using statements
 
 	using global::System.Reflection;
+	using global::System.Linq;
 	using global::System;
 
 	using UnityEditor;
@@ -70,7 +71,7 @@ namespace Artemis_Unity5Editor.Editor
 		public Bag<Entity> GetEntities()
 		{
 			Bag<Entity> EntityBag = new Bag<Entity> ();
-			foreach (UnityEngine.Object Object in targets) 
+			foreach (UnityEngine.Object Object in targets.Reverse()) 
 			{
 				EntityBehaviour EntityBahaviourScript = (EntityBehaviour)Object;
 				EntityBag.Add (EntityBahaviourScript.Entity);

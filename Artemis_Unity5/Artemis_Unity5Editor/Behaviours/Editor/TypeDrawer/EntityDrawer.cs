@@ -58,6 +58,8 @@ namespace Artemis_Unity5Editor.Editor
 
 		static Bag<bool> entities = new Bag<bool> ();
 
+		static Rect buttonRect;
+
 		public static void Initialize()
 		{
 			if (!Initialized) {
@@ -83,32 +85,46 @@ namespace Artemis_Unity5Editor.Editor
 			}
 			EntityDrawerStyle.EndEntityList ();
 		}
-
+			
 		public static void DrawEntity(Entity Entity)
 		{
+			/* Draw entity with entity header */
 			EntityDrawerStyle.BeginEntity ();
 			EntityDrawerStyle.BeginEntityHeader ();
-
-			entities [Entity.Id] = EditorGUILayout.Foldout (entities [Entity.Id], "Entity " + Entity.UniqueId);
-
+			entities [Entity.Id] = EditorGUILayout.Foldout (entities [Entity.Id], "Entity " + Entity.Id + " / " + Entity.UniqueId);
 			EntityDrawerStyle.EndEntityHeader ();
 
 			if (entities [Entity.Id]) {
 
+				/* Draw delete entity button */
 				EditorGUILayout.Space ();
 				if (GUILayout.Button ("Delete Entity"))
 				{
 					Entity.Delete ();
 				}
+
+				/* Draw components */
+				EditorGUILayout.Space ();
+				ComponentDrawer.DrawComponentList (Entity, Entity.Components);
 				EditorGUILayout.Space ();
 
-				//EditorGUILayout.BeginVertical(GUILayout.MinHeight(300.0f));
-				//scroll [Entity.Id] = EditorGUILayout.BeginScrollView (scroll [Entity.Id]);
-				ComponentDrawer.DrawComponentList (Entity, Entity.Components);
-				//EditorGUILayout.EndScrollView ();
-				//EditorGUILayout.EndVertical ();
-			}
 
+				/* Draw add component button */
+				GUILayout.BeginHorizontal();
+				GUILayout.FlexibleSpace();
+
+				if (GUILayout.Button("Add Component",GUILayout.Width(200)))
+				{
+					PopupWindow.Show(buttonRect, new EntityTypeSelectionPopup(Entity));
+				}
+
+				if (Event.current.type == EventType.Repaint) buttonRect = GUILayoutUtility.GetLastRect();
+
+				GUILayout.FlexibleSpace();
+				GUILayout.EndHorizontal();
+				EditorGUILayout.Space ();
+	
+			}
 			EntityDrawerStyle.EndEntity ();
 		}
 	}
