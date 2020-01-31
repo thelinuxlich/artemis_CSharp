@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>TRACE;DEBUG;FULLDOTNET;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Attributes\" />
+    <Folder Include="Blackboard\" />
+    <Folder Include="Exceptions\" />
+    <Folder Include="Interface\" />
+    <Folder Include="Manager\" />
+    <Folder Include="System\" />
+    <Folder Include="Utils\" />
+    <Folder Include="Properties\" />
+  </ItemGroup>
+</Project>
