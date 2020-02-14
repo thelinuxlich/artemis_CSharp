@@ -1,11 +1,7 @@
-## Travis CI Integration
-
-language: c
-
-install:
-  - sudo apt-get update && sudo apt-get install mono-complete nunit-console
+language: csharp
+mono: none
+dotnet: 2.1.502
+solution: Artemis.sln
 script:
-  - msbuild Artemis.sln  /t:build
-  - nunit-console ArtemisTests/bin/Debug/netcoreapp3.1/ArtemisTests.dll
-  
-
+  - dotnet restore
+  - dotnet test
