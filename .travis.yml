@@ -6,6 +6,6 @@ install:
   - sudo apt-get update && sudo apt-get install mono-complete nunit-console
 script:
   - xbuild Artemis.sln
-  - nunit-console ArtemisTests/bin/Debug/ArtemisTests.dll
+  - nunit-console ArtemisTests/bin/Debug/netcoreapp3.1/ArtemisTests.dll
   
 
