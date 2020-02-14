@@ -1,5 +1,3 @@
-![Artemis Build](https://api.travis-ci.org/thelinuxlich/artemis_CSharp.png)
-
 This is a complete C# port and an extension of the awesome Entity System framework Artemis,
 originally available in Java here: https://github.com/tescott/artemis
 
@@ -58,3 +56,4 @@ Supported Platforms:
 * Xbox
 * Mono (Linux/Android/OSx)
 * Unity 5 - .Net framework 3.5
+* [NEW] .Net Standard 2.0 Source Code Only: https://github.com/thelinuxlich/artemis_CSharp/tree/netstandard20
