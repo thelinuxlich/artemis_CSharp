@@ -1,6 +1,8 @@
 This is a complete C# port and an extension of the awesome Entity System framework Artemis,
 originally available in Java here: https://github.com/tescott/artemis
 
+[.Net Standard 2.0]: https://github.com/thelinuxlich/artemis_CSharp/tree/netstandard20
+
 Available on Nuget: http://nuget.org/packages/Artemis
 
 Regular Stable Versions: https://github.com/thelinuxlich/artemis_CSharp/tags
@@ -56,4 +58,5 @@ Supported Platforms:
 * Xbox
 * Mono (Linux/Android/OSx)
 * Unity 5 - .Net framework 3.5
-* [NEW] .Net Standard 2.0 Source Code Only: https://github.com/thelinuxlich/artemis_CSharp/tree/netstandard20
+
+For .Net Standard 2.0 go to https://github.com/thelinuxlich/artemis_CSharp/tree/netstandard20
