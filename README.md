@@ -1,7 +1,7 @@
 This is a complete C# port and an extension of the awesome Entity System framework Artemis,
 originally available in Java here: https://github.com/tescott/artemis
 
-[.Net Standard 2.0]: https://github.com/thelinuxlich/artemis_CSharp/tree/netstandard20
+For .Net Standard 2.0 : https://github.com/thelinuxlich/artemis_CSharp/tree/netstandard20
 
 Available on Nuget: http://nuget.org/packages/Artemis
 
@@ -11,9 +11,6 @@ Documentation: http://thelinuxlich.github.com/artemis_CSharp/
 
 StarWarrior example game here to get used to the framework:
 https://github.com/thelinuxlich/starwarrior_CSharp
-
-If you have any suggestions, critics, we'd love to hear!
-Our forum: http://www.ploobs.com.br/forum/viewforum.php?f=39&sid=ac84dca015138021f78da3b200ef5f96
 
 Development, Please:
 + use (free) StyleCop to hold up readability and quality of code. http://stylecop.codeplex.com/ 
