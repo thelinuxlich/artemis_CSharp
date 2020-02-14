@@ -5,7 +5,7 @@ language: c
 install:
   - sudo apt-get update && sudo apt-get install mono-complete nunit-console
 script:
-  - xbuild Artemis_Mono/Artemis_Mono.sln
-  - nunit-console Artemis_Mono/bin/Debug/ArtemisMonoUnitTests.dll
+  - xbuild Artemis.sln
+  - nunit-console ArtemisTests/bin/Debug/ArtemisTests.dll
   
 
