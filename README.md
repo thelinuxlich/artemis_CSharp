@@ -1,4 +1,4 @@
-![Artemis Build](https://api.travis-ci.org/thelinuxlich/artemis_CSharp.png)
+![Artemis Build](https://travis-ci.org/thelinuxlich/artemis_CSharp.svg?branch=netstandard20)
 
 This is a complete C# port and an extension of the awesome Entity System framework Artemis,
 originally available in Java here: https://github.com/tescott/artemis
