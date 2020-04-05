@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{D34FA4D9-686A-AF90-ABE0-991520EA4C7D}") = "Artemis_Unity5ExampleProject", "Assembly-CSharp.csproj", "{1BE41A8B-855C-AB60-B879-15DB53B10A1D}"
+EndProject
+Project("{D34FA4D9-686A-AF90-ABE0-991520EA4C7D}") = "Artemis_Unity5ExampleProject", "Assembly-UnityScript-Editor.unityproj", "{F230E179-2208-A6BF-478F-B45728BA116B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1BE41A8B-855C-AB60-B879-15DB53B10A1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BE41A8B-855C-AB60-B879-15DB53B10A1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BE41A8B-855C-AB60-B879-15DB53B10A1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BE41A8B-855C-AB60-B879-15DB53B10A1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F230E179-2208-A6BF-478F-B45728BA116B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F230E179-2208-A6BF-478F-B45728BA116B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F230E179-2208-A6BF-478F-B45728BA116B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F230E179-2208-A6BF-478F-B45728BA116B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal

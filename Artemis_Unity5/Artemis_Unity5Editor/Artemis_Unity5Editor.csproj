@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6D68D87A-835C-4D2D-8E85-63B2864C3DBE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Artemis_Unity5Editor</RootNamespace>
+    <AssemblyName>Artemis_Unity5Editor</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="UnityEditor">
+      <HintPath>..\..\..\Downloads\UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\Downloads\UnityEngine.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Systems\EntityDebugSystem.cs" />
+    <Compile Include="Behaviours\EntityBehaviour.cs" />
+    <Compile Include="Behaviours\Editor\EntityBehaviourInspector.cs" />
+    <Compile Include="Behaviours\Editor\TypeDrawer\Interface\ITypeDrawer.cs" />
+    <Compile Include="Behaviours\Editor\TypeDrawer\EntityDrawer.cs" />
+    <Compile Include="Behaviours\Editor\TypeDrawer\PropertyDrawer.cs" />
+    <Compile Include="Behaviours\Editor\TypeDrawer\ComponentDrawer.cs" />
+    <Compile Include="Attributes\TypeDrawer.cs" />
+    <Compile Include="Behaviours\Editor\TypeDrawer\TypeDrawerManager.cs" />
+    <Compile Include="Windows\TypeSelectionPopup.cs" />
+    <Compile Include="Windows\EntityTypeSelectionPopup.cs" />
+    <Compile Include="Behaviours\Editor\TypeDrawerStyle\PropertyDrawerStyle.cs" />
+    <Compile Include="Behaviours\Editor\TypeDrawerStyle\EntityDrawerStyle.cs" />
+    <Compile Include="Behaviours\Editor\TypeDrawerStyle\ComponentDrawerStyle.cs" />
+    <Compile Include="Behaviours\Editor\TypeDrawer\Type\IntTypeDrawer.cs" />
+    <Compile Include="Behaviours\Editor\TypeDrawer\Type\StringTypeDrawer.cs" />
+    <Compile Include="Behaviours\Editor\TypeDrawer\Type\FloatTypeDrawer.cs" />
+    <Compile Include="Behaviours\Editor\TypeDrawer\Type\DoubleTypeDrawer.cs" />
+    <Compile Include="Behaviours\Editor\TypeDrawer\Type\LongTypeDrawer.cs" />
+    <Compile Include="Behaviours\Editor\TypeDrawer\Type\BoolTypeDrawer.cs" />
+    <Compile Include="Behaviours\Editor\TypeDrawer\Type\Unity\GameObjectTypeDrawer.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Systems\" />
+    <Folder Include="Behaviours\" />
+    <Folder Include="Behaviours\Editor\" />
+    <Folder Include="Behaviours\Editor\TypeDrawer\" />
+    <Folder Include="Behaviours\Editor\TypeDrawer\Interface\" />
+    <Folder Include="Attributes\" />
+    <Folder Include="Windows\" />
+    <Folder Include="Behaviours\Editor\TypeDrawerStyle\" />
+    <Folder Include="Behaviours\Editor\TypeDrawer\Type\" />
+    <Folder Include="Behaviours\Editor\TypeDrawer\Type\Unity\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Artemis_Unity5.csproj">
+      <Project>{7D95C5FB-0A33-4EB0-A7B8-3925A79835D1}</Project>
+      <Name>Artemis_Unity5</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="$(OutputPath)\Artemis_Unity5Editor.dll" DestinationFolder="../Artemis_Unity5ExampleProject\Assets\Libraries\Artemis" ContinueOnError="true" />
+  </Target>
+</Project>
